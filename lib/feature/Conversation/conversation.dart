@@ -1,0 +1,377 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../core/utils/color_manager.dart';
+import '../../../core/utils/styles_manager.dart';
+
+class ConversationScreen extends StatefulWidget {
+  const ConversationScreen({Key? key}) : super(key: key);
+
+  @override
+  _ConversationScreenState createState() => _ConversationScreenState();
+}
+
+class _ConversationScreenState extends State<ConversationScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              //appBar
+              Container(
+                width: 1.sw,
+                decoration:  BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Theme.of(context).primaryColor,
+                          Theme.of(context).primaryColor,
+                        ]
+                    )
+                ),
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(
+                      horizontal: 15.w,
+                      vertical: 12.h
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              size: 20.w,
+                              color: ColorManager.backgroundColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 60.w,
+                            height: 60.w,
+                            child: CachedNetworkImage(
+                              imageUrl: "http://via.placeholder.com/200x150",
+                              imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.fill,
+
+                                  ),
+                                ),
+                              ),
+                              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                            ),
+                          ),
+                          SizedBox(width: 6.w,),
+                          Expanded(child:
+                          Text('ۦ⇜اسـۦـۦـد❪᪣❫ديـۦــرالـۦـزور⇝ۦ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 17.sp,
+                              color: ColorManager.backgroundColor,
+                              fontFamily: 'Roboto'
+                            ),
+                          ).tr(),),
+                          SizedBox(width: 15.w,),
+                          InkWell(
+                            onTap: (){
+
+                            },
+                            child: SvgPicture.asset('assets/icons/phone.svg',
+                            width: 19.w,
+                            ),
+                          ),
+                          SizedBox(width: 25.w,),
+                          InkWell(
+                            onTap: (){
+
+                            },
+                            child: SvgPicture.asset(
+                                'assets/icons/menu.svg',
+                              width: 4.5.w,
+                            ),
+                          ),
+
+
+
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+
+                    ],
+                  ),
+                ),
+
+
+
+              ),
+
+              SizedBox(
+                height: 10.h,
+              ),
+
+              //المحادثة
+              Padding(
+                padding:  EdgeInsets.symmetric(
+                    horizontal: 12.w
+                ),
+                child: SizedBox(
+                  height: 0.75.sh,
+                  child:
+                  ListView.separated(
+
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 13,
+                    itemBuilder: (context, index){
+                      return Row(
+                        children: [
+                          Stack(
+                            children: [
+                              SizedBox(
+                                width: 60.w,
+                                height: 60.w,
+                                child: CachedNetworkImage(
+                                  imageUrl: "http://via.placeholder.com/200x150",
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.fill,
+
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                ),
+                              ),
+                              Positioned(
+
+                                right: 2.w,
+                                child: Container(
+
+                                  child:  Padding(
+                                    padding:  EdgeInsets.symmetric(
+                                      horizontal: 5.w,
+                                      vertical: 1.5.w
+                                    ),
+                                    child: Text('5',
+                                    style: TextStyle(
+                                      fontSize: 10.sp,
+                                      color: ColorManager.backgroundColor,
+                                      fontWeight: FontWeight.w700
+                                    ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  decoration:  BoxDecoration(
+                                      gradient:LinearGradient(
+
+                                          begin: Alignment.topRight,
+                                          end: Alignment.bottomLeft,
+                                          colors: [
+                                            Theme.of(context).primaryColor,
+                                            Theme.of(context).primaryColorLight,
+                                          ]
+                                      ) ,
+                                     borderRadius: BorderRadius.circular(
+                                       4.w
+                                     ),
+                                    shape: BoxShape.rectangle
+                                  ),
+
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(width: 4.w,),
+                          Expanded(
+                            flex: 3,
+
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text('سامر ',
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontFamily: 'DIN',
+                                            fontWeight: FontWeight.w700,
+                                            color: Theme.of(context).disabledColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text('انا بعيد ',
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontFamily: 'DIN',
+                                            fontWeight: FontWeight.w700,
+                                            color: Theme.of(context).hintColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 4.w,),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text('6:50 pm',
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontFamily: 'DIN',
+                                        fontWeight: FontWeight.w700,
+                                        color: Theme.of(context).hintColor
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+
+                    },
+                    separatorBuilder:(context, i){
+                      return  SizedBox(
+                        height: 5.h,
+
+
+
+                      );
+
+                    },
+                  ),),
+              ),
+
+              Padding(
+                padding:  EdgeInsets.symmetric(horizontal: 15.w),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: SvgPicture.asset('assets/icons/micro.svg',
+                        width: 19.w,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: SvgPicture.asset('assets/icons/media.svg',
+                        width: 19.w,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    Expanded(
+                      child: TextField(
+
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          color: Theme.of(context).primaryColorDark,
+                          height: 1.5.h,
+
+                        ),
+                        cursorColor: Theme.of(context).primaryColorDark,
+                        decoration:  InputDecoration(
+
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                          ),
+
+
+                          enabledBorder:  UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                          ),
+                          focusedBorder:  UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                          ),
+                          disabledBorder:UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                          ) ,
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                          ) ,
+
+
+                          hintText:  tr('write message'),
+                          hintStyle: TextStyle(
+                              fontSize: 15.sp,
+                              color: Theme.of(context).cursorColor,
+                          ),
+                          focusColor: Theme.of(context).cursorColor,
+                          fillColor: Theme.of(context).cursorColor,
+
+
+                        ),
+
+
+                      ),
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: SvgPicture.asset('assets/icons/smile.svg',
+                        width: 19.w,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        ),
+
+
+      ),
+    );
+  }
+}
