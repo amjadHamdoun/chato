@@ -1,0 +1,374 @@
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../core/utils/color_manager.dart';
+import '../../../core/utils/styles_manager.dart';
+import '../../../injection.dart';
+import '../../RoomConversation/room_conversation.dart';
+import 'bloc/room_bloc.dart';
+
+
+class RoomScreen extends StatefulWidget {
+  const RoomScreen({Key? key}) : super(key: key);
+
+  @override
+  _RoomScreenState createState() => _RoomScreenState();
+}
+
+class _RoomScreenState extends State<RoomScreen> {
+  RoomBloc bloc=RoomBloc();
+   List<String> filters=[tr('Global'),tr('Trend'),tr('Active'),tr('Fav')];
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<RoomBloc,RoomState>(
+      bloc: bloc,
+      builder: (context, state) {
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    //appBar
+                    Container(
+                      width: 1.sw,
+
+                      decoration:  BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                Theme.of(context).primaryColor,
+                                Theme.of(context).primaryColor,
+                              ]
+                          )
+                      ),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 12.h
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Row(
+                              children: [
+
+                                SizedBox(width: 6.w,),
+                                Expanded(child:
+                                Text('Rooms Chat',
+                                  style: getMediumStyle(
+                                      color: ColorManager.lightGreyShade200,
+                                      fontSize: 19.sp
+
+
+                                  ),
+                                ).tr(),),
+
+
+
+
+                              ],
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 0.1.sw,
+                                ),
+                                Expanded(
+                                  child: TextField(
+
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                    color: ColorManager.backgroundColor,
+                                      height: 1.5.h,
+
+                                    ),
+                                    cursorColor: Theme.of(context).hoverColor,
+                                    decoration:  InputDecoration(
+                                      suffix: SvgPicture.asset(
+                                        'assets/icons/search.svg',
+                                        width: 17.w,
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 12.w,
+                                      ),
+
+
+                                      enabledBorder:  UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                      ),
+                                      focusedBorder:  UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                      ),
+                                      disabledBorder:UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                      ) ,
+                                      border: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                      ) ,
+
+
+                                      hintText:  tr('search in rooms'),
+                                      hintStyle: TextStyle(
+                                          fontSize: 15.sp,
+                                          color: Colors.grey.shade300
+                                      ),
+                                      focusColor: Theme.of(context).hoverColor,
+                                      fillColor: Theme.of(context).hoverColor,
+
+
+                                    ),
+
+
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 0.1.sw,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                          ],
+                        ),
+                      ),
+
+
+
+                    ),
+
+
+                    //filter
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                          horizontal: 6.w
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          for(int i=0;i<filters.length;i++)
+                            Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                              child: InkWell(
+                                onTap: (){
+                                  bloc.onChangeFilter(i);
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
+
+                                      decoration:  BoxDecoration(
+                                          border: Border(
+                                              bottom: BorderSide(
+                                                  color: state.selectedFilter==i?
+                                                  ColorManager.primaryColor:
+                                                  Theme.of(context).disabledColor
+                                              )
+                                          )
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: Text(filters[i],
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              fontFamily: 'DIN',
+                                              fontWeight: FontWeight.w500,
+                                              color:state.selectedFilter==i?
+                                                  ColorManager.primaryColor:
+                                              Theme.of(context).disabledColor
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+
+                    //rooms
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                          horizontal: 12.w
+                      ),
+                      child: SizedBox(
+                        height: 560.h,
+                        child:
+                        ListView.separated(
+
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: 13,
+                          itemBuilder: (context, index){
+                            if(index==12)
+                            { return  const SizedBox(
+                              height: 62,
+                            );}
+                            return GestureDetector(
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const RoomConversationScreen()),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 60.w,
+                                    height: 60.w,
+                                    child: CachedNetworkImage(
+                                      imageUrl: "http://via.placeholder.com/200x150",
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.fill,
+
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w,),
+                                  Expanded(
+                                    flex: 3,
+
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text('syria',
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    fontFamily: 'DIN',
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Theme.of(context).disabledColor
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.w,),
+                                  Column(
+
+                                    children: [
+                                      if(index<5)
+                                      SvgPicture.asset('assets/icons/awesome-crown.svg'),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            decoration:  const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Color(0xffFCAF65)
+                                            ),
+                                            child: Padding(
+                                              padding:  EdgeInsets.all(14.0.w),
+                                              child: Text((index+1).toString(),
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    fontFamily: 'DIN',
+                                                    fontWeight: FontWeight.w700,
+                                                    color: ColorManager.backgroundColor
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 16.w,),
+                                ],
+                              ),
+                            );
+
+                          },
+                          separatorBuilder:(context, i){
+                            return  SizedBox(
+                              height: 5.h,
+                            );
+
+                          },
+                        ),),
+                    )
+
+                  ],
+                ),
+                Positioned(
+                  bottom: 30.h,
+                  right: 0.w,
+                  left: 0.w,
+                  child: Container(
+                    width: 40.w,
+                    height: 40.w,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomRight,
+                            end: Alignment.topRight,
+                            tileMode: TileMode.mirror,
+                            colors: [
+
+                              ColorManager.primaryColor,
+                              ColorManager.primaryColorLight,
+
+
+                            ]
+                        ),
+                        shape: BoxShape.circle
+
+                    ),
+                    child: Icon(Icons.add,
+                      size: 25.w,
+                      color:    ColorManager.lightGreyShade200,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+
+        );
+      },
+      listener: (context, state) {},
+
+    );
+  }
+}

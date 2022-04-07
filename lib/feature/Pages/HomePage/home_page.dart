@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //appBar
             Container(
               width: 1.sw,
+
               decoration:  BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -42,11 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 5.h,
+                    ),
                     Row(
                       children: [
                         SizedBox(
-                          width: 70.w,
-                          height: 70.w,
+                          width: 60.h,
+                          height: 60.h,
                           child: CachedNetworkImage(
                             imageUrl: "http://via.placeholder.com/200x150",
                             imageBuilder: (context, imageProvider) => Container(
@@ -124,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 15.h,
+                      height: 2.h,
                     ),
                     Row(
                       children: [
@@ -136,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             style: TextStyle(
                               fontSize: 15.sp,
-                              color: Theme.of(context).hoverColor,
+                              color: ColorManager.backgroundColor,
                               height: 1.5.h,
 
                             ),
@@ -185,8 +189,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 15.h,
-                    )
+                      height: 10.h,
+                    ),
                   ],
                 ),
               ),
@@ -205,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 horizontal: 6.w
               ),
               child: SizedBox(
-                height: 0.12.sh,
+                height: 0.13.sh,
 
                 child: ListView.separated(
                  scrollDirection: Axis.horizontal,
@@ -311,13 +315,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 horizontal: 12.w
               ),
               child: SizedBox(
-                height: 0.52.sh,
+                height: 0.55.sh,
                   child:
                   ListView.separated(
 
                     physics: const BouncingScrollPhysics(),
                     itemCount: 13,
                     itemBuilder: (context, index){
+                      if(index==12)
+                        { return  const SizedBox(
+                          height: 62,
+                        );}
                       return Row(
                         children: [
                           Stack(
@@ -424,9 +432,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     separatorBuilder:(context, i){
                       return  SizedBox(
                         height: 5.h,
-
-
-
                       );
 
                     },

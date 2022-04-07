@@ -17,6 +17,7 @@ ThemeData getApplicationLightTheme() {
     hoverColor:Colors.grey.shade200 ,
     hintColor: ColorManager.hintText,
     scaffoldBackgroundColor:  ColorManager.backgroundColor,
+
    cursorColor:const Color(0xffB7B7B7),
    fontFamily: 'DIN',
     // cardview theme

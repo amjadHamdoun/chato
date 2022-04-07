@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/styles_manager.dart';
 import '../../Conversation/conversation.dart';
@@ -45,8 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 70.w,
-                          height: 70.w,
+                          width: 60.h,
+                          height: 60.h,
                           child: CachedNetworkImage(
                             imageUrl: "http://via.placeholder.com/200x150",
                             imageBuilder: (context, imageProvider) => Container(
@@ -80,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 15.h,
+                      height: 5.h,
                     ),
 
                   ],
@@ -102,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   horizontal: 6.w
               ),
               child: SizedBox(
-                height: 0.12.sh,
+                height: 0.13.sh,
 
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
@@ -195,6 +193,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: 13,
                   itemBuilder: (context, index){
+                    if(index==12) {
+                      return SizedBox(height: 40.h,);
+                    }
                     return GestureDetector(
                       onTap: (){
                         Navigator.push(
@@ -245,13 +246,13 @@ class _ChatScreenState extends State<ChatScreen> {
                                     ),
                                   ),
                                   decoration:  BoxDecoration(
-                                      gradient:LinearGradient(
+                                      gradient:const LinearGradient(
 
                                           begin: Alignment.topRight,
                                           end: Alignment.bottomLeft,
                                           colors: [
-                                            Theme.of(context).primaryColor,
-                                            Theme.of(context).primaryColorLight,
+                                            ColorManager.primaryColor,
+                                            ColorManager.primaryColorLight,
                                           ]
                                       ) ,
                                      borderRadius: BorderRadius.circular(

@@ -47,6 +47,17 @@ dependencies:
   equatable: ^2.0.3
   fluttertoast: ^8.0.9
   cached_network_image: ^3.2.0
+  file_picker: ^4.5.1
+  permission_handler: ^9.2.0
+  emoji_picker_flutter: ^1.1.2
+  path_provider: ^2.0.9
+  url_launcher: ^6.0.20
+  flutter_audio_recorder2: ^0.0.2
+  audioplayers: ^0.20.1
+  flutter_keyboard_visibility: ^5.2.0
+  flutter_slidable: ^1.2.0
+
+
 
 dev_dependencies:
   flutter_test:
