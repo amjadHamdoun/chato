@@ -54,18 +54,13 @@ Future<void> init() async {
 
 
   // Bloc
-
   sl.registerLazySingleton(() => HomeBloc(
-
   ));
   sl.registerLazySingleton(() => ConversationBloc(
-
   ));
   sl.registerLazySingleton(() => StoreBloc(
-
   ));
   sl.registerLazySingleton(() => RoomConversationBloc(
-
   ));
 
 

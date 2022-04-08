@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,202 +34,199 @@ class _RoomScreenState extends State<RoomScreen> {
       builder: (context, state) {
         return Scaffold(
           body: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
-                Column(
-                  children: [
-                    //appBar
-                    Container(
-                      width: 1.sw,
+                SizedBox(
+                  height: 1.sh,
+                  child: Column(
+                    children: [
+                      //appBar
+                      Container(
+                        width: 1.sw,
 
-                      decoration:  BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
-                                Theme.of(context).primaryColor,
-                                Theme.of(context).primaryColor,
-                              ]
-                          )
-                      ),
-                      child: Padding(
-                        padding:  EdgeInsets.symmetric(
-                            horizontal: 12.w,
-                            vertical: 12.h
+                        decoration:  BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Theme.of(context).primaryColor,
+                                  Theme.of(context).primaryColor,
+                                ]
+                            )
                         ),
-                        child: Column(
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                              horizontal: 12.w,
+                              vertical: 12.h
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Row(
+                                children: [
+
+                                  SizedBox(width: 6.w,),
+                                  Expanded(child:
+                                  Text('Rooms Chat',
+                                    style: getMediumStyle(
+                                        color: ColorManager.lightGreyShade200,
+                                        fontSize: 19.sp
+
+
+                                    ),
+                                  ).tr(),),
+
+
+
+
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 0.1.sw,
+                                  ),
+                                  Expanded(
+                                    child: TextField(
+
+                                      style: TextStyle(
+                                        fontSize: 15.sp,
+                                      color: ColorManager.backgroundColor,
+                                        height: 1.5.h,
+
+                                      ),
+                                      cursorColor: Theme.of(context).hoverColor,
+                                      decoration:  InputDecoration(
+                                        suffix: SvgPicture.asset(
+                                          'assets/icons/search.svg',
+                                          width: 17.w,
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 12.w,
+                                        ),
+
+
+                                        enabledBorder:  UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                        ),
+                                        focusedBorder:  UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                        ),
+                                        disabledBorder:UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                        ) ,
+                                        border: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
+                                        ) ,
+
+
+                                        hintText:  tr('search in rooms'),
+                                        hintStyle: TextStyle(
+                                            fontSize: 15.sp,
+                                            color: Colors.grey.shade300
+                                        ),
+                                        focusColor: Theme.of(context).hoverColor,
+                                        fillColor: Theme.of(context).hoverColor,
+
+
+                                      ),
+
+
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 0.1.sw,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+
+                      ),
+
+
+                      //filter
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.symmetric(
+                            horizontal: 6.w
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Row(
-                              children: [
 
-                                SizedBox(width: 6.w,),
-                                Expanded(child:
-                                Text('Rooms Chat',
-                                  style: getMediumStyle(
-                                      color: ColorManager.lightGreyShade200,
-                                      fontSize: 19.sp
+                            for(int i=0;i<filters.length;i++)
+                              Padding(
+                                padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                                child: InkWell(
+                                  onTap: (){
+                                    bloc.onChangeFilter(i);
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Container(
 
-
-                                  ),
-                                ).tr(),),
-
-
-
-
-                              ],
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 0.1.sw,
-                                ),
-                                Expanded(
-                                  child: TextField(
-
-                                    style: TextStyle(
-                                      fontSize: 15.sp,
-                                    color: ColorManager.backgroundColor,
-                                      height: 1.5.h,
-
-                                    ),
-                                    cursorColor: Theme.of(context).hoverColor,
-                                    decoration:  InputDecoration(
-                                      suffix: SvgPicture.asset(
-                                        'assets/icons/search.svg',
-                                        width: 17.w,
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 12.w,
-                                      ),
-
-
-                                      enabledBorder:  UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                      ),
-                                      focusedBorder:  UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                      ),
-                                      disabledBorder:UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                      ) ,
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                      ) ,
-
-
-                                      hintText:  tr('search in rooms'),
-                                      hintStyle: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.grey.shade300
-                                      ),
-                                      focusColor: Theme.of(context).hoverColor,
-                                      fillColor: Theme.of(context).hoverColor,
-
-
-                                    ),
-
-
+                                        decoration:  BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    color: state.selectedFilter==i?
+                                                    ColorManager.primaryColor:
+                                                    Theme.of(context).disabledColor
+                                                )
+                                            )
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: Text(filters[i],
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontFamily: 'DIN',
+                                                fontWeight: FontWeight.w500,
+                                                color:state.selectedFilter==i?
+                                                    ColorManager.primaryColor:
+                                                Theme.of(context).disabledColor
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 0.1.sw,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
+                              ),
                           ],
                         ),
                       ),
-
-
-
-                    ),
-
-
-                    //filter
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.symmetric(
-                          horizontal: 6.w
+                      SizedBox(
+                        height: 20.h,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
 
-                          for(int i=0;i<filters.length;i++)
-                            Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                              child: InkWell(
-                                onTap: (){
-                                  bloc.onChangeFilter(i);
-                                },
-                                child: Column(
-                                  children: [
-                                    Container(
+                      //rooms
+                      Expanded(
 
-                                      decoration:  BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color: state.selectedFilter==i?
-                                                  ColorManager.primaryColor:
-                                                  Theme.of(context).disabledColor
-                                              )
-                                          )
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(6.0),
-                                        child: Text(filters[i],
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontFamily: 'DIN',
-                                              fontWeight: FontWeight.w500,
-                                              color:state.selectedFilter==i?
-                                                  ColorManager.primaryColor:
-                                              Theme.of(context).disabledColor
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-
-                    //rooms
-                    Padding(
-                      padding:  EdgeInsets.symmetric(
-                          horizontal: 12.w
-                      ),
-                      child: SizedBox(
-                        height: 560.h,
                         child:
                         ListView.separated(
 
                           physics: const BouncingScrollPhysics(),
                           itemCount: 13,
                           itemBuilder: (context, index){
-                            if(index==12)
-                            { return  const SizedBox(
-                              height: 62,
-                            );}
+
                             return GestureDetector(
                               onTap: (){
                                 Navigator.push(
@@ -327,14 +325,18 @@ class _RoomScreenState extends State<RoomScreen> {
 
                           },
                         ),),
-                    )
+                      SizedBox(
+                        height: 90.h,
+                      ),
 
-                  ],
+                    ],
+                  ),
                 ),
                 Positioned(
-                  bottom: 30.h,
-                  right: 0.w,
-                  left: 0.w,
+                 bottom: 95.h,
+                  right: 0,
+                  left: 0,
+
                   child: Container(
                     width: 40.w,
                     height: 40.w,

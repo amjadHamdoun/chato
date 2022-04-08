@@ -53,6 +53,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
         return  KeyboardVisibilityBuilder(
 
           builder: (context , bool isKeyboardVisible) {
+            if(isKeyboardVisible)
+              {
+
+                    bloc.onShowEmojiEvent(false);
+
+              }
             return SafeArea(
               child: WillPopScope(
                 onWillPop: () async {
@@ -181,26 +187,23 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   ),
                   body: SingleChildScrollView(
                     controller: singleScrollController,
-                    physics: state.showEmoji? const NeverScrollableScrollPhysics():
+                    physics:
                     const BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        //appBar
+                    child: SizedBox(
+                      height: 1.sh-80.h,
+                      child: Column(
+                        children: [
+                          //appBar
 
 
-                        SizedBox(
-                          height: 15.h,
-                        ),
-
-                        //المحادثة
-                        Padding(
-                          padding:  EdgeInsets.symmetric(
-                              horizontal: 12.w
+                          SizedBox(
+                            height: 45.h,
                           ),
-                          child: SizedBox(
-                            height:state.showEmoji||
-                                isKeyboardVisible?
-                            620.h-250.h:620.h,
+
+
+                          //المحادثة
+                          Expanded(
+
                             child:
                             ListView.separated(
                               controller: scrollController,
@@ -313,250 +316,256 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
                               },
                             ),),
-                        ),
 
 
-                        //write message
-                        Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 15.w),
-                          child:  Row(
-                            children: [
-                              GestureDetector(
 
-                                onTap: (){
-                                  bloc.onStartRecord(true);
-                                },
+                          //write message
+                          Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 15.w),
+                            child:  Row(
+                              children: [
+                                GestureDetector(
 
-                                child: Draggable(
-                                  ignoringFeedbackSemantics: false,
-                                  data: 5,
-                                  axis: Axis.horizontal,
-                                  child: Container(
+                                  onTap: (){
+                                    bloc.onStartRecord(true);
+                                  },
 
-                                    decoration:  BoxDecoration(
-                                      color:state.isRecord?
-                                      ColorManager.primaryColor:Colors.transparent,
-                                      shape: BoxShape.circle
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: SvgPicture.asset('assets/icons/micro.svg',
-                                        width: 17.w,
+                                  child: Draggable(
+                                    ignoringFeedbackSemantics: false,
+                                    data: 5,
+                                    axis: Axis.horizontal,
+                                    child: Container(
+
+                                      decoration:  BoxDecoration(
                                         color:state.isRecord?
-                                            ColorManager.backgroundColor:
-                                        Theme.of(context).cursorColor,
-                                      ),
-                                    ),
-                                  ),
-                                  feedback:state.isRecord? Container(
-
-                                    decoration:  const BoxDecoration(
-                                        color:
-                                        ColorManager.primaryColor,
+                                        ColorManager.primaryColor:Colors.transparent,
                                         shape: BoxShape.circle
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: SvgPicture.asset('assets/icons/micro.svg',
-                                        width: 17.w,
-                                        color:
-                                        ColorManager.backgroundColor
                                       ),
-                                    ),
-                                  ):const SizedBox(),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              //record_not_enable
-                              if(!state.isRecord)
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: (){
-                                        showMediaBottomSheet(context);
-                                      },
-                                      child: SvgPicture.asset('assets/icons/media.svg',
-                                        width: 19.w,
-                                        color: Theme.of(context).cursorColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Expanded(
-                                      child: TextField(
-                                        controller: textEditingController,
-                                        onEditingComplete:(){
-                                          FocusScope.of(context).unfocus();
-                                          bloc.onShowEmojiEvent(false);
-                                        },
-                                        onSubmitted: (st){
-                                          FocusScope.of(context).unfocus();
-                                          bloc.onShowEmojiEvent(false);
-                                        },
-                                        style: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Theme.of(context).primaryColorDark,
-                                          height: 1.5.h,
-
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: SvgPicture.asset('assets/icons/micro.svg',
+                                          width: 17.w,
+                                          color:state.isRecord?
+                                              ColorManager.backgroundColor:
+                                          Theme.of(context).cursorColor,
                                         ),
-                                        cursorColor: Theme.of(context).primaryColorDark,
-                                        decoration:  InputDecoration(
+                                      ),
+                                    ),
+                                    feedback:state.isRecord? Container(
 
-                                          contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 12.w,
-                                          ),
-
-
-                                          enabledBorder:  UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                          ),
-                                          focusedBorder:  UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                          ),
-                                          disabledBorder:UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                          ) ,
-                                          border: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                          ) ,
-
-
-                                          hintText:  tr('write message'),
-                                          hintStyle: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Theme.of(context).cursorColor,
-                                          ),
-                                          focusColor: Theme.of(context).cursorColor,
-                                          fillColor: Theme.of(context).cursorColor,
-
-
+                                      decoration:  const BoxDecoration(
+                                          color:
+                                          ColorManager.primaryColor,
+                                          shape: BoxShape.circle
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: SvgPicture.asset('assets/icons/micro.svg',
+                                          width: 17.w,
+                                          color:
+                                          ColorManager.backgroundColor
                                         ),
-
-
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    InkWell(
-                                      onTap: (){
-                                        if(FocusScope.of(context).hasFocus)
-                                        {
-                                          FocusScope.of(context).unfocus();
-                                        }
-                                        bloc.onShowEmojiEvent(true);
-
-
-
-                                        Future.delayed(const Duration(milliseconds: 300)).then((value) {
-                                          singleScrollController.jumpTo
-                                            (singleScrollController.position.maxScrollExtent);
-                                        });
-
-                                      },
-                                      child: SvgPicture.asset('assets/icons/smile.svg',
-                                        width: 19.w,
-                                        color: Theme.of(context).cursorColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 6.w,
-                                    ),
-                                  ],
+                                    ):const SizedBox(),
+                                  ),
                                 ),
-                              ),
-
-                              //record_enable
-                              if(state.isRecord)
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                //record_not_enable
+                                if(!state.isRecord)
                                 Expanded(
-                                child: Row(
-                                  children:  [
-
-
-                                    Expanded(
-
-
-                                      child: DragTarget(
-                                        builder: (context, candidateData, rejectedData) {
-                                          return  Center(child:
-                                          Text('Slide to cancel    01.00', style:
-                                          TextStyle(color: Theme.of(context).primaryColorDark,
-                                              fontSize: 15.sp),));
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          showMediaBottomSheet(context);
                                         },
-                                        onWillAccept: (data) {
-                                          return true;
-                                        },
-                                        onAccept: (data) {
-
-                                          bloc.onStartRecord(false);
-
-                                        },
+                                        child: SvgPicture.asset('assets/icons/media.svg',
+                                          width: 19.w,
+                                          color: Theme.of(context).cursorColor,
+                                        ),
                                       ),
-                                    ),
-                                    IconButton(onPressed: (){
-                                      bloc.onStartRecord(false);
-                                    }, icon: const Icon(
-                                      Icons.send,
-                                      color: ColorManager.primaryColor,
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Expanded(
+                                        child: TextField(
+                                          controller: textEditingController,
+                                          onEditingComplete:(){
+                                            FocusScope.of(context).unfocus();
+                                            bloc.onShowEmojiEvent(false);
+                                          },
+                                          onSubmitted: (st){
+                                            FocusScope.of(context).unfocus();
+                                            bloc.onShowEmojiEvent(false);
+                                          },
+                                          style: TextStyle(
+                                            fontSize: 15.sp,
+                                            color: Theme.of(context).primaryColorDark,
+                                            height: 1.5.h,
 
-                                    ))
-                                  ],
+                                          ),
+                                          cursorColor: Theme.of(context).primaryColorDark,
+                                          decoration:  InputDecoration(
+
+                                            contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 12.w,
+                                            ),
+
+
+                                            enabledBorder:  UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                                            ),
+                                            focusedBorder:  UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                                            ),
+                                            disabledBorder:UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                                            ) ,
+                                            border: UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                                            ) ,
+
+
+                                            hintText:  tr('write message'),
+                                            hintStyle: TextStyle(
+                                              fontSize: 15.sp,
+                                              color: Theme.of(context).cursorColor,
+                                            ),
+                                            focusColor: Theme.of(context).cursorColor,
+                                            fillColor: Theme.of(context).cursorColor,
+
+
+                                          ),
+
+
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      InkWell(
+                                        onTap: ()async{
+                                          if(FocusScope.of(context).hasFocus)
+                                          {
+                                          FocusManager.instance.primaryFocus!.unfocus(
+
+                                            );
+                                          }
+
+
+
+
+                                          Future.delayed(const Duration(milliseconds: 300)).then((value) {
+                                            bloc.onShowEmojiEvent(true);
+
+                                          });
+
+                                        },
+                                        child: SvgPicture.asset('assets/icons/smile.svg',
+                                          width: 19.w,
+                                          color: Theme.of(context).cursorColor,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 6.w,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
 
-                            ],
+                                //record_enable
+                                if(state.isRecord)
+                                  Expanded(
+                                  child: Row(
+                                    children:  [
+
+
+                                      Expanded(
+
+
+                                        child: DragTarget(
+                                          builder: (context, candidateData, rejectedData) {
+                                            return  Center(child:
+                                            Text('Slide to cancel    01.00', style:
+                                            TextStyle(color: Theme.of(context).primaryColorDark,
+                                                fontSize: 15.sp),));
+                                          },
+                                          onWillAccept: (data) {
+                                            return true;
+                                          },
+                                          onAccept: (data) {
+
+                                            bloc.onStartRecord(false);
+
+                                          },
+                                        ),
+                                      ),
+                                      IconButton(onPressed: (){
+                                        bloc.onStartRecord(false);
+                                      }, icon: const Icon(
+                                        Icons.send,
+                                        color: ColorManager.primaryColor,
+
+                                      ))
+                                    ],
+                                  ),
+                                ),
+
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Offstage(
-                          offstage: !state.showEmoji,
-                          child: SizedBox(
-                            height: 250.h,
-                            child: EmojiPicker(
-                                onEmojiSelected: (Category category, Emoji emoji) {
-                                  textEditingController
-                                    ..text += emoji.emoji
-                                    ..selection = TextSelection.fromPosition(
-                                        TextPosition(offset: textEditingController.text.length));
-                                },
-                                onBackspacePressed: (){
-                                  bloc.onShowEmojiEvent(false);
-
-                                },
-                                config: Config(
-                                    columns: 7,
-                                    // Issue: https://github.com/flutter/flutter/issues/28894
-                                    emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
-                                    verticalSpacing: 0,
-                                    horizontalSpacing: 0,
-                                    initCategory: Category.RECENT,
-                                    bgColor: const Color(0xFFF2F2F2),
-                                    indicatorColor: Colors.blue,
-                                    iconColor: Colors.grey,
-                                    iconColorSelected: Colors.blue,
-                                    progressIndicatorColor: Colors.blue,
-                                    backspaceColor: Colors.blue,
-                                    skinToneDialogBgColor: Colors.white,
-                                    skinToneIndicatorColor: Colors.grey,
-                                    enableSkinTones: true,
-                                    showRecentsTab: true,
-                                    recentsLimit: 28,
-                                    noRecentsText: tr('No Recents'),
-                                    noRecentsStyle:  TextStyle(
-                                        fontSize: 20.sp, color: Colors.black26),
-                                    tabIndicatorAnimDuration: kTabScrollDuration,
-                                    categoryIcons: const CategoryIcons(),
-                                    buttonMode: ButtonMode.MATERIAL)),
+                          if(
+                          isKeyboardVisible)
+                            SizedBox(height: 250.h,),
+                          SizedBox(
+                            height: 20.h,
                           ),
-                        ),
+                          Offstage(
+                            offstage: !state.showEmoji,
+                            child: SizedBox(
+                              height: 250.h,
+                              child: EmojiPicker(
+                                  onEmojiSelected: (Category category, Emoji emoji) {
+                                    textEditingController
+                                      ..text += emoji.emoji
+                                      ..selection = TextSelection.fromPosition(
+                                          TextPosition(offset: textEditingController.text.length));
+                                  },
+                                  onBackspacePressed: (){
+                                    bloc.onShowEmojiEvent(false);
 
-                      ],
+                                  },
+                                  config: Config(
+                                      columns: 7,
+                                      // Issue: https://github.com/flutter/flutter/issues/28894
+                                      emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
+                                      verticalSpacing: 0,
+                                      horizontalSpacing: 0,
+                                      initCategory: Category.RECENT,
+                                      bgColor: const Color(0xFFF2F2F2),
+                                      indicatorColor: Colors.blue,
+                                      iconColor: Colors.grey,
+                                      iconColorSelected: Colors.blue,
+                                      progressIndicatorColor: Colors.blue,
+                                      backspaceColor: Colors.blue,
+                                      skinToneDialogBgColor: Colors.white,
+                                      skinToneIndicatorColor: Colors.grey,
+                                      enableSkinTones: true,
+                                      showRecentsTab: true,
+                                      recentsLimit: 28,
+                                      noRecentsText: tr('No Recents'),
+                                      noRecentsStyle:  TextStyle(
+                                          fontSize: 20.sp, color: Colors.black26),
+                                      tabIndicatorAnimDuration: kTabScrollDuration,
+                                      categoryIcons: const CategoryIcons(),
+                                      buttonMode: ButtonMode.MATERIAL)),
+                            ),
+                          ),
+
+                        ],
+                      ),
                     ),
                   ),
 

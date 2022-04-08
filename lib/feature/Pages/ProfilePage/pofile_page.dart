@@ -86,9 +86,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            
-
-
 
             //details
             SizedBox(
@@ -337,6 +334,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   ],
                 )
+            ),
+            SizedBox(
+              height: 125.h,
             ),
 
 

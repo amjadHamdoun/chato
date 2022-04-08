@@ -2,6 +2,7 @@ import 'package:chato/Globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'feature/splash/splash_screen.dart';
 import 'injection.dart' as di;
 import 'core/utils/theme_manager.dart';
 import 'feature/pages/pages.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         theme:Global.darkMode?  getApplicationDarkTheme()
             :getApplicationLightTheme(),
 
-        home: const Pages(),
+        home: const SplashScreen(),
       ),
     );
   }
