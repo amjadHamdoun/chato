@@ -1,6 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:chato/feature/Pages/StorePage/bloc/store_bloc.dart';
 import 'package:chato/feature/Pages/StorePage/bloc/store_state.dart';
+import 'package:chato/feature/Pages/StorePage/widget/coins_page.dart';
+import 'package:chato/feature/Pages/StorePage/widget/diamonds_page.dart';
+import 'package:chato/feature/Pages/StorePage/widget/vip_page.dart';
 import 'package:chato/injection.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -20,12 +23,16 @@ class StoreScreen extends StatefulWidget {
   _StoreScreenState createState() => _StoreScreenState();
 }
 
-class _StoreScreenState extends State<StoreScreen> {
+class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClientMixin{
   StoreBloc storeBloc=sl<StoreBloc>();
-
+  PageController pageController=PageController(
+    initialPage: 0,
+     keepPage: true,
+  );
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<StoreBloc,StoreState>(
       bloc: storeBloc,
       listener: (context, state) {
@@ -97,6 +104,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Row(
+
                         children: [
                           Expanded(
                             child: GestureDetector(
@@ -104,6 +112,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                 if(state.selectedPage!=0)
                                   {
                                     storeBloc.onChangePageEvent(0);
+                                    pageController.jumpToPage(0);
                                   }
                               },
                               child: Container(
@@ -128,7 +137,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
-                                  ),
+                                  ).tr(),
                                 ),
                               ),
                             ),
@@ -139,6 +148,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                 if(state.selectedPage!=1)
                                 {
                                   storeBloc.onChangePageEvent(1);
+                                  pageController.jumpToPage(1);
                                 }
                               },
                               child: Container(
@@ -163,7 +173,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
-                                  ),
+                                  ).tr(),
                                 ),
                               ),
                             ),
@@ -174,6 +184,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                 if(state.selectedPage!=2)
                                 {
                                   storeBloc.onChangePageEvent(2);
+                                  pageController.jumpToPage(2);
                                 }
                               },
                               child: Container(
@@ -198,7 +209,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
-                                  ),
+                                  ).tr(),
                                 ),
                               ),
                             ),
@@ -211,112 +222,22 @@ class _StoreScreenState extends State<StoreScreen> {
 
 
                   //رصيد
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                   Padding(
-                padding:  EdgeInsets.symmetric(
-                  horizontal: 12.w
-                ),
-                   child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text('Current currency balance',
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: 'DIN',
-                                    fontWeight: FontWeight.w700,
-                                    color: Theme.of(context).primaryColorDark
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.start,
-                              ).tr(),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text('1000',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontFamily: 'DIN',
-                                    fontWeight: FontWeight.w500,
-                                    color:ColorManager.primaryColor
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.start,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 80.h,
-                      height: 80.h,
-                      child: Image.asset('assets/images/store.png'),
-                    ),
-
-                  ],
-                ),
-              ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-
-                  //المحادثات
                   Expanded(
-                    child: Padding(
-                      padding:  EdgeInsets.symmetric(
-                          horizontal: 12.w
-                      ),
-                      child: GridView.builder(
-                    
-                        physics: const BouncingScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 1.5,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
-                          itemCount: 10,
-                          itemBuilder: (BuildContext ctx, index) {
-                         
-                            return Column(
-                              children: [
-                                   SvgPicture.asset('assets/icons/coins.svg'),
-                                   SizedBox(height: 6.h,),
-                                   Text('1500 Coins',
-                                     style: TextStyle(
-                                         fontSize: 15.sp,
-                                         fontFamily: 'DIN',
-                                         fontWeight: FontWeight.w500,
-                                         color: Theme.of(context).primaryColorDark
-                                     ),
-                                     overflow: TextOverflow.ellipsis,
-                                     textAlign: TextAlign.start,
-                                   ).tr(),
-                                    SizedBox(height: 6.h,),
-                                   Text('15 \$',
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontFamily: 'DIN',
-                                      fontWeight: FontWeight.w700,
-                                      color: Theme.of(context).hintColor
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.start,
-                                ).tr(),
+                    child: PageView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: pageController,
 
-                              ],
-                            );
-                          }),
+                      
+                      children: const [
+                        CoinsPage(),
+                        DiamondsPage(),
+                        VipPage()
+                        //store
+
+                      ],
                     ),
                   ),
+
                   SizedBox(
                     height: 95.h,
                   ),
@@ -331,4 +252,8 @@ class _StoreScreenState extends State<StoreScreen> {
 
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

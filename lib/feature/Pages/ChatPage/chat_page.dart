@@ -13,9 +13,10 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -116,8 +117,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             Stack(
                               children: [
                                 SizedBox(
-                                  width: 60.w,
-                                  height: 60.w,
+                                  width: 57.w,
+                                  height: 57.w,
                                   child: CachedNetworkImage(
                                     imageUrl: "http://via.placeholder.com/200x150",
                                     imageBuilder: (context, imageProvider) => Container(
@@ -134,9 +135,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
                                   ),
                                 ),
+                                if(Localizations.localeOf(context)==const Locale('ar','AR'))
                                 Positioned(
                                   top: 5.h,
-                                  right: 2.w,
+                                  left: 2.w,
                                   child: Container(
 
 
@@ -147,7 +149,22 @@ class _ChatScreenState extends State<ChatScreen> {
                                       shape: BoxShape.circle,
                                     ),
                                   ),
-                                ),
+                                )
+                                else
+                                  Positioned(
+                                    top: 5.h,
+                                    right: 2.w,
+                                    child: Container(
+
+
+                                      width: 12.w,
+                                      height: 12.w,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff00EA11),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  )
                               ],
                             ),
                             SizedBox(
@@ -155,7 +172,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               child: Text('سامر ',
                                 style: TextStyle(
                                     fontSize: 14.sp,
-                                    fontFamily: 'DIN',
+                                    fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w500,
                                     color: Theme.of(context).disabledColor
                                 ),
@@ -227,9 +244,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
                                   ),
                                 ),
+                                if(Localizations.localeOf(context)==const Locale('ar','AR'))
                                 Positioned(
 
-                                  right: 2.w,
+                                  left: 2.w,
                                   child: Container(
 
                                     child:  Padding(
@@ -264,6 +282,44 @@ class _ChatScreenState extends State<ChatScreen> {
 
                                   ),
                                 )
+                                else
+                                  Positioned(
+
+                                    right: 2.w,
+                                    child: Container(
+
+                                      child:  Padding(
+                                        padding:  EdgeInsets.symmetric(
+                                            horizontal: 5.w,
+                                            vertical: 1.5.w
+                                        ),
+                                        child: Text('5',
+                                          style: TextStyle(
+                                              fontSize: 10.sp,
+                                              color: ColorManager.backgroundColor,
+                                              fontWeight: FontWeight.w700
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      decoration:  BoxDecoration(
+                                          gradient:const LinearGradient(
+
+                                              begin: Alignment.topRight,
+                                              end: Alignment.bottomLeft,
+                                              colors: [
+                                                ColorManager.primaryColor,
+                                                ColorManager.primaryColorLight,
+                                              ]
+                                          ) ,
+                                          borderRadius: BorderRadius.circular(
+                                              4.w
+                                          ),
+                                          shape: BoxShape.rectangle
+                                      ),
+
+                                    ),
+                                  )
                               ],
                             ),
                             SizedBox(width: 4.w,),
@@ -278,7 +334,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                         child: Text('سامر ',
                                           style: TextStyle(
                                               fontSize: 15.sp,
-                                              fontFamily: 'DIN',
+                                              fontFamily: 'Roboto',
                                               fontWeight: FontWeight.w700,
                                               color: Theme.of(context).disabledColor
                                           ),
@@ -353,4 +409,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

@@ -10,6 +10,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   bool? get isLoading;
   bool get showEmoji;
   bool get isRecord;
+  int get senGiftType;
 
 
 
@@ -23,6 +24,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
       ..isSuccess = false
         ..showEmoji=false
         ..isRecord=false
+        ..senGiftType=0
 
     );
   }

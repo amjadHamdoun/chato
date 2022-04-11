@@ -9,14 +9,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/utils/color_manager.dart';
 import '../Pages/ProfilePage/widget/friendship_requests.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class UserScreen extends StatefulWidget {
+  const UserScreen({Key? key}) : super(key: key);
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _UserScreenState createState() => _UserScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -470,7 +470,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
-                            ),
+                            ).tr(),
                             SizedBox(
                               height: 5.h,
                             ),
@@ -577,10 +577,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ))
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const FriendshipRequests()),
-                        );
+
                       }
                   ),
                 ),

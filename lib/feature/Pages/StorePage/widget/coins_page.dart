@@ -1,0 +1,134 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../core/utils/color_manager.dart';
+
+
+
+class CoinsPage extends StatefulWidget {
+  const CoinsPage({Key? key}) : super(key: key);
+
+  @override
+  _CoinsPageState createState() => _CoinsPageState();
+}
+
+class _CoinsPageState extends State<CoinsPage> with AutomaticKeepAliveClientMixin{
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Column(
+      children: [
+        SizedBox(
+          height: 10.h,
+        ),
+        Padding(
+          padding:  EdgeInsets.symmetric(
+              horizontal: 12.w
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text('Current currency balance',
+                          style: TextStyle(
+                              fontSize: 15.sp,
+                              fontFamily: 'DIN',
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context).primaryColorDark
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                        ).tr(),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text('1000',
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontFamily: 'DIN',
+                              fontWeight: FontWeight.w500,
+                              color:ColorManager.primaryColor
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 80.h,
+                height: 80.h,
+                child: Image.asset('assets/images/store.png'),
+              ),
+
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+
+        Expanded(
+          child: Padding(
+            padding:  EdgeInsets.symmetric(
+                horizontal: 12.w
+            ),
+            child: GridView.builder(
+
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 1.5,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20),
+                itemCount: 10,
+                itemBuilder: (BuildContext ctx, index) {
+
+                  return Column(
+                    children: [
+                      SvgPicture.asset('assets/icons/coins.svg'),
+                      SizedBox(height: 6.h,),
+                      Text('1500 Coins',
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            fontFamily: 'DIN',
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).primaryColorDark
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                      ),
+                      SizedBox(height: 6.h,),
+                      Text('15 \$',
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            fontFamily: 'DIN',
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).hintColor
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                      ),
+
+                    ],
+                  );
+                }),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}

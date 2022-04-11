@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
 import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
-import 'package:chato/feature/Conversation/widget/show_menu_bottom_sheet.dart';
+import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,12 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/utils/color_manager.dart';
-import '../../Globals.dart';
+
 import '../../injection.dart';
+import '../User/user.dart';
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
+import 'widget/show_menu_bottom_sheet.dart';
 
 class RoomConversationScreen extends StatefulWidget {
   const RoomConversationScreen({Key? key}) : super(key: key);
@@ -190,8 +191,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                          ),
                                        ),
 
-
-
                                      ],
                                    ),
                                    SizedBox(
@@ -212,130 +211,437 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                          physics:
                          const BouncingScrollPhysics(),
                          child: SizedBox(
-                           height: 1.sh-80.h,
+                           height: 1.sh-100.h,
                            child: Column(
                              children: [
                                //appBar
 
 
                                SizedBox(
-                                 height: 45.h,
+                                 height: 10.h,
+                               ),
+                               Row(
+                                 children: [
+                                   const SizedBox(width: 6,),
+                                   Container(
+                                    decoration: const BoxDecoration(
+                                        shape:BoxShape.circle,
+                                      color: Color(0xff1E3859)
+                                    ),
+
+                                     child: Padding(
+                                       padding:  EdgeInsets.symmetric(
+                                         vertical: 12.5.h,horizontal: 12.5.h
+                                       ),
+                                       child: Text('48',style: TextStyle(
+                                         fontSize: 15.sp,
+                                         color: ColorManager.backgroundColor,
+                                         fontWeight: FontWeight.w700
+                                       ),),
+                                     ),
+                                   ),
+                                   const SizedBox(width: 6,),
+                                   SizedBox(
+                                     width: 40.h,
+                                     height: 40.h,
+                                     child: CachedNetworkImage(
+                                       imageUrl: "http://via.placeholder.com/200x150",
+                                       imageBuilder: (context, imageProvider) => Container(
+                                         decoration: BoxDecoration(
+                                           shape: BoxShape.circle,
+                                           image: DecorationImage(
+                                             image: imageProvider,
+                                             fit: BoxFit.fill,
+
+                                           ),
+                                         ),
+                                       ),
+                                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                       errorWidget: (context, url, error) => const Icon(Icons.error),
+                                     ),
+                                   ),
+                                   const SizedBox(width: 6,),
+                                   SizedBox(
+                                     width: 40.h,
+                                     height: 40.h,
+                                     child: CachedNetworkImage(
+                                       imageUrl: "http://via.placeholder.com/200x150",
+                                       imageBuilder: (context, imageProvider) => Container(
+                                         decoration: BoxDecoration(
+                                           shape: BoxShape.circle,
+                                           image: DecorationImage(
+                                             image: imageProvider,
+                                             fit: BoxFit.fill,
+
+                                           ),
+                                         ),
+                                       ),
+                                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                       errorWidget: (context, url, error) => const Icon(Icons.error),
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                               SizedBox(
+                                 height: 10.h,
+                               ),
+                               Padding(
+                                 padding:  EdgeInsets.symmetric(
+                                     horizontal: 6.w
+                                 ),
+                                 child: SizedBox(
+                                   height: 99.h,
+
+                                   child: ListView.builder(
+                                     scrollDirection: Axis.horizontal,
+                                     physics: const BouncingScrollPhysics(),
+                                     itemCount: 13,
+                                     itemBuilder: (context, index){
+                                       if(index==0) {
+                                         return Column(
+                                           children: [
+                                             Container(
+                                               width: 75.h,
+                                               height: 75.h,
+                                               decoration:  BoxDecoration(
+                                                    color: Colors.transparent,
+                                                   shape: BoxShape.circle,
+                                                 border: Border.all(
+                                                     color: ColorManager.backgroundColor
+                                                 )
+
+                                               ),
+                                               child: Icon(Icons.add,
+                                                 size: 25.w,
+                                                 color:    ColorManager.lightGreyShade200,
+                                               ),
+                                             ),
+                                             SizedBox(
+                                               width: 80.w,
+                                               child: Text('',
+                                                 style: TextStyle(
+                                                     fontSize: 14.sp,
+                                                     fontFamily: 'DIN',
+                                                     fontWeight: FontWeight.w700,
+                                                     color: Theme.of(context).disabledColor
+                                                 ),
+                                                 overflow: TextOverflow.ellipsis,
+                                                 textAlign: TextAlign.center,
+                                               ).tr(),
+                                             )
+                                           ],
+                                         );
+                                       } else {
+                                         return Column(
+                                           children: [
+                                             SizedBox(
+                                               width: 75.h,
+                                               height: 75.h,
+                                               child: CachedNetworkImage(
+                                                 imageUrl: "http://via.placeholder.com/200x150",
+                                                 imageBuilder: (context, imageProvider) => Container(
+                                                   decoration: BoxDecoration(
+                                                     shape: BoxShape.circle,
+                                                     image: DecorationImage(
+                                                       image: imageProvider,
+                                                       fit: BoxFit.fill,
+
+                                                     ),
+                                                   ),
+                                                 ),
+                                                 placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                                 errorWidget: (context, url, error) => const Icon(Icons.error),
+                                               ),
+                                             ),
+                                             SizedBox(
+                                               width: 80.w,
+                                               child: Text('سامر ',
+                                                 style: TextStyle(
+                                                     fontSize: 14.sp,
+                                                     fontFamily: 'Roboto',
+                                                     fontWeight: FontWeight.w500,
+                                                     color: ColorManager.backgroundColor
+                                                 ),
+                                                 overflow: TextOverflow.ellipsis,
+                                                 textAlign: TextAlign.center,
+                                               ),
+                                             )
+                                           ],
+                                         );
+                                       }
+
+                                     },
+
+                                   ),
+                                 ),
+                               ),
+                               SizedBox(
+                                 height: 10.h,
                                ),
 
                                //المحادثة
                                Expanded(
 
                                  child:
-                                 ListView.separated(
-                                   controller: scrollController,
-
-                                   physics: const AlwaysScrollableScrollPhysics(
-                                       parent: BouncingScrollPhysics()
+                                 Padding(
+                                   padding:  EdgeInsets.symmetric(
+                                     horizontal: 6.w
                                    ),
-                                   itemCount: 5,
+                                   child: ListView.separated(
+                                     controller: scrollController,
 
-                                   shrinkWrap: true,
-                                   itemBuilder: (context, index){
-                                     if(index%2==0)
-                                     {
-                                       return Row(
-                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: [
-                                           Container(
+                                     physics: const AlwaysScrollableScrollPhysics(
+                                         parent: BouncingScrollPhysics()
+                                     ),
+                                     itemCount: 5,
 
-                                             decoration: BoxDecoration(
-                                                 gradient: const LinearGradient(
-                                                     begin: Alignment.topRight,
-                                                     end: Alignment.bottomLeft,
-                                                     colors: [
-                                                       ColorManager.primaryColor,
-                                                       ColorManager.primaryColorLight,
-                                                     ]
-                                                 ),
-                                                 borderRadius: BorderRadius.only(
-                                                   topRight:  Radius.circular(12.w),
-                                                   bottomLeft: Radius.circular(12.w),
-                                                   topLeft: Radius.circular(12.w),
+                                     shrinkWrap: true,
+                                     itemBuilder: (context, index){
+                                       if(index%2==0)
+                                       {
+                                         return Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: [
+                                             GestureDetector(
+                                               onTap: (){
+                                                 Navigator.push(
+                                                   context,
+                                                   MaterialPageRoute(builder: (context) => const UserScreen()),
+                                                 );
+                                               },
+                                               child: SizedBox(
+                                                 width: 50.h,
+                                                 height: 50.h,
+                                                 child: CachedNetworkImage(
+                                                   imageUrl: "http://via.placeholder.com/200x150",
+                                                   imageBuilder: (context, imageProvider) => Container(
+                                                     decoration: BoxDecoration(
+                                                       shape: BoxShape.circle,
+                                                       image: DecorationImage(
+                                                         image: imageProvider,
+                                                         fit: BoxFit.fill,
 
-                                                 )
-                                             ),
-                                             child:  Padding(
-                                               padding:  EdgeInsets.symmetric(horizontal: 18.w,vertical: 6.h),
-                                               child: Row(
-                                                 children: [
-                                                   Text('مرحبا سامي',style: TextStyle(
-                                                       color: ColorManager.backgroundColor,
-                                                       fontSize: 12.sp,
-                                                       fontWeight: FontWeight.w600
-                                                   )),
-                                                 ],
-                                               ),
-                                             ),
-                                           ),
-                                           const Expanded(
-                                             child: SizedBox(
-
-                                             ),
-                                           ),
-                                         ],
-                                       );
-                                     }
-                                     else{
-                                       return Row(
-                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: [
-                                           SizedBox(
-                                             width: 0.4.sw,
-                                           ),
-                                           Expanded(
-                                             child: Container(
-                                               decoration: BoxDecoration(
-
-                                                   gradient:Global.darkMode?  LinearGradient(
-                                                       begin: Alignment.topRight,
-                                                       end: Alignment.bottomLeft,
-                                                       colors: [
-                                                         Theme.of(context).primaryColor,
-                                                         Theme.of(context).primaryColorLight,
-                                                       ]
-                                                   ):null,
-                                                   borderRadius: BorderRadius.only(
-                                                     topRight:  Radius.circular(12.w),
-                                                     bottomLeft: Radius.circular(12.w),
-                                                     topLeft: Radius.circular(12.w),
-
+                                                       ),
+                                                     ),
                                                    ),
-                                                   border: Border.all(
-                                                       color: const Color(0xffDEDEDE)
-                                                   )
-                                               ),
-                                               child:  Padding(
-                                                 padding:  EdgeInsets.symmetric(horizontal: 18.w,vertical: 6.h),
-                                                 child: Text('الحمدلله لقد كانت عطلة جميلة واستمتعت كثيرا.',style: TextStyle(
-                                                   color: Theme.of(context).primaryColorDark,
-                                                   fontSize: 12.sp,
-                                                   fontWeight: FontWeight.w600,
-
-                                                 ),
-
-
-
+                                                   placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                                   errorWidget: (context, url, error) => const Icon(Icons.error),
                                                  ),
                                                ),
                                              ),
-                                           )
-                                         ],
+                                             SizedBox(
+                                               width: 6.w,
+                                             ),
+
+                                             Expanded(
+                                               flex: 2,
+                                               child: Container(
+
+                                                 decoration: BoxDecoration(
+                                                     gradient: const LinearGradient(
+                                                         begin: Alignment.topRight,
+                                                         end: Alignment.bottomLeft,
+                                                         colors: [
+                                                           Color(0xff99AACD),
+                                                           Color(0xff99AACD),
+                                                         ]
+                                                     ),
+                                                     borderRadius: BorderRadius.only(
+                                                       topRight:  Radius.circular(12.w),
+                                                       bottomLeft: Radius.circular(12.w),
+                                                       topLeft: Radius.circular(12.w),
+                                                       bottomRight:  Radius.circular(12.w),
+
+                                                     )
+                                                 ),
+                                                 child:  Padding(
+                                                   padding:  EdgeInsets.symmetric(
+                                                       vertical: 4.h
+                                                   ),
+                                                   child: Column(
+
+                                                     children: [
+                                                       Padding(
+                                                         padding:  EdgeInsets.symmetric(
+                                                             horizontal: 12.w
+                                                         ),
+                                                         child: Row(
+                                                           children: [
+
+                                                             Expanded(
+                                                               child: Text('آلعـ♪ــ∫☻∫↨●عـلــ°♥️°ـوش●↨∫☻∫ــ♪ـرآب',
+                                                                 style: TextStyle(
+                                                                     color: ColorManager.backgroundColor,
+                                                                     fontSize: 13.sp,
+                                                                     fontFamily: 'Roboto',
+                                                                     fontWeight: FontWeight.w600
+                                                                 ),
+                                                                 textAlign: TextAlign.start,
+
+                                                               ),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                       Divider(
+                                                         color: ColorManager.backgroundColor,
+
+                                                         thickness: 1,
+                                                         height: 3.h,
+                                                       ),
+                                                       Padding(
+                                                         padding:  EdgeInsets.symmetric(
+                                                             horizontal: 12.w
+                                                         ),
+                                                         child: Row(
+                                                           children: [
+                                                             Expanded(
+                                                               child: Text('مرحبا سامي',style: TextStyle(
+                                                                   color: ColorManager.backgroundColor,
+                                                                   fontSize: 13.sp,
+                                                                   fontWeight: FontWeight.w600
+                                                               ),textAlign: TextAlign.start,),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                 ),
+                                               ),
+                                             ),
+                                             const Expanded(
+                                               child: SizedBox(
+
+                                               ),
+                                             ),
+                                           ],
+                                         );
+                                       }
+                                       else{
+                                         return Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: [
+                                             const Expanded(
+                                               child: SizedBox(
+
+                                               ),
+                                             ),
+                                             Expanded(
+                                               flex: 2,
+                                               child: Container(
+
+                                                 decoration: BoxDecoration(
+                                                     gradient: const LinearGradient(
+                                                         begin: Alignment.topRight,
+                                                         end: Alignment.bottomLeft,
+                                                         colors: [
+                                                           Color(0xff99AACD),
+                                                           Color(0xff99AACD),
+                                                         ]
+                                                     ),
+                                                     borderRadius: BorderRadius.only(
+                                                       topRight:  Radius.circular(12.w),
+                                                       bottomLeft: Radius.circular(12.w),
+                                                       topLeft: Radius.circular(12.w),
+                                                       bottomRight:  Radius.circular(12.w),
+
+                                                     )
+                                                 ),
+                                                 child:  Padding(
+                                                   padding:  EdgeInsets.symmetric(
+                                                     vertical: 4.h
+                                                   ),
+                                                   child: Column(
+
+                                                     children: [
+                                                       Padding(
+                                                         padding:  EdgeInsets.symmetric(
+                                                           horizontal: 12.w
+                                                         ),
+                                                         child: Row(
+                                                           children: [
+
+                                                             Expanded(
+                                                               child: Text('آلعـ♪ــ∫☻∫↨●عـلــ°♥️°ـوش●↨∫☻∫ــ♪ـرآب',
+                                                                   style: TextStyle(
+                                                                       color: ColorManager.backgroundColor,
+                                                                       fontSize: 13.sp,
+                                                                       fontFamily: 'Roboto',
+                                                                       fontWeight: FontWeight.w600
+                                                                   ),
+                                                                 textAlign: TextAlign.end,
+
+                                                               ),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                        Divider(
+                                                         color: ColorManager.backgroundColor,
+
+                                                         thickness: 1,
+                                                         height: 3.h,
+                                                       ),
+                                                       Padding(
+                                                         padding:  EdgeInsets.symmetric(
+                                                           horizontal: 12.w
+                                                         ),
+                                                         child: Row(
+                                                           children: [
+                                                             Expanded(
+                                                               child: Text('مرحبا سامي',style: TextStyle(
+                                                                   color: ColorManager.backgroundColor,
+                                                                   fontSize: 13.sp,
+                                                                   fontWeight: FontWeight.w600
+                                                               ),textAlign: TextAlign.end,),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                 ),
+                                               ),
+                                             ),
+                                             SizedBox(
+                                               width: 6.w,
+                                             ),
+                                             SizedBox(
+                                               width: 50.h,
+                                               height: 50.h,
+                                               child: CachedNetworkImage(
+                                                 imageUrl: "http://via.placeholder.com/200x150",
+                                                 imageBuilder: (context, imageProvider) => Container(
+                                                   decoration: BoxDecoration(
+                                                     shape: BoxShape.circle,
+                                                     image: DecorationImage(
+                                                       image: imageProvider,
+                                                       fit: BoxFit.fill,
+
+                                                     ),
+                                                   ),
+                                                 ),
+                                                 placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                                 errorWidget: (context, url, error) => const Icon(Icons.error),
+                                               ),
+                                             ),
+
+
+
+                                           ],
+                                         );
+                                       }
+
+
+                                     },
+                                     separatorBuilder:(context, i){
+                                       return  SizedBox(
+                                         height: 12.h,
                                        );
-                                     }
 
-
-                                   },
-                                   separatorBuilder:(context, i){
-                                     return  SizedBox(
-                                       height: 5.h,
-                                     );
-
-                                   },
+                                     },
+                                   ),
                                  ),),
 
 
@@ -344,195 +650,251 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                  padding:  EdgeInsets.symmetric(horizontal: 15.w),
                                  child:  Row(
                                    children: [
+
                                      GestureDetector(
+                                       child: Container(
 
-                                       onTap: (){
-                                         bloc.onStartRecord(true);
-                                       },
-
-                                       child: Draggable(
-                                         ignoringFeedbackSemantics: false,
-                                         data: 5,
-                                         axis: Axis.horizontal,
-                                         child: Container(
-
-                                           decoration:  BoxDecoration(
-                                               color:state.isRecord?
-                                               ColorManager.primaryColor:Colors.transparent,
-                                               shape: BoxShape.circle
+                                         decoration:   BoxDecoration(
+                                           gradient:  const LinearGradient(
+                                               begin: Alignment.topRight,
+                                               end: Alignment.bottomLeft,
+                                               colors: [
+                                                 Color(0xff32415D),
+                                                 Color(0xff32415D),
+                                               ]
                                            ),
-                                           child: Padding(
-                                             padding: const EdgeInsets.all(16.0),
-                                             child: SvgPicture.asset('assets/icons/micro.svg',
-                                               width: 17.w,
-                                               color:state.isRecord?
-                                               ColorManager.backgroundColor:
-                                               Theme.of(context).cursorColor,
-                                             ),
+                                           borderRadius: BorderRadius.circular(7.w),
+                                           shape: BoxShape.rectangle,
+                                         ),
+                                         child: Padding(
+                                           padding: const EdgeInsets.all(8.0),
+                                           child:  SvgPicture.asset('assets/icons/heart.svg',
+                                           width: 17.w,
                                            ),
                                          ),
-                                         feedback:state.isRecord? Container(
-
-                                           decoration:  const BoxDecoration(
-                                               color:
-                                               ColorManager.primaryColor,
-                                               shape: BoxShape.circle
-                                           ),
-                                           child: Padding(
-                                             padding: const EdgeInsets.all(16.0),
-                                             child: SvgPicture.asset('assets/icons/micro.svg',
-                                                 width: 17.w,
-                                                 color:
-                                                 ColorManager.backgroundColor
-                                             ),
-                                           ),
-                                         ):const SizedBox(),
                                        ),
                                      ),
-                                     SizedBox(
-                                       width: 5.w,
+                                     SizedBox(width: 6.w,),
+                                     GestureDetector(
+                                       onTap: (){
+                                         sendGiftBottomSheet(context,bloc);
+                                       },
+                                       child: Container(
+
+                                         decoration:   BoxDecoration(
+                                            gradient:  const LinearGradient(
+                                             begin: Alignment.topRight,
+                                             end: Alignment.bottomLeft,
+                                             colors: [
+                                               ColorManager.primaryColor,
+                                               ColorManager.primaryColorLight,
+                                             ]
+                                         ),
+                                             borderRadius: BorderRadius.circular(7.w),
+                                             shape: BoxShape.rectangle,
+                                         ),
+                                         child: Padding(
+                                           padding: const EdgeInsets.all(8.0),
+                                           child:   SvgPicture.asset('assets/icons/gift_three.svg',
+                                             width: 17.w,
+                                             ),
+                                         ),
+                                       ),
                                      ),
-                                     //record_not_enable
-                                     if(!state.isRecord)
-                                       Expanded(
+                                     SizedBox(width: 6.w,),
+                                     Expanded(
+                                       child: Container(
+                                         decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(25.w),
+                                           border: Border.all(
+                                             color: ColorManager.backgroundColor,
+                                           )
+                                         ),
                                          child: Row(
                                            children: [
-                                             InkWell(
+                                             GestureDetector(
                                                onTap: (){
-                                                 showMediaBottomSheet(context);
+                                                 bloc.onStartRecord(true);
                                                },
-                                               child: SvgPicture.asset('assets/icons/media.svg',
-                                                 width: 19.w,
-                                                 color: Theme.of(context).cursorColor,
-                                               ),
-                                             ),
-                                             SizedBox(
-                                               width: 10.w,
-                                             ),
-                                             Expanded(
-                                               child: TextField(
-                                                 controller: textEditingController,
-                                                 onEditingComplete:(){
-                                                   FocusScope.of(context).unfocus();
-                                                   bloc.onShowEmojiEvent(false);
-                                                 },
-                                                 onSubmitted: (st){
-                                                   FocusScope.of(context).unfocus();
-                                                   bloc.onShowEmojiEvent(false);
-                                                 },
-                                                 style: TextStyle(
-                                                   fontSize: 15.sp,
-                                                   color: Theme.of(context).primaryColorDark,
-                                                   height: 1.5.h,
 
+                                               child: Draggable(
+                                                 ignoringFeedbackSemantics: false,
+                                                 data: 5,
+                                                 axis: Axis.horizontal,
+                                                 child: Container(
+
+                                                   decoration:  BoxDecoration(
+                                                       color:state.isRecord?
+                                                       ColorManager.primaryColor:Colors.transparent,
+                                                       shape: BoxShape.circle
+                                                   ),
+                                                   child: Padding(
+                                                     padding: const EdgeInsets.all(16.0),
+                                                     child: SvgPicture.asset('assets/icons/micro.svg',
+                                                       width: 17.w,
+                                                       color: ColorManager.backgroundColor,
+                                                     ),
+                                                   ),
                                                  ),
-                                                 cursorColor: Theme.of(context).primaryColorDark,
-                                                 decoration:  InputDecoration(
+                                                 feedback:state.isRecord? Container(
 
-                                                   contentPadding: EdgeInsets.symmetric(
-                                                     horizontal: 12.w,
+                                                   decoration:  const BoxDecoration(
+                                                       color:
+                                                       ColorManager.primaryColor,
+                                                       shape: BoxShape.circle
                                                    ),
-
-
-                                                   enabledBorder:  UnderlineInputBorder(
-                                                     borderSide: BorderSide(color: Theme.of(context).cursorColor),
+                                                   child: Padding(
+                                                     padding: const EdgeInsets.all(16.0),
+                                                     child: SvgPicture.asset('assets/icons/micro.svg',
+                                                         width: 17.w,
+                                                         color:
+                                                         ColorManager.backgroundColor
+                                                     ),
                                                    ),
-                                                   focusedBorder:  UnderlineInputBorder(
-                                                     borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                                   ),
-                                                   disabledBorder:UnderlineInputBorder(
-                                                     borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                                   ) ,
-                                                   border: UnderlineInputBorder(
-                                                     borderSide: BorderSide(color: Theme.of(context).cursorColor),
-                                                   ) ,
+                                                 ):const SizedBox(),
+                                               ),
+                                             ),
+                                             SizedBox(
+                                               width: 5.w,
+                                             ),
+                                             //record_not_enable
+                                             if(!state.isRecord)
+                                               Expanded(
+                                                 child: Row(
+                                                   children: [
+                                                     InkWell(
+                                                       onTap: (){
+                                                         showMediaBottomSheet(context);
+                                                       },
+                                                       child: SvgPicture.asset('assets/icons/media.svg',
+                                                         width: 19.w,
+                                                         color: ColorManager.backgroundColor,
+                                                       ),
+                                                     ),
+                                                     SizedBox(
+                                                       width: 10.w,
+                                                     ),
+                                                     Expanded(
+                                                       child: TextField(
+                                                         controller: textEditingController,
+                                                         onEditingComplete:(){
+                                                           FocusScope.of(context).unfocus();
+                                                           bloc.onShowEmojiEvent(false);
+                                                         },
+                                                         onSubmitted: (st){
+                                                           FocusScope.of(context).unfocus();
+                                                           bloc.onShowEmojiEvent(false);
+                                                         },
+                                                         style: TextStyle(
+                                                           fontSize: 15.sp,
+                                                           color: ColorManager.backgroundColor,
+                                                           height: 1.5.h,
+
+                                                         ),
+                                                         cursorColor: ColorManager.backgroundColor,
+                                                         decoration:  InputDecoration(
+
+                                                           contentPadding: EdgeInsets.symmetric(
+                                                             horizontal: 12.w,
+                                                           ),
 
 
-                                                   hintText:  tr('write message'),
-                                                   hintStyle: TextStyle(
-                                                     fontSize: 15.sp,
-                                                     color: Theme.of(context).cursorColor,
-                                                   ),
-                                                   focusColor: Theme.of(context).cursorColor,
-                                                   fillColor: Theme.of(context).cursorColor,
+                                                           enabledBorder:  InputBorder.none,
+                                                           focusedBorder:  InputBorder.none,
+                                                           disabledBorder:InputBorder.none,
+                                                           border: InputBorder.none ,
 
 
+                                                           hintText:  tr('write message'),
+                                                           hintStyle: TextStyle(
+                                                             fontSize: 15.sp,
+                                                             color:  ColorManager.backgroundColor,
+                                                           ),
+                                                           focusColor: ColorManager.backgroundColor,
+                                                           fillColor:  ColorManager.backgroundColor,
+
+
+                                                         ),
+
+
+                                                       ),
+                                                     ),
+                                                     SizedBox(
+                                                       width: 10.w,
+                                                     ),
+                                                     InkWell(
+                                                       onTap: ()async{
+                                                         if(FocusScope.of(context).hasFocus)
+                                                         {
+                                                           FocusManager.instance.primaryFocus!.unfocus(
+
+                                                           );
+                                                         }
+
+
+
+
+                                                         Future.delayed(const Duration(milliseconds: 300)).then((value) {
+                                                           bloc.onShowEmojiEvent(true);
+                                                           singleScrollController.jumpTo
+                                                             (singleScrollController.position.maxScrollExtent);
+                                                         });
+
+                                                       },
+                                                       child: SvgPicture.asset('assets/icons/smile.svg',
+                                                         width: 19.w,
+                                                         color:  ColorManager.backgroundColor,
+                                                       ),
+                                                     ),
+                                                     SizedBox(
+                                                       width: 6.w,
+                                                     ),
+                                                   ],
                                                  ),
-
-
                                                ),
-                                             ),
-                                             SizedBox(
-                                               width: 10.w,
-                                             ),
-                                             InkWell(
-                                               onTap: ()async{
-                                                 if(FocusScope.of(context).hasFocus)
-                                                 {
-                                                   FocusManager.instance.primaryFocus!.unfocus(
 
-                                                   );
-                                                 }
+                                             //record_enable
+                                             if(state.isRecord)
+                                               Expanded(
+                                                 child: Row(
+                                                   children:  [
 
 
+                                                     Expanded(
 
 
-                                                 Future.delayed(const Duration(milliseconds: 300)).then((value) {
-                                                   bloc.onShowEmojiEvent(true);
-                                                   singleScrollController.jumpTo
-                                                     (singleScrollController.position.maxScrollExtent);
-                                                 });
+                                                       child: DragTarget(
+                                                         builder: (context, candidateData, rejectedData) {
+                                                           return  Center(child:
+                                                           Text('Slide to cancel    01.00', style:
+                                                           TextStyle(color:  ColorManager.backgroundColor,
+                                                               fontSize: 15.sp),));
+                                                         },
+                                                         onWillAccept: (data) {
+                                                           return true;
+                                                         },
+                                                         onAccept: (data) {
 
-                                               },
-                                               child: SvgPicture.asset('assets/icons/smile.svg',
-                                                 width: 19.w,
-                                                 color: Theme.of(context).cursorColor,
+                                                           bloc.onStartRecord(false);
+
+                                                         },
+                                                       ),
+                                                     ),
+                                                     IconButton(onPressed: (){
+                                                       bloc.onStartRecord(false);
+                                                     }, icon: const Icon(
+                                                       Icons.send,
+                                                       color: ColorManager.primaryColor,
+
+                                                     ))
+                                                   ],
+                                                 ),
                                                ),
-                                             ),
-                                             SizedBox(
-                                               width: 6.w,
-                                             ),
                                            ],
                                          ),
                                        ),
-
-                                     //record_enable
-                                     if(state.isRecord)
-                                       Expanded(
-                                         child: Row(
-                                           children:  [
-
-
-                                             Expanded(
-
-
-                                               child: DragTarget(
-                                                 builder: (context, candidateData, rejectedData) {
-                                                   return  Center(child:
-                                                   Text('Slide to cancel    01.00', style:
-                                                   TextStyle(color: Theme.of(context).primaryColorDark,
-                                                       fontSize: 15.sp),));
-                                                 },
-                                                 onWillAccept: (data) {
-                                                   return true;
-                                                 },
-                                                 onAccept: (data) {
-
-                                                   bloc.onStartRecord(false);
-
-                                                 },
-                                               ),
-                                             ),
-                                             IconButton(onPressed: (){
-                                               bloc.onStartRecord(false);
-                                             }, icon: const Icon(
-                                               Icons.send,
-                                               color: ColorManager.primaryColor,
-
-                                             ))
-                                           ],
-                                         ),
-                                       ),
+                                     ),
+                                    
 
                                    ],
                                  ),

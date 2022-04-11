@@ -15,9 +15,10 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -223,8 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
                        return Column(
                         children: [
                           Container(
-                            width: 60.w,
-                            height: 60.w,
+                            width: 57.w,
+                            height: 57.w,
                             decoration: const BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.topRight,
@@ -261,8 +262,8 @@ class _HomeScreenState extends State<HomeScreen> {
                        return Column(
                          children: [
                            SizedBox(
-                             width: 60.w,
-                             height: 60.w,
+                             width: 57.w,
+                             height: 57.w,
                              child: CachedNetworkImage(
                                imageUrl: "http://via.placeholder.com/200x150",
                                imageBuilder: (context, imageProvider) => Container(
@@ -284,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                              child: Text('سامر ',
                                style: TextStyle(
                                    fontSize: 14.sp,
-                                   fontFamily: 'DIN',
+                                   fontFamily: 'Roboto',
                                    fontWeight: FontWeight.w500,
                                    color: Theme.of(context).disabledColor
                                ),
@@ -349,9 +350,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
                                   ),
                                 ),
+                                if(Localizations.localeOf(context)==const Locale('ar','AR'))
                                 Positioned(
                                   top: 5.h,
-                                  right: 2.w,
+
+                                  left: 2.w,
                                   child: Container(
 
 
@@ -363,6 +366,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 )
+                                else
+                                  Positioned(
+                                    top: 5.h,
+
+                                    right: 2.w,
+                                    child: Container(
+
+
+                                      width: 12.w,
+                                      height: 12.w,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xff00EA11),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  )
                               ],
                             ),
                             SizedBox(width: 4.w,),
@@ -377,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Text('سامر ',
                                           style: TextStyle(
                                               fontSize: 15.sp,
-                                              fontFamily: 'DIN',
+                                              fontFamily: 'Roboto',
                                               fontWeight: FontWeight.w700,
                                               color: Theme.of(context).disabledColor
                                           ),
@@ -449,4 +468,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

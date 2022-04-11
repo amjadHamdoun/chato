@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/styles_manager.dart';
-import '../../../injection.dart';
+
 import '../../RoomConversation/room_conversation.dart';
 import 'bloc/room_bloc.dart';
 
@@ -23,12 +23,13 @@ class RoomScreen extends StatefulWidget {
   _RoomScreenState createState() => _RoomScreenState();
 }
 
-class _RoomScreenState extends State<RoomScreen> {
+class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMixin{
   RoomBloc bloc=RoomBloc();
    List<String> filters=[tr('Global'),tr('Trend'),tr('Active'),tr('Fav')];
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<RoomBloc,RoomState>(
       bloc: bloc,
       builder: (context, state) {
@@ -373,4 +374,8 @@ class _RoomScreenState extends State<RoomScreen> {
 
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

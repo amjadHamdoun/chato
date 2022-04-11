@@ -24,6 +24,11 @@ class RoomConversationBloc extends Bloc<RoomConversationEvent, RoomConversationS
           ..isRecord=event.isRecord
         )
         ));
+    on<ChangeGiftEvent>((event, emit) =>
+        emit(state.rebuild((b) => b
+          ..senGiftType=event.type
+        )
+        ));
 
   }
 
@@ -34,6 +39,9 @@ class RoomConversationBloc extends Bloc<RoomConversationEvent, RoomConversationS
 
   void onStartRecord(bool show) {
     add(StartRecordEvent(show));
+  }
+  void onChangeGiftEvent(int type) {
+    add(ChangeGiftEvent(type));
   }
 
 
