@@ -12,15 +12,27 @@ class _$HomeState extends HomeState {
   @override
   final bool? isLoading;
   @override
+  final String error;
+  @override
   final int selectedPage;
+  @override
+  final FriendshipRequestsModel friendshipRequestsModel;
 
   factory _$HomeState([void Function(HomeStateBuilder)? updates]) =>
       (new HomeStateBuilder()..update(updates)).build();
 
-  _$HomeState._({this.isSuccess, this.isLoading, required this.selectedPage})
+  _$HomeState._(
+      {this.isSuccess,
+      this.isLoading,
+      required this.error,
+      required this.selectedPage,
+      required this.friendshipRequestsModel})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(error, 'HomeState', 'error');
     BuiltValueNullFieldError.checkNotNull(
         selectedPage, 'HomeState', 'selectedPage');
+    BuiltValueNullFieldError.checkNotNull(
+        friendshipRequestsModel, 'HomeState', 'friendshipRequestsModel');
   }
 
   @override
@@ -36,13 +48,19 @@ class _$HomeState extends HomeState {
     return other is HomeState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
-        selectedPage == other.selectedPage;
+        error == other.error &&
+        selectedPage == other.selectedPage &&
+        friendshipRequestsModel == other.friendshipRequestsModel;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-        selectedPage.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                error.hashCode),
+            selectedPage.hashCode),
+        friendshipRequestsModel.hashCode));
   }
 
   @override
@@ -50,7 +68,9 @@ class _$HomeState extends HomeState {
     return (newBuiltValueToStringHelper('HomeState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
-          ..add('selectedPage', selectedPage))
+          ..add('error', error)
+          ..add('selectedPage', selectedPage)
+          ..add('friendshipRequestsModel', friendshipRequestsModel))
         .toString();
   }
 }
@@ -66,9 +86,20 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
 
+  String? _error;
+  String? get error => _$this._error;
+  set error(String? error) => _$this._error = error;
+
   int? _selectedPage;
   int? get selectedPage => _$this._selectedPage;
   set selectedPage(int? selectedPage) => _$this._selectedPage = selectedPage;
+
+  FriendshipRequestsModel? _friendshipRequestsModel;
+  FriendshipRequestsModel? get friendshipRequestsModel =>
+      _$this._friendshipRequestsModel;
+  set friendshipRequestsModel(
+          FriendshipRequestsModel? friendshipRequestsModel) =>
+      _$this._friendshipRequestsModel = friendshipRequestsModel;
 
   HomeStateBuilder();
 
@@ -77,7 +108,9 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
     if ($v != null) {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
+      _error = $v.error;
       _selectedPage = $v.selectedPage;
+      _friendshipRequestsModel = $v.friendshipRequestsModel;
       _$v = null;
     }
     return this;
@@ -100,8 +133,14 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
         new _$HomeState._(
             isSuccess: isSuccess,
             isLoading: isLoading,
+            error: BuiltValueNullFieldError.checkNotNull(
+                error, 'HomeState', 'error'),
             selectedPage: BuiltValueNullFieldError.checkNotNull(
-                selectedPage, 'HomeState', 'selectedPage'));
+                selectedPage, 'HomeState', 'selectedPage'),
+            friendshipRequestsModel: BuiltValueNullFieldError.checkNotNull(
+                friendshipRequestsModel,
+                'HomeState',
+                'friendshipRequestsModel'));
     replace(_$result);
     return _$result;
   }

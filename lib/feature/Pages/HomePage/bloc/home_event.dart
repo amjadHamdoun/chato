@@ -15,3 +15,9 @@ class ChangePageEvent extends HomeEvent{
    ChangePageEvent(this.pageNumber);
 }
 
+
+class GetFriendshipRequestsEvent extends HomeEvent{
+
+}
+
+

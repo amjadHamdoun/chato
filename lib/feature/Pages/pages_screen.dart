@@ -1,27 +1,30 @@
-import 'package:chato/core/utils/color_manager.dart';
-import 'package:chato/feature/pages/ChatPage/chat_page.dart';
-import 'package:chato/feature/pages/HomePage/bloc/home_bloc.dart';
-import 'package:chato/feature/pages/HomePage/bloc/home_state.dart';
-import 'package:chato/feature/pages/HomePage/home_page.dart';
-import 'package:chato/feature/pages/ProfilePage/pofile_page.dart';
-import 'package:chato/feature/pages/StorePage/store_page.dart';
-import 'package:chato/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../core/utils/color_manager.dart';
+import '../../injection.dart';
+import 'ChatPage/chat_page.dart';
+import 'HomePage/bloc/home_bloc.dart';
+import 'HomePage/bloc/home_state.dart';
+import 'HomePage/home_page.dart';
+import 'ProfilePage/bloc/prof_bloc.dart';
+import 'ProfilePage/profile_page.dart';
 import 'RoomPage/room_page.dart';
+import 'StorePage/store_page.dart';
 
 
-class Pages extends StatefulWidget {
-  const Pages({Key? key}) : super(key: key);
+class PagesScreen extends StatefulWidget {
+  const PagesScreen({Key? key}) : super(key: key);
 
   @override
-  _PagesState createState() => _PagesState();
+  _PagesScreenState createState() => _PagesScreenState();
 }
 
-class _PagesState extends State<Pages> {
+class _PagesScreenState extends State<PagesScreen> {
    HomeBloc bloc=sl<HomeBloc>();
+   ProfBloc profBloc=sl<ProfBloc>();
    PageController pageController=PageController(initialPage: 0);
 
   @override
@@ -46,12 +49,14 @@ class _PagesState extends State<Pages> {
                     onPageChanged: (index){
                       bloc.onChangePageEvent(index);
                     },
-                    children: const [
-                      HomeScreen(),
+                    children:  [
+                      HomeScreen(bloc: bloc),
                       ChatScreen(),
                       RoomScreen(),
                       StoreScreen(),
-                      ProfileScreen() ,
+                      ProfileScreen(
+                        bloc: profBloc,
+                      ) ,
 
                     ],
                   ),

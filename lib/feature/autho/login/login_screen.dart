@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/font_manager.dart';
@@ -5,11 +6,17 @@ import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/core/utils/svg_manager.dart';
 import 'package:chato/core/utils/values_manager.dart';
 import 'package:chato/feature/autho/forgot/forgot_screen.dart';
+import 'package:chato/feature/autho/login/bloc/login_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../Pages/pages.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../../injection.dart';
+import '../../Pages/pages_screen.dart';
 import '../register/register_screen.dart';
+import 'bloc/login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,14 +28,55 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   var checkBoxValue = true;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  LoginBloc bloc = sl<LoginBloc>();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            body: SingleChildScrollView(
+    return BlocConsumer<LoginBloc, LoginState>(
+        bloc: bloc,
+        listener: (context, state) {
+          if (state.loginModel!.data != null) {
+            if (state.loginModel!.data!.token!.isNotEmpty) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const PagesScreen(),
+                ),
+                (route) => false,
+              );
+            }
+          } else if (state.error!.isNotEmpty) {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.ERROR,
+              animType: AnimType.BOTTOMSLIDE,
+              title: tr('login error'),
+              desc: state.error,
+              btnCancelText: tr('ok'),
+              btnCancelOnPress: () {},
+            ).show();
+          } else if (state.loginModel!.message != null) {
+            if (state.loginModel!.message!.isNotEmpty) {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.ERROR,
+                animType: AnimType.BOTTOMSLIDE,
+                title: tr('login error'),
+                desc: tr("${state.loginModel!.message}"),
+                btnCancelText: tr('ok'),
+                btnCancelOnPress: () {},
+              ).show();
+            }
+          }
+        },
+        builder: (context, state) {
+          return SafeArea(
+              child: ModalProgressHUD(
+            inAsyncCall: state.isLoading!,
+            child: Scaffold(
+                body: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(
@@ -47,8 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: double.infinity,
                           fit: BoxFit.fill,
                           height: 140.h,
-                          color:
-                          Global.darkMode ? ColorManager.lightGreyShade400 : null,
+                          color: Global.darkMode
+                              ? ColorManager.lightGreyShade400
+                              : null,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +142,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(
-                        vertical: AppPadding.p16.w, horizontal: AppPadding.p20.w),
+                        vertical: AppPadding.p16.w,
+                        horizontal: AppPadding.p20.w),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -101,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Row(
                             children: [
                               Text(
-                                "Email".tr(),
+                                "Name".tr(),
                                 style: TextStyle(
                                     color: Global.darkMode
                                         ? ColorManager.backgroundColor
@@ -111,15 +161,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           SizedBox(
-                            height: 5.h,
+                            height: 10.h,
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 4.h),
                             height: 45.h,
                             child: TextFormField(
-                              controller: emailController,
+                              style: TextStyle(
+                                  fontSize: FontSize.s16,
+                                  color: Global.darkMode
+                                      ? ColorManager.backgroundColor
+                                      : ColorManager.textColor),
+                              controller: nameController,
                               decoration: InputDecoration(
-                                hintText: "Email".tr(),
+                                contentPadding: EdgeInsets.only(
+                                    top: 5.h, bottom: 10.h, right: 5, left: 5),
+                                hintText: "name".tr(),
                                 hintStyle: TextStyle(
                                   color: ColorManager.hintText,
                                   fontSize: 14.sp,
@@ -131,23 +188,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Global.darkMode ? ColorManager
-                                            .backgroundColor :ColorManager
-                                            .textColor
-                                    )),
+                                        color: Global.darkMode
+                                            ? ColorManager.backgroundColor
+                                            : ColorManager.textColor)),
                                 enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: ColorManager.hintText
-                                    )),
+                                        color: ColorManager.hintText)),
                                 disabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ColorManager.hintText
-                                  ),
+                                  borderSide:
+                                      BorderSide(color: ColorManager.hintText),
                                 ),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return tr('Enter a valid email');
+                                  return tr(
+                                    'Enter a valid name'.tr(),
+                                  );
                                 }
                                 return null;
                               },
@@ -168,12 +224,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 4.h),
                             height: 45.h,
                             child: TextFormField(
+                              style: TextStyle(
+                                  fontSize: FontSize.s16,
+                                  color: Global.darkMode
+                                      ? ColorManager.backgroundColor
+                                      : ColorManager.textColor),
                               controller: passwordController,
                               decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: 5.h, bottom: 10.h, right: 5, left: 5),
                                 hintText: "Password".tr(),
                                 hintStyle: TextStyle(
                                   color: ColorManager.hintText,
@@ -190,18 +256,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ? ColorManager.backgroundColor
                                             : ColorManager.textColor)),
                                 enabledBorder: const UnderlineInputBorder(
-                                    borderSide:
-                                    BorderSide(color: ColorManager.hintText)),
+                                    borderSide: BorderSide(
+                                        color: ColorManager.hintText)),
                                 disabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: ColorManager.hintText),
+                                  borderSide:
+                                      BorderSide(color: ColorManager.hintText),
                                 ),
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return tr('Enter a password');
                                 }
+                                if (value.length < 8) {
+                                  return tr('Password is short');
+                                }
                                 return null;
-
                               },
                             ),
                           ),
@@ -210,7 +279,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () {
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => const ForgotScreen()),
+                                MaterialPageRoute(
+                                    builder: (context) => const ForgotScreen()),
                               );
                             },
                             child: Row(
@@ -221,7 +291,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Text(
                                       "forgot password".tr(),
                                       style: getRegularStyle(
-                                          color:Global.darkMode?ColorManager.backgroundColor:ColorManager.hintText,
+                                          color: Global.darkMode
+                                              ? ColorManager.backgroundColor
+                                              : ColorManager.hintText,
                                           fontSize: 13.sp),
                                     ),
                                     SizedBox(
@@ -248,18 +320,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (_formKey.currentState!.validate()) {
                                     // If the form is valid, display a snackbar. In the real world,
                                     // you'd often call a server or save the information in a database.
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) =>  const Pages()),
-                                    );
-                                  }
-                                  else{
+                                    bloc.onLoginAccountEvent(
+                                        name: nameController.text,
+                                        password: passwordController.text);
+                                  } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                       SnackBar(content: const Text('incomplete data').tr()),
+                                      SnackBar(
+                                          content: const Text('incomplete data')
+                                              .tr()),
                                     );
-
                                   }
-
                                 },
                                 child: Text(
                                   "Login".tr(),
@@ -277,21 +347,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               Text(
                                 "do you not have an account?".tr(),
                                 style: getRegularStyle(
-                                    color:Global.darkMode?ColorManager.hintText: ColorManager.textColor,
+                                    color: Global.darkMode
+                                        ? ColorManager.hintText
+                                        : ColorManager.textColor,
                                     fontSize: FontSize.s14),
                               ),
                               InkWell(
                                   onTap: () {
-
                                     Navigator.pushReplacement(
                                       context,
-                                      MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterScreen()),
                                     );
                                   },
                                   child: Text(
                                     "  register".tr(),
                                     style: getRegularStyle(
-                                        color:Global.darkMode?ColorManager.backgroundColor: ColorManager.primaryColor,
+                                        color: Global.darkMode
+                                            ? ColorManager.backgroundColor
+                                            : ColorManager.primaryColor,
                                         fontSize: FontSize.s14),
                                   ))
                             ],
@@ -302,6 +377,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                 ],
               ),
-            )));
+            )),
+          ));
+        });
   }
 }

@@ -41,8 +41,9 @@ class Preferences {
        {
          return '';
        }
-     else
-    return userToken;
+     else {
+       return userToken;
+     }
   }
 
   static void saveUserName(String userName) async {

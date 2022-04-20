@@ -1,5 +1,12 @@
+
+
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chatoApp.chato">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.chatoApp.chato"
+
+
+    >
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- Permissions options for the `contacts` group -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
@@ -22,6 +29,7 @@
    <application
         android:label="chato"
         android:name="${applicationName}"
+        tools:replace="android:icon, android:label, android:name"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -9,6 +9,7 @@ class ColorManager{
   static const primaryColor=Color(0xffff7642);
   static const primaryColorLight=Color(0xffF9C45C);
   static const darkPrimary=Color(0xff363636);
+  static const backGroundIcon = Color(0xffF6F8FE);
   static const darkPrimaryLight=Color(0xff787878);
   static const goldenColor=Color(0xffFFE082);
   static const darkBackgroundColor=Color(0xff212121);

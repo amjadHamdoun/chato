@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/utils/color_manager.dart';
-import '../Pages/ProfilePage/widget/friendship_requests.dart';
+import '../Pages/HomePage/widget/friendship_requests.dart';
 
 class BuyFeaturedUserScreen extends StatefulWidget {
   const BuyFeaturedUserScreen({Key? key}) : super(key: key);

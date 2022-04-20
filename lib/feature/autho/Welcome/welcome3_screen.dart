@@ -1,3 +1,4 @@
+import 'package:chato/Preference.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/font_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
@@ -67,6 +68,7 @@ class _Welcome3ScreenState extends State<Welcome3Screen> {
                   height: 45,
                   width: double.infinity,
                   child: ElevatedButton(onPressed: () {
+                    Preferences.saveIsFirstTime(false);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (

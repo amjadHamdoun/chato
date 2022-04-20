@@ -24,3 +24,15 @@ class ChangeGiftEvent extends RoomConversationEvent{
   int type;
   ChangeGiftEvent(this.type);
 }
+
+// ignore: must_be_immutable
+class AddSmileEvent extends RoomConversationEvent{
+  String smile;
+  AddSmileEvent({required this.smile});
+}
+
+// ignore: must_be_immutable
+class SwitchSmileStickerEvent extends RoomConversationEvent{
+  bool smile;
+  SwitchSmileStickerEvent({required this.smile});
+}

@@ -3,35 +3,39 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
-
-
 import 'room_conversation_event.dart';
 import 'room_conversation_state.dart';
 
+class RoomConversationBloc
+    extends Bloc<RoomConversationEvent, RoomConversationState> {
+  RoomConversationBloc() : super(RoomConversationState.initial()) {
 
-class RoomConversationBloc extends Bloc<RoomConversationEvent, RoomConversationState> {
+    on<ShowEmojiEvent>(
+        (event, emit) => emit(state.rebuild((b) => b..showEmoji = event.show)));
 
-
-  RoomConversationBloc() : super(RoomConversationState.initial())
-  {
-    on<ShowEmojiEvent>((event, emit) =>
-        emit(state.rebuild((b) => b
-      ..showEmoji=event.show
-     )
-    ));
     on<StartRecordEvent>((event, emit) =>
-        emit(state.rebuild((b) => b
-          ..isRecord=event.isRecord
-        )
-        ));
+        emit(state.rebuild((b) => b..isRecord = event.isRecord)));
+
     on<ChangeGiftEvent>((event, emit) =>
-        emit(state.rebuild((b) => b
-          ..senGiftType=event.type
-        )
-        ));
+        emit(state.rebuild((b) => b..senGiftType = event.type)));
+
+    on<AddSmileEvent>((event, emit) {
+      emit(state.rebuild((b) => b..smile = event.smile));
+      emit(state.rebuild((b) => b..smile = ''));
+    });
+
+      on<SwitchSmileStickerEvent>((event, emit) {
+        emit(state.rebuild((b) => b..smileOrSticker = event.smile));
+      });
+
+
+
+
+
+
+
 
   }
-
 
   void onShowEmojiEvent(bool show) {
     add(ShowEmojiEvent(show));
@@ -40,9 +44,16 @@ class RoomConversationBloc extends Bloc<RoomConversationEvent, RoomConversationS
   void onStartRecord(bool show) {
     add(StartRecordEvent(show));
   }
+
   void onChangeGiftEvent(int type) {
     add(ChangeGiftEvent(type));
   }
 
+  void onAddSmileEvent(String smile) {
+    add(AddSmileEvent(smile: smile));
+  }
 
+  void onSwitchSmileStickerEvent(bool smile) {
+    add(SwitchSmileStickerEvent(smile: smile));
+  }
 }

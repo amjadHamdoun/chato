@@ -10,8 +10,9 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   bool? get isLoading;
   bool get showEmoji;
   bool get isRecord;
+  bool get smileOrSticker;
   int get senGiftType;
-
+  String get smile;
 
 
   RoomConversationState._();
@@ -25,6 +26,8 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         ..showEmoji=false
         ..isRecord=false
         ..senGiftType=0
+        ..smileOrSticker=true
+        ..smile=''
 
     );
   }

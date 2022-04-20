@@ -1,42 +1,24 @@
-
-
+import 'package:easy_localization/easy_localization.dart';
 
 class Endpoints {
-
-  static const BASE_URL='https://goldencleave.com/api/';
-  static const Login='login';
-  static const User='user';
-  static const UserUpdate='user/update';
-  static const Sliders='sliders';
-  static const Products='products';
-  static const Categories='categories';
-  static const Register='register';
-  static const Banks='banks';
-  static const Cities='cities';
-  static const ContactUs='contactUs';
-  static const Sections='sections';
-  static const Notifications='notifications';
-  static const Carts='carts';
-  static const Orders='carts';
-  static const AddComment='comments';
-  static const Settings='settings';
-  static const Contract='contact-settings';
-  static const Forget='forgot/password';
+  static const baseURL = 'https://www.room.tecknick.net/api/';
+  static const register = 'auth/register';
+  static const login = 'auth/login';
+  static const friendShipRequests = 'friendship-requests';
+  static const logout = 'auth/logout';
+  static const profileDetails = 'auth/user';
+  static const friendsDetails =  'details-friend';
+  static const countFriend = 'count-friend';
+  static const changeRequestsFriend = 'change-requests-friend';
+  static const  addFriend = 'add-friend';
 
 
 
 }
 
-class Er
-{
+class Er {
 
-  static String error = "حدث خطأ ما";
-  static String networkError = "تحقق من الاتصال بالانترنت";
+  static String error = tr("Something went wrong");
+  static String networkError = tr("Check your internet connection");
 
 }
-
-
-
-
-
-

@@ -109,15 +109,29 @@ class _DiamondsPageState extends State<DiamondsPage> with AutomaticKeepAliveClie
                         textAlign: TextAlign.start,
                       ),
                       SizedBox(height: 6.h,),
-                      Text('15 \$',
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontFamily: 'DIN',
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.w),
+                          border: Border.all(
+                              color: Theme.of(context).cursorColor
+                          ),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                              vertical: 2.h,
+                              horizontal: 28.w
+                          ),
+                          child: Text('15 \$',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontFamily: 'DIN',
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).hintColor
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
                       ),
 
                     ],

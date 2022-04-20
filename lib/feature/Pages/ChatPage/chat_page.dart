@@ -25,64 +25,36 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
           child: Column(
             children: [
               //appBar
-              Container(
+              SizedBox(
                 width: 1.sw,
-                decoration:  BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Theme.of(context).primaryColor,
-                          Theme.of(context).primaryColor,
-                        ]
-                    )
-                ),
+
                 child: Padding(
                   padding:  EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                      vertical: 12.h
+                      horizontal: 16.w,
+                      vertical: 20.h
                   ),
                   child: Column(
                     children: [
                       Row(
                         children: [
-                          SizedBox(
-                            width: 60.h,
-                            height: 60.h,
-                            child: CachedNetworkImage(
-                              imageUrl: "http://via.placeholder.com/200x150",
-                              imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
 
-                                  ),
-                                ),
-                              ),
-                              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) => const Icon(Icons.error),
-                            ),
-                          ),
                           SizedBox(width: 6.w,),
                           Expanded(child:
                           Text('Chats',
-                            style: getMediumStyle(
-                                color: ColorManager.lightGreyShade200,
-                                fontSize: 19.sp
+                            style: TextStyle(
+                                color: ColorManager.primaryColor,
+
+                              fontWeight: FontWeight.w700,
+                              fontSize: 19.sp
 
 
-                            ),
+                          ),
                           ).tr(),),
 
 
 
 
                         ],
-                      ),
-                      SizedBox(
-                        height: 5.h,
                       ),
 
                     ],
@@ -95,10 +67,7 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
 
 
 
-              //friend
-              SizedBox(
-                height: 10.h,
-              ),
+
               Padding(
                 padding:  EdgeInsets.symmetric(
                     horizontal: 6.w

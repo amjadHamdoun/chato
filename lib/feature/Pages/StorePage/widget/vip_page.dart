@@ -112,16 +112,30 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         textAlign: TextAlign.start,
                       ).tr(),
                       SizedBox(height: 6.h,),
-                      Text('100 \$',
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontFamily: 'DIN',
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.w),
+                          border: Border.all(
+                              color: Theme.of(context).cursorColor
+                          ),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                      ).tr(),
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                              vertical: 2.h,
+                              horizontal: 28.w
+                          ),
+                          child: Text('100 \$',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontFamily: 'DIN',
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).hintColor
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
 
                     ],
                   ),
@@ -152,16 +166,30 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         textAlign: TextAlign.start,
                       ).tr(),
                       SizedBox(height: 6.h,),
-                      Text('50 \$',
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontFamily: 'DIN',
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.w),
+                          border: Border.all(
+                              color: Theme.of(context).cursorColor
+                          ),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                      ).tr(),
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                              vertical: 2.h,
+                              horizontal: 28.w
+                          ),
+                          child: Text('50 \$',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontFamily: 'DIN',
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).hintColor
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
 
                     ],
                   ),
@@ -205,16 +233,30 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         textAlign: TextAlign.start,
                       ).tr(),
                       SizedBox(height: 6.h,),
-                      Text('300 \$',
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontFamily: 'DIN',
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.w),
+                          border: Border.all(
+                              color: Theme.of(context).cursorColor
+                          ),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                      ).tr(),
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                              vertical: 2.h,
+                              horizontal: 28.w
+                          ),
+                          child: Text('300 \$',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontFamily: 'DIN',
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).hintColor
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
 
                     ],
                   ),
@@ -245,16 +287,31 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         textAlign: TextAlign.start,
                       ).tr(),
                       SizedBox(height: 6.h,),
-                      Text('200 \$',
-                        style: TextStyle(
-                            fontSize: 14.sp,
-                            fontFamily: 'DIN',
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25.w),
+                          border: Border.all(
+                              color: Theme.of(context).cursorColor
+                          ),
                         ),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                      ).tr(),
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                              vertical: 2.h,
+                              horizontal: 28.w
+                          ),
+                          child: Text('200 \$',
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontFamily: 'DIN',
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context).hintColor
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ),
+
 
                     ],
                   ),

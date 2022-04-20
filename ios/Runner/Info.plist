@@ -86,5 +86,9 @@
     	<string>ar_AR</string>
     	<string>en_US</string>
     </array>
+    <key>LSApplicationQueriesSchemes</key>
+    	<array>
+    		<string>whatsapp</string>
+    	</array>
 </dict>
 </plist>

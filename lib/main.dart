@@ -1,16 +1,21 @@
 import 'package:chato/Globals.dart';
+import 'package:chato/feature/Pages/RoomPage/widget/create_room.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Preference.dart';
 import 'feature/splash/splash_screen.dart';
 import 'injection.dart' as di;
 import 'core/utils/theme_manager.dart';
-import 'feature/pages/pages.dart';
+
 
 void main() async{
+  await di.init();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await di.init();
+  await Preferences.init();
+
 
   runApp(
     EasyLocalization(

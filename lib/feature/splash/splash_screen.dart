@@ -1,14 +1,17 @@
 import 'package:chato/Globals.dart';
+import 'package:chato/Preference.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/font_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/core/utils/svg_manager.dart';
+import 'package:chato/feature/autho/login/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../Pages/pages_screen.dart';
 import '../autho/Welcome/welcome1_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,12 +25,35 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-      );
+    Future.delayed(const Duration(seconds:2)).then((value) {
+      Global.userToken= Preferences.getUserToken();
+      if(Global.userToken!.isNotEmpty)
+      {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const PagesScreen()),
+        );
+      }
+      else{
+        bool? isFirst=Preferences.getIsFirstTime();
+        if(isFirst!)
+        {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          );
+        }
+        else{
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+          );
+        }
+
+      }
     });
+
+
     super.initState();
   }
 

@@ -1,15 +1,26 @@
+import 'package:chato/feature/Pages/ProfilePage/api/count_friend_remote.dart';
+import 'package:chato/feature/Pages/ProfilePage/api/logout_remote.dart';
+import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
 
 import 'package:chato/feature/Pages/StorePage/bloc/store_bloc.dart';
+import 'package:chato/feature/User/api/user_remote.dart';
+import 'package:chato/feature/User/bloc/user_bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'core/utils/constants.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
+import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
+import 'feature/Pages/HomePage/bloc/home_bloc.dart';
+import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
-import 'feature/pages/HomePage/bloc/home_bloc.dart';
-
-
+import 'feature/User/api/add_friend_remote.dart';
+import 'feature/autho/login/api/login_remote.dart';
+import 'feature/autho/login/bloc/login_bloc.dart';
+import 'feature/autho/register/api/register_remote.dart';
+import 'feature/autho/register/bloc/register_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -19,16 +30,15 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //! External
 
-
   /// Adding the [Dio] instance to the graph to be later used by the local data sources
   sl.registerLazySingleton(
     () {
       final dio = Dio(
         BaseOptions(
-          connectTimeout: 20000,
-          receiveTimeout: 20000,
-          sendTimeout: 20000,
-          baseUrl: Endpoints.BASE_URL,
+          connectTimeout: 12000,
+          receiveTimeout: 12000,
+          sendTimeout: 12000,
+          baseUrl: Endpoints.baseURL,
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -43,6 +53,7 @@ Future<void> init() async {
           responseHeader: true,
           requestHeader: true,
           request: true,
+          error: true
         ),
       );
 
@@ -53,14 +64,57 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DataConnectionChecker());
 
 
+
+  //datasource
+  sl.registerLazySingleton<RegisterRemoteDataSource>(
+    () => RegisterRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<LoginRemoteDataSource>(
+    () => LoginRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<LogoutRemoteDataSource>(
+    () => LogoutRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<ProfileDetailsRemoteDataSource>(
+    () => ProfileDetailsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<CountFriendDetailsRemoteDataSource>(
+    () => CountFriendDetailsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<UserDetailsRemoteDataSource>(
+    () => UserDetailsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
+  sl.registerLazySingleton<FriendshipRequestsRemoteDataSource>(
+        () => FriendshipRequestsRemoteDataSourceImpl(dio: sl(),
+            networkInfo: sl()),
+  );
+  sl.registerLazySingleton<AddFriendRemoteDataSource>(
+        () => AddFriendRemoteDataSourceImpl(dio: sl(),
+        networkInfo: sl()),
+  );
+
+
+
+
+
+
+
   // Bloc
   sl.registerLazySingleton(() => HomeBloc(
+    friendshipRequestsRemoteDataSource: sl()
   ));
-  sl.registerLazySingleton(() => ConversationBloc(
-  ));
-  sl.registerLazySingleton(() => StoreBloc(
-  ));
-  sl.registerLazySingleton(() => RoomConversationBloc(
+  sl.registerLazySingleton(() => ConversationBloc());
+  sl.registerLazySingleton(() => StoreBloc());
+  sl.registerLazySingleton(() => RoomConversationBloc());
+  sl.registerLazySingleton(() => RegisterBloc(registerRemoteDataSource: sl()));
+  sl.registerLazySingleton(() => LoginBloc(loginRemoteDataSource: sl()));
+  sl.registerLazySingleton(() => ProfBloc(
+      logoutRemoteDataSource: sl(),
+      profileDetailsRemoteDataSource: sl(),
+      countFriendDetailsRemoteDataSource: sl()));
+  sl.registerLazySingleton(() => UserBloc(
+      userRemoteDataSource: sl(),
+      addFriendRemoteDataSource: sl()
   ));
 
 

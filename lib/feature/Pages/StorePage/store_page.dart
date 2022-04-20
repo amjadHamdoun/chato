@@ -46,18 +46,9 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
               child: Column(
                 children: [
                   //appBar
-                  Container(
+                  SizedBox(
                     width: 1.sw,
-                    decoration:  BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Theme.of(context).primaryColor,
-                              Theme.of(context).primaryColor,
-                            ]
-                        )
-                    ),
+
                     child: Padding(
                       padding:  EdgeInsets.symmetric(
                           horizontal: 12.w,
@@ -67,12 +58,16 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
                         children: [
                           SvgPicture.asset('assets/icons/store2.svg',
                             width: 24.w,
+                            color: ColorManager.primaryColor,
                           ),
                           SizedBox(width: 12.w,),
                           Expanded(child:
                           Text('Store',
-                            style: getMediumStyle(
-                                color: ColorManager.lightGreyShade200,
+                            style: TextStyle(
+                                color: ColorManager.primaryColor,
+
+
+                                fontWeight: FontWeight.w700,
                                 fontSize: 19.sp
 
 

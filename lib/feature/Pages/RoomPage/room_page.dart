@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
+import 'package:chato/feature/Pages/RoomPage/widget/create_room.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 
@@ -44,19 +45,10 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                   child: Column(
                     children: [
                       //appBar
-                      Container(
+                      SizedBox(
                         width: 1.sw,
 
-                        decoration:  BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Theme.of(context).primaryColor,
-                                  Theme.of(context).primaryColor,
-                                ]
-                            )
-                        ),
+
                         child: Padding(
                           padding:  EdgeInsets.symmetric(
                               horizontal: 12.w,
@@ -74,7 +66,7 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                                   Expanded(child:
                                   Text('Rooms Chat',
                                     style: getMediumStyle(
-                                        color: ColorManager.lightGreyShade200,
+                                        color: ColorManager.primaryColor,
                                         fontSize: 19.sp
 
 
@@ -86,70 +78,8 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
 
                                 ],
                               ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 0.1.sw,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-
-                                      style: TextStyle(
-                                        fontSize: 15.sp,
-                                      color: ColorManager.backgroundColor,
-                                        height: 1.5.h,
-
-                                      ),
-                                      cursorColor: Theme.of(context).hoverColor,
-                                      decoration:  InputDecoration(
-                                        suffix: SvgPicture.asset(
-                                          'assets/icons/search.svg',
-                                          width: 17.w,
-                                        ),
-                                        contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 12.w,
-                                        ),
 
 
-                                        enabledBorder:  UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                        ),
-                                        focusedBorder:  UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                        ),
-                                        disabledBorder:UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                        ) ,
-                                        border: UnderlineInputBorder(
-                                          borderSide: BorderSide(color: Theme.of(context).hoverColor),
-                                        ) ,
-
-
-                                        hintText:  tr('search in rooms'),
-                                        hintStyle: TextStyle(
-                                            fontSize: 15.sp,
-                                            color: Colors.grey.shade300
-                                        ),
-                                        focusColor: Theme.of(context).hoverColor,
-                                        fillColor: Theme.of(context).hoverColor,
-
-
-                                      ),
-
-
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 0.1.sw,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
                             ],
                           ),
                         ),
@@ -338,28 +268,36 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                   right: 0,
                   left: 0,
 
-                  child: Container(
-                    width: 40.w,
-                    height: 40.w,
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomRight,
-                            end: Alignment.topRight,
-                            tileMode: TileMode.mirror,
-                            colors: [
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CreateRoom()),
+                      );
+                    },
+                    child: Container(
+                      width: 40.w,
+                      height: 40.w,
+                      decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.bottomRight,
+                              end: Alignment.topRight,
+                              tileMode: TileMode.mirror,
+                              colors: [
 
-                              ColorManager.primaryColor,
-                              ColorManager.primaryColorLight,
+                                ColorManager.primaryColor,
+                                ColorManager.primaryColorLight,
 
 
-                            ]
-                        ),
-                        shape: BoxShape.circle
+                              ]
+                          ),
+                          shape: BoxShape.circle
 
-                    ),
-                    child: Icon(Icons.add,
-                      size: 25.w,
-                      color:    ColorManager.lightGreyShade200,
+                      ),
+                      child: Icon(Icons.add,
+                        size: 25.w,
+                        color:    ColorManager.lightGreyShade200,
+                      ),
                     ),
                   ),
                 ),

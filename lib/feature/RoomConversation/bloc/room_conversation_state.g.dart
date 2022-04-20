@@ -16,7 +16,11 @@ class _$RoomConversationState extends RoomConversationState {
   @override
   final bool isRecord;
   @override
+  final bool smileOrSticker;
+  @override
   final int senGiftType;
+  @override
+  final String smile;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -27,14 +31,20 @@ class _$RoomConversationState extends RoomConversationState {
       this.isLoading,
       required this.showEmoji,
       required this.isRecord,
-      required this.senGiftType})
+      required this.smileOrSticker,
+      required this.senGiftType,
+      required this.smile})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
     BuiltValueNullFieldError.checkNotNull(
         isRecord, 'RoomConversationState', 'isRecord');
     BuiltValueNullFieldError.checkNotNull(
+        smileOrSticker, 'RoomConversationState', 'smileOrSticker');
+    BuiltValueNullFieldError.checkNotNull(
         senGiftType, 'RoomConversationState', 'senGiftType');
+    BuiltValueNullFieldError.checkNotNull(
+        smile, 'RoomConversationState', 'smile');
   }
 
   @override
@@ -54,17 +64,23 @@ class _$RoomConversationState extends RoomConversationState {
         isLoading == other.isLoading &&
         showEmoji == other.showEmoji &&
         isRecord == other.isRecord &&
-        senGiftType == other.senGiftType;
+        smileOrSticker == other.smileOrSticker &&
+        senGiftType == other.senGiftType &&
+        smile == other.smile;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                showEmoji.hashCode),
-            isRecord.hashCode),
-        senGiftType.hashCode));
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                        showEmoji.hashCode),
+                    isRecord.hashCode),
+                smileOrSticker.hashCode),
+            senGiftType.hashCode),
+        smile.hashCode));
   }
 
   @override
@@ -74,7 +90,9 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('isLoading', isLoading)
           ..add('showEmoji', showEmoji)
           ..add('isRecord', isRecord)
-          ..add('senGiftType', senGiftType))
+          ..add('smileOrSticker', smileOrSticker)
+          ..add('senGiftType', senGiftType)
+          ..add('smile', smile))
         .toString();
   }
 }
@@ -99,9 +117,18 @@ class RoomConversationStateBuilder
   bool? get isRecord => _$this._isRecord;
   set isRecord(bool? isRecord) => _$this._isRecord = isRecord;
 
+  bool? _smileOrSticker;
+  bool? get smileOrSticker => _$this._smileOrSticker;
+  set smileOrSticker(bool? smileOrSticker) =>
+      _$this._smileOrSticker = smileOrSticker;
+
   int? _senGiftType;
   int? get senGiftType => _$this._senGiftType;
   set senGiftType(int? senGiftType) => _$this._senGiftType = senGiftType;
+
+  String? _smile;
+  String? get smile => _$this._smile;
+  set smile(String? smile) => _$this._smile = smile;
 
   RoomConversationStateBuilder();
 
@@ -112,7 +139,9 @@ class RoomConversationStateBuilder
       _isLoading = $v.isLoading;
       _showEmoji = $v.showEmoji;
       _isRecord = $v.isRecord;
+      _smileOrSticker = $v.smileOrSticker;
       _senGiftType = $v.senGiftType;
+      _smile = $v.smile;
       _$v = null;
     }
     return this;
@@ -139,8 +168,12 @@ class RoomConversationStateBuilder
                 showEmoji, 'RoomConversationState', 'showEmoji'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
                 isRecord, 'RoomConversationState', 'isRecord'),
+            smileOrSticker: BuiltValueNullFieldError.checkNotNull(
+                smileOrSticker, 'RoomConversationState', 'smileOrSticker'),
             senGiftType: BuiltValueNullFieldError.checkNotNull(
-                senGiftType, 'RoomConversationState', 'senGiftType'));
+                senGiftType, 'RoomConversationState', 'senGiftType'),
+            smile: BuiltValueNullFieldError.checkNotNull(
+                smile, 'RoomConversationState', 'smile'));
     replace(_$result);
     return _$result;
   }
