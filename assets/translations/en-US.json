@@ -121,7 +121,11 @@
   "members": "members",
   "blocked": "blocked",
   "permanently banned": "permanently banned",
-  "room archive": "room archive"
+  "room archive": "room archive",
+  "There are no new friend requests": "There are no new friend requests",
+  "search for a person": "search for a person",
+  "User Name": "User Name",
+  "There are no matching results.": "There are no matching results."
 
 
 

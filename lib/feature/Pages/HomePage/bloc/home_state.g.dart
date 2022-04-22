@@ -12,11 +12,17 @@ class _$HomeState extends HomeState {
   @override
   final bool? isLoading;
   @override
+  final bool? isSuccessSearch;
+  @override
+  final bool? isLoadingSearch;
+  @override
   final String error;
   @override
   final int selectedPage;
   @override
   final FriendshipRequestsModel friendshipRequestsModel;
+  @override
+  final SearchFriendModel searchFriendModel;
 
   factory _$HomeState([void Function(HomeStateBuilder)? updates]) =>
       (new HomeStateBuilder()..update(updates)).build();
@@ -24,15 +30,20 @@ class _$HomeState extends HomeState {
   _$HomeState._(
       {this.isSuccess,
       this.isLoading,
+      this.isSuccessSearch,
+      this.isLoadingSearch,
       required this.error,
       required this.selectedPage,
-      required this.friendshipRequestsModel})
+      required this.friendshipRequestsModel,
+      required this.searchFriendModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(error, 'HomeState', 'error');
     BuiltValueNullFieldError.checkNotNull(
         selectedPage, 'HomeState', 'selectedPage');
     BuiltValueNullFieldError.checkNotNull(
         friendshipRequestsModel, 'HomeState', 'friendshipRequestsModel');
+    BuiltValueNullFieldError.checkNotNull(
+        searchFriendModel, 'HomeState', 'searchFriendModel');
   }
 
   @override
@@ -48,19 +59,28 @@ class _$HomeState extends HomeState {
     return other is HomeState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
+        isSuccessSearch == other.isSuccessSearch &&
+        isLoadingSearch == other.isLoadingSearch &&
         error == other.error &&
         selectedPage == other.selectedPage &&
-        friendshipRequestsModel == other.friendshipRequestsModel;
+        friendshipRequestsModel == other.friendshipRequestsModel &&
+        searchFriendModel == other.searchFriendModel;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                error.hashCode),
-            selectedPage.hashCode),
-        friendshipRequestsModel.hashCode));
+            $jc(
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                            isSuccessSearch.hashCode),
+                        isLoadingSearch.hashCode),
+                    error.hashCode),
+                selectedPage.hashCode),
+            friendshipRequestsModel.hashCode),
+        searchFriendModel.hashCode));
   }
 
   @override
@@ -68,9 +88,12 @@ class _$HomeState extends HomeState {
     return (newBuiltValueToStringHelper('HomeState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
+          ..add('isSuccessSearch', isSuccessSearch)
+          ..add('isLoadingSearch', isLoadingSearch)
           ..add('error', error)
           ..add('selectedPage', selectedPage)
-          ..add('friendshipRequestsModel', friendshipRequestsModel))
+          ..add('friendshipRequestsModel', friendshipRequestsModel)
+          ..add('searchFriendModel', searchFriendModel))
         .toString();
   }
 }
@@ -85,6 +108,16 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   bool? _isLoading;
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
+
+  bool? _isSuccessSearch;
+  bool? get isSuccessSearch => _$this._isSuccessSearch;
+  set isSuccessSearch(bool? isSuccessSearch) =>
+      _$this._isSuccessSearch = isSuccessSearch;
+
+  bool? _isLoadingSearch;
+  bool? get isLoadingSearch => _$this._isLoadingSearch;
+  set isLoadingSearch(bool? isLoadingSearch) =>
+      _$this._isLoadingSearch = isLoadingSearch;
 
   String? _error;
   String? get error => _$this._error;
@@ -101,6 +134,11 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
           FriendshipRequestsModel? friendshipRequestsModel) =>
       _$this._friendshipRequestsModel = friendshipRequestsModel;
 
+  SearchFriendModel? _searchFriendModel;
+  SearchFriendModel? get searchFriendModel => _$this._searchFriendModel;
+  set searchFriendModel(SearchFriendModel? searchFriendModel) =>
+      _$this._searchFriendModel = searchFriendModel;
+
   HomeStateBuilder();
 
   HomeStateBuilder get _$this {
@@ -108,9 +146,12 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
     if ($v != null) {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
+      _isSuccessSearch = $v.isSuccessSearch;
+      _isLoadingSearch = $v.isLoadingSearch;
       _error = $v.error;
       _selectedPage = $v.selectedPage;
       _friendshipRequestsModel = $v.friendshipRequestsModel;
+      _searchFriendModel = $v.searchFriendModel;
       _$v = null;
     }
     return this;
@@ -133,6 +174,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
         new _$HomeState._(
             isSuccess: isSuccess,
             isLoading: isLoading,
+            isSuccessSearch: isSuccessSearch,
+            isLoadingSearch: isLoadingSearch,
             error: BuiltValueNullFieldError.checkNotNull(
                 error, 'HomeState', 'error'),
             selectedPage: BuiltValueNullFieldError.checkNotNull(
@@ -140,7 +183,9 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
             friendshipRequestsModel: BuiltValueNullFieldError.checkNotNull(
                 friendshipRequestsModel,
                 'HomeState',
-                'friendshipRequestsModel'));
+                'friendshipRequestsModel'),
+            searchFriendModel: BuiltValueNullFieldError.checkNotNull(
+                searchFriendModel, 'HomeState', 'searchFriendModel'));
     replace(_$result);
     return _$result;
   }

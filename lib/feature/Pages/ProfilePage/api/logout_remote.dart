@@ -24,12 +24,7 @@ class LogoutRemoteDataSourceImpl extends LogoutRemoteDataSource {
          dio.options.headers["authorization"] = "Bearer ${Global.userToken}";
         final re = await dio.post(
           Endpoints.logout,
-          options: Options(
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
-          ),
+
         );
         print("re");
         print(re);

@@ -416,7 +416,8 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                onTap: (){
                                                  Navigator.push(
                                                    context,
-                                                   MaterialPageRoute(builder: (context) => const UserScreen()),
+                                                   MaterialPageRoute(builder: (context) =>
+                                                       const UserScreen(id: 2,)),
                                                  );
                                                },
                                                child: SizedBox(

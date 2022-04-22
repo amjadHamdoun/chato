@@ -4,7 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/friendship_requests_model.dart';
+import '../model/friendship/friendship_requests_model.dart';
+
 
 
 abstract class FriendshipRequestsRemoteDataSource {
@@ -31,14 +32,8 @@ class FriendshipRequestsRemoteDataSourceImpl extends FriendshipRequestsRemoteDat
           Endpoints.friendShipRequests,
           queryParameters: {
           },
-          options: Options(
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
-          ),
-        );
 
+        );
         return Right(FriendshipRequestsModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {
@@ -53,9 +48,8 @@ class FriendshipRequestsRemoteDataSourceImpl extends FriendshipRequestsRemoteDat
       }
     }
     else {
-      return Left(Er.networkError);
+      return Left(Er.error);
     }
   }
-
 
 }

@@ -22,7 +22,7 @@ class _CreatePremiumAccountState extends State<CreatePremiumAccount> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
               Image.asset(
-              "assets/icons/96.png",
+              "assets/icons/done.png",
               height: 250.h,
               width: 250.w,
             ),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'package:chato/feature/Pages/HomePage/bloc/home_state.dart';
+import 'package:chato/feature/Pages/HomePage/widget/search_friends.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -173,42 +174,51 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                         itemCount: 13,
                         itemBuilder: (context, index){
                           if(index==0) {
-                            return Column(
-                              children: [
-                                Container(
-                                  width: 57.w,
-                                  height: 57.w,
-                                  decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.bottomLeft,
-                                          colors: [
-                                            ColorManager.primaryColor,
-                                            ColorManager.primaryColorLight,
-                                          ]
-                                      ),
-                                      shape: BoxShape.circle
+                            return GestureDetector(
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      SearchFriendsScreen(bloc: widget.bloc,)),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 57.w,
+                                    height: 57.w,
+                                    decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              ColorManager.primaryColor,
+                                              ColorManager.primaryColorLight,
+                                            ]
+                                        ),
+                                        shape: BoxShape.circle
 
-                                  ),
-                                  child: Icon(Icons.add,
-                                    size: 25.w,
-                                    color:    ColorManager.lightGreyShade200,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 75.w,
-                                  child: Text('new addition',
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontFamily: 'DIN',
-                                        fontWeight: FontWeight.w700,
-                                        color: Theme.of(context).disabledColor
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                  ).tr(),
-                                )
-                              ],
+                                    child: Icon(Icons.add,
+                                      size: 25.w,
+                                      color:    ColorManager.lightGreyShade200,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 75.w,
+                                    child: Text('new addition',
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontFamily: 'DIN',
+                                          fontWeight: FontWeight.w700,
+                                          color: Theme.of(context).disabledColor
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                    ).tr(),
+                                  )
+                                ],
+                              ),
                             );
                           } else {
                             return Column(

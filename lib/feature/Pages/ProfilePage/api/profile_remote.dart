@@ -30,12 +30,7 @@ class ProfileDetailsRemoteDataSourceImpl extends ProfileDetailsRemoteDataSource 
           (Endpoints.profileDetails,
           queryParameters: {
           },
-          options: Options(
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
-          ),
+
         );
 
         print(re);
@@ -57,7 +52,7 @@ class ProfileDetailsRemoteDataSourceImpl extends ProfileDetailsRemoteDataSource 
       }
     }
     else {
-      return Left(Er.networkError);
+      return Left(Er.error);
     }
   }
 

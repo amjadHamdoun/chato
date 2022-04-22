@@ -83,7 +83,7 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
       }
     }
     else {
-      return Left(Er.networkError);
+      return Left(Er.error);
     }
 
 

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chato/feature/Pages/ProfilePage/widget/acount_settings_two.dart';
+import 'package:chato/feature/Pages/ProfilePage/widget/acount_settings.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 
@@ -186,7 +186,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                               onTap: (){
                                 Navigator.push(context,
                                     MaterialPageRoute(builder:
-                                    (context) => const AccountSettingsTwo(),
+                                    (context) =>
+                                    AccountSettingsScreen(
+                                      bloc: widget.bloc,
+                                    ),
                                     ));
                               },
                               child: Container(

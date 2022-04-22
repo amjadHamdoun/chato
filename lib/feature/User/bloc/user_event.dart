@@ -11,8 +11,10 @@ abstract class UserEvents extends Equatable {
 
 // ignore: must_be_immutable
 class GetUserDetailsEvent extends UserEvents {
-
+ int id;
+ GetUserDetailsEvent({required this.id});
 }
+
 class AddFriendEvent extends UserEvents{
 
 }

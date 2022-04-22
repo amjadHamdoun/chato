@@ -19,5 +19,20 @@ class ChangePageEvent extends HomeEvent{
 class GetFriendshipRequestsEvent extends HomeEvent{
 
 }
+// ignore: must_be_immutable
+class GetSearchFriendEvent extends HomeEvent{
+  String search;
+  GetSearchFriendEvent({
+    required this.search,
+   });
+}
 
-
+// ignore: must_be_immutable
+class ChangeRequestsFriend extends HomeEvent{
+  int id;
+  String status;
+  ChangeRequestsFriend({
+    required this.id,
+    required this.status,
+  });
+}

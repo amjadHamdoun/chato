@@ -1,11 +1,7 @@
-import 'dart:async';
-import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:chato/Preference.dart';
-import 'package:flutter/cupertino.dart';
-
-
-
+import '../../../../Globals.dart';
 import '../api/register_remote.dart';
 import '../model/register_data_model.dart';
 import '../model/register_model.dart';
@@ -62,6 +58,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
            {
              if(r.data!.token!=null)
                {
+                 Global.userToken=r.data!.token!;
                  Preferences.saveUserToken(r.data!.token!);
                }
 

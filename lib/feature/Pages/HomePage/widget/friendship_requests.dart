@@ -56,84 +56,116 @@ class _FriendshipRequestsState extends State<FriendshipRequests> {
             ],
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
+          body: RefreshIndicator(
+            onRefresh: ()async{
+              widget.bloc.onGetFriendshipRequestsEvent();
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics()
+              ),
+              child: Column(
+                children: [
 
-                SizedBox(
-                  height: 20.h,
-                ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
 
-                SizedBox(
-                  height: 0.85.sh,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
+                  SizedBox(
+                    height: 0.85.sh,
+                    child:state.friendshipRequestsModel.data!
+                        .isNotEmpty?
+                    ListView.separated(
+                      physics: const BouncingScrollPhysics(),
 
-                      itemBuilder: (context, index) {
-                        return  Padding(
-                            padding:  EdgeInsets.symmetric(
-                                horizontal: 12.w
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 50.h,
-                                  height: 50.h,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                    state.friendshipRequestsModel.data![index].img ??
-                                        "http://via.placeholder.com/200x150",
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.fill,
+                        itemBuilder: (context, index) {
+                          return  Padding(
+                              padding:  EdgeInsets.symmetric(
+                                  horizontal: 12.w
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 50.h,
+                                    height: 50.h,
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                      state.friendshipRequestsModel.data![index].img ??
+                                          "http://via.placeholder.com/200x150",
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.fill,
 
+                                          ),
                                         ),
                                       ),
+                                      placeholder: (context, url) =>
+                                      const Center(child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                     ),
-                                    placeholder: (context, url) =>
-                                    const Center(child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
                                   ),
-                                ),
-                                SizedBox(width: 6.w,),
-                                Expanded(
-                                  child: Text(state.friendshipRequestsModel.data![index].name!,
-                                    style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).primaryColorDark
+                                  SizedBox(width: 6.w,),
+                                  Expanded(
+                                    child: Text(state.friendshipRequestsModel.data![index].name!,
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context).primaryColorDark
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.start,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.start,
                                   ),
-                                ),
-                                IconButton(onPressed: (){}, icon: SvgPicture.asset('assets/icons/check.svg')),
-                                IconButton(onPressed: (){}, icon: SvgPicture.asset('assets/icons/trash.svg')),
+                                  IconButton(onPressed: (){
+                                    widget.bloc.onChangeRequestsFriend(id: state.friendshipRequestsModel.
+                                    data![index].id!, status:'approve' );
+                                    state.friendshipRequestsModel.data!.removeAt(index);
+                                  }, icon: SvgPicture.asset('assets/icons/check.svg')),
+                                  IconButton(onPressed: (){
+                                    widget.bloc.onChangeRequestsFriend(id: state.friendshipRequestsModel.
+                                    data![index].id!, status:'reject' );
+                                    state.friendshipRequestsModel.data!.removeAt(index);
+                                  }, icon: SvgPicture.asset('assets/icons/trash.svg')),
 
-                              ],
-                            )
-                        );
-                      }, separatorBuilder: (context, index) {
-                    return  Divider(
-                      thickness:1,
-                      color: Theme.of(context).hintColor,
-                    );
-                  }, itemCount: state.friendshipRequestsModel.data!.length),
-                ),
+                                ],
+                              )
+                          );
+                        }, separatorBuilder: (context, index) {
+                      return  Divider(
+                        thickness:1,
+                        color: Theme.of(context).hintColor,
+                      );
+                    }, itemCount: state.friendshipRequestsModel.data!.length):
+                        state.isLoading!?
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ):
+                     Center(
+                       child: Text('There are no new friend requests',
+                         style: TextStyle(
+                           fontSize: 17.sp,
+                           color: Theme.of(context).primaryColorDark,
+                         ),
 
-                SizedBox(
-                  height: 15.h,
-                ),
+                       ).tr(),
+                     ),
+
+                  ),
+
+                  SizedBox(
+                    height: 15.h,
+                  ),
 
 
 
 
-              ],
+                ],
+              ),
             ),
           ),
 

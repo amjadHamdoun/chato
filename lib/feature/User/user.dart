@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/injection.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +12,8 @@ import 'bloc/user_bloc.dart';
 import 'bloc/user_state.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({Key? key}) : super(key: key);
+ final int id;
+  const UserScreen({Key? key,required this.id}) : super(key: key);
 
   @override
   _UserScreenState createState() => _UserScreenState();
@@ -25,7 +25,7 @@ class _UserScreenState extends State<UserScreen> {
   @override
   void initState() {
     super.initState();
-    bloc.onGetDetailsUserEvent();
+    bloc.onGetDetailsUserEvent(widget.id);
   }
 
   @override
@@ -33,7 +33,7 @@ class _UserScreenState extends State<UserScreen> {
     return BlocConsumer<UserBloc, UserState>(
       bloc: bloc,
       listener: (context, state) {
-        // TODO: implement listener
+
       },
       builder: (context, state) {
         return ModalProgressHUD(
@@ -64,7 +64,9 @@ class _UserScreenState extends State<UserScreen> {
                             )
                         ),
                         child: CachedNetworkImage(
-                          imageUrl: "https://media.npr.org/assets/img/2022/02/02/50-verdens-verste-menneske-oslo-pictures_wide-52fe31568d45897f5990960f1cf989fedbf2c828-s1100-c50.jpg",
+                          imageUrl:
+                          state.userModel!.data!.img??
+                          "https://media.npr.org/assets/img/2022/02/02/50-verdens-verste-menneske-oslo-pictures_wide-52fe31568d45897f5990960f1cf989fedbf2c828-s1100-c50.jpg",
                           imageBuilder: (context, imageProvider) =>
                               Container(
                                 decoration: BoxDecoration(
@@ -102,7 +104,9 @@ class _UserScreenState extends State<UserScreen> {
                           width: 90.h,
                           height: 90.h,
                           child: CachedNetworkImage(
-                            imageUrl: "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
+
+                            imageUrl:   state.userModel!.data!.img??
+                                "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
                             imageBuilder: (context, imageProvider) =>
                                 Container(
                                   decoration: BoxDecoration(
@@ -136,7 +140,7 @@ class _UserScreenState extends State<UserScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text('ۦ⇜اسـۦـۦـد❪᪣❫ديـۦــرالـۦـزور⇝',
+                            child: Text(   state.userModel!.data!.name??'',
                               style: TextStyle(
                                   fontSize: 23.sp,
                                   fontFamily: 'Roboto',
@@ -162,7 +166,7 @@ class _UserScreenState extends State<UserScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('142535626',
+                          Text(state.userModel!.data!.id.toString(),
                             style: TextStyle(
                                 fontSize: 23.sp,
                                 fontWeight: FontWeight.w700,

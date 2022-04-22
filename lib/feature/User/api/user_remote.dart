@@ -9,7 +9,7 @@ import '../../../Globals.dart';
 
 
 abstract class UserDetailsRemoteDataSource {
-  Future<Either<String, UserModel>> userDetails();
+  Future<Either<String, UserModel>> userDetails({required int id});
 
 }
 
@@ -21,21 +21,16 @@ class UserDetailsRemoteDataSourceImpl extends UserDetailsRemoteDataSource {
       { required this.dio, required this.networkInfo});
 
   @override
-  Future<Either<String, UserModel>> userDetails() async {
+  Future<Either<String, UserModel>> userDetails({required int id}) async {
     if (await networkInfo.hasConnection) {
       try {
         dio.options.headers["Authorization"] = "Bearer ${Global.userToken}";
         final re = await dio.get
           (Endpoints.friendsDetails,
           queryParameters: {
-            'id':2
+            'id':id
           },
-          options: Options(
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
-          ),
+
         );
 
         print(re);
@@ -57,7 +52,7 @@ class UserDetailsRemoteDataSourceImpl extends UserDetailsRemoteDataSource {
       }
     }
     else {
-      return Left(Er.networkError);
+      return Left(Er.error);
     }
   }
 

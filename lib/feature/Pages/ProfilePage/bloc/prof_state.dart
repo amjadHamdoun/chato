@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:built_value/built_value.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/count_friend_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/profile_data.dart';
@@ -16,6 +18,8 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
 
   String? get error;
 
+  File? get img;
+
   ProfileModel? get profileModel;
 
   CountFriendModel? get countFriendModel;
@@ -31,6 +35,7 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..isLoadingLogout = false
       ..isSuccessLogout = false
       ..error = ""
+      ..img=null
       ..profileModel = ProfileModel(
         data: ProfileData(
             id: 0,

@@ -1,20 +1,19 @@
 import 'package:chato/feature/Pages/ProfilePage/api/count_friend_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/logout_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
-
 import 'package:chato/feature/Pages/StorePage/bloc/store_bloc.dart';
 import 'package:chato/feature/User/api/user_remote.dart';
 import 'package:chato/feature/User/bloc/user_bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'core/utils/constants.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
+import 'feature/Pages/HomePage/api/change-requests-friend_remote.dart';
 import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
+import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
-import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
 import 'feature/autho/login/api/login_remote.dart';
@@ -92,6 +91,16 @@ Future<void> init() async {
         () => AddFriendRemoteDataSourceImpl(dio: sl(),
         networkInfo: sl()),
   );
+  sl.registerLazySingleton<ChangeRequestsFriendRemoteDataSource>(
+        () => ChangeRequestsFriendRemoteDataSourceImpl(
+            dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<SearchFriendRemoteDataSource>(
+        () => SearchFriendRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -101,7 +110,10 @@ Future<void> init() async {
 
   // Bloc
   sl.registerLazySingleton(() => HomeBloc(
-    friendshipRequestsRemoteDataSource: sl()
+    friendshipRequestsRemoteDataSource: sl(),
+    changeRequestsFriendRemoteDataSource: sl(),
+    searchFriendRemoteDataSource: sl()
+
   ));
   sl.registerLazySingleton(() => ConversationBloc());
   sl.registerLazySingleton(() => StoreBloc());

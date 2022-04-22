@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/Preference.dart';
@@ -6,11 +8,9 @@ import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/count_friend_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/profile_data.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/profile_model.dart';
-import 'package:chato/feature/autho/login/login_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import '../api/logout_remote.dart';
-import '../model/logout_model.dart';
+
 import 'prof_event.dart';
 import 'prof_state.dart';
 
@@ -49,7 +49,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
           ..isLoadingLogout = false));
       });
     });
-    on<getProfileDetailsEvent>((event, emit) async {
+    on<GetProfileDetailsEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..isSuccess = false
         ..isLoading = true
@@ -60,9 +60,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
             status: false)));
       final result = await profileDetailsRemoteDataSource.profileDetails(
       );
-      print("result");
-      print(result);
-      print("result");
+
 
       return result.fold((l) async {
         print('l');
@@ -80,7 +78,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       });
 
     });
-    on<getCountFriendEvent>((event, emit) async {
+    on<GetCountFriendEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..isSuccess = false
         ..isLoading = true
@@ -109,17 +107,35 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
 
     });
 
+
+
+
+
+    on<ChangeImageEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+       ..img=event.image
+      ));
+
+
+
+
+
+    });
+
   }
 
   void onLogoutEvent() {
     add(LogoutEvent());
   }
 
+  void onChangeImageEvent(File image) {
+    add(ChangeImageEvent(image: image));
+  }
   void onGetProfileDetailsEvent() {
-    add(getProfileDetailsEvent());
+    add(GetProfileDetailsEvent());
   }
   void onGetCountFriendEvent(){
-    add(getCountFriendEvent());
+    add(GetCountFriendEvent());
 
   }
 }

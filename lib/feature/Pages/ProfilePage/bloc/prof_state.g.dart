@@ -18,6 +18,8 @@ class _$ProfState extends ProfState {
   @override
   final String? error;
   @override
+  final File? img;
+  @override
   final ProfileModel? profileModel;
   @override
   final CountFriendModel? countFriendModel;
@@ -31,6 +33,7 @@ class _$ProfState extends ProfState {
       this.isSuccessLogout,
       this.isLoadingLogout,
       this.error,
+      this.img,
       this.profileModel,
       this.countFriendModel})
       : super._();
@@ -51,6 +54,7 @@ class _$ProfState extends ProfState {
         isSuccessLogout == other.isSuccessLogout &&
         isLoadingLogout == other.isLoadingLogout &&
         error == other.error &&
+        img == other.img &&
         profileModel == other.profileModel &&
         countFriendModel == other.countFriendModel;
   }
@@ -61,10 +65,12 @@ class _$ProfState extends ProfState {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                        isSuccessLogout.hashCode),
-                    isLoadingLogout.hashCode),
-                error.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                            isSuccessLogout.hashCode),
+                        isLoadingLogout.hashCode),
+                    error.hashCode),
+                img.hashCode),
             profileModel.hashCode),
         countFriendModel.hashCode));
   }
@@ -77,6 +83,7 @@ class _$ProfState extends ProfState {
           ..add('isSuccessLogout', isSuccessLogout)
           ..add('isLoadingLogout', isLoadingLogout)
           ..add('error', error)
+          ..add('img', img)
           ..add('profileModel', profileModel)
           ..add('countFriendModel', countFriendModel))
         .toString();
@@ -108,6 +115,10 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   String? get error => _$this._error;
   set error(String? error) => _$this._error = error;
 
+  File? _img;
+  File? get img => _$this._img;
+  set img(File? img) => _$this._img = img;
+
   ProfileModel? _profileModel;
   ProfileModel? get profileModel => _$this._profileModel;
   set profileModel(ProfileModel? profileModel) =>
@@ -128,6 +139,7 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _isSuccessLogout = $v.isSuccessLogout;
       _isLoadingLogout = $v.isLoadingLogout;
       _error = $v.error;
+      _img = $v.img;
       _profileModel = $v.profileModel;
       _countFriendModel = $v.countFriendModel;
       _$v = null;
@@ -155,6 +167,7 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             isSuccessLogout: isSuccessLogout,
             isLoadingLogout: isLoadingLogout,
             error: error,
+            img: img,
             profileModel: profileModel,
             countFriendModel: countFriendModel);
     replace(_$result);

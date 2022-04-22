@@ -29,9 +29,7 @@ class AddFriendRemoteDataSourceImpl extends AddFriendRemoteDataSource{
           },
           options: Options(
             followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
+
           ),
         );
 

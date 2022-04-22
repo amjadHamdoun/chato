@@ -37,10 +37,9 @@ class UserBloc extends Bloc<UserEvents, UserState> {
             message: '',
             error_code: 0,
             status: false)));
-      final result = await userRemoteDataSource.userDetails();
-      print("result");
-      print(result);
-      print("result");
+      final result = await userRemoteDataSource.
+      userDetails(id: event.id);
+
 
       return result.fold((l) async {
         print('l');
@@ -94,8 +93,8 @@ class UserBloc extends Bloc<UserEvents, UserState> {
     });
   }
 
-  void onGetDetailsUserEvent() {
-    add(GetUserDetailsEvent());
+  void onGetDetailsUserEvent(int id) {
+    add(GetUserDetailsEvent(id: id));
   }
 
   void onAddFriendEvent() {

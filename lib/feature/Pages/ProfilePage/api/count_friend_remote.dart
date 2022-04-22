@@ -32,12 +32,7 @@ class CountFriendDetailsRemoteDataSourceImpl extends CountFriendDetailsRemoteDat
           Endpoints.countFriend,
           queryParameters: {
           },
-          options: Options(
-            followRedirects: false,
-            validateStatus: (status) {
-              return status! < 500;
-            },
-          ),
+
         );
 
         print(re);
@@ -59,7 +54,7 @@ class CountFriendDetailsRemoteDataSourceImpl extends CountFriendDetailsRemoteDat
       }
     }
     else {
-      return Left(Er.networkError);
+      return Left(Er.error);
     }
   }
 
