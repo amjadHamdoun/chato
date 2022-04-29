@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:built_value/built_value.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/count_friend_model.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/profile_data.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/profile_model.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
+
+import '../model/profile/profile_model.dart';
+
 
 part 'prof_state.g.dart';
 

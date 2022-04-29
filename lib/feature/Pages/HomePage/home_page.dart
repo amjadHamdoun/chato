@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
   @override
   void initState() {
+    widget.bloc.onGetAllFriendEvent();
     widget.bloc.onGetFriendshipRequestsEvent();
     super.initState();
   }
@@ -171,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
-                        itemCount: 13,
+                        itemCount: state.allFriendModel.data!.length+1,
                         itemBuilder: (context, index){
                           if(index==0) {
                             return GestureDetector(
@@ -227,7 +228,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                   width: 57.w,
                                   height: 57.w,
                                   child: CachedNetworkImage(
-                                    imageUrl: "http://via.placeholder.com/200x150",
+
+                                    imageUrl:state.allFriendModel.data![index-1].img??
+                                        "http://via.placeholder.com/200x150",
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -243,8 +246,11 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                   ),
                                 ),
                                 SizedBox(
+                                  height: 3.h,
+                                ),
+                                SizedBox(
                                   width: 70.w,
-                                  child: Text('سامر ',
+                                  child: Text(state.allFriendModel.data![index-1].name!,
                                     style: TextStyle(
                                         fontSize: 14.sp,
                                         fontFamily: 'Roboto',

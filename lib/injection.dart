@@ -9,10 +9,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'core/utils/constants.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
+import 'feature/Pages/HomePage/api/all_friend_remote.dart';
 import 'feature/Pages/HomePage/api/change-requests-friend_remote.dart';
 import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
 import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
+import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
@@ -20,6 +22,9 @@ import 'feature/autho/login/api/login_remote.dart';
 import 'feature/autho/login/bloc/login_bloc.dart';
 import 'feature/autho/register/api/register_remote.dart';
 import 'feature/autho/register/bloc/register_bloc.dart';
+
+
+
 
 final sl = GetIt.instance;
 
@@ -101,8 +106,17 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
+  sl.registerLazySingleton<UpdateUserInfoDataSource>(
+        () => UpdateUserInfoDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
-
+  sl.registerLazySingleton<AllFriendRemoteDataSource>(
+        () => AllFriendRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -112,7 +126,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => HomeBloc(
     friendshipRequestsRemoteDataSource: sl(),
     changeRequestsFriendRemoteDataSource: sl(),
-    searchFriendRemoteDataSource: sl()
+    searchFriendRemoteDataSource: sl(),
+      allFriendRemoteDataSource:  sl()
 
   ));
   sl.registerLazySingleton(() => ConversationBloc());
@@ -123,7 +138,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => ProfBloc(
       logoutRemoteDataSource: sl(),
       profileDetailsRemoteDataSource: sl(),
-      countFriendDetailsRemoteDataSource: sl()));
+      countFriendDetailsRemoteDataSource: sl(),
+      updateUserInfoDataSource: sl()
+
+  ));
   sl.registerLazySingleton(() => UserBloc(
       userRemoteDataSource: sl(),
       addFriendRemoteDataSource: sl()

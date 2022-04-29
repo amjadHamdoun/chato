@@ -3,42 +3,38 @@ import 'package:chato/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-
 import '../../../../Globals.dart';
-import '../model/profile/profile_model.dart';
+import '../model/allFriend/all_friend_model.dart';
+import '../model/friendship/friendship_requests_model.dart';
 
 
 
-abstract class ProfileDetailsRemoteDataSource {
-  Future<Either<String, ProfileModel>> profileDetails();
-
+abstract class AllFriendRemoteDataSource {
+  Future<Either<String, AllFriendModel>> allFriend();
 }
 
-class ProfileDetailsRemoteDataSourceImpl extends ProfileDetailsRemoteDataSource {
+class AllFriendRemoteDataSourceImpl extends
+      AllFriendRemoteDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  ProfileDetailsRemoteDataSourceImpl(
-      { required this.dio, required this.networkInfo});
+  AllFriendRemoteDataSourceImpl(
+      { required this.dio,
+        required this.networkInfo
+      });
 
   @override
-  Future<Either<String, ProfileModel>> profileDetails() async {
+  Future<Either<String, AllFriendModel>> allFriend() async {
     if (await networkInfo.hasConnection) {
       try {
-        dio.options.headers["Authorization"] = "Bearer ${Global.userToken}";
+        dio.options.headers["Authorization"] =
+        "Bearer ${Global.userToken}";
         final re = await dio.get
-          (Endpoints.profileDetails,
-          queryParameters: {
-          },
-
+          (
+          Endpoints.getAllFriend,
+          queryParameters: {},
         );
-
-        print(re);
-        ProfileModel profile=ProfileModel.fromJson(json.decode(re.data));
-        print("re");
-        print(profile.data);
-        print("re");
-        return Right(ProfileModel.fromJson(json.decode(re.data)));
+        return Right(AllFriendModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {
           return Left(Er.networkError);
@@ -55,6 +51,5 @@ class ProfileDetailsRemoteDataSourceImpl extends ProfileDetailsRemoteDataSource 
       return Left(Er.error);
     }
   }
-
 
 }

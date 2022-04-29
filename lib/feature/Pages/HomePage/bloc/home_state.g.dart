@@ -23,6 +23,8 @@ class _$HomeState extends HomeState {
   final FriendshipRequestsModel friendshipRequestsModel;
   @override
   final SearchFriendModel searchFriendModel;
+  @override
+  final AllFriendModel allFriendModel;
 
   factory _$HomeState([void Function(HomeStateBuilder)? updates]) =>
       (new HomeStateBuilder()..update(updates)).build();
@@ -35,7 +37,8 @@ class _$HomeState extends HomeState {
       required this.error,
       required this.selectedPage,
       required this.friendshipRequestsModel,
-      required this.searchFriendModel})
+      required this.searchFriendModel,
+      required this.allFriendModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(error, 'HomeState', 'error');
     BuiltValueNullFieldError.checkNotNull(
@@ -44,6 +47,8 @@ class _$HomeState extends HomeState {
         friendshipRequestsModel, 'HomeState', 'friendshipRequestsModel');
     BuiltValueNullFieldError.checkNotNull(
         searchFriendModel, 'HomeState', 'searchFriendModel');
+    BuiltValueNullFieldError.checkNotNull(
+        allFriendModel, 'HomeState', 'allFriendModel');
   }
 
   @override
@@ -64,7 +69,8 @@ class _$HomeState extends HomeState {
         error == other.error &&
         selectedPage == other.selectedPage &&
         friendshipRequestsModel == other.friendshipRequestsModel &&
-        searchFriendModel == other.searchFriendModel;
+        searchFriendModel == other.searchFriendModel &&
+        allFriendModel == other.allFriendModel;
   }
 
   @override
@@ -74,13 +80,17 @@ class _$HomeState extends HomeState {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                            isSuccessSearch.hashCode),
-                        isLoadingSearch.hashCode),
-                    error.hashCode),
-                selectedPage.hashCode),
-            friendshipRequestsModel.hashCode),
-        searchFriendModel.hashCode));
+                        $jc(
+                            $jc(
+                                $jc($jc(0, isSuccess.hashCode),
+                                    isLoading.hashCode),
+                                isSuccessSearch.hashCode),
+                            isLoadingSearch.hashCode),
+                        error.hashCode),
+                    selectedPage.hashCode),
+                friendshipRequestsModel.hashCode),
+            searchFriendModel.hashCode),
+        allFriendModel.hashCode));
   }
 
   @override
@@ -93,7 +103,8 @@ class _$HomeState extends HomeState {
           ..add('error', error)
           ..add('selectedPage', selectedPage)
           ..add('friendshipRequestsModel', friendshipRequestsModel)
-          ..add('searchFriendModel', searchFriendModel))
+          ..add('searchFriendModel', searchFriendModel)
+          ..add('allFriendModel', allFriendModel))
         .toString();
   }
 }
@@ -139,6 +150,11 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   set searchFriendModel(SearchFriendModel? searchFriendModel) =>
       _$this._searchFriendModel = searchFriendModel;
 
+  AllFriendModel? _allFriendModel;
+  AllFriendModel? get allFriendModel => _$this._allFriendModel;
+  set allFriendModel(AllFriendModel? allFriendModel) =>
+      _$this._allFriendModel = allFriendModel;
+
   HomeStateBuilder();
 
   HomeStateBuilder get _$this {
@@ -152,6 +168,7 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
       _selectedPage = $v.selectedPage;
       _friendshipRequestsModel = $v.friendshipRequestsModel;
       _searchFriendModel = $v.searchFriendModel;
+      _allFriendModel = $v.allFriendModel;
       _$v = null;
     }
     return this;
@@ -185,7 +202,9 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
                 'HomeState',
                 'friendshipRequestsModel'),
             searchFriendModel: BuiltValueNullFieldError.checkNotNull(
-                searchFriendModel, 'HomeState', 'searchFriendModel'));
+                searchFriendModel, 'HomeState', 'searchFriendModel'),
+            allFriendModel: BuiltValueNullFieldError.checkNotNull(
+                allFriendModel, 'HomeState', 'allFriendModel'));
     replace(_$result);
     return _$result;
   }

@@ -12,6 +12,9 @@ class Endpoints {
   static const countFriend = 'count-friend';
   static const changeRequestsFriend = 'change-requests-friend';
   static const addFriend = 'add-friend';
+  static const updateUserInfo = 'auth/update/user/info';
+  static const getAllFriend = 'get-all-friend';
+
 
 
 

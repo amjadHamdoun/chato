@@ -69,6 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         ])),
                     child: CachedNetworkImage(
                       imageUrl:
+                          state.profileModel!.data!.img??
                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPhbjHLqSOfjV7iIm-hqjGzYoz3MWRxE98ng&usqp=CAU",
                       imageBuilder: (context, imageProvider) => Container(
                         decoration: BoxDecoration(

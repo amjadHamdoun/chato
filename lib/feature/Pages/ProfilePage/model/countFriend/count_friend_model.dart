@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'profile_data.dart';
+import '../profile/profile_data.dart';
 
 
 part 'count_friend_model.g.dart';

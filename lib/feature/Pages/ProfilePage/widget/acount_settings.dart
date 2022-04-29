@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
@@ -66,6 +67,28 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
 
                           ):
+                          state.profileModel!.data!.img!=null?
+                          CachedNetworkImage(
+                            imageUrl:
+                            state.profileModel!.data!.img??
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPhbjHLqSOfjV7iIm-hqjGzYoz3MWRxE98ng&usqp=CAU",
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: 76.w,
+                              width: 76.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.fill,
+
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                          ):
                           Container(
                             height: 76.w,
                             width: 76.w,
@@ -123,7 +146,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         height: 5.h,
                       ),
                       Text(
-                        state.profileModel!.data!.name!??'',
+                        state.profileModel!.data!.name!,
                         style: getMediumStyle(
                             fontSize: 16.sp,
                             color: Global.darkMode

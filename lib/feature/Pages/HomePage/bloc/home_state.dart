@@ -1,9 +1,5 @@
-
-
-
-
 import 'package:built_value/built_value.dart';
-
+import '../model/allFriend/all_friend_model.dart';
 import '../model/friendship/friendship_requests_model.dart';
 import '../model/search_friend/search_friend_model.dart';
 
@@ -23,6 +19,7 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   int get selectedPage;
   FriendshipRequestsModel get friendshipRequestsModel;
   SearchFriendModel get searchFriendModel;
+  AllFriendModel get allFriendModel;
 
   HomeState._();
 
@@ -41,6 +38,12 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
          data: [],
         message: '',
         error_code: 0
+      )
+      ..allFriendModel=AllFriendModel(
+        data: [],
+        error_code: 0,
+        message: '',
+        status: false
       )
         ..friendshipRequestsModel= FriendshipRequestsModel(
           status: false,

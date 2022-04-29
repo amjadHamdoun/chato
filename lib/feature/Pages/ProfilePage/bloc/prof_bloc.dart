@@ -5,23 +5,24 @@ import 'package:chato/Globals.dart';
 import 'package:chato/Preference.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/count_friend_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/count_friend_model.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/profile_data.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/profile_model.dart';
-
+import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
 import '../api/logout_remote.dart';
-
+import '../api/update_user_info_remote.dart';
+import '../model/profile/profile_model.dart';
 import 'prof_event.dart';
 import 'prof_state.dart';
 
 class ProfBloc extends Bloc<ProfEvent, ProfState> {
+  UpdateUserInfoDataSource updateUserInfoDataSource;
   LogoutRemoteDataSource logoutRemoteDataSource;
   ProfileDetailsRemoteDataSource profileDetailsRemoteDataSource;
  CountFriendDetailsRemoteDataSource countFriendDetailsRemoteDataSource;
   ProfBloc(
       {required this.profileDetailsRemoteDataSource,
       required this.logoutRemoteDataSource,
-      required this.countFriendDetailsRemoteDataSource
+      required this.countFriendDetailsRemoteDataSource,
+        required this.updateUserInfoDataSource
       })
       : super(ProfState.initial()) {
     on<LogoutEvent>((event, emit) async {
@@ -115,6 +116,28 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       emit(state.rebuild((b) => b
        ..img=event.image
       ));
+
+      final result = await
+      updateUserInfoDataSource.updateUser(
+        img: event.image
+      );
+
+      print("result");
+      print(result);
+      print("result");
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+
+          ..error = l));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''));
+      });
+
 
 
 

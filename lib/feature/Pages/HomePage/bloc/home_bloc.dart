@@ -1,5 +1,6 @@
 
 import 'package:bloc/bloc.dart';
+import '../api/all_friend_remote.dart';
 import '../api/change-requests-friend_remote.dart';
 import '../api/friendship_requests_remote.dart';
 import '../api/search-friend_remote.dart';
@@ -11,10 +12,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FriendshipRequestsRemoteDataSource friendshipRequestsRemoteDataSource;
   ChangeRequestsFriendRemoteDataSource changeRequestsFriendRemoteDataSource;
   SearchFriendRemoteDataSource searchFriendRemoteDataSource;
+  AllFriendRemoteDataSource allFriendRemoteDataSource;
   HomeBloc({
     required this.friendshipRequestsRemoteDataSource,
     required this.changeRequestsFriendRemoteDataSource,
-    required this.searchFriendRemoteDataSource
+    required this.searchFriendRemoteDataSource,
+    required this.allFriendRemoteDataSource
     }) : super(HomeState.initial())
   {
     on<ChangePageEvent>((event, emit) =>
@@ -61,6 +64,34 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
 
+    ///كل الاصدقاء
+    on<GetAllFriendEvent>((event, emit)
+    async {
+      emit(state.rebuild((b) => b
+        ..error=''
+
+      ));
+      final result=await
+      allFriendRemoteDataSource.allFriend();
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..error = l));
+        emit(state.rebuild((b) => b
+
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..allFriendModel = r
+        ));
+      });
+    });
+
+
+
 
 
 
@@ -69,6 +100,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     ///قبول رفض طلبات الصداقة
     on<ChangeRequestsFriend>((event, emit)
     async {
+
       emit(state.rebuild((b) => b
         ..error=''
 
@@ -138,6 +170,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
   void onGetFriendshipRequestsEvent() {
     add(GetFriendshipRequestsEvent());
+  }
+  void onGetAllFriendEvent() {
+    add(GetAllFriendEvent());
   }
 
   void onGetSearchFriendEvent(String search) {

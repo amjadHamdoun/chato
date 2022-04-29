@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:chato/core/utils/constants.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/count_friend_model.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
