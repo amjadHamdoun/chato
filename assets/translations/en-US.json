@@ -125,7 +125,9 @@
   "There are no new friend requests": "There are no new friend requests",
   "search for a person": "search for a person",
   "User Name": "User Name",
-  "There are no matching results.": "There are no matching results."
+  "There are no matching results.": "There are no matching results.",
+  "Invalid code entered": "Invalid code entered",
+  "Password must be more than 8 characters": "Password must be more than 8 characters"
 
 
 

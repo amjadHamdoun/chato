@@ -12,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import '../../../RoomConversation/widget/music/show_audio_player_bottom_sheet.dart';
 import '../bloc/prof_bloc.dart';
-import 'widgets.dart';
+import 'show_menu_bottom_sheet_email_one.dart';
 import 'dart:io';
 
 
@@ -232,6 +232,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                 inactiveColor: ColorManager.backgroundColor,
                                 height: 20.h,
                                 width: 50.w,
+                                toggleSize: 20.h,
+                                padding: 0,
                                 value: lockState,
                                 onToggle: (val) {
                                   setState(() {
@@ -285,6 +287,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                 inactiveColor: ColorManager.backgroundColor,
                                 height: 20.h,
                                 width: 50.w,
+                                toggleSize: 20.h,
+                                padding: 0,
                                 value: hideState,
                                 onToggle: (val) {
                                   setState(() {

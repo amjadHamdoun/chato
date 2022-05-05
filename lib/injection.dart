@@ -18,6 +18,9 @@ import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
+import 'feature/autho/forgot/api/change_password_remote.dart';
+import 'feature/autho/forgot/api/forget-password_remote.dart';
+import 'feature/autho/forgot/bloc/forget_bloc.dart';
 import 'feature/autho/login/api/login_remote.dart';
 import 'feature/autho/login/bloc/login_bloc.dart';
 import 'feature/autho/register/api/register_remote.dart';
@@ -117,7 +120,16 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
-
+  sl.registerLazySingleton<ForgetPasswordRemoteDataSource>(
+        () => ForgetPasswordRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<ChangePasswordRemoteDataSource>(
+        () => ChangePasswordRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -147,6 +159,9 @@ Future<void> init() async {
       addFriendRemoteDataSource: sl()
   ));
 
-
+  sl.registerLazySingleton(() => ForgetBloc(
+      forgetPasswordRemoteDataSource: sl(),
+    changePasswordRemoteDataSource: sl()
+  ));
 
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class Endpoints {
+
   static const baseURL = 'https://www.room.tecknick.net/api/';
   static const register = 'auth/register';
   static const login = 'auth/login';
@@ -12,13 +13,15 @@ class Endpoints {
   static const countFriend = 'count-friend';
   static const changeRequestsFriend = 'change-requests-friend';
   static const addFriend = 'add-friend';
-  static const updateUserInfo = 'auth/update/user/info';
+  static const updateUserInfo = 'auth/upd2ate/user/info';
   static const getAllFriend = 'get-all-friend';
-
+  static const forgetPassword = 'auth/forgetPassword';
+  static const changePassword = 'auth/change_password';
 
 
 
 }
+
 
 class Er {
 
