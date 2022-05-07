@@ -158,5 +158,8 @@
   "There are no matching results.": "لا يوجد نتائج متطابقة.",
   "Invalid code entered": "الرمز المدخل غير صحيح",
   "Enter New Password": "ادخل كلمة سر جديدة",
-  "Password must be more than 8 characters": "كلمة السر يجب ان تكون اكثر من 8 محارف"
+  "Password must be more than 8 characters": "كلمة السر يجب ان تكون اكثر من 8 محارف",
+  "that name is already taken": "هذا الاسم مستخدم بالفعل",
+  "Success Created Room": "تم انشاء الغرفة بنجاح"
+
 }

@@ -1,148 +1,197 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/font_manager.dart';
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../bloc/room_bloc.dart';
+import '../bloc/room_state.dart';
 
 class CreateRoom extends StatefulWidget {
-  const CreateRoom({Key? key}) : super(key: key);
+  final RoomBloc bloc;
+  const CreateRoom({Key? key,required this.bloc}) : super(key: key);
 
   @override
   _CreateRoomState createState() => _CreateRoomState();
 }
 
 class _CreateRoomState extends State<CreateRoom> {
+   TextEditingController controller=
+       TextEditingController(text: '');
+
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            body: SingleChildScrollView(
-              child: Container(
-      alignment: Alignment.topCenter,
-      padding: EdgeInsets.symmetric(vertical: 20.h),
-      child: Column(
-        children: [
-          Text(
-              "Create Conversation Room".tr(),
-              style: TextStyle(
-                  fontSize: 22.sp,
-                  color: ColorManager.primaryColor,
-                  fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-              height: 10.h,
-          ),
-          Row(
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 100.h,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(90),
-                              bottomLeft: Radius.circular(90)),
-                          border: Border.all(
-                              color: ColorManager.primaryColor, width: 1)),
-                      height: 150.h,
-                      width: 80.w,
-                    )
-                  ],
-                ),
-                Expanded(child: SizedBox()),
-                Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(75)),
-                          border: Border.all(
-                              color: ColorManager.primaryColor, width: 1)),
-                      height: 150.h,
-                      width: 150.w,
-                    )
-                  ],
-                ),
-              ],
-          ),
-          SizedBox(
-              height: 20.h,
-          ),
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.h),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Text(
-                        "Room Name".tr(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.sp,
-                          color: ColorManager.primaryColor,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ColorManager.primaryColor),
-                          borderRadius: BorderRadius.circular(45),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ColorManager.primaryColor),
-                          borderRadius: BorderRadius.circular(45),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "You don't have enough balance".tr(),
-                    style: TextStyle(fontWeight: FontWeight.bold,
-                      fontSize: 16.sp,
-                      color: ColorManager.primaryColor,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                  SizedBox(height: 200.h,),
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    height: 100.h,
-                  width: 100.w,
-                    decoration: BoxDecoration(
-                      color: ColorManager.backgroundColor,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: ColorManager.primaryColor
-                      )
-                    ),
-                    child: Container(alignment: Alignment.center,height: 90.h,
-                      width: 90.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        color: ColorManager.primaryColor
-                      ),child: Text("Create".tr(),style: TextStyle(
-                        color: ColorManager.backgroundColor,
-                        fontSize: FontSize.s20,
-                        fontWeight: FontWeight.bold
-                      ),),),
-                  )
-                ],
+    return BlocConsumer<RoomBloc,RoomState>(
+      bloc: widget.bloc,
+      listener: (context, state) {
+        if(state.createRoomModel.message!.isNotEmpty)
+          {
+            AwesomeDialog(
+              context: context,
+              dialogType:state.createRoomModel.status!?
+                DialogType.SUCCES:  DialogType.ERROR,
+              animType: AnimType.BOTTOMSLIDE,
+              title:tr(state.createRoomModel.message!) ,
+              titleTextStyle: TextStyle(
+                fontSize: 16.sp,
               ),
-          )
-        ],
-      ),
-    ),
-            )));
+              btnCancelText: tr('ok'),
+              btnCancelColor:ColorManager.primaryColor ,
+              btnCancelOnPress: () {
+                if(state.createRoomModel.status!)
+                  {
+                    Navigator.pop(context);
+                  }
+              },
+            ).show();
+          }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: state.isLoading!,
+          child: SafeArea(
+              child: Scaffold(
+                  body: SingleChildScrollView(
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.symmetric(vertical: 20.h),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Create Conversation Room".tr(),
+                            style: TextStyle(
+                                fontSize: 22.sp,
+                                color: ColorManager.primaryColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: 100.h,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(90),
+                                            bottomLeft: Radius.circular(90)),
+                                        border: Border.all(
+                                            color: ColorManager.primaryColor, width: 1)),
+                                    height: 150.h,
+                                    width: 80.w,
+                                  )
+                                ],
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(Radius.circular(75)),
+                                        border: Border.all(
+                                            color: ColorManager.primaryColor, width: 1)),
+                                    height: 150.h,
+                                    width: 150.w,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20.h),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 20.w,
+                                    ),
+                                    Text(
+                                      "Room Name".tr(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
+                                        color: ColorManager.primaryColor,
+                                      ),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 50.h,
+                                  child: TextField(
+                                    controller: controller,
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: Theme.of(context).primaryColorDark
+                                    ),
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                        const BorderSide(color: ColorManager.primaryColor),
+                                        borderRadius: BorderRadius.circular(45),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide:
+                                        const BorderSide(color: ColorManager.primaryColor),
+                                        borderRadius: BorderRadius.circular(45),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                SizedBox(height: 200.h,),
+                                InkWell(
+                                  onTap: (){
+                                    if(controller.text.isNotEmpty) {
+                                      widget.bloc.onCreateRoomEvent
+                                        (controller.text);
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    height: 100.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                        color: ColorManager.backgroundColor,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            color: ColorManager.primaryColor
+                                        )
+                                    ),
+                                    child: Container(alignment: Alignment.center,height: 90.h,
+                                      width: 90.w,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorManager.primaryColor
+                                      ),child: Text("Create".tr(),style: TextStyle(
+                                          color: ColorManager.backgroundColor,
+                                          fontSize: FontSize.s20,
+                                          fontWeight: FontWeight.bold
+                                      ),),),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ))),
+        );
+      },
+
+    );
   }
 }

@@ -17,6 +17,8 @@ class Endpoints {
   static const getAllFriend = 'get-all-friend';
   static const forgetPassword = 'auth/forgetPassword';
   static const changePassword = 'auth/change_password';
+  static const createRoom = 'room/create-room';
+  static const getUserAllRoom = 'room/get-user-all-room';
 
 
 

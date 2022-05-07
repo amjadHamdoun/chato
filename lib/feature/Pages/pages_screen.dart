@@ -11,6 +11,7 @@ import 'HomePage/bloc/home_state.dart';
 import 'HomePage/home_page.dart';
 import 'ProfilePage/bloc/prof_bloc.dart';
 import 'ProfilePage/profile_page.dart';
+import 'RoomPage/bloc/room_bloc.dart';
 import 'RoomPage/room_page.dart';
 import 'StorePage/store_page.dart';
 
@@ -25,6 +26,7 @@ class PagesScreen extends StatefulWidget {
 class _PagesScreenState extends State<PagesScreen> {
    HomeBloc bloc=sl<HomeBloc>();
    ProfBloc profBloc=sl<ProfBloc>();
+   RoomBloc roomBloc=sl<RoomBloc>();
    PageController pageController=PageController(initialPage: 0);
 
   @override
@@ -52,7 +54,7 @@ class _PagesScreenState extends State<PagesScreen> {
                     children:  [
                       HomeScreen(bloc: bloc),
                       ChatScreen(),
-                      RoomScreen(),
+                      RoomScreen(bloc:roomBloc ),
                       StoreScreen(),
                       ProfileScreen(
                         bloc: profBloc,

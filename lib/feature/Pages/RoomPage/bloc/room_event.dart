@@ -15,3 +15,8 @@ class ChangeFilterEvent extends RoomEvent{
    ChangeFilterEvent(this.selectFilter);
 }
 
+// ignore: must_be_immutable
+class CreateRoomEvent extends RoomEvent{
+  String roomName;
+  CreateRoomEvent({required this.roomName});
+}

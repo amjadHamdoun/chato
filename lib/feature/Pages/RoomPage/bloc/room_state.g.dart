@@ -13,14 +13,26 @@ class _$RoomState extends RoomState {
   final bool? isLoading;
   @override
   final int selectedFilter;
+  @override
+  final String error;
+  @override
+  final CreateRoomModel createRoomModel;
 
   factory _$RoomState([void Function(RoomStateBuilder)? updates]) =>
       (new RoomStateBuilder()..update(updates)).build();
 
-  _$RoomState._({this.isSuccess, this.isLoading, required this.selectedFilter})
+  _$RoomState._(
+      {this.isSuccess,
+      this.isLoading,
+      required this.selectedFilter,
+      required this.error,
+      required this.createRoomModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         selectedFilter, 'RoomState', 'selectedFilter');
+    BuiltValueNullFieldError.checkNotNull(error, 'RoomState', 'error');
+    BuiltValueNullFieldError.checkNotNull(
+        createRoomModel, 'RoomState', 'createRoomModel');
   }
 
   @override
@@ -36,13 +48,19 @@ class _$RoomState extends RoomState {
     return other is RoomState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
-        selectedFilter == other.selectedFilter;
+        selectedFilter == other.selectedFilter &&
+        error == other.error &&
+        createRoomModel == other.createRoomModel;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-        selectedFilter.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                selectedFilter.hashCode),
+            error.hashCode),
+        createRoomModel.hashCode));
   }
 
   @override
@@ -50,7 +68,9 @@ class _$RoomState extends RoomState {
     return (newBuiltValueToStringHelper('RoomState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
-          ..add('selectedFilter', selectedFilter))
+          ..add('selectedFilter', selectedFilter)
+          ..add('error', error)
+          ..add('createRoomModel', createRoomModel))
         .toString();
   }
 }
@@ -71,6 +91,15 @@ class RoomStateBuilder implements Builder<RoomState, RoomStateBuilder> {
   set selectedFilter(int? selectedFilter) =>
       _$this._selectedFilter = selectedFilter;
 
+  String? _error;
+  String? get error => _$this._error;
+  set error(String? error) => _$this._error = error;
+
+  CreateRoomModel? _createRoomModel;
+  CreateRoomModel? get createRoomModel => _$this._createRoomModel;
+  set createRoomModel(CreateRoomModel? createRoomModel) =>
+      _$this._createRoomModel = createRoomModel;
+
   RoomStateBuilder();
 
   RoomStateBuilder get _$this {
@@ -79,6 +108,8 @@ class RoomStateBuilder implements Builder<RoomState, RoomStateBuilder> {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
       _selectedFilter = $v.selectedFilter;
+      _error = $v.error;
+      _createRoomModel = $v.createRoomModel;
       _$v = null;
     }
     return this;
@@ -102,7 +133,11 @@ class RoomStateBuilder implements Builder<RoomState, RoomStateBuilder> {
             isSuccess: isSuccess,
             isLoading: isLoading,
             selectedFilter: BuiltValueNullFieldError.checkNotNull(
-                selectedFilter, 'RoomState', 'selectedFilter'));
+                selectedFilter, 'RoomState', 'selectedFilter'),
+            error: BuiltValueNullFieldError.checkNotNull(
+                error, 'RoomState', 'error'),
+            createRoomModel: BuiltValueNullFieldError.checkNotNull(
+                createRoomModel, 'RoomState', 'createRoomModel'));
     replace(_$result);
     return _$result;
   }

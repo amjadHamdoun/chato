@@ -16,6 +16,8 @@ import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
+import 'feature/Pages/RoomPage/api/create_room_remote.dart';
+import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
 import 'feature/autho/forgot/api/change_password_remote.dart';
@@ -130,7 +132,11 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
-
+  sl.registerLazySingleton<CreateRoomRemoteDataSource>(
+        () => CreateRoomRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -158,10 +164,12 @@ Future<void> init() async {
       userRemoteDataSource: sl(),
       addFriendRemoteDataSource: sl()
   ));
-
   sl.registerLazySingleton(() => ForgetBloc(
       forgetPasswordRemoteDataSource: sl(),
     changePasswordRemoteDataSource: sl()
+  ));
+  sl.registerLazySingleton(() => RoomBloc(
+      createRoomRemoteDataSource: sl()
   ));
 
 }

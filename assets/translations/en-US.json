@@ -127,7 +127,9 @@
   "User Name": "User Name",
   "There are no matching results.": "There are no matching results.",
   "Invalid code entered": "Invalid code entered",
-  "Password must be more than 8 characters": "Password must be more than 8 characters"
+  "Password must be more than 8 characters": "Password must be more than 8 characters",
+  "that name is already taken": "that name is already taken",
+  "Success Created Room": "Success Created Room"
 
 
 

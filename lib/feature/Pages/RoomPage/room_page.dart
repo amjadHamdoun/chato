@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
 import 'package:chato/feature/Pages/RoomPage/widget/create_room.dart';
+import 'package:chato/feature/Pages/RoomPage/widget/global_room.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 
@@ -9,30 +10,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/styles_manager.dart';
-
 import '../../RoomConversation/room_conversation.dart';
 import 'bloc/room_bloc.dart';
 
 
 class RoomScreen extends StatefulWidget {
-  const RoomScreen({Key? key}) : super(key: key);
+  final RoomBloc bloc;
+  const RoomScreen({Key? key, required this.bloc}) : super(key: key);
 
   @override
   _RoomScreenState createState() => _RoomScreenState();
 }
 
 class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMixin{
-  RoomBloc bloc=RoomBloc();
-   List<String> filters=[tr('Global'),tr('Trend'),tr('Active'),tr('Fav')];
+
+   List<String> filters=[
+     tr('Global'),tr('Trend'),
+     tr('Active'),tr('Fav')];
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return BlocConsumer<RoomBloc,RoomState>(
-      bloc: bloc,
+      bloc:widget.bloc,
       builder: (context, state) {
         return Scaffold(
           body: SingleChildScrollView(
@@ -106,7 +108,7 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                                 padding:  EdgeInsets.symmetric(horizontal: 12.w),
                                 child: InkWell(
                                   onTap: (){
-                                    bloc.onChangeFilter(i);
+                                    widget.bloc.onChangeFilter(i);
                                   },
                                   child: Column(
                                     children: [
@@ -152,109 +154,13 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                       Expanded(
 
                         child:
-                        ListView.separated(
-
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: 13,
-                          itemBuilder: (context, index){
-
-                            return GestureDetector(
-                              onTap: (){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const RoomConversationScreen()),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 60.w,
-                                    height: 60.w,
-                                    child: CachedNetworkImage(
-                                      imageUrl: "http://via.placeholder.com/200x150",
-                                      imageBuilder: (context, imageProvider) => Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.fill,
-
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                                    ),
-                                  ),
-                                  SizedBox(width: 4.w,),
-                                  Expanded(
-                                    flex: 3,
-
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text('syria',
-                                                style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                    fontFamily: 'DIN',
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Theme.of(context).disabledColor
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: 4.w,),
-                                  Column(
-
-                                    children: [
-                                      if(index<5)
-                                      SvgPicture.asset('assets/icons/awesome-crown.svg'),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            decoration:  const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Color(0xffFCAF65)
-                                            ),
-                                            child: Padding(
-                                              padding:  EdgeInsets.all(14.0.w),
-                                              child: Text((index+1).toString(),
-                                                style: TextStyle(
-                                                    fontSize: 15.sp,
-                                                    fontFamily: 'DIN',
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorManager.backgroundColor
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: 16.w,),
-                                ],
-                              ),
-                            );
-
-                          },
-                          separatorBuilder:(context, i){
-                            return  SizedBox(
-                              height: 5.h,
-                            );
-
-                          },
+                        PageView(
+                          children: [
+                            SizedBox(),
+                            SizedBox(),
+                            GlobalRoomPage(bloc: widget.bloc,),
+                            SizedBox(),
+                          ],
                         ),),
                       SizedBox(
                         height: 90.h,
@@ -272,7 +178,8 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const CreateRoom()),
+                        MaterialPageRoute(builder: (context) =>
+                            CreateRoom(bloc: widget.bloc,)),
                       );
                     },
                     child: Container(
