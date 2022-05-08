@@ -20,3 +20,16 @@ class CreateRoomEvent extends RoomEvent{
   String roomName;
   CreateRoomEvent({required this.roomName});
 }
+
+// ignore: must_be_immutable
+class GetUserRoomEvent extends RoomEvent{
+}
+// ignore: must_be_immutable
+class GetFavRoomEvent extends RoomEvent{
+}
+// ignore: must_be_immutable
+class GetTrendRoomEvent extends RoomEvent{
+}
+// ignore: must_be_immutable
+class GetAllRoomEvent extends RoomEvent{
+}

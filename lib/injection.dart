@@ -17,6 +17,10 @@ import 'feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
 import 'feature/Pages/RoomPage/api/create_room_remote.dart';
+import 'feature/Pages/RoomPage/api/get_all_room_remote.dart';
+import 'feature/Pages/RoomPage/api/get_fav_room_remote.dart';
+import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
+import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
@@ -137,6 +141,28 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
+  sl.registerLazySingleton<GetUserRoomRemoteDataSource>(
+        () => GetUserRoomRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<GetFavRoomRemoteDataSource>(
+        () => GetFavRoomRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+
+
+  sl.registerLazySingleton<GetTrendRoomRemoteDataSource>(
+        () => GetTrendRoomRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<GetAllRoomRemoteDataSource>(
+        () => GetAllRoomRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -169,7 +195,11 @@ Future<void> init() async {
     changePasswordRemoteDataSource: sl()
   ));
   sl.registerLazySingleton(() => RoomBloc(
-      createRoomRemoteDataSource: sl()
+      createRoomRemoteDataSource: sl(),
+      getUserRoomRemoteDataSource: sl(),
+      getFavRoomRemoteDataSource: sl(),
+    getTrendRoomRemoteDataSource: sl(),
+    getAllRoomRemoteDataSource: sl()
   ));
 
 }

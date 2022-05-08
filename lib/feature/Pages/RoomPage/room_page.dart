@@ -1,18 +1,20 @@
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
+import 'package:chato/feature/Pages/RoomPage/widget/all_room.dart';
 import 'package:chato/feature/Pages/RoomPage/widget/create_room.dart';
+import 'package:chato/feature/Pages/RoomPage/widget/fav_room.dart';
 import 'package:chato/feature/Pages/RoomPage/widget/global_room.dart';
+import 'package:chato/feature/Pages/RoomPage/widget/trend_room.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 import '../../../core/utils/color_manager.dart';
 import '../../../core/utils/styles_manager.dart';
-import '../../RoomConversation/room_conversation.dart';
+
 import 'bloc/room_bloc.dart';
 
 
@@ -29,6 +31,7 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
    List<String> filters=[
      tr('Global'),tr('Trend'),
      tr('Active'),tr('Fav')];
+   PageController pageController=PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +67,9 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                               Row(
                                 children: [
 
-                                  SizedBox(width: 6.w,),
-                                  Expanded(child:
-                                  Text('Rooms Chat',
+                                   SizedBox(width: 6.w,),
+                                   Expanded(child:
+                                    Text('Rooms Chat',
                                     style: getMediumStyle(
                                         color: ColorManager.primaryColor,
                                         fontSize: 19.sp
@@ -74,10 +77,6 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
 
                                     ),
                                   ).tr(),),
-
-
-
-
                                 ],
                               ),
 
@@ -109,6 +108,7 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                                 child: InkWell(
                                   onTap: (){
                                     widget.bloc.onChangeFilter(i);
+                                    pageController.jumpToPage(i);
                                   },
                                   child: Column(
                                     children: [
@@ -155,11 +155,19 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
 
                         child:
                         PageView(
+                          controller: pageController,
+                          physics: const NeverScrollableScrollPhysics(),
                           children: [
-                            SizedBox(),
-                            SizedBox(),
+                            AllRoomPage(
+                              bloc: widget.bloc,
+                            ),
+                            TrendRoomPage(
+                              bloc: widget.bloc,
+                            ),
                             GlobalRoomPage(bloc: widget.bloc,),
-                            SizedBox(),
+                            FavRoomPage(
+                              bloc: widget.bloc,
+                            ),
                           ],
                         ),),
                       SizedBox(
@@ -221,6 +229,6 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
   }
 
   @override
-  // TODO: implement wantKeepAlive
+
   bool get wantKeepAlive => true;
 }

@@ -9,23 +9,25 @@ import '../../../RoomConversation/room_conversation.dart';
 import '../bloc/room_bloc.dart';
 import '../bloc/room_state.dart';
 
-class GlobalRoomPage extends StatefulWidget {
+class AllRoomPage extends StatefulWidget {
   final RoomBloc bloc;
-  const GlobalRoomPage({Key? key, required this.bloc}) : super(key: key);
+  const AllRoomPage({Key? key, required this.bloc}) :
+        super(key: key);
 
   @override
-  _GlobalRoomPageState createState() => _GlobalRoomPageState();
+  _AllRoomPageState createState() => _AllRoomPageState();
 }
 
-class _GlobalRoomPageState extends State<GlobalRoomPage>
+class _AllRoomPageState extends State<AllRoomPage>
     with AutomaticKeepAliveClientMixin{
 
 
   @override
   void initState() {
-    widget.bloc.onGetUserRoomEvent();
+    widget.bloc.onGetAllRoomEvent();
     super.initState();
   }
+
 
 
   @override
@@ -34,17 +36,15 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
     return BlocConsumer<RoomBloc,RoomState>(
       bloc:widget.bloc,
       builder: (context, state) {
-        return state.isLoadingGetUserRoom!?
+        return state.isLoadingGetAllRoom!?
             const Center(
               child: CircularProgressIndicator(),
             ):
-            state.userRoomModel.data.isNotEmpty?
+            state.allRoomModel.data.isNotEmpty?
         ListView.separated(
-
           physics: const BouncingScrollPhysics(),
-          itemCount: state.userRoomModel.data.length,
+          itemCount: state.allRoomModel.data.length,
           itemBuilder: (context, index){
-
             return GestureDetector(
               onTap: (){
                 Navigator.push(
@@ -83,7 +83,7 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
                         Row(
                           children: [
                             Expanded(
-                              child: Text(state.userRoomModel.data[index].name!,
+                              child: Text(state.allRoomModel.data[index].name!,
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     fontFamily: 'DIN',
@@ -105,7 +105,8 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
 
                     children: [
                       if(index<5)
-                        SvgPicture.asset('assets/icons/awesome-crown.svg'),
+                        SvgPicture.
+                        asset('assets/icons/awesome-crown.svg'),
                       Row(
                         children: [
                           Container(
@@ -145,7 +146,7 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
           },
         ):
              Center(
-              child: Text('No active chats'.tr(),
+              child: Text('No Fav chats'.tr(),
                style: TextStyle(
                  fontSize: 19.sp,
                  color: Theme.of(context).primaryColorDark

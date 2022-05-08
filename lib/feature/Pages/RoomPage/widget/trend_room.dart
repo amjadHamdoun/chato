@@ -9,21 +9,22 @@ import '../../../RoomConversation/room_conversation.dart';
 import '../bloc/room_bloc.dart';
 import '../bloc/room_state.dart';
 
-class GlobalRoomPage extends StatefulWidget {
+class TrendRoomPage extends StatefulWidget {
   final RoomBloc bloc;
-  const GlobalRoomPage({Key? key, required this.bloc}) : super(key: key);
+  const TrendRoomPage({Key? key, required this.bloc}) :
+        super(key: key);
 
   @override
-  _GlobalRoomPageState createState() => _GlobalRoomPageState();
+  _TrendRoomPageState createState() => _TrendRoomPageState();
 }
 
-class _GlobalRoomPageState extends State<GlobalRoomPage>
+class _TrendRoomPageState extends State<TrendRoomPage>
     with AutomaticKeepAliveClientMixin{
 
 
   @override
   void initState() {
-    widget.bloc.onGetUserRoomEvent();
+    widget.bloc.onGetTrendRoomEvent();
     super.initState();
   }
 
@@ -34,15 +35,15 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
     return BlocConsumer<RoomBloc,RoomState>(
       bloc:widget.bloc,
       builder: (context, state) {
-        return state.isLoadingGetUserRoom!?
+        return state.isLoadingGetTrendRoom!?
             const Center(
               child: CircularProgressIndicator(),
             ):
-            state.userRoomModel.data.isNotEmpty?
+            state.trendRoomModel.data.isNotEmpty?
         ListView.separated(
 
           physics: const BouncingScrollPhysics(),
-          itemCount: state.userRoomModel.data.length,
+          itemCount: state.trendRoomModel.data.length,
           itemBuilder: (context, index){
 
             return GestureDetector(
@@ -83,7 +84,8 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
                         Row(
                           children: [
                             Expanded(
-                              child: Text(state.userRoomModel.data[index].name!,
+                              child: Text(state.trendRoomModel.
+                              data[index].room!.name!,
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     fontFamily: 'DIN',

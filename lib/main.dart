@@ -1,6 +1,4 @@
 import 'package:chato/Globals.dart';
-import 'package:chato/feature/Pages/RoomPage/widget/create_room.dart';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +17,8 @@ void main() async{
 
   runApp(
     EasyLocalization(
-        supportedLocales: const [Locale('en', 'US'), Locale('ar', 'AR')],
+        supportedLocales: const [Locale('en', 'US'),
+          Locale('ar', 'AR')],
         path: 'assets/translations', // <-- change the path of the translation files
         fallbackLocale: const Locale('ar', 'AR'),
         startLocale: const Locale('ar', 'AR'),

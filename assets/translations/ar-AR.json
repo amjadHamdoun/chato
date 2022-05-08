@@ -160,6 +160,8 @@
   "Enter New Password": "ادخل كلمة سر جديدة",
   "Password must be more than 8 characters": "كلمة السر يجب ان تكون اكثر من 8 محارف",
   "that name is already taken": "هذا الاسم مستخدم بالفعل",
-  "Success Created Room": "تم انشاء الغرفة بنجاح"
+  "Success Created Room": "تم انشاء الغرفة بنجاح",
+  "No active chats": "لا يوجد محادثات نشطة",
+  "No Fav chats": "لا يوجد محادثات مفضلة"
 
 }

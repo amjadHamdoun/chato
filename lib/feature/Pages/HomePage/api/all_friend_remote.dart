@@ -33,6 +33,12 @@ class AllFriendRemoteDataSourceImpl extends
           (
           Endpoints.getAllFriend,
           queryParameters: {},
+          options: Options(
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            },
+          ),
         );
         return Right(AllFriendModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {

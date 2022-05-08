@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/Globals.dart';
+import 'package:chato/Preference.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'package:chato/feature/Pages/HomePage/bloc/home_state.dart';
 import 'package:chato/feature/Pages/HomePage/widget/search_friends.dart';
+import 'package:chato/feature/autho/login/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +53,13 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                 textColor: Colors.white,
                 fontSize: 16.0
             );
+          }
+        if(state.allFriendModel.message!.contains('Unauthenticated.'))
+          {
+            Global.userToken='';
+            Preferences.saveUserToken('');
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const LoginScreen(),));
           }
       },
       builder: (context, state) {

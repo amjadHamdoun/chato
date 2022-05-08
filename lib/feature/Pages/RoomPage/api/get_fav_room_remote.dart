@@ -4,40 +4,40 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/create_room_model.dart';
-import '../model/userRooms/user_room_model.dart';
+import '../model/favModel/fav_room_model.dart';
 
 
 
 
-abstract class GetUserRoomRemoteDataSource {
-  Future<Either<String, UserRoomModel>> getUserRoom();
+
+abstract class GetFavRoomRemoteDataSource {
+  Future<Either<String, FavRoomModel>> getFavRoom();
 }
 
-class GetUserRoomRemoteDataSourceImpl extends GetUserRoomRemoteDataSource {
+class GetFavRoomRemoteDataSourceImpl extends GetFavRoomRemoteDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  GetUserRoomRemoteDataSourceImpl
+  GetFavRoomRemoteDataSourceImpl
       ({
         required this.dio,
         required this.networkInfo
       });
 
   @override
-  Future<Either<String, UserRoomModel>> getUserRoom() async {
+  Future<Either<String, FavRoomModel>> getFavRoom() async {
       if (await networkInfo.hasConnection) {
        try {
         dio.options.headers["Authorization"] =
         "Bearer ${Global.userToken}";
         final re = await dio.get
           (
-          Endpoints.getUserAllRoom,
+          Endpoints.getFavRoom,
 
         );
         if(re.statusCode!>=200&&re.statusCode!<300)
           {
-            return Right(UserRoomModel.fromJson
+            return Right(FavRoomModel.fromJson
               (json.decode(re.data)));
           }
         else{

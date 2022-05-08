@@ -19,7 +19,11 @@ class Endpoints {
   static const changePassword = 'auth/change_password';
   static const createRoom = 'room/create-room';
   static const getUserAllRoom = 'room/get-user-all-room';
-
+  static const getFavRoom = 'room/get-favorite-room';
+  static const getTrendRoom = 'room/get-all-trend';
+  static const getAllRoom = 'room/get-all-room';
+  static const getAllUserVipRoom= 'room/all-user-vip-room';
+  static const addRoomTrend = 'room/add-room-trend';
 
 
 }
