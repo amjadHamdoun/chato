@@ -21,13 +21,11 @@ class TrendRoomPage extends StatefulWidget {
 class _TrendRoomPageState extends State<TrendRoomPage>
     with AutomaticKeepAliveClientMixin{
 
-
   @override
   void initState() {
     widget.bloc.onGetTrendRoomEvent();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +48,10 @@ class _TrendRoomPageState extends State<TrendRoomPage>
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const
-                  RoomConversationScreen()),
+                  MaterialPageRoute(builder: (context) =>
+                  RoomConversationScreen(
+                    roomId: state.trendRoomModel.data[index].id!,
+                  )),
                 );
               },
               child: Row(

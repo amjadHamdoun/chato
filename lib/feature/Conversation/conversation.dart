@@ -11,12 +11,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../Globals.dart';
-
 import '../../injection.dart';
 import 'bloc/conversation_bloc.dart';
 import 'widget/show_menu_bottom_sheet.dart';
 
+
+
+
 class ConversationScreen extends StatefulWidget {
+
   const ConversationScreen({Key? key}) : super(key: key);
 
   @override
@@ -28,15 +31,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
    ScrollController scrollController=ScrollController();
    ScrollController singleScrollController=ScrollController();
    TextEditingController textEditingController= TextEditingController();
-
    ConversationBloc bloc=sl<ConversationBloc>();
 
 
    @override
   void initState() {
-  
-     Future.delayed(const Duration(seconds: 1)).then((value) {
-       scrollController.jumpTo(scrollController.position.maxScrollExtent);
+
+     Future.delayed(const Duration(seconds: 1)).
+      then((value) {
+       scrollController.jumpTo(
+           scrollController.position.maxScrollExtent);
      });
 
 
@@ -52,13 +56,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
       },
       builder: (context, state) {
         return  KeyboardVisibilityBuilder(
-
           builder: (context , bool isKeyboardVisible) {
             if(isKeyboardVisible)
               {
-
                     bloc.onShowEmojiEvent(false);
-
               }
             return SafeArea(
               child: WillPopScope(
@@ -76,9 +77,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     }
                     return false;
                   }
-
                   else{
-
                     return true;
                   }
 

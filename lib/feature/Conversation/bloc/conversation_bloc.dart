@@ -1,10 +1,5 @@
-import 'dart:async';
-import 'dart:io';
+
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-
-
-
 import 'conversation_event.dart';
 import 'conversation_state.dart';
 
@@ -35,6 +30,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   void onStartRecord(bool show) {
     add(StartRecordEvent(show));
   }
+  void onGetConversationMessage(int id) {
+    add(GetConversationMessage( id: id));
+  }
+
 
 
 }

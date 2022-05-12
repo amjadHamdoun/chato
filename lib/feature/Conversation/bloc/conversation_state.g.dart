@@ -15,6 +15,8 @@ class _$ConversationState extends ConversationState {
   final bool showEmoji;
   @override
   final bool isRecord;
+  @override
+  final ConversationOldMessageModel conversationOldMessageModel;
 
   factory _$ConversationState(
           [void Function(ConversationStateBuilder)? updates]) =>
@@ -24,12 +26,15 @@ class _$ConversationState extends ConversationState {
       {this.isSuccess,
       this.isLoading,
       required this.showEmoji,
-      required this.isRecord})
+      required this.isRecord,
+      required this.conversationOldMessageModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'ConversationState', 'showEmoji');
     BuiltValueNullFieldError.checkNotNull(
         isRecord, 'ConversationState', 'isRecord');
+    BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel,
+        'ConversationState', 'conversationOldMessageModel');
   }
 
   @override
@@ -47,15 +52,18 @@ class _$ConversationState extends ConversationState {
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
         showEmoji == other.showEmoji &&
-        isRecord == other.isRecord;
+        isRecord == other.isRecord &&
+        conversationOldMessageModel == other.conversationOldMessageModel;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-            showEmoji.hashCode),
-        isRecord.hashCode));
+        $jc(
+            $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                showEmoji.hashCode),
+            isRecord.hashCode),
+        conversationOldMessageModel.hashCode));
   }
 
   @override
@@ -64,7 +72,8 @@ class _$ConversationState extends ConversationState {
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
           ..add('showEmoji', showEmoji)
-          ..add('isRecord', isRecord))
+          ..add('isRecord', isRecord)
+          ..add('conversationOldMessageModel', conversationOldMessageModel))
         .toString();
   }
 }
@@ -89,6 +98,13 @@ class ConversationStateBuilder
   bool? get isRecord => _$this._isRecord;
   set isRecord(bool? isRecord) => _$this._isRecord = isRecord;
 
+  ConversationOldMessageModel? _conversationOldMessageModel;
+  ConversationOldMessageModel? get conversationOldMessageModel =>
+      _$this._conversationOldMessageModel;
+  set conversationOldMessageModel(
+          ConversationOldMessageModel? conversationOldMessageModel) =>
+      _$this._conversationOldMessageModel = conversationOldMessageModel;
+
   ConversationStateBuilder();
 
   ConversationStateBuilder get _$this {
@@ -98,6 +114,7 @@ class ConversationStateBuilder
       _isLoading = $v.isLoading;
       _showEmoji = $v.showEmoji;
       _isRecord = $v.isRecord;
+      _conversationOldMessageModel = $v.conversationOldMessageModel;
       _$v = null;
     }
     return this;
@@ -123,7 +140,11 @@ class ConversationStateBuilder
             showEmoji: BuiltValueNullFieldError.checkNotNull(
                 showEmoji, 'ConversationState', 'showEmoji'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
-                isRecord, 'ConversationState', 'isRecord'));
+                isRecord, 'ConversationState', 'isRecord'),
+            conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(
+                conversationOldMessageModel,
+                'ConversationState',
+                'conversationOldMessageModel'));
     replace(_$result);
     return _$result;
   }

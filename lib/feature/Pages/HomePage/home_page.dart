@@ -239,7 +239,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                   height: 57.w,
                                   child: CachedNetworkImage(
 
-                                    imageUrl:state.allFriendModel.data![index-1].img??
+                                    imageUrl:state.allFriendModel.
+                                    data![index-1].img??
                                         "http://via.placeholder.com/200x150",
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
@@ -298,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                     ListView.separated(
 
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 13,
+                      itemCount: state.allFriendModel.data!.length,
                       itemBuilder: (context, index){
 
                         return Padding(
@@ -313,7 +314,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                     width: 60.w,
                                     height: 60.w,
                                     child: CachedNetworkImage(
-                                      imageUrl: "http://via.placeholder.com/200x150",
+                                      imageUrl: state.allFriendModel.
+                                      data![index].img??
+                                          "http://via.placeholder.com/200x150",
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
@@ -371,7 +374,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: Text('سامر ',
+                                          child: Text(state.allFriendModel.data![index]
+                                              .name!,
                                             style: TextStyle(
                                                 fontSize: 15.sp,
                                                 fontFamily: 'Roboto',
@@ -387,7 +391,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: Text('انا بعيد ',
+                                          child: Text(state.allFriendModel.
+                                          data![index].status!,
                                             style: TextStyle(
                                                 fontSize: 14.sp,
                                                 fontFamily: 'DIN',

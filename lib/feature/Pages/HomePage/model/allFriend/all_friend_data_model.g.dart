@@ -11,6 +11,7 @@ AllFriendDataModel _$AllFriendDataModelFromJson(Map<String, dynamic> json) =>
       img: json['img'] as String?,
       id: json['id'] as int?,
       name: json['name'] as String?,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$AllFriendDataModelToJson(AllFriendDataModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$AllFriendDataModelToJson(AllFriendDataModel instance) =>
       'img': instance.img,
       'id': instance.id,
       'name': instance.name,
+      'status': instance.status,
     };

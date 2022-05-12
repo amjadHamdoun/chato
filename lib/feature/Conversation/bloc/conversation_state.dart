@@ -4,6 +4,8 @@
 
 import 'package:built_value/built_value.dart';
 
+import '../../RoomConversation/model/conversation_old_message_model.dart';
+
 
 
 part 'conversation_state.g.dart';
@@ -16,7 +18,8 @@ abstract class ConversationState implements Built<ConversationState, Conversatio
   bool? get isLoading;
   bool get showEmoji;
   bool get isRecord;
-
+  ConversationOldMessageModel get
+  conversationOldMessageModel;
 
 
   ConversationState._();
@@ -29,6 +32,12 @@ abstract class ConversationState implements Built<ConversationState, Conversatio
       ..isSuccess = false
         ..showEmoji=false
         ..isRecord=false
+        ..conversationOldMessageModel=
+            ConversationOldMessageModel(status: false,
+            message: '',
+              error_code: 0,
+              data: []
+            )
 
     );
   }

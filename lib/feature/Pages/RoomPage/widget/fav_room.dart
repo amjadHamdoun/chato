@@ -48,8 +48,10 @@ class _FavRoomPageState extends State<FavRoomPage>
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const
-                  RoomConversationScreen()),
+                  MaterialPageRoute(builder: (context) =>
+                  RoomConversationScreen(
+                    roomId:  state.favRoomModel.data[index].id!,
+                  )),
                 );
               },
               child: Row(

@@ -19,3 +19,9 @@ class StartRecordEvent extends ConversationEvent{
   bool isRecord;
   StartRecordEvent(this.isRecord);
 }
+// ignore: must_be_immutable
+class GetConversationMessage extends ConversationEvent
+{
+  int id;
+  GetConversationMessage({required this.id});
+}

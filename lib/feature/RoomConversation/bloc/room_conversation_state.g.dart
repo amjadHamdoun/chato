@@ -21,6 +21,10 @@ class _$RoomConversationState extends RoomConversationState {
   final int senGiftType;
   @override
   final String smile;
+  @override
+  final String error;
+  @override
+  final ConversationOldMessageModel conversationOldMessageModel;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -33,7 +37,9 @@ class _$RoomConversationState extends RoomConversationState {
       required this.isRecord,
       required this.smileOrSticker,
       required this.senGiftType,
-      required this.smile})
+      required this.smile,
+      required this.error,
+      required this.conversationOldMessageModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
@@ -45,6 +51,10 @@ class _$RoomConversationState extends RoomConversationState {
         senGiftType, 'RoomConversationState', 'senGiftType');
     BuiltValueNullFieldError.checkNotNull(
         smile, 'RoomConversationState', 'smile');
+    BuiltValueNullFieldError.checkNotNull(
+        error, 'RoomConversationState', 'error');
+    BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel,
+        'RoomConversationState', 'conversationOldMessageModel');
   }
 
   @override
@@ -66,7 +76,9 @@ class _$RoomConversationState extends RoomConversationState {
         isRecord == other.isRecord &&
         smileOrSticker == other.smileOrSticker &&
         senGiftType == other.senGiftType &&
-        smile == other.smile;
+        smile == other.smile &&
+        error == other.error &&
+        conversationOldMessageModel == other.conversationOldMessageModel;
   }
 
   @override
@@ -75,12 +87,18 @@ class _$RoomConversationState extends RoomConversationState {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                        showEmoji.hashCode),
-                    isRecord.hashCode),
-                smileOrSticker.hashCode),
-            senGiftType.hashCode),
-        smile.hashCode));
+                    $jc(
+                        $jc(
+                            $jc(
+                                $jc($jc(0, isSuccess.hashCode),
+                                    isLoading.hashCode),
+                                showEmoji.hashCode),
+                            isRecord.hashCode),
+                        smileOrSticker.hashCode),
+                    senGiftType.hashCode),
+                smile.hashCode),
+            error.hashCode),
+        conversationOldMessageModel.hashCode));
   }
 
   @override
@@ -92,7 +110,9 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('isRecord', isRecord)
           ..add('smileOrSticker', smileOrSticker)
           ..add('senGiftType', senGiftType)
-          ..add('smile', smile))
+          ..add('smile', smile)
+          ..add('error', error)
+          ..add('conversationOldMessageModel', conversationOldMessageModel))
         .toString();
   }
 }
@@ -130,6 +150,17 @@ class RoomConversationStateBuilder
   String? get smile => _$this._smile;
   set smile(String? smile) => _$this._smile = smile;
 
+  String? _error;
+  String? get error => _$this._error;
+  set error(String? error) => _$this._error = error;
+
+  ConversationOldMessageModel? _conversationOldMessageModel;
+  ConversationOldMessageModel? get conversationOldMessageModel =>
+      _$this._conversationOldMessageModel;
+  set conversationOldMessageModel(
+          ConversationOldMessageModel? conversationOldMessageModel) =>
+      _$this._conversationOldMessageModel = conversationOldMessageModel;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -142,6 +173,8 @@ class RoomConversationStateBuilder
       _smileOrSticker = $v.smileOrSticker;
       _senGiftType = $v.senGiftType;
       _smile = $v.smile;
+      _error = $v.error;
+      _conversationOldMessageModel = $v.conversationOldMessageModel;
       _$v = null;
     }
     return this;
@@ -173,7 +206,13 @@ class RoomConversationStateBuilder
             senGiftType: BuiltValueNullFieldError.checkNotNull(
                 senGiftType, 'RoomConversationState', 'senGiftType'),
             smile: BuiltValueNullFieldError.checkNotNull(
-                smile, 'RoomConversationState', 'smile'));
+                smile, 'RoomConversationState', 'smile'),
+            error: BuiltValueNullFieldError.checkNotNull(
+                error, 'RoomConversationState', 'error'),
+            conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(
+                conversationOldMessageModel,
+                'RoomConversationState',
+                'conversationOldMessageModel'));
     replace(_$result);
     return _$result;
   }

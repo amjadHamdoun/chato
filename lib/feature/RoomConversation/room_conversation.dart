@@ -4,7 +4,6 @@ import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dar
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
 import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_sticker.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -17,8 +16,11 @@ import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
 
 
-class RoomConversationScreen extends StatefulWidget {
-  const RoomConversationScreen({Key? key}) : super(key: key);
+ class RoomConversationScreen extends StatefulWidget {
+   final int roomId;
+  const RoomConversationScreen({
+     Key? key,
+     required this.roomId}) : super(key: key);
 
   @override
   _RoomConversationScreenState createState() => _RoomConversationScreenState();
@@ -32,11 +34,12 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
    @override
   void initState() {
-  
-     Future.delayed(const Duration(seconds: 1)).then((value) {
-       scrollController.jumpTo(scrollController.position.maxScrollExtent);
+     bloc.onGetConversationMessage(widget.roomId);
+     Future.delayed(const Duration(seconds: 1)).then
+       ((value) {
+       scrollController.jumpTo(scrollController
+           .position.maxScrollExtent);
      });
-
 
     super.initState();
   }
@@ -50,7 +53,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
        listener: (context, state) {
           if(state.smile.isNotEmpty)
             {
-               textEditingController
+                textEditingController
                  ..text += state.smile
                 ..selection = TextSelection.fromPosition(
                   TextPosition(offset: textEditingController.text.length));
@@ -82,9 +85,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                      }
                      return false;
                    }
-
                    else{
-
                      return true;
                    }
                  },
@@ -301,7 +302,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                  ),
                                  child: SizedBox(
                                    height: 99.h,
-
                                    child: ListView.builder(
                                      scrollDirection: Axis.horizontal,
                                      physics: const BouncingScrollPhysics(),
@@ -319,7 +319,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                  border: Border.all(
                                                      color: ColorManager.backgroundColor
                                                  )
-
                                                ),
                                                child: Icon(Icons.add,
                                                  size: 25.w,
@@ -399,12 +398,12 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                    ),
                                    child: ListView.separated(
                                      controller: scrollController,
-
                                      physics: const AlwaysScrollableScrollPhysics(
                                          parent: BouncingScrollPhysics()
                                      ),
-                                     itemCount: 5,
-
+                                     itemCount: state.
+                                     conversationOldMessageModel
+                                         .data!.length,
                                      shrinkWrap: true,
                                      itemBuilder: (context, index){
                                        if(index%2==0)

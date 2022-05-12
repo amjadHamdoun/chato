@@ -133,7 +133,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     async {
       emit(
           state.rebuild((b) => b
-        ..error=''
+          ..error=''
           ..isLoadingSearch=true
           ..isSuccessSearch=false
 

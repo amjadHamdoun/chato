@@ -13,7 +13,7 @@ class Endpoints {
   static const countFriend = 'count-friend';
   static const changeRequestsFriend = 'change-requests-friend';
   static const addFriend = 'add-friend';
-  static const updateUserInfo = 'auth/upd2ate/user/info';
+  static const updateUserInfo = 'auth/update/user/info';
   static const getAllFriend = 'get-all-friend';
   static const forgetPassword = 'auth/forgetPassword';
   static const changePassword = 'auth/change_password';
@@ -24,6 +24,7 @@ class Endpoints {
   static const getAllRoom = 'room/get-all-room';
   static const getAllUserVipRoom= 'room/all-user-vip-room';
   static const addRoomTrend = 'room/add-room-trend';
+  static const getConversationOldMessage = 'room/get-conversation-old-message';
 
 
 }

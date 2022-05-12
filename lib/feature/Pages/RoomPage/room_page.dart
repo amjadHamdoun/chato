@@ -159,14 +159,16 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                           physics: const NeverScrollableScrollPhysics(),
                           children: [
                             AllRoomPage(
-                              bloc: widget.bloc,
+                               bloc: widget.bloc,
                             ),
                             TrendRoomPage(
-                              bloc: widget.bloc,
+                               bloc: widget.bloc,
                             ),
-                            GlobalRoomPage(bloc: widget.bloc,),
+                            GlobalRoomPage(
+                               bloc: widget.bloc,
+                            ),
                             FavRoomPage(
-                              bloc: widget.bloc,
+                               bloc: widget.bloc,
                             ),
                           ],
                         ),),

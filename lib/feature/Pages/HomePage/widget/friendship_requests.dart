@@ -22,7 +22,6 @@ class _FriendshipRequestsState extends State<FriendshipRequests> {
     return BlocConsumer<HomeBloc,HomeState>(
       bloc: widget.bloc,
       listener: (context, state) {
-
       },
       builder: (context,state){
        return Scaffold(

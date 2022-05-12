@@ -36,3 +36,10 @@ class SwitchSmileStickerEvent extends RoomConversationEvent{
   bool smile;
   SwitchSmileStickerEvent({required this.smile});
 }
+
+// ignore: must_be_immutable
+class GetConversationMessage extends RoomConversationEvent
+{
+  int id;
+  GetConversationMessage({required this.id});
+}

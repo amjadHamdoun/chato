@@ -22,6 +22,7 @@ import 'feature/Pages/RoomPage/api/get_fav_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
+import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
 import 'feature/autho/forgot/api/change_password_remote.dart';
@@ -41,7 +42,7 @@ final sl = GetIt.instance;
 /// The [init] function is responsible for adding the instances to the graph
 ///
 Future<void> init() async {
-  //! External
+  //!External
 
   /// Adding the [Dio] instance to the graph to be later used by the local data sources
   sl.registerLazySingleton(
@@ -164,6 +165,13 @@ Future<void> init() async {
         networkInfo: sl()),
   );
 
+  sl.registerLazySingleton<ConversationOldMessageDataSource>(
+        () => ConversationOldMessageDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+
+
 
 
   // Bloc
@@ -171,14 +179,22 @@ Future<void> init() async {
     friendshipRequestsRemoteDataSource: sl(),
     changeRequestsFriendRemoteDataSource: sl(),
     searchFriendRemoteDataSource: sl(),
-      allFriendRemoteDataSource:  sl()
+    allFriendRemoteDataSource:  sl()
 
   ));
+
   sl.registerLazySingleton(() => ConversationBloc());
+
   sl.registerLazySingleton(() => StoreBloc());
-  sl.registerLazySingleton(() => RoomConversationBloc());
+
+  sl.registerLazySingleton(() => RoomConversationBloc(
+    conversationOldMessageDataSource: sl()
+  ));
+
   sl.registerLazySingleton(() => RegisterBloc(registerRemoteDataSource: sl()));
+
   sl.registerLazySingleton(() => LoginBloc(loginRemoteDataSource: sl()));
+
   sl.registerLazySingleton(() => ProfBloc(
       logoutRemoteDataSource: sl(),
       profileDetailsRemoteDataSource: sl(),
@@ -186,20 +202,23 @@ Future<void> init() async {
       updateUserInfoDataSource: sl()
 
   ));
+
   sl.registerLazySingleton(() => UserBloc(
       userRemoteDataSource: sl(),
       addFriendRemoteDataSource: sl()
   ));
+
   sl.registerLazySingleton(() => ForgetBloc(
       forgetPasswordRemoteDataSource: sl(),
     changePasswordRemoteDataSource: sl()
   ));
+
   sl.registerLazySingleton(() => RoomBloc(
       createRoomRemoteDataSource: sl(),
       getUserRoomRemoteDataSource: sl(),
       getFavRoomRemoteDataSource: sl(),
-    getTrendRoomRemoteDataSource: sl(),
-    getAllRoomRemoteDataSource: sl()
+      getTrendRoomRemoteDataSource: sl(),
+      getAllRoomRemoteDataSource: sl()
   ));
 
 }

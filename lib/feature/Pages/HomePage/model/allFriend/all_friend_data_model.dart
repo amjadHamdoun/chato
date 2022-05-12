@@ -8,6 +8,7 @@ class AllFriendDataModel {
   String? img;
   int? id;
   String? name;
+  String? status;
 
 
 
@@ -20,6 +21,7 @@ class AllFriendDataModel {
         required this.img,
         required this.id,
         required this.name,
+        required this.status,
 
       });
 }

@@ -9,6 +9,7 @@ import '../api/get_fav_room_remote.dart';
 import '../api/get_trend_room_remote.dart';
 import '../api/get_user_all_room_remote.dart';
 import '../model/allModel/all_room_model.dart';
+import '../model/favModel/fav_room_model.dart';
 import '../model/trendModel/trend_room_model.dart';
 import '../model/userRooms/user_room_model.dart';
 
@@ -49,10 +50,11 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
         ..isLoadingGetFavRoom = true
         ..errorGetFavRoom=''
         ..isSuccessGetFavRoom = false
-        ..userRoomModel=UserRoomModel(
+        ..favRoomModel=FavRoomModel(
               error_code: 0,
               message: '',
-              status: null, data: []
+              status: null,
+            data: []
           )
 
       ));
@@ -75,8 +77,8 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
         print('r');
         emit(state.rebuild((b) => b
           ..errorGetFavRoom=''
-          ..isSuccessGetFavRoom = false
-          ..isLoadingGetFavRoom = true
+          ..isSuccessGetFavRoom = true
+          ..isLoadingGetFavRoom = false
           ..favRoomModel=r
         ));
       });

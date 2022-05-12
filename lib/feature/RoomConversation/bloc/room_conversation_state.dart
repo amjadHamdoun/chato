@@ -1,5 +1,7 @@
 import 'package:built_value/built_value.dart';
 
+import '../model/conversation_old_message_model.dart';
+
 part 'room_conversation_state.g.dart';
 
 
@@ -13,8 +15,8 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   bool get smileOrSticker;
   int get senGiftType;
   String get smile;
-
-
+   String get error;
+  ConversationOldMessageModel get conversationOldMessageModel;
   RoomConversationState._();
 
   factory RoomConversationState([void Function(RoomConversationStateBuilder) updates]) = _$RoomConversationState;
@@ -28,6 +30,14 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         ..senGiftType=0
         ..smileOrSticker=true
         ..smile=''
+        ..error=''
+        ..conversationOldMessageModel=
+            ConversationOldMessageModel(
+              data: [],
+              status:false,
+              error_code: 0,
+              message: ''
+            )
 
     );
   }

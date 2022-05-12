@@ -49,8 +49,10 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const
-                  RoomConversationScreen()),
+                  MaterialPageRoute(builder: (context) =>
+                  RoomConversationScreen(
+                    roomId: state.userRoomModel.data[index].id!,
+                  )),
                 );
               },
               child: Row(
