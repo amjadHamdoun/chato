@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_data.g.dart';
+part 'blocked_user_data.g.dart';
 
 @JsonSerializable()
-class UserData {
+class BlockedUserData {
   final int? id;
   final String? name;
   final String? email;
@@ -12,12 +12,12 @@ class UserData {
   final String? gender;
   final String? token;
 
-  Map<String, dynamic> toJson() => _$UserDataToJson(this);
+  Map<String, dynamic> toJson() => _$BlockedUserDataToJson(this);
 
-  factory UserData.fromJson(Map<String, dynamic> json) =>
-      _$UserDataFromJson(json);
+  factory BlockedUserData.fromJson(Map<String, dynamic> json) =>
+      _$BlockedUserDataFromJson(json);
 
-  UserData( {
+  BlockedUserData( {
     required this.token,
     required this.name,
     required this.email,
@@ -25,6 +25,5 @@ class UserData {
     required this.img,
     required this.birth_date,
     required this.gender,
-
   });
 }

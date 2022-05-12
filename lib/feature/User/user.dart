@@ -611,8 +611,7 @@ class _UserScreenState extends State<UserScreen> {
                                 Text(
                                   state.addFriend == true
                                       ? "cancel order"
-                                      : "add"
-                                  ,
+                                      : "add",
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       color: ColorManager.backgroundColor

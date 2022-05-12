@@ -21,7 +21,6 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
   Widget build(BuildContext context) {
     int featuresNumber=7;
 
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorManager.darkBackgroundColor,

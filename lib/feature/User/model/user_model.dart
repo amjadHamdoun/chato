@@ -25,5 +25,6 @@ class UserModel {
         required this.error_code,
         required this.message,
         required this.status
+
       });
 }

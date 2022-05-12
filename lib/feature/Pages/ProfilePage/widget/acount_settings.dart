@@ -3,6 +3,7 @@ import 'package:chato/Globals.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/feature/Pages/ProfilePage/bloc/prof_state.dart';
+import 'package:chato/feature/Pages/ProfilePage/widget/show_blocked_user_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -467,6 +468,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         height: 10.h,
                       ),
                       InkWell(
+                        onTap: (){
+                          showBlockedUserBottomSheet(context);
+                        },
                         child: Row(
                           children: [
                             Container(

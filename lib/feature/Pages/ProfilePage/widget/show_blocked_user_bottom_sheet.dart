@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 
 
-Future<String?> showOwnersBottomSheet(BuildContext ctx) async {
+Future<String?> showBlockedUserBottomSheet(BuildContext ctx) async {
   showModalBottomSheet(
       elevation: 10,
       backgroundColor: Theme.of(ctx).scaffoldBackgroundColor,
@@ -34,7 +34,7 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx) async {
                 Row(
                   children: [
                     Expanded(
-                      child: Text('owners',
+                      child: Text('Blocked Users',
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w600,
