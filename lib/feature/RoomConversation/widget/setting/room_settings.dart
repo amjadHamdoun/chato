@@ -1,7 +1,9 @@
 import 'package:chato/Globals.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
+import 'package:chato/feature/RoomConversation/widget/setting/show_admin_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/show_owners_bottom_sheet.dart';
+import 'package:chato/feature/RoomConversation/widget/setting/show_user_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -243,83 +245,93 @@ class _RoomSettingsState extends State<RoomSettings> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/icons/supervisors.svg",
-                                height: 25.h,
-                                width: 25.w,
+                      InkWell(
+                        onTap: (){
+                          showAdminBottomSheet(context,widget.bloc);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/icons/supervisors.svg",
+                                  height: 25.h,
+                                  width: 25.w,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Text(
+                                  "supervisors".tr(),
+                                  style: getRegularStyle(
+                                      fontSize: 15.sp,
+                                      color: Theme.of(context).hintColor),
+                                ),
+                              ],
+                            ),
+
+                            Padding(
+                              padding:  EdgeInsets.symmetric(
+                                  horizontal: 20.w
                               ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              Text(
-                                "supervisors".tr(),
+                              child: Text(
+                                  state.allTypeAdmin.data!=null?
+                                state.allTypeAdmin.data!.length.toString():'0',
                                 style: getRegularStyle(
                                     fontSize: 15.sp,
                                     color: Theme.of(context).hintColor),
                               ),
-                            ],
-                          ),
-
-                          Padding(
-                            padding:  EdgeInsets.symmetric(
-                                horizontal: 20.w
                             ),
-                            child: Text(
-                                state.allTypeAdmin.data!=null?
-                              state.allTypeAdmin.data!.length.toString():'0',
-                              style: getRegularStyle(
-                                  fontSize: 15.sp,
-                                  color: Theme.of(context).hintColor),
-                            ),
-                          ),
 
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 15.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/icons/profile.svg",
-                                height: 25.h,
-                                width: 25.w,
-                                color: ColorManager.primaryColor,
+                      InkWell(
+                        onTap: (){
+                          showUserBottomSheet(context,widget.bloc);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/icons/profile.svg",
+                                  height: 25.h,
+                                  width: 25.w,
+                                  color: ColorManager.primaryColor,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Text(
+                                  "members".tr(),
+                                  style: getRegularStyle(
+                                      fontSize: 15.sp,
+                                      color: Theme.of(context).hintColor),
+                                ),
+                              ],
+                            ),
+
+                            Padding(
+                              padding:  EdgeInsets.symmetric(
+                                  horizontal: 20.w
                               ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              Text(
-                                "members".tr(),
+                              child: Text(
+                                  state.allTypeModel.data!=null?
+                                state.allTypeModel.data!.length.toString():'0',
                                 style: getRegularStyle(
                                     fontSize: 15.sp,
                                     color: Theme.of(context).hintColor),
                               ),
-                            ],
-                          ),
-
-                          Padding(
-                            padding:  EdgeInsets.symmetric(
-                                horizontal: 20.w
                             ),
-                            child: Text(
-                                state.allTypeModel.data!=null?
-                              state.allTypeModel.data!.length.toString():'0',
-                              style: getRegularStyle(
-                                  fontSize: 15.sp,
-                                  color: Theme.of(context).hintColor),
-                            ),
-                          ),
 
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 15.h,

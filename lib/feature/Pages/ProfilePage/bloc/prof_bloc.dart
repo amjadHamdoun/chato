@@ -54,8 +54,12 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
         emit(state.rebuild((b) => b
           ..isSuccessLogout = true
           ..isLoadingLogout = false));
+        emit(state.rebuild((b) => b
+          ..isSuccessLogout = false
+          ..isLoadingLogout = false));
       });
     });
+
     on<GetProfileDetailsEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..isSuccess = false
@@ -82,6 +86,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
           ..isSuccess = true
           ..isLoading = false
           ..profileModel = r));
+
       });
 
     });

@@ -24,6 +24,7 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
         ),
       ),
       builder: (ctx) => BlocBuilder<RoomConversationBloc,RoomConversationState>(
+        bloc: bloc,
         builder: (context, state) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -56,7 +57,14 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
                 ),
                 SizedBox(height: 30.h,),
                 Expanded(
-                  child: ListView.separated(
+                  child:state.allTypeModel.data==null?
+                  Center(
+                    child: Text('No Users',
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                      ),
+                    ).tr(),
+                  ): ListView.separated(
 
                       itemBuilder: (context, index) {
                         return  Padding(

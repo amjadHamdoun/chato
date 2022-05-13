@@ -26,6 +26,7 @@ import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
+import 'feature/RoomConversation/api/send_message_remote.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
 import 'feature/autho/forgot/api/change_password_remote.dart';
@@ -188,6 +189,11 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
+  sl.registerLazySingleton<SendMessageDataSource>(
+        () => SendMessageDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -207,7 +213,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => RoomConversationBloc(
     conversationOldMessageDataSource: sl(),
-     allTypeDataSource:sl()
+     allTypeDataSource:sl(), sendMessageDataSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(registerRemoteDataSource: sl()));

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
+import '../api/send_message_remote.dart';
 import 'room_conversation_event.dart';
 import 'room_conversation_state.dart';
 
@@ -9,9 +10,11 @@ class RoomConversationBloc
         RoomConversationState> {
   ConversationOldMessageDataSource conversationOldMessageDataSource;
   AllTypeDataSource allTypeDataSource;
+  SendMessageDataSource sendMessageDataSource;
   RoomConversationBloc({
     required this.conversationOldMessageDataSource,
-    required this.allTypeDataSource
+    required this.allTypeDataSource,
+    required this.sendMessageDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -114,7 +117,7 @@ class RoomConversationBloc
                ..allTypeModel=r
              ));
            }
-         else  if(event.type=='owner'){
+         else if(event.type=='owner'){
            emit(state.rebuild((b) => b
              ..error=''
              ..isLoadingAllType=false
@@ -134,7 +137,39 @@ class RoomConversationBloc
       });
     });
 
+    on<SendMessageEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+          ));
+      final result=await
+      sendMessageDataSource.
+      sendMessage(
+          message: event.message,
+          roomId: event.roomId
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
 
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+          emit(state.rebuild((b) => b
+            ..error=''
+
+            ..sendMessageModel=r
+          ));
+
+
+      });
+    });
 
 
 
@@ -172,6 +207,9 @@ class RoomConversationBloc
   }
   void onGetAllTypeEvent(String type,int roomId) {
     add(GetAllTypeEvent(type: type,roomId: roomId));
+  }
+  void onSendMessageEvent(String message,int roomId) {
+    add(SendMessageEvent(message: message,roomId: roomId));
   }
 
 }

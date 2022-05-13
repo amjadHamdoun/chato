@@ -58,7 +58,16 @@ Future<String?> showAdminBottomSheet(BuildContext ctx,
                 ),
                 SizedBox(height: 30.h,),
                 Expanded(
-                  child: ListView.separated(
+                  child:
+                   state.allTypeAdmin.data==null?
+                    Center(
+                      child: Text('No Admins',
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                      ),
+                      ).tr(),
+                    ):
+                  ListView.separated(
 
                       itemBuilder: (context, index) {
                         return  Padding(

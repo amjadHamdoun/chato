@@ -2,6 +2,7 @@ import 'package:built_value/built_value.dart';
 
 import '../../Conversation/model/conversation_old_message_model.dart';
 import '../model/allType/all_type_model.dart';
+import '../model/sendMessage/send_message_model.dart';
 
 
 
@@ -25,7 +26,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   AllTypeModel get allTypeModel;
   AllTypeModel get allTypeOwner;
   AllTypeModel get allTypeAdmin;
-
+  SendMessageModel get sendMessageModel;
 
   RoomConversationState._();
 
@@ -43,6 +44,10 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         ..smileOrSticker=true
         ..smile=''
         ..error=''
+      ..sendMessageModel=SendMessageModel(message: '',
+          status: null,
+        error_code: 0
+      )
         ..conversationOldMessageModel= ConversationOldMessageModel(
               data: [],
               status:false,

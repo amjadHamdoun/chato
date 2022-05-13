@@ -29,6 +29,15 @@ class _PagesScreenState extends State<PagesScreen> {
    RoomBloc roomBloc=sl<RoomBloc>();
    PageController pageController=PageController(initialPage: 0);
 
+
+   @override
+  void initState() {
+     bloc.onChangePageEvent(0);
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return  BlocConsumer(
