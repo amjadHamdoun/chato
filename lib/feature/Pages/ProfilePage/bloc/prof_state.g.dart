@@ -23,6 +23,8 @@ class _$ProfState extends ProfState {
   final ProfileModel? profileModel;
   @override
   final CountFriendModel? countFriendModel;
+  @override
+  final BlockedUserModel? blockedUserModel;
 
   factory _$ProfState([void Function(ProfStateBuilder)? updates]) =>
       (new ProfStateBuilder()..update(updates)).build();
@@ -35,7 +37,8 @@ class _$ProfState extends ProfState {
       this.error,
       this.img,
       this.profileModel,
-      this.countFriendModel})
+      this.countFriendModel,
+      this.blockedUserModel})
       : super._();
 
   @override
@@ -56,7 +59,8 @@ class _$ProfState extends ProfState {
         error == other.error &&
         img == other.img &&
         profileModel == other.profileModel &&
-        countFriendModel == other.countFriendModel;
+        countFriendModel == other.countFriendModel &&
+        blockedUserModel == other.blockedUserModel;
   }
 
   @override
@@ -66,13 +70,17 @@ class _$ProfState extends ProfState {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                            isSuccessLogout.hashCode),
-                        isLoadingLogout.hashCode),
-                    error.hashCode),
-                img.hashCode),
-            profileModel.hashCode),
-        countFriendModel.hashCode));
+                        $jc(
+                            $jc(
+                                $jc($jc(0, isSuccess.hashCode),
+                                    isLoading.hashCode),
+                                isSuccessLogout.hashCode),
+                            isLoadingLogout.hashCode),
+                        error.hashCode),
+                    img.hashCode),
+                profileModel.hashCode),
+            countFriendModel.hashCode),
+        blockedUserModel.hashCode));
   }
 
   @override
@@ -85,7 +93,8 @@ class _$ProfState extends ProfState {
           ..add('error', error)
           ..add('img', img)
           ..add('profileModel', profileModel)
-          ..add('countFriendModel', countFriendModel))
+          ..add('countFriendModel', countFriendModel)
+          ..add('blockedUserModel', blockedUserModel))
         .toString();
   }
 }
@@ -129,6 +138,11 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   set countFriendModel(CountFriendModel? countFriendModel) =>
       _$this._countFriendModel = countFriendModel;
 
+  BlockedUserModel? _blockedUserModel;
+  BlockedUserModel? get blockedUserModel => _$this._blockedUserModel;
+  set blockedUserModel(BlockedUserModel? blockedUserModel) =>
+      _$this._blockedUserModel = blockedUserModel;
+
   ProfStateBuilder();
 
   ProfStateBuilder get _$this {
@@ -142,6 +156,7 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _img = $v.img;
       _profileModel = $v.profileModel;
       _countFriendModel = $v.countFriendModel;
+      _blockedUserModel = $v.blockedUserModel;
       _$v = null;
     }
     return this;
@@ -169,7 +184,8 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             error: error,
             img: img,
             profileModel: profileModel,
-            countFriendModel: countFriendModel);
+            countFriendModel: countFriendModel,
+            blockedUserModel: blockedUserModel);
     replace(_$result);
     return _$result;
   }

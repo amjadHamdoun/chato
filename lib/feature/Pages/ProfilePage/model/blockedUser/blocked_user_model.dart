@@ -11,7 +11,7 @@ class BlockedUserModel {
   bool? status;
   int? error_code;
   String? message;
-  final BlockedUserData? data;
+  final List<BlockedUserData>? data;
 
 
 

@@ -14,6 +14,8 @@ import 'feature/Pages/HomePage/api/change-requests-friend_remote.dart';
 import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
 import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
+import 'feature/Pages/ProfilePage/api/blocked_user_remote.dart';
+import 'feature/Pages/ProfilePage/api/unblocked_user_remote.dart';
 import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
 import 'feature/Pages/RoomPage/api/create_room_remote.dart';
@@ -22,6 +24,7 @@ import 'feature/Pages/RoomPage/api/get_fav_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
+import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
@@ -170,6 +173,21 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
+  sl.registerLazySingleton<BlockedUserRemoteDataSource>(
+        () => BlockedUserRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<UnBlockedUserRemoteDataSource>(
+        () => UnBlockedUserRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<AllTypeDataSource>(
+        () => AllTypeDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
 
 
 
@@ -188,7 +206,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => StoreBloc());
 
   sl.registerLazySingleton(() => RoomConversationBloc(
-    conversationOldMessageDataSource: sl()
+    conversationOldMessageDataSource: sl(),
+     allTypeDataSource:sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(registerRemoteDataSource: sl()));
@@ -199,7 +218,9 @@ Future<void> init() async {
       logoutRemoteDataSource: sl(),
       profileDetailsRemoteDataSource: sl(),
       countFriendDetailsRemoteDataSource: sl(),
-      updateUserInfoDataSource: sl()
+      updateUserInfoDataSource: sl(),
+      blockedUserRemoteDataSource: sl(),
+    unBlockedUserRemoteDataSource: sl()
 
   ));
 

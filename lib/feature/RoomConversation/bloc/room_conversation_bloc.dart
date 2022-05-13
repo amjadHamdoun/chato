@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
 import 'room_conversation_event.dart';
 import 'room_conversation_state.dart';
@@ -6,10 +7,11 @@ import 'room_conversation_state.dart';
 class RoomConversationBloc
     extends Bloc<RoomConversationEvent,
         RoomConversationState> {
-  ConversationOldMessageDataSource
-   conversationOldMessageDataSource;
+  ConversationOldMessageDataSource conversationOldMessageDataSource;
+  AllTypeDataSource allTypeDataSource;
   RoomConversationBloc({
-    required this.conversationOldMessageDataSource
+    required this.conversationOldMessageDataSource,
+    required this.allTypeDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -77,7 +79,60 @@ class RoomConversationBloc
       });
 
 
+    on<GetAllTypeEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+              ..isLoadingAllType=true
+            ..isSuccessAllType=false
+          ));
+      final result=await
+      allTypeDataSource.
+      getAllType(
+          type: event.type,
+        roomId: event.roomId
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoadingAllType=false
+          ..isSuccessAllType=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
 
+          ..error = ''));
+      }, (r) async {
+        print('r');
+         if(event.type=='user')
+           {
+             emit(state.rebuild((b) => b
+               ..error=''
+               ..isLoadingAllType=false
+               ..isSuccessAllType=true
+               ..allTypeModel=r
+             ));
+           }
+         else  if(event.type=='owner'){
+           emit(state.rebuild((b) => b
+             ..error=''
+             ..isLoadingAllType=false
+             ..isSuccessAllType=true
+             ..allTypeOwner=r
+           ));
+         }
+         else  {
+           emit(state.rebuild((b) => b
+             ..error=''
+             ..isLoadingAllType=false
+             ..isSuccessAllType=true
+             ..allTypeAdmin=r
+           ));
+         }
+
+      });
+    });
 
 
 
@@ -115,6 +170,8 @@ class RoomConversationBloc
   void onGetConversationMessage(int id) {
     add(GetConversationMessage(id: id));
   }
-
+  void onGetAllTypeEvent(String type,int roomId) {
+    add(GetAllTypeEvent(type: type,roomId: roomId));
+  }
 
 }

@@ -163,6 +163,8 @@
   "Success Created Room": "تم انشاء الغرفة بنجاح",
   "No active chats": "لا يوجد محادثات نشطة",
   "No Fav chats": "لا يوجد محادثات مفضلة",
-  "Blocked Users": "الحسابات المحظورة"
+  "Blocked Users": "الحسابات المحظورة",
+  "No Blocked User": "لا يوجد حسابات محظورة",
+  "Admins": "مشرفين"
 
 }

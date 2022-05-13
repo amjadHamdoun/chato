@@ -26,6 +26,18 @@ class GetCountFriendEvent extends ProfEvent{
 }
 
 
+class GetBlockedUserEvent extends ProfEvent{
+
+}
+
+class UnBlockedUserEvent extends ProfEvent{
+
+  int blockedId;
+  UnBlockedUserEvent({
+    required this.blockedId
+  });
+}
+
 class ChangeImageEvent extends ProfEvent{
  File image;
  ChangeImageEvent({

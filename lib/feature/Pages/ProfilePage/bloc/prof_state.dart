@@ -4,6 +4,7 @@ import 'package:built_value/built_value.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
 
+import '../model/blockedUser/blocked_user_model.dart';
 import '../model/profile/profile_model.dart';
 
 
@@ -26,6 +27,8 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
 
   CountFriendModel? get countFriendModel;
 
+  BlockedUserModel? get blockedUserModel;
+
   ProfState._();
 
   factory ProfState([void Function(ProfStateBuilder) updates]) = _$ProfState;
@@ -38,6 +41,12 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..isSuccessLogout = false
       ..error = ""
       ..img=null
+      ..blockedUserModel=BlockedUserModel(
+        data: [],
+        error_code: 0,
+        message: '',
+        status:false
+      )
       ..profileModel = ProfileModel(
         data: ProfileData(
             id: 0,
@@ -51,7 +60,10 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
         error_code: 0,
         status: false,
       )
-      ..countFriendModel =
-          CountFriendModel(data: 0, error_code: 0, message: '', status: false));
+      ..countFriendModel = CountFriendModel(
+              data: 0, error_code: 0,
+              message: '', status: false)
+
+    );
   }
 }

@@ -26,8 +26,8 @@ class Endpoints {
   static const addRoomTrend = 'room/add-room-trend';
   static const getConversationOldMessage = 'room/get-conversation-old-message';
   static const getAllBlockUser = 'get-all-block-user';
-
-
+  static const unblockUser = 'unblock-user';
+  static const allTypeRoom = 'room/all-type-room';
 
 
 }

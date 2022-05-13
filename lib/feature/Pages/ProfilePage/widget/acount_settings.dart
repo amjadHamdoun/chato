@@ -469,7 +469,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       ),
                       InkWell(
                         onTap: (){
-                          showBlockedUserBottomSheet(context);
+                          showBlockedUserBottomSheet(
+                              ctx: context,
+                              bloc: widget.bloc);
                         },
                         child: Row(
                           children: [

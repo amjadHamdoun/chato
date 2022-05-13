@@ -1,6 +1,9 @@
 import 'package:built_value/built_value.dart';
 
-import '../model/conversation_old_message_model.dart';
+import '../../Conversation/model/conversation_old_message_model.dart';
+import '../model/allType/all_type_model.dart';
+
+
 
 part 'room_conversation_state.g.dart';
 
@@ -10,6 +13,8 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
 
   bool? get isSuccess;
   bool? get isLoading;
+  bool? get isSuccessAllType;
+  bool? get isLoadingAllType;
   bool get showEmoji;
   bool get isRecord;
   bool get smileOrSticker;
@@ -17,6 +22,11 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   String get smile;
    String get error;
   ConversationOldMessageModel get conversationOldMessageModel;
+  AllTypeModel get allTypeModel;
+  AllTypeModel get allTypeOwner;
+  AllTypeModel get allTypeAdmin;
+
+
   RoomConversationState._();
 
   factory RoomConversationState([void Function(RoomConversationStateBuilder) updates]) = _$RoomConversationState;
@@ -25,19 +35,26 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
     return RoomConversationState((b) => b
       ..isLoading = false
       ..isSuccess = false
+      ..isLoadingAllType = false
+      ..isSuccessAllType = false
         ..showEmoji=false
         ..isRecord=false
         ..senGiftType=0
         ..smileOrSticker=true
         ..smile=''
         ..error=''
-        ..conversationOldMessageModel=
-            ConversationOldMessageModel(
+        ..conversationOldMessageModel= ConversationOldMessageModel(
               data: [],
               status:false,
               error_code: 0,
               message: ''
             )
+        ..allTypeModel=AllTypeModel(data: [],
+            error_code: 0, message: '', status: false)
+        ..allTypeOwner=AllTypeModel(data: [],
+          error_code: 0, message: '', status: false)
+        ..allTypeAdmin=AllTypeModel(data: [],
+          error_code: 0, message: '', status: false)
 
     );
   }

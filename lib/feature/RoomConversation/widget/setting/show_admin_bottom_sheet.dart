@@ -10,8 +10,9 @@ import '../../bloc/room_conversation_state.dart';
 
 
 
-Future<String?> showOwnersBottomSheet(BuildContext ctx
-    ,RoomConversationBloc bloc) async {
+Future<String?> showAdminBottomSheet(BuildContext ctx,
+    RoomConversationBloc bloc
+    ) async {
   showModalBottomSheet(
       elevation: 10,
       backgroundColor: Theme.of(ctx).scaffoldBackgroundColor,
@@ -22,10 +23,11 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
           topRight: Radius.circular(30.w),
         ),
       ),
-      builder: (ctx) => BlocBuilder<RoomConversationBloc,RoomConversationState>(
-        bloc: bloc,
+      builder: (ctx) =>
+          BlocBuilder<RoomConversationBloc,RoomConversationState>(
+            bloc: bloc,
         builder: (context, state) {
-          return  Container(
+         return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             decoration:  BoxDecoration(
               color: Theme.of(ctx).scaffoldBackgroundColor,
@@ -42,7 +44,7 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                 Row(
                   children: [
                     Expanded(
-                      child: Text('owners',
+                      child: Text('Admins',
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w600,
@@ -69,8 +71,7 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                                   width: 50.h,
                                   height: 50.h,
                                   child: CachedNetworkImage(
-                                    imageUrl:state.allTypeOwner.data![index].img??
-                                    "http://via.placeholder.com/200x150",
+                                    imageUrl:state.allTypeAdmin.data![index].img?? "http://via.placeholder.com/200x150",
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -87,7 +88,7 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                                 ),
                                 SizedBox(width: 6.w,),
                                 Expanded(
-                                  child: Text('ۦ⇜اسـۦـۦـد❪᪣❫ديـۦــرالـۦـزور⇝',
+                                  child: Text(state.allTypeAdmin.data![index].name!,
                                     style: TextStyle(
                                         fontSize: 15.sp,
                                         fontFamily: 'Roboto',
@@ -105,12 +106,14 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                             )
                         );
                       }, separatorBuilder: (context, index) {
-                    return  Divider(
+                       return  Divider(
                       thickness:1,
                       color: Theme.of(context).hintColor,
                     );
-                  }, itemCount:state.allTypeOwner.data!=null?
-                     state.allTypeOwner.data!.length:0),
+                  }, itemCount:
+                  state.allTypeAdmin.data!=null?
+                  state.allTypeAdmin.data!.length:0
+                  ),
                 ),
                 Divider(
                   thickness:1,
@@ -122,6 +125,7 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
             ),
           );
         },
+
       ));
   return '';
 }

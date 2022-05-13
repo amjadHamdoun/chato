@@ -35,6 +35,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
    @override
   void initState() {
      bloc.onGetConversationMessage(widget.roomId);
+     bloc.onGetAllTypeEvent('user',widget.roomId);
      Future.delayed(const Duration(seconds: 1)).then
        ((value) {
        scrollController.jumpTo(scrollController
@@ -191,15 +192,20 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                              ),
                                            ),
                                            SizedBox(width: 25.w,),
-                                           InkWell(
-                                             onTap: (){
+                                           IconButton(
+                                             onPressed: (){
                                                Navigator.push(context,
-                                                   MaterialPageRoute(builder: (context) =>const RoomSettings() ,));
+                                                   MaterialPageRoute(builder: (context) =>
+                                                       RoomSettings(bloc: bloc,
+                                                              roomId: widget.roomId,
+                                                       ) ,));
                                              },
-                                             child: SvgPicture.asset(
+                                             icon:SvgPicture.asset(
                                                'assets/icons/menu.svg',
                                                width: 4.5.w,
-                                             ),
+                                             ) ,
+
+
                                            ),
                                          ],
                                        ),
@@ -227,71 +233,73 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                          child: SizedBox(
                            height: 1.sh-100.h,
                            child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                SizedBox(
                                  height: 10.h,
                                ),
-                               Row(
-                                 children: [
-                                   const SizedBox(width: 6,),
-                                   Container(
-                                    decoration: const BoxDecoration(
-                                        shape:BoxShape.circle,
-                                      color: Color(0xff1E3859)
-                                    ),
+                               if(state.allTypeModel.data!=null)
+                               SingleChildScrollView(
+                                 scrollDirection: Axis.horizontal,
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.start,
 
-                                     child: Padding(
+                                   children: [
+                                     const SizedBox(width: 6,),
+
+                                     Container(
+                                      decoration: const BoxDecoration(
+                                          shape:BoxShape.circle,
+                                        color: Color(0xff1E3859)
+                                      ),
+
+                                       child: Padding(
+                                         padding:  EdgeInsets.symmetric(
+                                           vertical: 12.5.h,horizontal: 12.5.h
+                                         ),
+                                         child: Text(state.allTypeModel.data!.length.toString(),style: TextStyle(
+                                           fontSize: 15.sp,
+                                           color: ColorManager.backgroundColor,
+                                           fontWeight: FontWeight.w700
+                                         ),),
+                                       ),
+                                     ),
+                                      SizedBox(width:3.w,),
+                                       for(var item in state.allTypeModel.data!)
+                                     Padding(
                                        padding:  EdgeInsets.symmetric(
-                                         vertical: 12.5.h,horizontal: 12.5.h
+                                         horizontal: 2.w
                                        ),
-                                       child: Text('48',style: TextStyle(
-                                         fontSize: 15.sp,
-                                         color: ColorManager.backgroundColor,
-                                         fontWeight: FontWeight.w700
-                                       ),),
-                                     ),
-                                   ),
-                                   const SizedBox(width: 6,),
-                                   SizedBox(
-                                     width: 40.h,
-                                     height: 40.h,
-                                     child: CachedNetworkImage(
-                                       imageUrl: "http://via.placeholder.com/200x150",
-                                       imageBuilder: (context, imageProvider) => Container(
-                                         decoration: BoxDecoration(
-                                           shape: BoxShape.circle,
-                                           image: DecorationImage(
-                                             image: imageProvider,
-                                             fit: BoxFit.fill,
-
+                                       child: SizedBox(
+                                         width: 40.h,
+                                         height: 40.h,
+                                         child: CachedNetworkImage(
+                                           imageUrl:item.img??
+                                           "http://via.placeholder.com/200x150",
+                                           imageBuilder: (context, imageProvider) => Container(
+                                             decoration: BoxDecoration(
+                                               shape: BoxShape.circle,
+                                               image: DecorationImage(
+                                                 image: imageProvider,
+                                                 fit: BoxFit.fill,
+                                               ),
+                                             ),
                                            ),
+                                           placeholder: (context, url) =>
+                                           const Center(child: CircularProgressIndicator()),
+                                           errorWidget: (context, url, error) =>
+                                           const Icon(Icons.error),
                                          ),
                                        ),
-                                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                       errorWidget: (context, url, error) => const Icon(Icons.error),
                                      ),
-                                   ),
-                                   const SizedBox(width: 6,),
-                                   SizedBox(
-                                     width: 40.h,
-                                     height: 40.h,
-                                     child: CachedNetworkImage(
-                                       imageUrl: "http://via.placeholder.com/200x150",
-                                       imageBuilder: (context, imageProvider) => Container(
-                                         decoration: BoxDecoration(
-                                           shape: BoxShape.circle,
-                                           image: DecorationImage(
-                                             image: imageProvider,
-                                             fit: BoxFit.fill,
 
-                                           ),
-                                         ),
-                                       ),
-                                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                       errorWidget: (context, url, error) => const Icon(Icons.error),
-                                     ),
-                                   ),
-                                 ],
+
+
+
+
+
+                                   ],
+                                 ),
                                ),
                                SizedBox(
                                  height: 10.h,
@@ -390,7 +398,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
                                //المحادثة
                                Expanded(
-
                                  child:
                                  Padding(
                                    padding:  EdgeInsets.symmetric(
@@ -506,7 +513,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                          child: Row(
                                                            children: [
                                                              Expanded(
-                                                               child: Text('مرحبا سامي',style: TextStyle(
+                                                               child: Text(state.conversationOldMessageModel.
+                                                                   data![index].message!,
+                                                                 style: TextStyle(
                                                                    color: ColorManager.backgroundColor,
                                                                    fontSize: 13.sp,
                                                                    fontWeight: FontWeight.w600
@@ -573,7 +582,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                            children: [
 
                                                              Expanded(
-                                                               child: Text('آلعـ♪ــ∫☻∫↨●عـلــ°♥️°ـوش●↨∫☻∫ــ♪ـرآب',
+                                                               child: Text(
+
+                                                                 'آلعـ♪ــ∫☻∫↨●عـلــ°♥️°ـوش●↨∫☻∫ــ♪ـرآب',
                                                                    style: TextStyle(
                                                                        color: ColorManager.backgroundColor,
                                                                        fontSize: 13.sp,
@@ -600,7 +611,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                          child: Row(
                                                            children: [
                                                              Expanded(
-                                                               child: Text('مرحبا سامي',style: TextStyle(
+                                                               child: Text(state.conversationOldMessageModel.
+                                                               data![index].message!
+                                                                 ,style: TextStyle(
                                                                    color: ColorManager.backgroundColor,
                                                                    fontSize: 13.sp,
                                                                    fontWeight: FontWeight.w600

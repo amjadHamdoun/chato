@@ -31,6 +31,7 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
    List<String> filters=[
      tr('Global'),tr('Trend'),
      tr('Active'),tr('Fav')];
+
    PageController pageController=PageController();
 
   @override

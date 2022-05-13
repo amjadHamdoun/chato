@@ -12,6 +12,10 @@ class _$RoomConversationState extends RoomConversationState {
   @override
   final bool? isLoading;
   @override
+  final bool? isSuccessAllType;
+  @override
+  final bool? isLoadingAllType;
+  @override
   final bool showEmoji;
   @override
   final bool isRecord;
@@ -25,6 +29,12 @@ class _$RoomConversationState extends RoomConversationState {
   final String error;
   @override
   final ConversationOldMessageModel conversationOldMessageModel;
+  @override
+  final AllTypeModel allTypeModel;
+  @override
+  final AllTypeModel allTypeOwner;
+  @override
+  final AllTypeModel allTypeAdmin;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -33,13 +43,18 @@ class _$RoomConversationState extends RoomConversationState {
   _$RoomConversationState._(
       {this.isSuccess,
       this.isLoading,
+      this.isSuccessAllType,
+      this.isLoadingAllType,
       required this.showEmoji,
       required this.isRecord,
       required this.smileOrSticker,
       required this.senGiftType,
       required this.smile,
       required this.error,
-      required this.conversationOldMessageModel})
+      required this.conversationOldMessageModel,
+      required this.allTypeModel,
+      required this.allTypeOwner,
+      required this.allTypeAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
@@ -55,6 +70,12 @@ class _$RoomConversationState extends RoomConversationState {
         error, 'RoomConversationState', 'error');
     BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel,
         'RoomConversationState', 'conversationOldMessageModel');
+    BuiltValueNullFieldError.checkNotNull(
+        allTypeModel, 'RoomConversationState', 'allTypeModel');
+    BuiltValueNullFieldError.checkNotNull(
+        allTypeOwner, 'RoomConversationState', 'allTypeOwner');
+    BuiltValueNullFieldError.checkNotNull(
+        allTypeAdmin, 'RoomConversationState', 'allTypeAdmin');
   }
 
   @override
@@ -72,13 +93,18 @@ class _$RoomConversationState extends RoomConversationState {
     return other is RoomConversationState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
+        isSuccessAllType == other.isSuccessAllType &&
+        isLoadingAllType == other.isLoadingAllType &&
         showEmoji == other.showEmoji &&
         isRecord == other.isRecord &&
         smileOrSticker == other.smileOrSticker &&
         senGiftType == other.senGiftType &&
         smile == other.smile &&
         error == other.error &&
-        conversationOldMessageModel == other.conversationOldMessageModel;
+        conversationOldMessageModel == other.conversationOldMessageModel &&
+        allTypeModel == other.allTypeModel &&
+        allTypeOwner == other.allTypeOwner &&
+        allTypeAdmin == other.allTypeAdmin;
   }
 
   @override
@@ -90,15 +116,27 @@ class _$RoomConversationState extends RoomConversationState {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, isSuccess.hashCode),
-                                    isLoading.hashCode),
-                                showEmoji.hashCode),
-                            isRecord.hashCode),
-                        smileOrSticker.hashCode),
-                    senGiftType.hashCode),
-                smile.hashCode),
-            error.hashCode),
-        conversationOldMessageModel.hashCode));
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc(
+                                                $jc(
+                                                    $jc(
+                                                        $jc(0,
+                                                            isSuccess.hashCode),
+                                                        isLoading.hashCode),
+                                                    isSuccessAllType.hashCode),
+                                                isLoadingAllType.hashCode),
+                                            showEmoji.hashCode),
+                                        isRecord.hashCode),
+                                    smileOrSticker.hashCode),
+                                senGiftType.hashCode),
+                            smile.hashCode),
+                        error.hashCode),
+                    conversationOldMessageModel.hashCode),
+                allTypeModel.hashCode),
+            allTypeOwner.hashCode),
+        allTypeAdmin.hashCode));
   }
 
   @override
@@ -106,13 +144,18 @@ class _$RoomConversationState extends RoomConversationState {
     return (newBuiltValueToStringHelper('RoomConversationState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
+          ..add('isSuccessAllType', isSuccessAllType)
+          ..add('isLoadingAllType', isLoadingAllType)
           ..add('showEmoji', showEmoji)
           ..add('isRecord', isRecord)
           ..add('smileOrSticker', smileOrSticker)
           ..add('senGiftType', senGiftType)
           ..add('smile', smile)
           ..add('error', error)
-          ..add('conversationOldMessageModel', conversationOldMessageModel))
+          ..add('conversationOldMessageModel', conversationOldMessageModel)
+          ..add('allTypeModel', allTypeModel)
+          ..add('allTypeOwner', allTypeOwner)
+          ..add('allTypeAdmin', allTypeAdmin))
         .toString();
   }
 }
@@ -128,6 +171,16 @@ class RoomConversationStateBuilder
   bool? _isLoading;
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
+
+  bool? _isSuccessAllType;
+  bool? get isSuccessAllType => _$this._isSuccessAllType;
+  set isSuccessAllType(bool? isSuccessAllType) =>
+      _$this._isSuccessAllType = isSuccessAllType;
+
+  bool? _isLoadingAllType;
+  bool? get isLoadingAllType => _$this._isLoadingAllType;
+  set isLoadingAllType(bool? isLoadingAllType) =>
+      _$this._isLoadingAllType = isLoadingAllType;
 
   bool? _showEmoji;
   bool? get showEmoji => _$this._showEmoji;
@@ -161,6 +214,21 @@ class RoomConversationStateBuilder
           ConversationOldMessageModel? conversationOldMessageModel) =>
       _$this._conversationOldMessageModel = conversationOldMessageModel;
 
+  AllTypeModel? _allTypeModel;
+  AllTypeModel? get allTypeModel => _$this._allTypeModel;
+  set allTypeModel(AllTypeModel? allTypeModel) =>
+      _$this._allTypeModel = allTypeModel;
+
+  AllTypeModel? _allTypeOwner;
+  AllTypeModel? get allTypeOwner => _$this._allTypeOwner;
+  set allTypeOwner(AllTypeModel? allTypeOwner) =>
+      _$this._allTypeOwner = allTypeOwner;
+
+  AllTypeModel? _allTypeAdmin;
+  AllTypeModel? get allTypeAdmin => _$this._allTypeAdmin;
+  set allTypeAdmin(AllTypeModel? allTypeAdmin) =>
+      _$this._allTypeAdmin = allTypeAdmin;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -168,6 +236,8 @@ class RoomConversationStateBuilder
     if ($v != null) {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
+      _isSuccessAllType = $v.isSuccessAllType;
+      _isLoadingAllType = $v.isLoadingAllType;
       _showEmoji = $v.showEmoji;
       _isRecord = $v.isRecord;
       _smileOrSticker = $v.smileOrSticker;
@@ -175,6 +245,9 @@ class RoomConversationStateBuilder
       _smile = $v.smile;
       _error = $v.error;
       _conversationOldMessageModel = $v.conversationOldMessageModel;
+      _allTypeModel = $v.allTypeModel;
+      _allTypeOwner = $v.allTypeOwner;
+      _allTypeAdmin = $v.allTypeAdmin;
       _$v = null;
     }
     return this;
@@ -197,6 +270,8 @@ class RoomConversationStateBuilder
         new _$RoomConversationState._(
             isSuccess: isSuccess,
             isLoading: isLoading,
+            isSuccessAllType: isSuccessAllType,
+            isLoadingAllType: isLoadingAllType,
             showEmoji: BuiltValueNullFieldError.checkNotNull(
                 showEmoji, 'RoomConversationState', 'showEmoji'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
@@ -210,9 +285,11 @@ class RoomConversationStateBuilder
             error: BuiltValueNullFieldError.checkNotNull(
                 error, 'RoomConversationState', 'error'),
             conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(
-                conversationOldMessageModel,
-                'RoomConversationState',
-                'conversationOldMessageModel'));
+                conversationOldMessageModel, 'RoomConversationState', 'conversationOldMessageModel'),
+            allTypeModel: BuiltValueNullFieldError.checkNotNull(
+                allTypeModel, 'RoomConversationState', 'allTypeModel'),
+            allTypeOwner: BuiltValueNullFieldError.checkNotNull(allTypeOwner, 'RoomConversationState', 'allTypeOwner'),
+            allTypeAdmin: BuiltValueNullFieldError.checkNotNull(allTypeAdmin, 'RoomConversationState', 'allTypeAdmin'));
     replace(_$result);
     return _$result;
   }

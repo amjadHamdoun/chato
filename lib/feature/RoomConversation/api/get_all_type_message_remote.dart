@@ -4,37 +4,39 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../../Conversation/model/conversation_old_message_model.dart';
+import '../model/allType/all_type_model.dart';
 
 
 
-abstract class ConversationOldMessageDataSource {
-  Future<Either<String, ConversationOldMessageModel>>
-   getConversationOldMessage({required int conversationId});
+abstract class AllTypeDataSource {
+  Future<Either<String, AllTypeModel>>
+   getAllType({required String type,
+    required int roomId});
 }
 
-class ConversationOldMessageDataSourceImpl extends
-      ConversationOldMessageDataSource {
+class AllTypeDataSourceImpl extends
+    AllTypeDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  ConversationOldMessageDataSourceImpl(
+  AllTypeDataSourceImpl(
       { required this.dio,
         required this.networkInfo
       });
 
   @override
-  Future<Either<String, ConversationOldMessageModel>>
-  getConversationOldMessage({required int conversationId}) async {
+  Future<Either<String, AllTypeModel>>
+  getAllType({required String type,required int roomId}) async {
     if (await networkInfo.hasConnection) {
       try {
         dio.options.headers["Authorization"] =
         "Bearer ${Global.userToken}";
         final re = await dio.get
           (
-          Endpoints.getConversationOldMessage,
+          Endpoints.allTypeRoom,
           queryParameters: {
-            'conversation_id':conversationId
+            'type':type,
+            'room_id':roomId
           },
           options: Options(
             followRedirects: false,
@@ -43,7 +45,7 @@ class ConversationOldMessageDataSourceImpl extends
             },
           ),
         );
-        return Right(ConversationOldMessageModel
+        return Right(AllTypeModel
             .fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {

@@ -1,25 +1,20 @@
 
-
-
-
 import 'package:built_value/built_value.dart';
 
-import '../../RoomConversation/model/conversation_old_message_model.dart';
-
-
+import '../model/conversation_old_message_model.dart';
 
 part 'conversation_state.g.dart';
 
 
-abstract class ConversationState implements Built<ConversationState, ConversationStateBuilder> {
+abstract class ConversationState implements
+    Built<ConversationState, ConversationStateBuilder> {
 
 
   bool? get isSuccess;
   bool? get isLoading;
   bool get showEmoji;
   bool get isRecord;
-  ConversationOldMessageModel get
-  conversationOldMessageModel;
+  ConversationOldMessageModel get conversationOldMessageModel;
 
 
   ConversationState._();

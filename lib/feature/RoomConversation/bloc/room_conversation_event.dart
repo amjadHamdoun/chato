@@ -43,3 +43,11 @@ class GetConversationMessage extends RoomConversationEvent
   int id;
   GetConversationMessage({required this.id});
 }
+
+// ignore: must_be_immutable
+class GetAllTypeEvent extends RoomConversationEvent
+{
+  String type;
+  int roomId;
+  GetAllTypeEvent({required this.type,required this.roomId});
+}
