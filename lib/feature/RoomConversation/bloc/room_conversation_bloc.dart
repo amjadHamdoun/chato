@@ -1,4 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:chato/Globals.dart';
+import 'package:chato/feature/Pages/RoomPage/model/favModel/fav_room_data_model.dart';
+import 'package:chato/feature/User/model/user_data.dart';
+
+import '../../Conversation/model/conversation_old_message_data_model.dart';
+import '../../Conversation/model/conversation_old_message_model.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
 import '../api/send_message_remote.dart';
@@ -52,7 +58,13 @@ class RoomConversationBloc
               ..error=''
               ..isLoading=true
               ..isSuccess=false
-
+     ..conversationOldMessageModel=
+         ConversationOldMessageModel(
+           message: '',
+           error_code: 0,
+           status: false,
+           data: []
+         )
             ));
         final result=await
         conversationOldMessageDataSource.
@@ -142,6 +154,25 @@ class RoomConversationBloc
       emit(
           state.rebuild((b) => b
             ..error=''
+              ..conversationOldMessageModel!.data!.add(
+                  ConversationOldMessageDataModel(
+                    message: event.message,
+                    id: 0,
+                    conversation_id: '0',
+                    seen: '',
+                    created_at: '',
+                    updated_at: '',
+                    user: UserData(
+                      id: Global.userId,
+                      name: '',
+                      email: '',
+                      img: '',
+                      token: Global.userToken,
+                      birth_date: '',
+                      gender: ''
+                    )
+                  )
+              )
           ));
       final result=await
       sendMessageDataSource.

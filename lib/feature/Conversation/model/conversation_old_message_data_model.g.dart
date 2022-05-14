@@ -15,6 +15,7 @@ ConversationOldMessageDataModel _$ConversationOldMessageDataModelFromJson(
       seen: json['seen'] as String?,
       created_at: json['created_at'] as String?,
       updated_at: json['updated_at'] as String?,
+      user: UserData.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ConversationOldMessageDataModelToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$ConversationOldMessageDataModelToJson(
       'seen': instance.seen,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
+      'user': instance.user,
     };

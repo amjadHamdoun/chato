@@ -12,6 +12,8 @@ class Preferences {
 
   static const String KEY_UserName = 'key_UserName';
 
+  static const String KEY_UserImage = 'key_UserImage';
+
 
   static init() async {
     preferences = await SharedPreferences.getInstance();
@@ -27,8 +29,9 @@ class Preferences {
     {
       return true;
     }
-    else
+    else {
       return first;
+    }
   }
 
   static void saveUserToken(String userToken) async {
@@ -56,8 +59,9 @@ class Preferences {
     {
       return '';
     }
-    else
+    else {
       return userName;
+    }
   }
 
   static void saveUserId(int userId) async {
@@ -70,9 +74,24 @@ class Preferences {
     {
       return 0;
     }
-    else
+    else {
       return userId;
+    }
   }
 
+  static void saveUserImage(String image) async {
+    preferences!.setString(KEY_UserImage, image);
+  }
+
+  static String? getUserImage() {
+    String? userImage = preferences!.getString(KEY_UserImage);
+    if(userImage==null)
+    {
+      return '';
+    }
+    else {
+      return userImage;
+    }
+  }
 
 }

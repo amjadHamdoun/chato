@@ -1,7 +1,4 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:bloc/bloc.dart';
-import 'package:chato/Preference.dart';
 import 'package:chato/feature/User/api/add_friend_remote.dart';
 import 'package:chato/feature/User/api/user_remote.dart';
 import 'package:chato/feature/User/bloc/user_event.dart';
@@ -10,7 +7,7 @@ import 'package:chato/feature/User/model/add_friend_data.dart';
 import 'package:chato/feature/User/model/add_friend_model.dart';
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:chato/feature/User/model/user_model.dart';
-import 'package:flutter/cupertino.dart';
+
 
 class UserBloc extends Bloc<UserEvents, UserState> {
   UserDetailsRemoteDataSource userRemoteDataSource;

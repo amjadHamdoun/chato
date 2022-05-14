@@ -29,6 +29,9 @@ class Endpoints {
   static const unblockUser = 'unblock-user';
   static const allTypeRoom = 'room/all-type-room';
   static const sendMessage = 'room/send-message';
+  static const addUserRoom = 'room/add-user-room';
+
+
 
 }
 

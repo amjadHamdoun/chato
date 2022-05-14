@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:chato/Globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pusher_client/pusher_client.dart';
 
 import '../../core/utils/color_manager.dart';
 import '../../injection.dart';
@@ -24,6 +28,8 @@ class PagesScreen extends StatefulWidget {
 }
 
 class _PagesScreenState extends State<PagesScreen> {
+  PusherClient? pusher;
+  Channel? channelChat;
    HomeBloc bloc=sl<HomeBloc>();
    ProfBloc profBloc=sl<ProfBloc>();
    RoomBloc roomBloc=sl<RoomBloc>();
@@ -32,8 +38,35 @@ class _PagesScreenState extends State<PagesScreen> {
 
    @override
   void initState() {
+     pusher = PusherClient(
+       Global.pusherAppKey!,
+       PusherOptions(
+         host:  Global.host!,
+         encrypted: false,
+         cluster: Global.pusherAppCluster!,
+       ),
+       autoConnect: true,
+       enableLogging: true,
+     );
+     pusher!.connect();
+
+     pusher!.onConnectionStateChange((state) {
+       print("previousState: ${state!.previousState}, currentState: ${state.currentState}");
+     });
+
+     pusher!.onConnectionError((error) {
+       print("error: ${error!.message}");
+     });
+     channelChat =
+         pusher!.subscribe("chatTest");
+
+     channelChat!.bind('test', (event) {
+       log("event.toString()");
+       log(event.toString());
+     });
      bloc.onChangePageEvent(0);
-    super.initState();
+
+     super.initState();
   }
 
 

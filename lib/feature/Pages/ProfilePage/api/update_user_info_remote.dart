@@ -42,7 +42,7 @@ UpdateUserInfoDataSource {
 
          FormData formData = FormData.fromMap({
            if(img!=null)
-           "image":
+           "img":
            await MultipartFile.fromFile(img.path, filename:fileName),
            if(name!=null)
            'name': name,
@@ -58,7 +58,8 @@ UpdateUserInfoDataSource {
         print("re");
         print(re);
         print("re");
-         UpdateUserInfoModel? updateUserInfoModel = UpdateUserInfoModel.fromJson(json.decode(re.data));
+         UpdateUserInfoModel? updateUserInfoModel =
+         UpdateUserInfoModel.fromJson(json.decode(re.data));
         print(updateUserInfoModel.message);
         return Right(updateUserInfoModel);
       } on DioError catch (ex) {

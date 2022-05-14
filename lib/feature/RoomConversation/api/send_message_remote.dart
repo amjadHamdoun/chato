@@ -35,6 +35,9 @@ class SendMessageDataSourceImpl extends
     required int roomId,
     File? file,
   }) async {
+    print("roomId");
+    print(roomId);
+    print("roomId");
     if (await networkInfo.hasConnection) {
       try {
         dio.options.headers["Authorization"] =

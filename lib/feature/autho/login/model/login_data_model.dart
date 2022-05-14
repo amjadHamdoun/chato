@@ -9,7 +9,7 @@ class LoginDataModel {
   String? name;
   String? email;
   String? token;
-
+  String? img;
 
 
   Map<String, dynamic> toJson() => _$LoginDataModelToJson(this);
@@ -21,6 +21,7 @@ class LoginDataModel {
         required this.id,
         required this.name,
         required this.email,
-        required this.token
+        required this.token,
+        required this.img
       });
 }

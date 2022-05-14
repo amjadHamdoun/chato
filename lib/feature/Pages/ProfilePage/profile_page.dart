@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'package:chato/feature/Pages/ProfilePage/widget/acount_settings.dart';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -16,6 +17,7 @@ import 'bloc/prof_state.dart';
 
 class ProfileScreen extends StatefulWidget {
  final ProfBloc bloc;
+
 
    const ProfileScreen({Key? key, required this.bloc})
        : super(key: key);
@@ -147,37 +149,35 @@ class _ProfileScreenState extends State<ProfileScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: InkWell(
-                              onTap: (){},
-                              child: Container(
-                                height: 80.h,
-                                width: 160.w,
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFAFAFA),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffFAFAFA),
                                   borderRadius: BorderRadius.circular(15)
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/icons/amazing_account.svg',
-                                      width: 26.w,
-                                    ),
-                                    SizedBox(
-                                      height: 4.h,
-                                    ),
-                                    Text(
-                                      'Create Amazing Account',
-                                      style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color:ColorManager.darkPrimary),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                    ).tr(),
-                                  ],
-                                ),
+                              ),
+                              height: 80.h,
+                              width: 160.w,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/icons/send_gift.svg',
+                                    width: 26.w,
+                                    color: ColorManager.primaryColor,
+                                  ),
+                                  SizedBox(
+                                    height: 4.h,
+                                  ),
+                                  Text(
+                                    'Send Coins',
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.darkPrimary),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                  ).tr(),
+                                ],
                               ),
                             ),
                           ),
@@ -275,39 +275,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                             ),
                           ),
                           SizedBox (width: 15.w,),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffFAFAFA),
-                                  borderRadius: BorderRadius.circular(15)
-                              ),
-                              height: 80.h,
-                              width: 160.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/icons/send_gift.svg',
-                                    width: 26.w,
-                                    color: ColorManager.primaryColor,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  Text(
-                                    'Send Coins',
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: ColorManager.darkPrimary),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                  ).tr(),
-                                ],
-                              ),
-                            ),
-                          ),
+                         const Expanded(child: SizedBox()),
+
                         ],
                       )),
                   SizedBox(

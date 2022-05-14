@@ -37,7 +37,8 @@ abstract class RegisterState implements Built<RegisterState,
             email: '',
             name: '',
             id: 0,
-            token: ''
+            token: '',
+            img: ''
           ),
           message: '',
           error_code: 0,

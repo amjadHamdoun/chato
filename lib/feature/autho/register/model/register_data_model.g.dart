@@ -11,6 +11,7 @@ RegisterDataModel _$RegisterDataModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       name: json['name'] as String?,
       email: json['email'] as String?,
+      img: json['img'] as String?,
       token: json['token'] as String?,
     );
 
@@ -20,4 +21,5 @@ Map<String, dynamic> _$RegisterDataModelToJson(RegisterDataModel instance) =>
       'name': instance.name,
       'email': instance.email,
       'token': instance.token,
+      'img': instance.img,
     };

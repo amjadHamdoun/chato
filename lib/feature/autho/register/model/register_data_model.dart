@@ -9,7 +9,7 @@ class RegisterDataModel {
    String? name;
   String? email;
   String? token;
-
+  String? img;
 
 
   Map<String, dynamic> toJson() => _$RegisterDataModelToJson(this);
@@ -21,6 +21,7 @@ class RegisterDataModel {
         required this.id,
         required this.name,
         required this.email,
+        required this.img,
         required this.token
       });
 }

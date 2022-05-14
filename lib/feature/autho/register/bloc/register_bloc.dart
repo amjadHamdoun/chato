@@ -26,7 +26,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
                 email: '',
                 name: '',
                 id: 0,
-                token: ''
+                token: '',
+                img: ''
             ),
             message: '',
             error_code: 0,
@@ -59,11 +60,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
              if(r.data!.token!=null)
                {
                  Global.userToken=r.data!.token!;
+                 Global.userId=r.data!.id!;
+                 Global.userName=r.data!.name!;
+                 Global.userImage=r.data!.img??'';
                  Preferences.saveUserToken(r.data!.token!);
+                 Preferences.saveUserId(r.data!.id!);
+                 Preferences.saveUserImage(r.data!.img??'');
+                 Preferences.saveUserName(r.data!.name!);
                }
-
            }
-
          emit(state.rebuild((b) => b
            ..isSuccess=true
            ..isLoading=false
@@ -81,9 +86,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   }
 
-  void onRegisterAccountEvent({required String name,
-    required String email,required String password,
-    required String passwordConfirm,}) {
+  void onRegisterAccountEvent({
+       required String name,
+       required String email,
+       required String password,
+       required String passwordConfirm,
+      }) {
+
     add(RegisterAccountEvent(
       name: name,
       password: password,

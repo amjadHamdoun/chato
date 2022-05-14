@@ -22,7 +22,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ..isSuccess = false
         ..isLoading = true
         ..loginModel = LoginModel(
-            data: LoginDataModel(email: '', name: '', id: 0, token: ''),
+            data: LoginDataModel(email: '', name: '',
+                id: 0, token: '',img: ''),
             message: '',
             error_code: 0,
             status: false)));
@@ -45,7 +46,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (r.data != null) {
           if (r.data!.token != null) {
             Global.userToken=r.data!.token!;
+            Global.userId=r.data!.id!;
+            Global.userName=r.data!.name!;
+            Global.userImage=r.data!.img??'';
             Preferences.saveUserToken(r.data!.token!);
+            Preferences.saveUserId(r.data!.id!);
+            Preferences.saveUserImage(r.data!.img??'');
+            Preferences.saveUserName(r.data!.name!);
           }
         }
 

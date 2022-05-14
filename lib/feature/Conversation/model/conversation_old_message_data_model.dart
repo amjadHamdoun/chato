@@ -1,3 +1,4 @@
+import 'package:chato/feature/User/model/user_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 
@@ -13,6 +14,7 @@ class ConversationOldMessageDataModel {
   String? seen;
   String? created_at;
   String? updated_at;
+  UserData user;
 
   Map<String, dynamic> toJson() => _$ConversationOldMessageDataModelToJson(this);
   factory ConversationOldMessageDataModel.fromJson(Map<String, dynamic> json) =>
@@ -26,5 +28,6 @@ class ConversationOldMessageDataModel {
         required this.seen,
         required this.created_at,
         required this.updated_at,
+        required this.user
       });
 }

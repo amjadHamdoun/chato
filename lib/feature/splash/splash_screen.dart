@@ -27,6 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(const Duration(seconds:2)).then((value) {
       Global.userToken= Preferences.getUserToken();
+      Global.userId=Preferences.getUserId();
+
       if(Global.userToken!.isNotEmpty)
       {
         Navigator.pushReplacement(

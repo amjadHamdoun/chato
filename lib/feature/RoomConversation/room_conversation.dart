@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/Globals.dart';
 import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
@@ -413,7 +414,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                          .data!.length,
                                      shrinkWrap: true,
                                      itemBuilder: (context, index){
-                                       if(index%2==0)
+                                       if(Global.userId==state.
+                                       conversationOldMessageModel
+                                           .data![index].id)
                                        {
                                          return Row(
                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -430,7 +433,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                  width: 50.h,
                                                  height: 50.h,
                                                  child: CachedNetworkImage(
-                                                   imageUrl: "http://via.placeholder.com/200x150",
+                                                   imageUrl:state.
+                                                   conversationOldMessageModel
+                                                       .data![index].user.img?? "http://via.placeholder.com/200x150",
                                                    imageBuilder: (context, imageProvider) => Container(
                                                      decoration: BoxDecoration(
                                                        shape: BoxShape.circle,
@@ -486,7 +491,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                            children: [
 
                                                              Expanded(
-                                                               child: Text('آلعـ♪ــ∫☻∫↨●عـلــ°♥️°ـوش●↨∫☻∫ــ♪ـرآب',
+                                                               child: Text(state.
+                                                               conversationOldMessageModel
+                                                                   .data![index].user.name!,
                                                                  style: TextStyle(
                                                                      color: ColorManager.backgroundColor,
                                                                      fontSize: 13.sp,
@@ -584,7 +591,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                              Expanded(
                                                                child: Text(
 
-                                                                 'آلعـ♪ــ∫☻∫↨●عـلــ°♥️°ـوش●↨∫☻∫ــ♪ـرآب',
+                                                               state.
+                                                               conversationOldMessageModel
+                                                                   .data![index].user.name!,
                                                                    style: TextStyle(
                                                                        color: ColorManager.backgroundColor,
                                                                        fontSize: 13.sp,
@@ -634,7 +643,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                width: 50.h,
                                                height: 50.h,
                                                child: CachedNetworkImage(
-                                                 imageUrl: "http://via.placeholder.com/200x150",
+                                                 imageUrl:state.
+                                                 conversationOldMessageModel
+                                                     .data![index].user.img?? "http://via.placeholder.com/200x150",
                                                  imageBuilder: (context, imageProvider) => Container(
                                                    decoration: BoxDecoration(
                                                      shape: BoxShape.circle,
@@ -873,6 +884,17 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                              )
                                              else
                                                IconButton(onPressed: (){
+
+                                                 bloc.onSendMessageEvent(
+                                                     textEditingController.text,
+                                                     widget.roomId);
+                                                 bloc.onGetConversationMessage(widget.roomId);
+                                                 if(FocusScope.of(context).hasFocus)
+                                                 {
+                                                   FocusManager.instance.primaryFocus!.unfocus(
+                                                   );
+                                                   textEditingController.clear();
+                                                 }
                                                  bloc.onStartRecord(false);
                                                }, icon:  Icon(
                                                  Icons.send,

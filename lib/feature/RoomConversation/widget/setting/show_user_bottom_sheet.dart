@@ -23,10 +23,11 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
           topRight: Radius.circular(30.w),
         ),
       ),
-      builder: (ctx) => BlocBuilder<RoomConversationBloc,RoomConversationState>(
-        bloc: bloc,
-        builder: (context, state) {
-          return Container(
+      builder: (ctx) =>
+          BlocBuilder<RoomConversationBloc,RoomConversationState>(
+           bloc: bloc,
+           builder: (context, state) {
+            return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             decoration:  BoxDecoration(
               color: Theme.of(ctx).scaffoldBackgroundColor,
@@ -65,7 +66,6 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
                       ),
                     ).tr(),
                   ): ListView.separated(
-
                       itemBuilder: (context, index) {
                         return  Padding(
                             padding:  EdgeInsets.symmetric(

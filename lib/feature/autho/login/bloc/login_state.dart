@@ -35,7 +35,8 @@ abstract class LoginState implements Built<LoginState,
               email: '',
               name: '',
               id: 0,
-              token: ''
+              token: '',
+            img: ''
           ),
           message: '',
           error_code: 0,

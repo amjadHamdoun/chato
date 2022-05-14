@@ -12,6 +12,7 @@ LoginDataModel _$LoginDataModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       email: json['email'] as String?,
       token: json['token'] as String?,
+      img: json['img'] as String?,
     );
 
 Map<String, dynamic> _$LoginDataModelToJson(LoginDataModel instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$LoginDataModelToJson(LoginDataModel instance) =>
       'name': instance.name,
       'email': instance.email,
       'token': instance.token,
+      'img': instance.img,
     };
