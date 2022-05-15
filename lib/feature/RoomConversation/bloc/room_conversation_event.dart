@@ -57,6 +57,18 @@ class SendMessageEvent extends RoomConversationEvent
 {
   String message;
   int roomId;
-  SendMessageEvent({required this.message,
+  SendMessageEvent({
+     required this.message,
      required this.roomId});
+}
+
+// ignore: must_be_immutable
+class AddUserRoomEvent extends RoomConversationEvent
+{
+  int user_id;
+  int roomId;
+  AddUserRoomEvent({
+    required this.user_id,
+    required this.roomId
+  });
 }

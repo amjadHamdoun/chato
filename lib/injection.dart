@@ -7,6 +7,7 @@ import 'package:chato/feature/User/bloc/user_bloc.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:profanity_filter/profanity_filter.dart';
 import 'core/utils/constants.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
 import 'feature/Pages/HomePage/api/all_friend_remote.dart';
@@ -24,6 +25,7 @@ import 'feature/Pages/RoomPage/api/get_fav_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
+import 'feature/RoomConversation/api/add_user_remote.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
 import 'feature/RoomConversation/api/send_message_remote.dart';
@@ -194,6 +196,14 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
+  sl.registerLazySingleton<AddUserDataSource>(
+        () => AddUserDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
+  );
+  sl.registerLazySingleton<ProfanityFilter>(
+        () => ProfanityFilter()
+  );
 
 
 
@@ -213,7 +223,8 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => RoomConversationBloc(
     conversationOldMessageDataSource: sl(),
-     allTypeDataSource:sl(), sendMessageDataSource: sl()
+     allTypeDataSource:sl(), sendMessageDataSource: sl(),
+    addUserDataSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(registerRemoteDataSource: sl()));
@@ -247,5 +258,8 @@ Future<void> init() async {
       getTrendRoomRemoteDataSource: sl(),
       getAllRoomRemoteDataSource: sl()
   ));
+
+
+
 
 }

@@ -51,16 +51,17 @@ class _PagesScreenState extends State<PagesScreen> {
      pusher!.connect();
 
      pusher!.onConnectionStateChange((state) {
-       print("previousState: ${state!.previousState}, currentState: ${state.currentState}");
+       print("previousState: ${state!.previousState}"
+           ", currentState: ${state.currentState}");
      });
 
      pusher!.onConnectionError((error) {
        print("error: ${error!.message}");
      });
      channelChat =
-         pusher!.subscribe("chatTest");
+         pusher!.subscribe("private-chat.2");
 
-     channelChat!.bind('test', (event) {
+     channelChat!.bind('App\\Events\\ChatEvent', (event) {
        log("event.toString()");
        log(event.toString());
      });

@@ -5,6 +5,7 @@ import 'package:chato/feature/User/model/user_data.dart';
 
 import '../../Conversation/model/conversation_old_message_data_model.dart';
 import '../../Conversation/model/conversation_old_message_model.dart';
+import '../api/add_user_remote.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
 import '../api/send_message_remote.dart';
@@ -17,10 +18,13 @@ class RoomConversationBloc
   ConversationOldMessageDataSource conversationOldMessageDataSource;
   AllTypeDataSource allTypeDataSource;
   SendMessageDataSource sendMessageDataSource;
+  AddUserDataSource addUserDataSource;
+
   RoomConversationBloc({
     required this.conversationOldMessageDataSource,
     required this.allTypeDataSource,
-    required this.sendMessageDataSource
+    required this.sendMessageDataSource,
+    required this.addUserDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -153,6 +157,7 @@ class RoomConversationBloc
     async {
       emit(
           state.rebuild((b) => b
+
             ..error=''
               ..conversationOldMessageModel!.data!.add(
                   ConversationOldMessageDataModel(
@@ -164,9 +169,9 @@ class RoomConversationBloc
                     updated_at: '',
                     user: UserData(
                       id: Global.userId,
-                      name: '',
+                      name: Global.userName,
                       email: '',
-                      img: '',
+                      img: Global.userImage,
                       token: Global.userToken,
                       birth_date: '',
                       gender: ''
@@ -201,7 +206,40 @@ class RoomConversationBloc
 
       });
     });
+    on<AddUserRoomEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
 
+          ));
+      final result=await
+      addUserDataSource.
+      addUser(
+          userId: event.user_id,
+          roomId: event.roomId
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+
+
+        ));
+
+
+      });
+    });
 
 
 
@@ -239,8 +277,13 @@ class RoomConversationBloc
   void onGetAllTypeEvent(String type,int roomId) {
     add(GetAllTypeEvent(type: type,roomId: roomId));
   }
+
   void onSendMessageEvent(String message,int roomId) {
     add(SendMessageEvent(message: message,roomId: roomId));
+  }
+
+  void onAddUserRoomEvent(int userId,int roomId) {
+    add(AddUserRoomEvent(user_id: userId,roomId: roomId));
   }
 
 }

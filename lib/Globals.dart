@@ -1,5 +1,7 @@
 
 
+import 'package:profanity_filter/profanity_filter.dart';
+
 class Global{
 
  static String? userToken='';
@@ -11,6 +13,8 @@ class Global{
  static String? pusherAppKey='d42e318047d0f8a6c641';
  static String? pusherAppCluster='mt1';
  static String? host='https://room.tecknick.net/';
+
+
 
 }
 
