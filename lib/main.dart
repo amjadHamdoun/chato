@@ -13,15 +13,18 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Preferences.init();
-
+  Global.darkMode=Preferences.getDarkMode()!;
+  Global.lan=Preferences.getLan()!;
 
   runApp(
     EasyLocalization(
         supportedLocales: const [Locale('en', 'US'),
           Locale('ar', 'AR')],
         path: 'assets/translations', // <-- change the path of the translation files
-        fallbackLocale: const Locale('ar', 'AR'),
-        startLocale: const Locale('ar', 'AR'),
+        fallbackLocale: Global.lan=='ar'?
+        const Locale('ar', 'AR'):const Locale('en', 'US'),
+        startLocale: Global.lan=='ar'?
+        const Locale('ar', 'AR'):const Locale('en', 'US'),
         child: const MyApp()
     ),
   );

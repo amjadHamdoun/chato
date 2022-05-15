@@ -5,14 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Preferences {
   static SharedPreferences? preferences;
   static const String KEY_IS_First_Time = 'key_is_first_time';
-
   static const String KEY_UserToken = 'key_UserToken';
-
   static const String KEY_UserId = 'key_UserId';
-
   static const String KEY_UserName = 'key_UserName';
-
   static const String KEY_UserImage = 'key_UserImage';
+  static const String KEY_Lan = 'KEY_Lan';
+  static const String KEY_DarkMode = 'KEY_DarkMode';
 
 
   static init() async {
@@ -91,6 +89,36 @@ class Preferences {
     }
     else {
       return userImage;
+    }
+  }
+
+  static void saveLan(String lan) async {
+    preferences!.setString(KEY_Lan, lan);
+  }
+
+  static String? getLan() {
+    String? lan = preferences!.getString(KEY_Lan);
+    if(lan==null)
+    {
+      return 'ar';
+    }
+    else {
+      return lan;
+    }
+  }
+
+  static void saveDarkMode(bool darkMode) async {
+    preferences!.setBool(KEY_DarkMode, darkMode);
+  }
+
+  static bool? getDarkMode() {
+    bool? darkMode = preferences!.getBool(KEY_DarkMode);
+    if(darkMode==null)
+    {
+      return false;
+    }
+    else {
+      return darkMode;
     }
   }
 

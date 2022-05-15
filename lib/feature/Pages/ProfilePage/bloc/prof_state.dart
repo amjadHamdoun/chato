@@ -55,7 +55,10 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
             name: '',
             birth_date: '',
             email: '',
-            token: ''),
+            token: '',
+            country: null,
+            status: ''
+        ),
         message: '',
         error_code: 0,
         status: false,
@@ -63,7 +66,6 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..countFriendModel = CountFriendModel(
               data: 0, error_code: 0,
               message: '', status: false)
-
     );
   }
 }

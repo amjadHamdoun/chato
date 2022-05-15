@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
+import 'package:chato/Preference.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/feature/Pages/ProfilePage/bloc/prof_state.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import '../../../../main.dart';
 import '../../../RoomConversation/widget/music/show_audio_player_bottom_sheet.dart';
 import '../bloc/prof_bloc.dart';
 import 'show_menu_bottom_sheet_email_one.dart';
@@ -155,7 +157,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                 : ColorManager.textColor),
                       ),
                       Text(
-                        "الحمدلله رب العالمين",
+                        state.profileModel!.data!.status!,
                         style:
                         getMediumStyle(color: ColorManager.hintText, fontSize: 13.sp),
                       ),
@@ -302,9 +304,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       Divider(height: 20.h, thickness: 1, color: ColorManager.hintText),
                       InkWell(
                         onTap: () {
-                          showMenuBottomSheetEmailThree(
-                              context,pinCode
-                          );
+                           //showMenuBottomSheetEmailThree(context,pinCode);
                         },
                         child: Row(
                           children: [
@@ -325,7 +325,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                               width: 8.w,
                             ),
                             Text(
-                              "email".tr(),
+                              state.profileModel!.data!.email!,
                               style: getRegularStyle(
                                   fontSize: 14.sp,
                                   color: Global.darkMode
@@ -340,7 +340,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       ),
                       InkWell(
                         onTap: (){
-                          showAudioPlayerBottomSheet(context,false);
+                          //showAudioPlayerBottomSheet(context,false);
                         },
                         child: Row(
                           children: [
@@ -361,7 +361,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                               width: 8.w,
                             ),
                             Text(
-                              "birthdays".tr(),
+                              state.profileModel!.data!.birth_date!=null?
+                              state.profileModel!.data!.birth_date!
+                                  :'undefined'.tr(),
                               style: getRegularStyle(
                                   fontSize: 14.sp,
                                   color: Global.darkMode
@@ -393,7 +395,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             width: 8.w,
                           ),
                           Text(
-                            "city".tr(),
+                            state.profileModel!.data!.country!=null?
+                            state.profileModel!.data!.country!.name_en!:
+                            'undefined'.tr(),
                             style: getRegularStyle(
                                 fontSize: 14.sp,
                                 color: Global.darkMode
@@ -424,7 +428,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             width: 8.w,
                           ),
                           Text(
-                            "gender".tr(),
+                            state.profileModel!.data!.gender??
+                                'undefined'.tr(),
                             style: getRegularStyle(
                                 fontSize: 14.sp,
                                 color: Global.darkMode
@@ -505,6 +510,90 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
+                      InkWell(
+                        onTap: (){
+                          Global.darkMode=!Global.darkMode;
+                          Preferences.saveDarkMode(Global.darkMode);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const MyApp(),
+                            ),
+                                (route) => false,
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.backGroundIcon,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: SvgPicture.asset(
+                                "assets/icons/dark_mode_icon.svg",
+                                height: 25.h,
+                                width: 25.w,
+                                color: ColorManager.primaryColor,
+                              ),
+                              height: 40.h,
+                              width: 40.w,
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Text(
+                              "dark Mode".tr(),
+                              style: getRegularStyle(
+                                  fontSize: 14.sp,
+                                  color: Global.darkMode
+                                      ? ColorManager.backGroundIcon
+                                      : ColorManager.textColor),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      InkWell(
+                        onTap: (){
+
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.backGroundIcon,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: SvgPicture.asset(
+                                "assets/icons/language_icon.svg",
+                                height: 25.h,
+                                width: 25.w,
+                                color: ColorManager.primaryColor,
+                              ),
+                              height: 40.h,
+                              width: 40.w,
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Text(
+                              "Change Language".tr(),
+                              style: getRegularStyle(
+                                  fontSize: 14.sp,
+                                  color: Global.darkMode
+                                      ? ColorManager.backGroundIcon
+                                      : ColorManager.textColor),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+
                     ],
                   ),
                 ),

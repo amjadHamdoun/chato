@@ -65,7 +65,13 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
         ..isSuccess = false
         ..isLoading = true
         ..profileModel = ProfileModel(
-            data: ProfileData(id: 0, email: '', birth_date: '', img: '', gender: '', name: '', token: '',),
+            data: ProfileData(id: 0,
+              email: '', birth_date: '',
+              img: '', gender: '', name: '',
+              token: '',
+              status: '',
+              country: null
+            ),
             message: '',
             error_code: 0,
             status: false)));

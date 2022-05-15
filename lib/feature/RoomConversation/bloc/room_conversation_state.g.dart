@@ -30,6 +30,8 @@ class _$RoomConversationState extends RoomConversationState {
   @override
   final ConversationOldMessageModel conversationOldMessageModel;
   @override
+  final AllTypeModel allTypeUser;
+  @override
   final AllTypeModel allTypeModel;
   @override
   final AllTypeModel allTypeOwner;
@@ -54,6 +56,7 @@ class _$RoomConversationState extends RoomConversationState {
       required this.smile,
       required this.error,
       required this.conversationOldMessageModel,
+      required this.allTypeUser,
       required this.allTypeModel,
       required this.allTypeOwner,
       required this.allTypeAdmin,
@@ -73,6 +76,8 @@ class _$RoomConversationState extends RoomConversationState {
         error, 'RoomConversationState', 'error');
     BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel,
         'RoomConversationState', 'conversationOldMessageModel');
+    BuiltValueNullFieldError.checkNotNull(
+        allTypeUser, 'RoomConversationState', 'allTypeUser');
     BuiltValueNullFieldError.checkNotNull(
         allTypeModel, 'RoomConversationState', 'allTypeModel');
     BuiltValueNullFieldError.checkNotNull(
@@ -107,6 +112,7 @@ class _$RoomConversationState extends RoomConversationState {
         smile == other.smile &&
         error == other.error &&
         conversationOldMessageModel == other.conversationOldMessageModel &&
+        allTypeUser == other.allTypeUser &&
         allTypeModel == other.allTypeModel &&
         allTypeOwner == other.allTypeOwner &&
         allTypeAdmin == other.allTypeAdmin &&
@@ -130,20 +136,24 @@ class _$RoomConversationState extends RoomConversationState {
                                                     $jc(
                                                         $jc(
                                                             $jc(
-                                                                0,
-                                                                isSuccess
+                                                                $jc(
+                                                                    0,
+                                                                    isSuccess
+                                                                        .hashCode),
+                                                                isLoading
                                                                     .hashCode),
-                                                            isLoading.hashCode),
-                                                        isSuccessAllType
+                                                            isSuccessAllType
+                                                                .hashCode),
+                                                        isLoadingAllType
                                                             .hashCode),
-                                                    isLoadingAllType.hashCode),
-                                                showEmoji.hashCode),
-                                            isRecord.hashCode),
-                                        smileOrSticker.hashCode),
-                                    senGiftType.hashCode),
-                                smile.hashCode),
-                            error.hashCode),
-                        conversationOldMessageModel.hashCode),
+                                                    showEmoji.hashCode),
+                                                isRecord.hashCode),
+                                            smileOrSticker.hashCode),
+                                        senGiftType.hashCode),
+                                    smile.hashCode),
+                                error.hashCode),
+                            conversationOldMessageModel.hashCode),
+                        allTypeUser.hashCode),
                     allTypeModel.hashCode),
                 allTypeOwner.hashCode),
             allTypeAdmin.hashCode),
@@ -164,6 +174,7 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('smile', smile)
           ..add('error', error)
           ..add('conversationOldMessageModel', conversationOldMessageModel)
+          ..add('allTypeUser', allTypeUser)
           ..add('allTypeModel', allTypeModel)
           ..add('allTypeOwner', allTypeOwner)
           ..add('allTypeAdmin', allTypeAdmin)
@@ -226,6 +237,11 @@ class RoomConversationStateBuilder
           ConversationOldMessageModel? conversationOldMessageModel) =>
       _$this._conversationOldMessageModel = conversationOldMessageModel;
 
+  AllTypeModel? _allTypeUser;
+  AllTypeModel? get allTypeUser => _$this._allTypeUser;
+  set allTypeUser(AllTypeModel? allTypeUser) =>
+      _$this._allTypeUser = allTypeUser;
+
   AllTypeModel? _allTypeModel;
   AllTypeModel? get allTypeModel => _$this._allTypeModel;
   set allTypeModel(AllTypeModel? allTypeModel) =>
@@ -262,6 +278,7 @@ class RoomConversationStateBuilder
       _smile = $v.smile;
       _error = $v.error;
       _conversationOldMessageModel = $v.conversationOldMessageModel;
+      _allTypeUser = $v.allTypeUser;
       _allTypeModel = $v.allTypeModel;
       _allTypeOwner = $v.allTypeOwner;
       _allTypeAdmin = $v.allTypeAdmin;
@@ -304,8 +321,9 @@ class RoomConversationStateBuilder
                 error, 'RoomConversationState', 'error'),
             conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(
                 conversationOldMessageModel, 'RoomConversationState', 'conversationOldMessageModel'),
-            allTypeModel: BuiltValueNullFieldError.checkNotNull(
-                allTypeModel, 'RoomConversationState', 'allTypeModel'),
+            allTypeUser: BuiltValueNullFieldError.checkNotNull(
+                allTypeUser, 'RoomConversationState', 'allTypeUser'),
+            allTypeModel: BuiltValueNullFieldError.checkNotNull(allTypeModel, 'RoomConversationState', 'allTypeModel'),
             allTypeOwner: BuiltValueNullFieldError.checkNotNull(allTypeOwner, 'RoomConversationState', 'allTypeOwner'),
             allTypeAdmin: BuiltValueNullFieldError.checkNotNull(allTypeAdmin, 'RoomConversationState', 'allTypeAdmin'),
             sendMessageModel: BuiltValueNullFieldError.checkNotNull(sendMessageModel, 'RoomConversationState', 'sendMessageModel'));

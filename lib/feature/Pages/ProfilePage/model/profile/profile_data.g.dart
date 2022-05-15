@@ -14,6 +14,10 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       img: json['img'] as String?,
       birth_date: json['birth_date'] as String?,
       gender: json['gender'] as String?,
+      status: json['status'] as String?,
+      country: json['country'] == null
+          ? null
+          : CountryModel.fromJson(json['country'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
@@ -25,4 +29,6 @@ Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
       'birth_date': instance.birth_date,
       'gender': instance.gender,
       'token': instance.token,
+      'status': instance.status,
+      'country': instance.country,
     };

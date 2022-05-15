@@ -28,6 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds:2)).then((value) {
       Global.userToken= Preferences.getUserToken();
       Global.userId=Preferences.getUserId();
+      Global.userImage=Preferences.getUserImage();
+      Global.userName=Preferences.getUserName();
+
 
       if(Global.userToken!.isNotEmpty)
       {

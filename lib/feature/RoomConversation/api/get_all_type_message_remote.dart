@@ -35,6 +35,7 @@ class AllTypeDataSourceImpl extends
           (
           Endpoints.allTypeRoom,
           queryParameters: {
+            if(type.isNotEmpty)
             'type':type,
             'room_id':roomId
           },

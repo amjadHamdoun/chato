@@ -2,7 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/feature/Pages/RoomPage/model/favModel/fav_room_data_model.dart';
 import 'package:chato/feature/User/model/user_data.dart';
+import 'package:profanity_filter/profanity_filter.dart';
 
+import '../../../injection.dart';
 import '../../Conversation/model/conversation_old_message_data_model.dart';
 import '../../Conversation/model/conversation_old_message_model.dart';
 import '../api/add_user_remote.dart';
@@ -130,7 +132,7 @@ class RoomConversationBloc
                ..error=''
                ..isLoadingAllType=false
                ..isSuccessAllType=true
-               ..allTypeModel=r
+               ..allTypeUser=r
              ));
            }
          else if(event.type=='owner'){
@@ -141,12 +143,20 @@ class RoomConversationBloc
              ..allTypeOwner=r
            ));
          }
-         else  {
+         else if(event.type=='admin') {
            emit(state.rebuild((b) => b
              ..error=''
              ..isLoadingAllType=false
              ..isSuccessAllType=true
              ..allTypeAdmin=r
+           ));
+         }
+         else  {
+           emit(state.rebuild((b) => b
+             ..error=''
+             ..isLoadingAllType=false
+             ..isSuccessAllType=true
+             ..allTypeModel=r
            ));
          }
 
@@ -155,13 +165,17 @@ class RoomConversationBloc
 
     on<SendMessageEvent>((event, emit)
     async {
+      final filter =sl<ProfanityFilter> ();
+
+
+      String cleanString = filter.censor(event.message);
+
       emit(
           state.rebuild((b) => b
-
             ..error=''
               ..conversationOldMessageModel!.data!.add(
                   ConversationOldMessageDataModel(
-                    message: event.message,
+                    message: cleanString,
                     id: 0,
                     conversation_id: '0',
                     seen: '',
@@ -182,7 +196,7 @@ class RoomConversationBloc
       final result=await
       sendMessageDataSource.
       sendMessage(
-          message: event.message,
+          message: cleanString,
           roomId: event.roomId
       );
       return result.fold((l) async {

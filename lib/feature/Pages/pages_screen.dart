@@ -59,7 +59,13 @@ class _PagesScreenState extends State<PagesScreen> {
        print("error: ${error!.message}");
      });
      channelChat =
-         pusher!.subscribe("private-chat.2");
+         pusher!.subscribe("chat.2");
+
+     channelChat!.bind('App\\Events\\ChatEvent', (event) {
+       log("event.toString()");
+       log(event.toString());
+     });
+
 
      channelChat!.bind('App\\Events\\ChatEvent', (event) {
        log("event.toString()");

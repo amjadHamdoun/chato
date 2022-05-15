@@ -24,6 +24,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   String get smile;
    String get error;
   ConversationOldMessageModel get conversationOldMessageModel;
+  AllTypeModel get allTypeUser;
   AllTypeModel get allTypeModel;
   AllTypeModel get allTypeOwner;
   AllTypeModel get allTypeAdmin;
@@ -61,7 +62,8 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
           error_code: 0, message: '', status: false)
         ..allTypeAdmin=AllTypeModel(data: [],
           error_code: 0, message: '', status: false)
-
+         ..allTypeUser=AllTypeModel(data: [],
+             error_code: 0, message: '', status: false)
     );
   }
 }

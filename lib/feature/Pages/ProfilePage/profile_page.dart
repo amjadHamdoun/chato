@@ -1,15 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:chato/feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'package:chato/feature/Pages/ProfilePage/widget/acount_settings.dart';
-
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../../../core/utils/color_manager.dart';
 import '../../autho/login/login_screen.dart';
 import 'bloc/prof_bloc.dart';
@@ -87,7 +83,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                           const Icon(Icons.error),
                     ),
                   ),
-
                   //details
                   SizedBox(
                     height: 20.h,

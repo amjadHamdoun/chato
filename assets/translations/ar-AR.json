@@ -102,7 +102,7 @@
   "hide account": "اخفاء الحساب",
   "email": "البريد الالكتروني",
   "birthdays": "اعياد الميلاد",
-  "gender": "المدينة",
+  "gender": "الجنس",
   "change password": "تغيير كلمة المرور",
   "Banned accounts": "الحسابات المحظورة",
   "Banned List": "قائمة الحظر",
@@ -168,6 +168,9 @@
   "Admins": "مشرفين",
   "No Admins": "لا يوجد مشرفين",
   "Users": "مستخدمين",
-  "No Owners": "لا يوجد مالكين"
+  "No Owners": "لا يوجد مالكين",
+  "undefined": "غير محدد",
+  "dark Mode": "الوضع مظلم",
+  "Change Language": "تغير اللغة"
 
 }

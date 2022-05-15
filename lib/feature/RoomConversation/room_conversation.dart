@@ -38,7 +38,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
   void initState() {
      bloc.onAddUserRoomEvent(Global.userId!, widget.roomId);
      bloc.onGetConversationMessage(widget.roomId);
-     bloc.onGetAllTypeEvent('user',widget.roomId);
+     bloc.onGetAllTypeEvent('',widget.roomId);
 
 
     super.initState();
@@ -322,7 +322,11 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                        padding:  EdgeInsets.symmetric(
                                            horizontal: 6.w
                                        ),
-                                       child: ListView.separated(
+                                       child:state.isLoading!?
+                                           const Center(
+                                             child: CircularProgressIndicator(),
+                                           ):
+                                       ListView.separated(
                                          controller: scrollController,
                                          physics: const AlwaysScrollableScrollPhysics(
                                              parent: BouncingScrollPhysics()

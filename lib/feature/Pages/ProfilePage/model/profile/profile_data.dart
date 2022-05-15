@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'country_model.dart';
+
 part 'profile_data.g.dart';
 
 @JsonSerializable()
@@ -11,7 +13,8 @@ class ProfileData {
   final String? birth_date;
   final String? gender;
   final String? token;
-
+  final String? status;
+ final CountryModel? country;
   Map<String, dynamic> toJson() => _$ProfileDataToJson(this);
 
   factory ProfileData.fromJson(Map<String, dynamic> json) =>
@@ -25,5 +28,7 @@ class ProfileData {
     required this.img,
     required this.birth_date,
     required this.gender,
+    required this.status,
+    required this.country
   });
 }
