@@ -52,7 +52,7 @@ class UserDetailsRemoteDataSourceImpl extends UserDetailsRemoteDataSource {
       }
     }
     else {
-      return Left(Er.error);
+      return Left(Er.networkError);
     }
   }
 

@@ -15,6 +15,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import '../../../../main.dart';
 import '../../../RoomConversation/widget/music/show_audio_player_bottom_sheet.dart';
 import '../bloc/prof_bloc.dart';
+import 'change_password_bottom_sheet.dart';
 import 'show_menu_bottom_sheet_email_one.dart';
 import 'dart:io';
 
@@ -441,33 +442,41 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: ColorManager.backGroundIcon,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: SvgPicture.asset(
-                              "assets/icons/3_key.svg",
-                              height: 25.h,
-                              width: 25.w,
+                      InkWell(
+                        onTap: (){
+                          showBottomSheetPassword(
+                            context,
+                            widget.bloc
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.backGroundIcon,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: SvgPicture.asset(
+                                "assets/icons/3_key.svg",
+                                height: 25.h,
+                                width: 25.w,
+                              ),
+                              height: 40.h,
+                              width: 40.w,
                             ),
-                            height: 40.h,
-                            width: 40.w,
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Text(
-                            "change password".tr(),
-                            style: getRegularStyle(
-                                fontSize: 14.sp,
-                                color: Global.darkMode
-                                    ? ColorManager.backGroundIcon
-                                    : ColorManager.textColor),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Text(
+                              "change password".tr(),
+                              style: getRegularStyle(
+                                  fontSize: 14.sp,
+                                  color: Global.darkMode
+                                      ? ColorManager.backGroundIcon
+                                      : ColorManager.textColor),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 10.h,
@@ -557,8 +566,37 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         height: 10.h,
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: ()async{
+                          if( EasyLocalization.of(context)!.currentLocale!
+                              ==const Locale('ar','AR'))
+                          {
+                            await EasyLocalization.of(context)!.
+                            setLocale(const Locale('en', 'US'));
+                            context.setLocale(const Locale('en', 'US'));
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                const MyApp(),
+                              ),
+                                  (route) => false,
+                            );
 
+                          }
+                          else{
+                            await EasyLocalization.of(context)!.
+                            setLocale(const Locale('ar', 'AR'));
+                            context.setLocale(const Locale('ar', 'AR'));
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                const MyApp(),
+                              ),
+                                  (route) => false,
+                            );
+
+                          }
                         },
                         child: Row(
                           children: [

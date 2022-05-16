@@ -54,7 +54,7 @@ class CountFriendDetailsRemoteDataSourceImpl extends CountFriendDetailsRemoteDat
       }
     }
     else {
-      return Left(Er.error);
+      return Left(Er.networkError);
     }
   }
 

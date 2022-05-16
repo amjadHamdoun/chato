@@ -1,16 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
-import 'package:chato/feature/Pages/RoomPage/model/favModel/fav_room_data_model.dart';
+
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 
 import '../../../injection.dart';
-import '../../Conversation/model/conversation_old_message_data_model.dart';
-import '../../Conversation/model/conversation_old_message_model.dart';
+
 import '../api/add_user_remote.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
 import '../api/send_message_remote.dart';
+import '../model/conversationMessage/conversation_old_message_data_model.dart';
+import '../model/conversationMessage/conversation_old_message_model.dart';
 import 'room_conversation_event.dart';
 import 'room_conversation_state.dart';
 
@@ -47,6 +48,24 @@ class RoomConversationBloc
           b..smile = event.smile));
       emit(state.rebuild((b) =>
          b..smile = ''  ));
+    });
+
+    on<AddMessageFromPusherEvent>((event, emit) {
+      ConversationOldMessageModel messageModel=
+      ConversationOldMessageModel(data: [],
+      status: false,
+        error_code: 0,
+        message: ''
+      );
+      for(var message in state.conversationOldMessageModel.data!)
+        {
+          messageModel.data!.add(message);
+
+        }
+      messageModel.data!.add(event.message);
+      emit(state.rebuild((b) =>
+             b..conversationOldMessageModel=
+                 messageModel  ));
     });
 
       on<SwitchSmileStickerEvent>((event, emit) {
@@ -175,8 +194,9 @@ class RoomConversationBloc
             ..error=''
               ..conversationOldMessageModel!.data!.add(
                   ConversationOldMessageDataModel(
-                    message: cleanString,
                     id: 0,
+                    message: cleanString,
+
                     conversation_id: '0',
                     seen: '',
                     created_at: '',
@@ -299,5 +319,11 @@ class RoomConversationBloc
   void onAddUserRoomEvent(int userId,int roomId) {
     add(AddUserRoomEvent(user_id: userId,roomId: roomId));
   }
+    void onAddMessageFromPusherEvent(
+        ConversationOldMessageDataModel message) {
+      add(AddMessageFromPusherEvent(message: message));
+    }
+
+
 
 }

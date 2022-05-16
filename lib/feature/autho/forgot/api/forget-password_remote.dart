@@ -49,7 +49,7 @@ ForgetPasswordRemoteDataSource {
       }
     }
     else {
-      return Left(Er.error);
+      return Left(Er.networkError);
     }
   }
 

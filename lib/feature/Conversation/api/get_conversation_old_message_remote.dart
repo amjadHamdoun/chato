@@ -4,12 +4,12 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/conversation_old_message_model.dart';
+import '../model/private_old_message_model.dart';
 
 
 
 abstract class ConversationOldMessageDataSource {
-  Future<Either<String, ConversationOldMessageModel>>
+  Future<Either<String, PrivateOldMessageModel>>
    getConversationOldMessage({required int conversationId});
 }
 
@@ -24,7 +24,7 @@ class ConversationOldMessageDataSourceImpl extends
       });
 
   @override
-  Future<Either<String, ConversationOldMessageModel>>
+  Future<Either<String, PrivateOldMessageModel>>
   getConversationOldMessage({required int conversationId}) async {
     if (await networkInfo.hasConnection) {
       try {
@@ -41,7 +41,7 @@ class ConversationOldMessageDataSourceImpl extends
             },
           ),
         );
-        return Right(ConversationOldMessageModel
+        return Right(PrivateOldMessageModel
             .fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {
@@ -56,7 +56,7 @@ class ConversationOldMessageDataSourceImpl extends
       }
     }
     else {
-      return Left(Er.error);
+      return Left(Er.networkError);
     }
   }
 

@@ -16,7 +16,7 @@ class _$ConversationState extends ConversationState {
   @override
   final bool isRecord;
   @override
-  final ConversationOldMessageModel conversationOldMessageModel;
+  final PrivateOldMessageModel conversationOldMessageModel;
 
   factory _$ConversationState(
           [void Function(ConversationStateBuilder)? updates]) =>
@@ -98,11 +98,11 @@ class ConversationStateBuilder
   bool? get isRecord => _$this._isRecord;
   set isRecord(bool? isRecord) => _$this._isRecord = isRecord;
 
-  ConversationOldMessageModel? _conversationOldMessageModel;
-  ConversationOldMessageModel? get conversationOldMessageModel =>
+  PrivateOldMessageModel? _conversationOldMessageModel;
+  PrivateOldMessageModel? get conversationOldMessageModel =>
       _$this._conversationOldMessageModel;
   set conversationOldMessageModel(
-          ConversationOldMessageModel? conversationOldMessageModel) =>
+          PrivateOldMessageModel? conversationOldMessageModel) =>
       _$this._conversationOldMessageModel = conversationOldMessageModel;
 
   ConversationStateBuilder();

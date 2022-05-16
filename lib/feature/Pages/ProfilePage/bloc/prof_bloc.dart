@@ -8,8 +8,10 @@ import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/blockedUser/blocked_user_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/resetPassword/reset_model.dart';
 import '../api/blocked_user_remote.dart';
 import '../api/logout_remote.dart';
+import '../api/reset_remote.dart';
 import '../api/unblocked_user_remote.dart';
 import '../api/update_user_info_remote.dart';
 import '../model/profile/profile_model.dart';
@@ -23,14 +25,15 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
  CountFriendDetailsRemoteDataSource countFriendDetailsRemoteDataSource;
   BlockedUserRemoteDataSource blockedUserRemoteDataSource;
   UnBlockedUserRemoteDataSource unBlockedUserRemoteDataSource;
-
+  ResetPasswordRemoteDataSource resetPasswordRemoteDataSource;
   ProfBloc(
       {required this.profileDetailsRemoteDataSource,
       required this.logoutRemoteDataSource,
       required this.countFriendDetailsRemoteDataSource,
         required this.updateUserInfoDataSource,
         required this.blockedUserRemoteDataSource,
-        required this.unBlockedUserRemoteDataSource
+        required this.unBlockedUserRemoteDataSource,
+        required this.resetPasswordRemoteDataSource
       })
       : super(ProfState.initial()) {
     on<LogoutEvent>((event, emit) async {
@@ -211,6 +214,45 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
 
     });
 
+    on<ChangePasswordEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..error=''
+          ..isLoadingChange=true
+          ..isSuccessChange=false
+          ..resetModel=ResetModel(message: '',
+              status: false, error_code: 0)
+      ));
+
+      final result = await
+      resetPasswordRemoteDataSource.resetPassword(
+        oldPassword: event.oldPassword,
+        password: event.password,
+        confirmPassword: event.confirmPassword
+      );
+
+      print("result");
+      print(result);
+      print("result");
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..error=l
+          ..isLoadingChange=false
+          ..isSuccessChange=false
+        ));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..isLoadingChange=false
+          ..isSuccessChange=true
+          ..error=''
+            ..resetModel=r
+        ));
+      });
+    });
+
     on<UnBlockedUserEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..error=''
@@ -218,7 +260,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
 
       final result = await
       unBlockedUserRemoteDataSource.unBlockedUser(
-        blockedId:event.blockedId
+          blockedId:event.blockedId
       );
 
       print("result");
@@ -237,13 +279,17 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
           ..error=''
         ));
       });
-
-
-
-
-
-
     });
+
+    on<ResetParamEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..error=''
+          ..resetModel=ResetModel(
+              message: '',
+              status: false,
+              error_code: 0)
+      ));});
+
 
 
 
@@ -272,6 +318,19 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
 
   void onUnBlockedUserEvent(int blockedId){
     add(UnBlockedUserEvent(blockedId: blockedId));
+  }
+
+  void onChangePasswordEvent(String oldPassword,
+      String password,String confirmPassword,){
+    add(ChangePasswordEvent(
+       oldPassword: oldPassword,
+      password: password,
+      confirmPassword: confirmPassword
+    ));
+  }
+
+  void onResetParamEvent(){
+    add(ResetParamEvent());
   }
 
 }

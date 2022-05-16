@@ -16,6 +16,7 @@ import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
 import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'feature/Pages/ProfilePage/api/blocked_user_remote.dart';
+import 'feature/Pages/ProfilePage/api/reset_remote.dart';
 import 'feature/Pages/ProfilePage/api/unblocked_user_remote.dart';
 import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
@@ -83,7 +84,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => DataConnectionChecker());
 
-
+  sl.registerLazySingleton<ProfanityFilter>(
+          () => ProfanityFilter()
+  );
 
   //datasource
   sl.registerLazySingleton<RegisterRemoteDataSource>(
@@ -201,8 +204,11 @@ Future<void> init() async {
         dio: sl(),
         networkInfo: sl()),
   );
-  sl.registerLazySingleton<ProfanityFilter>(
-        () => ProfanityFilter()
+
+  sl.registerLazySingleton<ResetPasswordRemoteDataSource>(
+        () => ResetPasswordRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()),
   );
 
 
@@ -237,7 +243,8 @@ Future<void> init() async {
       countFriendDetailsRemoteDataSource: sl(),
       updateUserInfoDataSource: sl(),
       blockedUserRemoteDataSource: sl(),
-    unBlockedUserRemoteDataSource: sl()
+    unBlockedUserRemoteDataSource: sl(),
+    resetPasswordRemoteDataSource: sl()
 
   ));
 

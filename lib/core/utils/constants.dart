@@ -30,6 +30,7 @@ class Endpoints {
   static const allTypeRoom = 'room/all-type-room';
   static const sendMessage = 'room/send-message';
   static const addUserRoom = 'room/add-user-room';
+  static const restPassword = 'auth/rest_password';
 
 
 

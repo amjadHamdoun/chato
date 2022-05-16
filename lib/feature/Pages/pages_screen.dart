@@ -28,7 +28,7 @@ class PagesScreen extends StatefulWidget {
 }
 
 class _PagesScreenState extends State<PagesScreen> {
-  PusherClient? pusher;
+
   Channel? channelChat;
    HomeBloc bloc=sl<HomeBloc>();
    ProfBloc profBloc=sl<ProfBloc>();
@@ -38,39 +38,18 @@ class _PagesScreenState extends State<PagesScreen> {
 
    @override
   void initState() {
-     pusher = PusherClient(
-       Global.pusherAppKey!,
-       PusherOptions(
-         host:  Global.host!,
-         encrypted: false,
-         cluster: Global.pusherAppCluster!,
-       ),
-       autoConnect: true,
-       enableLogging: true,
-     );
-     pusher!.connect();
 
-     pusher!.onConnectionStateChange((state) {
+     Global.pusher!.connect();
+
+     Global.pusher!.onConnectionStateChange((state) {
        print("previousState: ${state!.previousState}"
            ", currentState: ${state.currentState}");
      });
 
-     pusher!.onConnectionError((error) {
+     Global.pusher!.onConnectionError((error) {
        print("error: ${error!.message}");
      });
-     channelChat =
-         pusher!.subscribe("chat.2");
 
-     channelChat!.bind('App\\Events\\ChatEvent', (event) {
-       log("event.toString()");
-       log(event.toString());
-     });
-
-
-     channelChat!.bind('App\\Events\\ChatEvent', (event) {
-       log("event.toString()");
-       log(event.toString());
-     });
      bloc.onChangePageEvent(0);
 
      super.initState();

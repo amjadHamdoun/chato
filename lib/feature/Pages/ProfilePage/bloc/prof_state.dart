@@ -6,6 +6,7 @@ import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart'
 
 import '../model/blockedUser/blocked_user_model.dart';
 import '../model/profile/profile_model.dart';
+import '../model/resetPassword/reset_model.dart';
 
 
 part 'prof_state.g.dart';
@@ -19,6 +20,10 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
 
   bool? get isLoadingLogout;
 
+  bool? get isSuccessChange;
+
+  bool? get isLoadingChange;
+
   String? get error;
 
   File? get img;
@@ -29,6 +34,7 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
 
   BlockedUserModel? get blockedUserModel;
 
+  ResetModel get resetModel;
   ProfState._();
 
   factory ProfState([void Function(ProfStateBuilder) updates]) = _$ProfState;
@@ -39,6 +45,8 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..isSuccess = false
       ..isLoadingLogout = false
       ..isSuccessLogout = false
+      ..isSuccessChange=false
+      ..isLoadingChange=false
       ..error = ""
       ..img=null
       ..blockedUserModel=BlockedUserModel(
@@ -66,6 +74,12 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..countFriendModel = CountFriendModel(
               data: 0, error_code: 0,
               message: '', status: false)
+        ..resetModel=ResetModel(message: '',
+          error_code: 0,
+          status: false
+
+
+        )
     );
   }
 }

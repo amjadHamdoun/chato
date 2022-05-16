@@ -2,27 +2,27 @@ import 'package:chato/feature/User/model/user_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 
-part 'conversation_old_message_data_model.g.dart';
+part 'private_old_message_data_model.g.dart';
 
 
 @JsonSerializable()
-class ConversationOldMessageDataModel {
+class PrivateOldMessageDataModel {
 
-  int? id;
+
   String? conversation_id;
   String? message;
   String? seen;
   String? created_at;
   String? updated_at;
-  UserData user;
+  UserData? user;
 
-  Map<String, dynamic> toJson() => _$ConversationOldMessageDataModelToJson(this);
-  factory ConversationOldMessageDataModel.fromJson(Map<String, dynamic> json) =>
-      _$ConversationOldMessageDataModelFromJson(json);
+  Map<String, dynamic> toJson() => _$PrivateOldMessageDataModelToJson(this);
+  factory PrivateOldMessageDataModel.fromJson(Map<String, dynamic> json) =>
+      _$PrivateOldMessageDataModelFromJson(json);
 
-  ConversationOldMessageDataModel(
+  PrivateOldMessageDataModel(
       {
-        required this.id,
+
         required this.conversation_id,
         required this.message,
         required this.seen,

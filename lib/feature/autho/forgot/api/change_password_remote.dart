@@ -59,7 +59,7 @@ class ChangePasswordRemoteDataSourceImpl extends
       }
     }
     else {
-      return Left(Er.error);
+      return Left(Er.networkError);
     }
   }
 

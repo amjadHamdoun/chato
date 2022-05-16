@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../../Conversation/model/conversation_old_message_model.dart';
+import '../model/conversationMessage/conversation_old_message_model.dart';
 
 
 
@@ -60,7 +60,7 @@ class ConversationOldMessageDataSourceImpl extends
       }
     }
     else {
-      return Left(Er.error);
+      return Left(Er.networkError);
     }
   }
 

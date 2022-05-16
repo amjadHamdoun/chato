@@ -44,3 +44,18 @@ class ChangeImageEvent extends ProfEvent{
    required this.image
 });
 }
+
+class ChangePasswordEvent extends ProfEvent{
+  String oldPassword;
+  String password;
+  String confirmPassword;
+  ChangePasswordEvent({
+    required this.oldPassword,
+    required this.password,
+    required this.confirmPassword
+  });
+}
+
+class ResetParamEvent extends ProfEvent{
+
+}

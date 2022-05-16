@@ -1,31 +1,34 @@
 import 'dart:convert';
+
 import 'package:chato/core/utils/constants.dart';
-import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-
 import '../../../../Globals.dart';
-import '../model/blockedUser/blocked_user_model.dart';
+import '../model/resetPassword/reset_model.dart';
 
 
 
-abstract class UnBlockedUserRemoteDataSource {
-  Future<Either<String, String>> unBlockedUser({
- required int blockedId
+abstract class ResetPasswordRemoteDataSource {
+  Future<Either<String, ResetModel>> resetPassword({
+      required String oldPassword,
+       required String password,
+       required String confirmPassword
   });
 }
 
-class UnBlockedUserRemoteDataSourceImpl extends UnBlockedUserRemoteDataSource {
+class ResetPasswordRemoteDataSourceImpl extends ResetPasswordRemoteDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  UnBlockedUserRemoteDataSourceImpl(
+  ResetPasswordRemoteDataSourceImpl(
       { required this.dio, required this.networkInfo});
 
   @override
-  Future<Either<String, String>> unBlockedUser({
-    required  int blockedId
+  Future<Either<String, ResetModel>> resetPassword({
+    required String oldPassword,
+    required String password,
+    required String confirmPassword
   }) async {
     if (await networkInfo.hasConnection) {
       try {
@@ -33,11 +36,15 @@ class UnBlockedUserRemoteDataSourceImpl extends UnBlockedUserRemoteDataSource {
         = "Bearer ${Global.userToken}";
         final re = await dio.post
           (
-          Endpoints.unblockUser,
-          data: { "blocked_id":blockedId },
-         );
+          Endpoints.restPassword,
+          data: {
+            "password_old":oldPassword ,
+            "password_new":password ,
+            "confirm_password_new":confirmPassword ,
 
-        return const Right('true');
+          },
+         );
+        return  Right(ResetModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {
           return Left(Er.networkError);

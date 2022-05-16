@@ -1,7 +1,8 @@
 import 'package:built_value/built_value.dart';
 
-import '../../Conversation/model/conversation_old_message_model.dart';
+import '../../Conversation/model/private_old_message_model.dart';
 import '../model/allType/all_type_model.dart';
+import '../model/conversationMessage/conversation_old_message_model.dart';
 import '../model/sendMessage/send_message_model.dart';
 
 

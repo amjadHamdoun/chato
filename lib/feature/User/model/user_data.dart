@@ -18,13 +18,13 @@ class UserData {
       _$UserDataFromJson(json);
 
   UserData( {
-    required this.token,
-    required this.name,
-    required this.email,
-    required this.id,
-    required this.img,
-    required this.birth_date,
-    required this.gender,
+     this.token,
+     this.name,
+     this.email,
+     this.id,
+     this.img,
+     this.birth_date,
+     this.gender,
 
   });
 }

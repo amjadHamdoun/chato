@@ -35,6 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   RegisterBloc bloc=sl<RegisterBloc>();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterBloc,RegisterState>(

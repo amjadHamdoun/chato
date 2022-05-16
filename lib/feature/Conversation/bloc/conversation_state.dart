@@ -1,8 +1,5 @@
-
 import 'package:built_value/built_value.dart';
-
-import '../model/conversation_old_message_model.dart';
-
+import '../model/private_old_message_model.dart';
 part 'conversation_state.g.dart';
 
 
@@ -14,7 +11,7 @@ abstract class ConversationState implements
   bool? get isLoading;
   bool get showEmoji;
   bool get isRecord;
-  ConversationOldMessageModel get conversationOldMessageModel;
+  PrivateOldMessageModel get conversationOldMessageModel;
 
 
   ConversationState._();
@@ -28,7 +25,7 @@ abstract class ConversationState implements
         ..showEmoji=false
         ..isRecord=false
         ..conversationOldMessageModel=
-            ConversationOldMessageModel(status: false,
+        PrivateOldMessageModel(status: false,
             message: '',
               error_code: 0,
               data: []

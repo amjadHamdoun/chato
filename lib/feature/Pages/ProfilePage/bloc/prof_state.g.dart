@@ -16,6 +16,10 @@ class _$ProfState extends ProfState {
   @override
   final bool? isLoadingLogout;
   @override
+  final bool? isSuccessChange;
+  @override
+  final bool? isLoadingChange;
+  @override
   final String? error;
   @override
   final File? img;
@@ -25,6 +29,8 @@ class _$ProfState extends ProfState {
   final CountFriendModel? countFriendModel;
   @override
   final BlockedUserModel? blockedUserModel;
+  @override
+  final ResetModel resetModel;
 
   factory _$ProfState([void Function(ProfStateBuilder)? updates]) =>
       (new ProfStateBuilder()..update(updates)).build();
@@ -34,12 +40,18 @@ class _$ProfState extends ProfState {
       this.isLoading,
       this.isSuccessLogout,
       this.isLoadingLogout,
+      this.isSuccessChange,
+      this.isLoadingChange,
       this.error,
       this.img,
       this.profileModel,
       this.countFriendModel,
-      this.blockedUserModel})
-      : super._();
+      this.blockedUserModel,
+      required this.resetModel})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        resetModel, 'ProfState', 'resetModel');
+  }
 
   @override
   ProfState rebuild(void Function(ProfStateBuilder) updates) =>
@@ -56,11 +68,14 @@ class _$ProfState extends ProfState {
         isLoading == other.isLoading &&
         isSuccessLogout == other.isSuccessLogout &&
         isLoadingLogout == other.isLoadingLogout &&
+        isSuccessChange == other.isSuccessChange &&
+        isLoadingChange == other.isLoadingChange &&
         error == other.error &&
         img == other.img &&
         profileModel == other.profileModel &&
         countFriendModel == other.countFriendModel &&
-        blockedUserModel == other.blockedUserModel;
+        blockedUserModel == other.blockedUserModel &&
+        resetModel == other.resetModel;
   }
 
   @override
@@ -72,15 +87,21 @@ class _$ProfState extends ProfState {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, isSuccess.hashCode),
-                                    isLoading.hashCode),
-                                isSuccessLogout.hashCode),
-                            isLoadingLogout.hashCode),
-                        error.hashCode),
-                    img.hashCode),
-                profileModel.hashCode),
-            countFriendModel.hashCode),
-        blockedUserModel.hashCode));
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, isSuccess.hashCode),
+                                                isLoading.hashCode),
+                                            isSuccessLogout.hashCode),
+                                        isLoadingLogout.hashCode),
+                                    isSuccessChange.hashCode),
+                                isLoadingChange.hashCode),
+                            error.hashCode),
+                        img.hashCode),
+                    profileModel.hashCode),
+                countFriendModel.hashCode),
+            blockedUserModel.hashCode),
+        resetModel.hashCode));
   }
 
   @override
@@ -90,11 +111,14 @@ class _$ProfState extends ProfState {
           ..add('isLoading', isLoading)
           ..add('isSuccessLogout', isSuccessLogout)
           ..add('isLoadingLogout', isLoadingLogout)
+          ..add('isSuccessChange', isSuccessChange)
+          ..add('isLoadingChange', isLoadingChange)
           ..add('error', error)
           ..add('img', img)
           ..add('profileModel', profileModel)
           ..add('countFriendModel', countFriendModel)
-          ..add('blockedUserModel', blockedUserModel))
+          ..add('blockedUserModel', blockedUserModel)
+          ..add('resetModel', resetModel))
         .toString();
   }
 }
@@ -120,6 +144,16 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   set isLoadingLogout(bool? isLoadingLogout) =>
       _$this._isLoadingLogout = isLoadingLogout;
 
+  bool? _isSuccessChange;
+  bool? get isSuccessChange => _$this._isSuccessChange;
+  set isSuccessChange(bool? isSuccessChange) =>
+      _$this._isSuccessChange = isSuccessChange;
+
+  bool? _isLoadingChange;
+  bool? get isLoadingChange => _$this._isLoadingChange;
+  set isLoadingChange(bool? isLoadingChange) =>
+      _$this._isLoadingChange = isLoadingChange;
+
   String? _error;
   String? get error => _$this._error;
   set error(String? error) => _$this._error = error;
@@ -143,6 +177,10 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   set blockedUserModel(BlockedUserModel? blockedUserModel) =>
       _$this._blockedUserModel = blockedUserModel;
 
+  ResetModel? _resetModel;
+  ResetModel? get resetModel => _$this._resetModel;
+  set resetModel(ResetModel? resetModel) => _$this._resetModel = resetModel;
+
   ProfStateBuilder();
 
   ProfStateBuilder get _$this {
@@ -152,11 +190,14 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _isLoading = $v.isLoading;
       _isSuccessLogout = $v.isSuccessLogout;
       _isLoadingLogout = $v.isLoadingLogout;
+      _isSuccessChange = $v.isSuccessChange;
+      _isLoadingChange = $v.isLoadingChange;
       _error = $v.error;
       _img = $v.img;
       _profileModel = $v.profileModel;
       _countFriendModel = $v.countFriendModel;
       _blockedUserModel = $v.blockedUserModel;
+      _resetModel = $v.resetModel;
       _$v = null;
     }
     return this;
@@ -181,11 +222,15 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             isLoading: isLoading,
             isSuccessLogout: isSuccessLogout,
             isLoadingLogout: isLoadingLogout,
+            isSuccessChange: isSuccessChange,
+            isLoadingChange: isLoadingChange,
             error: error,
             img: img,
             profileModel: profileModel,
             countFriendModel: countFriendModel,
-            blockedUserModel: blockedUserModel);
+            blockedUserModel: blockedUserModel,
+            resetModel: BuiltValueNullFieldError.checkNotNull(
+                resetModel, 'ProfState', 'resetModel'));
     replace(_$result);
     return _$result;
   }
