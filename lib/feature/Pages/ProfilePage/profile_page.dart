@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/ProfilePage/widget/acount_settings.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../autho/login/login_screen.dart';
@@ -124,7 +126,19 @@ class _ProfileScreenState extends State<ProfileScreen>
                             width: 8.w,
                           ),
                           InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Clipboard.setData(ClipboardData(text:
+                                state.profileModel!.data!.id.toString()));
+                                Fluttertoast.showToast(
+                                    msg: "Copy Done".tr(),
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: ColorManager.primaryColor,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                              },
                               child: SvgPicture.asset(
                                 'assets/icons/copy.svg',
                                 width: 26.w,
