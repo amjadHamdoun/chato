@@ -19,6 +19,7 @@ ConversationOldMessageDataModel _$ConversationOldMessageDataModelFromJson(
           ? null
           : UserData.fromJson(json['user'] as Map<String, dynamic>),
       all_file: json['all_file'] as String?,
+      localFile: json['localFile'] as String?,
     );
 
 Map<String, dynamic> _$ConversationOldMessageDataModelToJson(
@@ -28,6 +29,7 @@ Map<String, dynamic> _$ConversationOldMessageDataModelToJson(
       'conversation_id': instance.conversation_id,
       'message': instance.message,
       'all_file': instance.all_file,
+      'localFile': instance.localFile,
       'seen': instance.seen,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,

@@ -1,14 +1,19 @@
 
 
+import 'dart:io';
+
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../bloc/room_conversation_bloc.dart';
 
-void showMediaBottomSheet(BuildContext ctx,RoomConversationBloc bloc) {
+void showMediaBottomSheet({
+ required BuildContext ctx,required RoomConversationBloc bloc
+}) {
 
   showModalBottomSheet(
       elevation: 10,
@@ -44,7 +49,21 @@ void showMediaBottomSheet(BuildContext ctx,RoomConversationBloc bloc) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    FilePickerResult? result = await
+                    FilePicker.platform.pickFiles(
+                      type: FileType.media,
+
+                    );
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                    //  widget.bloc.onChangeImageEvent(file);
+                    }
+                    else {
+                      // User canceled the picker
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/gallery.svg'),

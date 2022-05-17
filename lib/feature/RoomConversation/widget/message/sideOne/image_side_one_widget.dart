@@ -17,18 +17,18 @@ import 'dart:ui' as ui;
 
 
 
-class MessageVideoSideOne extends StatefulWidget {
+class MessageImageSideOne extends StatefulWidget {
   final ConversationOldMessageDataModel message;
-  const MessageVideoSideOne({Key? key,required this.message}) :
+  const MessageImageSideOne({Key? key,required this.message}) :
         super(key: key);
 
   @override
-  _MessageVideoSideOneState createState() => _MessageVideoSideOneState();
+  _MessageImageSideOneState createState() => _MessageImageSideOneState();
 }
 
-class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
-  late VideoPlayerController _controller;
+class _MessageImageSideOneState extends State<MessageImageSideOne> {
 
+ late File? file ;
   @override
   void initState() {
     isLocal(widget.message.localFile);
@@ -48,35 +48,20 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
     String fileName=widget.message.all_file!.substring(50,
         widget.message.all_file!.length);
   String  filePath = dir.path + "/" + fileName;
-    var file = File(filePath);
-    if (await file.exists()) {
-      _controller=VideoPlayerController.file(
-          file)
-        ..initialize().then((_) {
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-          setState(() {});
-        });
+     file = File(filePath);
+
+    if (await file!.exists()) {
+
     }
     else{
-      if(localFile!=null)
-        {
-          _controller=VideoPlayerController.file(
-              File(localFile))
-            ..initialize().then((_) {
-              // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-              setState(() {});
-            });
-        }
-      else{
-        _controller=VideoPlayerController.network
-          (widget.message.all_file!)
-          ..initialize().then((_) {
-            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-            setState(() {});
-          });
-        Dio dio=Dio();
-        download(dio, widget.message.all_file!, filePath);
-      }
+       if(localFile!=null)
+         {
+           file = File(localFile);
+         }
+       else{
+         Dio dio=Dio();
+         download(dio, widget.message.all_file!, filePath);
+       }
 
     }
   }
@@ -185,13 +170,16 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
               Expanded(
                 child: Stack(
                   children: [
-                    VideoPlayer(_controller),
-                    ControlsOverlay(controller: _controller),
-                    VideoProgressIndicator(_controller,
-                      allowScrubbing: true,
-
-
+                    file!=null?
+                    Image.file(file!,
+                      fit: BoxFit.contain,
+                    ):
+                    Image.network(
+                      widget.message.all_file!,
+                      fit: BoxFit.contain,
                     ),
+
+
                   ],
                 ),
               ),
@@ -208,10 +196,6 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
+
 
 }

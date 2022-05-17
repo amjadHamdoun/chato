@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
+
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
-import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideOne/image_side_one_widget.dart';
+
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_chat_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_video_side_one_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideTwo/image_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_chat_side_two_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_video_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
 import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_sticker.dart';
@@ -29,6 +32,7 @@ import 'model/conversationMessage/message_pusher_model.dart';
 
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
+import 'widget/show_media_bottom_sheet.dart';
 
 
  class RoomConversationScreen extends StatefulWidget {
@@ -94,6 +98,36 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
   }
 
 
+  bool checkIsVideo(String endUrl)
+  {
+    if(endUrl.contains('mp4')
+    ||endUrl.contains('mov')
+    ||endUrl.contains('wmv')
+        ||endUrl.contains('avi')
+        ||endUrl.contains('flv')
+    )
+      {
+
+        return true;
+      }
+    return false;
+  }
+
+   bool checkIsImage(String endUrl)
+   {
+     if(endUrl.contains('jpeg')
+         ||endUrl.contains('jpg')
+         ||endUrl.contains('png')
+         ||endUrl.contains('gif')
+     )
+     {
+
+       return true;
+     }
+     return false;
+   }
+
+
 
 
    @override
@@ -110,16 +144,11 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
             }
           if(state.isSuccess!)
             {
-
                 Future.delayed(const Duration(milliseconds: 300)).then((value) {
-
-
                   scrollController.animateTo(scrollController.position.maxScrollExtent
                       , duration: const Duration(milliseconds: 500),
                       curve: Curves.linearToEaseOut);
                 });
-
-
             }
        },
        builder: (context, state) {
@@ -396,7 +425,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                            if(state.
                                            conversationOldMessageModel
                                                .data![index].user!=null)
-                                             {
+                                             { //me
                                                if(Global.userId==state.
                                                conversationOldMessageModel
                                                    .data![index].user!.id)
@@ -415,17 +444,34 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                        .data![index] ,
                                                  );
                                                  }
-                                                 else if(state.
+                                                 else if(checkIsVideo(state.
                                                  conversationOldMessageModel.data![index].all_file!.substring(state.
                                                  conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
-                                                     .data![index].all_file!.length).contains('mp4'))
+                                                     .data![index].all_file!.length)))
                                                    {
-                                                     return MessageVideo(
+                                                     return SizedBox(
+                                                       height: 170.h,
+                                                       child: MessageVideoSideOne(
+                                                         message:state.
+                                                         conversationOldMessageModel
+                                                             .data![index] ,
+                                                       ),
+                                                     );
+                                                   }
+                                                 else if(checkIsImage(state.
+                                                 conversationOldMessageModel.data![index].all_file!.substring(state.
+                                                 conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
+                                                     .data![index].all_file!.length)))
+                                                 {
+                                                   return SizedBox(
+                                                     height: 170.h,
+                                                     child: MessageImageSideOne(
                                                        message:state.
                                                        conversationOldMessageModel
                                                            .data![index] ,
-                                                     );
-                                                   }
+                                                     ),
+                                                   );
+                                                 }
                                                }
                                                else{
                                                  if(state.
@@ -441,21 +487,38 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                    conversationOldMessageModel
                                                        .data![index] ,
                                                  );
-                                                 } else if(state.
-                                           conversationOldMessageModel.data![index].all_file!.substring(state.
-                                           conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
-                                               .data![index].all_file!.length).contains('mp4'))
+                                                 } else if(
+                                                 checkIsVideo(state.
+                                                 conversationOldMessageModel.data![index].all_file!.substring(state.
+                                                 conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
+                                                     .data![index].all_file!.length))
+
+                                                 )
                                            {
-                                             return Container(
+                                             return SizedBox(
                                                height: 170.h,
 
-                                               child: MessageVideo(
+                                               child: MessageVideoSideTwo(
                                                  message:state.
                                                  conversationOldMessageModel
                                                      .data![index] ,
                                                ),
                                              );
                                            }
+                                                 else if(checkIsImage(state.
+                                                 conversationOldMessageModel.data![index].all_file!.substring(state.
+                                                 conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
+                                                     .data![index].all_file!.length)))
+                                                 {
+                                                   return SizedBox(
+                                                     height: 170.h,
+                                                     child: MessageImageSideTwo(
+                                                       message:state.
+                                                       conversationOldMessageModel
+                                                           .data![index] ,
+                                                     ),
+                                                   );
+                                                 }
                                                }
                                              }
 
@@ -577,7 +640,10 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                            ),
                                                            InkWell(
                                                              onTap: (){
-                                                               showMediaBottomSheet(context);
+                                                               showMediaBottomSheet(
+                                                                 bloc: bloc,
+                                                                 ctx: context
+                                                               );
                                                              },
                                                              child: SvgPicture.asset('assets/icons/media.svg',
                                                                width: 19.w,

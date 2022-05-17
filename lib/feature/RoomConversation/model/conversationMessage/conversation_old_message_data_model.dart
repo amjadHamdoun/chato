@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../User/model/user_data.dart';
@@ -14,6 +16,7 @@ class ConversationOldMessageDataModel {
   String? conversation_id;
   String? message;
   String? all_file;
+  String? localFile;
   String? seen;
   String? created_at;
   String? updated_at;
@@ -32,6 +35,7 @@ class ConversationOldMessageDataModel {
          this.created_at,
          this.updated_at,
          this.user,
-        this.all_file
+        this.all_file,
+        this.localFile
       });
 }
