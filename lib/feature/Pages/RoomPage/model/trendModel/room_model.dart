@@ -12,6 +12,7 @@ class RoomModel {
 
   int? id;
   String? name;
+  String? img;
 
 
 
@@ -23,5 +24,6 @@ class RoomModel {
       {
         required this.id,
         required this.name,
+        required this.img
       });
 }

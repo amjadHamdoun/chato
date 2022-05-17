@@ -1,13 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_chat_side_one_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_video_side_one_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_chat_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
 import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_sticker.dart';
 import 'package:chato/feature/User/model/user_data.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +20,13 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_utils/keyboard_aware/keyboard_aware.dart';
+
 import 'package:pusher_client/pusher_client.dart';
+
 import '../../../core/utils/color_manager.dart';
 import '../../injection.dart';
 import 'model/conversationMessage/message_pusher_model.dart';
-import '../User/user.dart';
+
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
 
@@ -40,12 +47,16 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
    TextEditingController textEditingController= TextEditingController();
    RoomConversationBloc bloc=sl<RoomConversationBloc>();
    Channel? channelChat;
+   bool showProgress = false;
+
+
 
    @override
   void initState() {
      bloc.onAddUserRoomEvent(Global.userId!, widget.roomId);
      bloc.onGetConversationMessage(widget.roomId);
      bloc.onGetAllTypeEvent('',widget.roomId);
+
      channelChat =
          Global.pusher!.subscribe("chat.${widget.roomId}");
 
@@ -65,11 +76,14 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           }
 
 
-         Future.delayed(const Duration(seconds: 0)).then
-           ((value) {
-           scrollController.jumpTo(scrollController
-               .position.maxScrollExtent);
-         });
+
+           Future.delayed(const Duration(milliseconds: 300)).then((value) {
+
+             scrollController.animateTo(scrollController.position.maxScrollExtent
+                 , duration: const Duration(milliseconds: 500),
+                 curve: Curves.linearToEaseOut);
+           });
+
 
      });
 
@@ -78,6 +92,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
     super.initState();
   }
+
 
 
 
@@ -95,11 +110,16 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
             }
           if(state.isSuccess!)
             {
-              Future.delayed(const Duration(seconds: 0)).then
-                ((value) {
-                scrollController.jumpTo(scrollController
-                    .position.maxScrollExtent);
-              });
+
+                Future.delayed(const Duration(milliseconds: 300)).then((value) {
+
+
+                  scrollController.animateTo(scrollController.position.maxScrollExtent
+                      , duration: const Duration(milliseconds: 500),
+                      curve: Curves.linearToEaseOut);
+                });
+
+
             }
        },
        builder: (context, state) {
@@ -112,7 +132,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                  {
                    if(state.showEmoji)
                    {
+
                      bloc.onShowEmojiEvent(false);
+
                    }
                  }
                  return SafeArea(
@@ -379,264 +401,67 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                conversationOldMessageModel
                                                    .data![index].user!.id)
                                                {
-                                                 return Row(
-                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                   children: [
-                                                     GestureDetector(
-                                                       onTap: (){
-                                                         Navigator.push(
-                                                           context,
-                                                           MaterialPageRoute(builder: (context) =>
-                                                           const UserScreen(id: 2,)),
-                                                         );
-                                                       },
-                                                       child: SizedBox(
-                                                         width: 50.h,
-                                                         height: 50.h,
-                                                         child: CachedNetworkImage(
-                                                           imageUrl:state.
-                                                           conversationOldMessageModel
-                                                               .data![index].user!.img?? "http://via.placeholder.com/200x150",
-                                                           imageBuilder: (context, imageProvider) => Container(
-                                                             decoration: BoxDecoration(
-                                                               shape: BoxShape.circle,
-                                                               image: DecorationImage(
-                                                                 image: imageProvider,
-                                                                 fit: BoxFit.fill,
-
-                                                               ),
-                                                             ),
-                                                           ),
-                                                           placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                           errorWidget: (context, url, error) => const Icon(Icons.error),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                     SizedBox(
-                                                       width: 6.w,
-                                                     ),
-
-                                                     Expanded(
-                                                       flex: 2,
-                                                       child: Container(
-
-                                                         decoration: BoxDecoration(
-                                                             gradient: const LinearGradient(
-                                                                 begin: Alignment.topRight,
-                                                                 end: Alignment.bottomLeft,
-                                                                 colors: [
-                                                                   Color(0xff99AACD),
-                                                                   Color(0xff99AACD),
-                                                                 ]
-                                                             ),
-                                                             borderRadius: BorderRadius.only(
-                                                               topRight:  Radius.circular(12.w),
-                                                               bottomLeft: Radius.circular(12.w),
-                                                               topLeft: Radius.circular(12.w),
-                                                               bottomRight:  Radius.circular(12.w),
-
-                                                             )
-                                                         ),
-                                                         child:  Padding(
-                                                           padding:  EdgeInsets.symmetric(
-                                                               vertical: 4.h
-                                                           ),
-                                                           child: Column(
-
-                                                             children: [
-                                                               Padding(
-                                                                 padding:  EdgeInsets.symmetric(
-                                                                     horizontal: 12.w
-                                                                 ),
-                                                                 child: Row(
-                                                                   children: [
-
-                                                                     Expanded(
-                                                                       child: Text(state.
-                                                                       conversationOldMessageModel
-                                                                           .data![index].user!.name!,
-                                                                         style: TextStyle(
-                                                                             color: ColorManager.backgroundColor,
-                                                                             fontSize: 13.sp,
-                                                                             fontFamily: 'Roboto',
-                                                                             fontWeight: FontWeight.w600
-                                                                         ),
-                                                                         textAlign: TextAlign.start,
-
-                                                                       ),
-                                                                     ),
-                                                                   ],
-                                                                 ),
-                                                               ),
-                                                               Divider(
-                                                                 color: ColorManager.backgroundColor,
-
-                                                                 thickness: 1,
-                                                                 height: 3.h,
-                                                               ),
-                                                               Padding(
-                                                                 padding:  EdgeInsets.symmetric(
-                                                                     horizontal: 12.w
-                                                                 ),
-                                                                 child: Row(
-                                                                   children: [
-                                                                     Expanded(
-                                                                       child: Text(state.conversationOldMessageModel.
-                                                                       data![index].message!,
-                                                                         style: TextStyle(
-                                                                             color: ColorManager.backgroundColor,
-                                                                             fontSize: 13.sp,
-                                                                             fontWeight: FontWeight.w600
-                                                                         ),textAlign: TextAlign.start,),
-                                                                     ),
-                                                                   ],
-                                                                 ),
-                                                               ),
-                                                             ],
-                                                           ),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                     const Expanded(
-                                                       child: SizedBox(
-
-                                                       ),
-                                                     ),
-                                                   ],
+                                                 if(state.
+                                                 conversationOldMessageModel
+                                                     .data![index].
+                                                 all_file!.substring(state.
+                                                 conversationOldMessageModel
+                                                     .data![index].all_file!.length-4,state.
+                                                 conversationOldMessageModel
+                                                     .data![index].all_file!.length).contains('null')) {
+                                                   return MessageChatSideOne(
+                                                   message:state.
+                                                   conversationOldMessageModel
+                                                       .data![index] ,
                                                  );
+                                                 }
+                                                 else if(state.
+                                                 conversationOldMessageModel.data![index].all_file!.substring(state.
+                                                 conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
+                                                     .data![index].all_file!.length).contains('mp4'))
+                                                   {
+                                                     return MessageVideo(
+                                                       message:state.
+                                                       conversationOldMessageModel
+                                                           .data![index] ,
+                                                     );
+                                                   }
                                                }
                                                else{
-                                                 return Row(
-                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                   children: [
-                                                     const Expanded(
-                                                       child: SizedBox(
-
-                                                       ),
-                                                     ),
-                                                     Expanded(
-                                                       flex: 2,
-                                                       child: Container(
-
-                                                         decoration: BoxDecoration(
-                                                             gradient: const LinearGradient(
-                                                                 begin: Alignment.topRight,
-                                                                 end: Alignment.bottomLeft,
-                                                                 colors: [
-                                                                   Color(0xff99AACD),
-                                                                   Color(0xff99AACD),
-                                                                 ]
-                                                             ),
-                                                             borderRadius: BorderRadius.only(
-                                                               topRight:  Radius.circular(12.w),
-                                                               bottomLeft: Radius.circular(12.w),
-                                                               topLeft: Radius.circular(12.w),
-                                                               bottomRight:  Radius.circular(12.w),
-
-                                                             )
-                                                         ),
-                                                         child:  Padding(
-                                                           padding:  EdgeInsets.symmetric(
-                                                               vertical: 4.h
-                                                           ),
-                                                           child: Column(
-
-                                                             children: [
-                                                               Padding(
-                                                                 padding:  EdgeInsets.symmetric(
-                                                                     horizontal: 12.w
-                                                                 ),
-                                                                 child: Row(
-                                                                   children: [
-
-                                                                     Expanded(
-                                                                       child: Text(
-
-                                                                         state.
-                                                                         conversationOldMessageModel
-                                                                             .data![index].user!.name!,
-                                                                         style: TextStyle(
-                                                                             color: ColorManager.backgroundColor,
-                                                                             fontSize: 13.sp,
-                                                                             fontFamily: 'Roboto',
-                                                                             fontWeight: FontWeight.w600
-                                                                         ),
-                                                                         textAlign: TextAlign.end,
-
-                                                                       ),
-                                                                     ),
-                                                                   ],
-                                                                 ),
-                                                               ),
-                                                               Divider(
-                                                                 color: ColorManager.backgroundColor,
-
-                                                                 thickness: 1,
-                                                                 height: 3.h,
-                                                               ),
-                                                               Padding(
-                                                                 padding:  EdgeInsets.symmetric(
-                                                                     horizontal: 12.w
-                                                                 ),
-                                                                 child: Row(
-                                                                   children: [
-                                                                     Expanded(
-                                                                       child: Text(state.conversationOldMessageModel.
-                                                                       data![index].message!
-                                                                         ,style: TextStyle(
-                                                                             color: ColorManager.backgroundColor,
-                                                                             fontSize: 13.sp,
-                                                                             fontWeight: FontWeight.w600
-                                                                         ),textAlign: TextAlign.end,),
-                                                                     ),
-                                                                   ],
-                                                                 ),
-                                                               ),
-                                                             ],
-                                                           ),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                     SizedBox(
-                                                       width: 6.w,
-                                                     ),
-                                                     SizedBox(
-                                                       width: 50.h,
-                                                       height: 50.h,
-                                                       child: CachedNetworkImage(
-                                                         imageUrl:state.
-                                                         conversationOldMessageModel
-                                                             .data![index].user!.img?? "http://via.placeholder.com/200x150",
-                                                         imageBuilder: (context, imageProvider) => Container(
-                                                           decoration: BoxDecoration(
-                                                             shape: BoxShape.circle,
-                                                             image: DecorationImage(
-                                                               image: imageProvider,
-                                                               fit: BoxFit.fill,
-
-                                                             ),
-                                                           ),
-                                                         ),
-                                                         placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                         errorWidget: (context, url, error) => const Icon(Icons.error),
-                                                       ),
-                                                     ),
-
-                                                     //   Image.asset('assets/stickers/01_Cuppy_smile.webp',
-                                                     //    width: 40.w,
-                                                     //     fit: BoxFit.fill,
-                                                     //   ),
-
-
-
-                                                   ],
+                                                 if(state.
+                                                 conversationOldMessageModel
+                                                     .data![index].
+                                                 all_file!.substring(state.
+                                                 conversationOldMessageModel
+                                                     .data![index].all_file!.length-4,state.
+                                                 conversationOldMessageModel
+                                                     .data![index].all_file!.length).contains('null')) {
+                                                   return MessageChatSideTwo(
+                                                   message:state.
+                                                   conversationOldMessageModel
+                                                       .data![index] ,
                                                  );
+                                                 } else if(state.
+                                           conversationOldMessageModel.data![index].all_file!.substring(state.
+                                           conversationOldMessageModel.data![index].all_file!.length-4,state.conversationOldMessageModel
+                                               .data![index].all_file!.length).contains('mp4'))
+                                           {
+                                             return Container(
+                                               height: 170.h,
+
+                                               child: MessageVideo(
+                                                 message:state.
+                                                 conversationOldMessageModel
+                                                     .data![index] ,
+                                               ),
+                                             );
+                                           }
                                                }
                                              }
 
 
                                            return const SizedBox(
-                                             child: Text('user'),
+
                                            );
 
 
@@ -732,14 +557,10 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                  contentPadding: EdgeInsets.symmetric(
                                                                    horizontal: 12.w,
                                                                  ),
-
-
                                                                  enabledBorder:  InputBorder.none,
                                                                  focusedBorder:  InputBorder.none,
                                                                  disabledBorder:InputBorder.none,
                                                                  border: InputBorder.none ,
-
-
                                                                  hintText:  tr('write message'),
                                                                  hintStyle: TextStyle(
                                                                    fontSize: 15.sp,
@@ -854,7 +675,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
                                                      bloc.onSendMessageEvent(
                                                          textEditingController.text,
-                                                         widget.roomId);
+                                                         widget.roomId,null);
 
                                                      if(FocusScope.of(context).hasFocus)
                                                      {

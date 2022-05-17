@@ -38,122 +38,147 @@ class _TrendRoomPageState extends State<TrendRoomPage>
               child: CircularProgressIndicator(),
             ):
             state.trendRoomModel.data.isNotEmpty?
-        ListView.separated(
+        RefreshIndicator(
+          onRefresh: ()async{
+            widget.bloc.onGetTrendRoomEvent();
+          },
+          child: ListView.separated(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            itemCount: state.trendRoomModel.data.length,
+            itemBuilder: (context, index){
 
-          physics: const BouncingScrollPhysics(),
-          itemCount: state.trendRoomModel.data.length,
-          itemBuilder: (context, index){
+              return GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                    RoomConversationScreen(
+                      roomId: state.trendRoomModel.data[index].id!,
+                    )),
+                  );
+                },
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 60.w,
+                      height: 60.w,
+                      child:state.trendRoomModel.
+                      data[index].room!=null? CachedNetworkImage(
+                        imageUrl:
+                        state.trendRoomModel.
+                        data[index].room!.img??
+                        "http://via.placeholder.com/200x150",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
 
-            return GestureDetector(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>
-                  RoomConversationScreen(
-                    roomId: state.trendRoomModel.data[index].id!,
-                  )),
-                );
-              },
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 60.w,
-                    height: 60.w,
-                    child: CachedNetworkImage(
-                      imageUrl: "http://via.placeholder.com/200x150",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.fill,
-
+                            ),
                           ),
                         ),
-                      ),
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                      ):
+                      const SizedBox(),
                     ),
-                  ),
-                  SizedBox(width: 4.w,),
-                  Expanded(
-                    flex: 3,
+                    SizedBox(width: 4.w,),
+                    Expanded(
+                      flex: 3,
 
-                    child: Column(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child:state.trendRoomModel.
+                              data[index].room!=null?
+                                Text(state.trendRoomModel.
+                                data[index].room!.name!,
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: 'DIN',
+                                      fontWeight: FontWeight.w700,
+                                      color: Theme.of(context).disabledColor
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.start,
+                                ):const SizedBox(),
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 4.w,),
+                    Column(
+
                       children: [
+                        if(index<5)
+                          SvgPicture.asset('assets/icons/awesome-crown.svg'),
                         Row(
                           children: [
-                            Expanded(
-                              child: Text(state.trendRoomModel.
-                              data[index].room!.name!,
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: 'DIN',
-                                    fontWeight: FontWeight.w700,
-                                    color: Theme.of(context).disabledColor
+                            Container(
+                              decoration:  const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color(0xffFCAF65)
+                              ),
+                              child: Padding(
+                                padding:  EdgeInsets.all(14.0.w),
+                                child: Text((index+1).toString(),
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontFamily: 'DIN',
+                                      fontWeight: FontWeight.w700,
+                                      color: ColorManager.backgroundColor
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.start,
                               ),
                             ),
                           ],
                         ),
-
                       ],
                     ),
-                  ),
-                  SizedBox(width: 4.w,),
-                  Column(
+                    SizedBox(width: 16.w,),
+                  ],
+                ),
+              );
 
-                    children: [
-                      if(index<5)
-                        SvgPicture.asset('assets/icons/awesome-crown.svg'),
-                      Row(
-                        children: [
-                          Container(
-                            decoration:  const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xffFCAF65)
-                            ),
-                            child: Padding(
-                              padding:  EdgeInsets.all(14.0.w),
-                              child: Text((index+1).toString(),
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: 'DIN',
-                                    fontWeight: FontWeight.w700,
-                                    color: ColorManager.backgroundColor
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 16.w,),
-                ],
-              ),
-            );
+            },
+            separatorBuilder:(context, i){
+              return  SizedBox(
+                height: 5.h,
+              );
 
-          },
-          separatorBuilder:(context, i){
-            return  SizedBox(
-              height: 5.h,
-            );
-
-          },
+            },
+          ),
         ):
-             Center(
-              child: Text('No active chats'.tr(),
-               style: TextStyle(
-                 fontSize: 19.sp,
-                 color: Theme.of(context).primaryColorDark
+            RefreshIndicator(
+              onRefresh: ()async{
+                widget.bloc.onGetTrendRoomEvent();
+              },
+               child: ListView(
+                 children: [
+                   SizedBox(
+                     height: 0.9.sh,
+                     child: Center(
+                      child: Text('No active chats'.tr(),
+                       style: TextStyle(
+                         fontSize: 19.sp,
+                         color: Theme.of(context).primaryColorDark
+                       ),
+                      ),
+            ),
+                   ),
+                 ],
                ),
-              ),
-            );
+             );
       },
       listener: (context, state) {},
 

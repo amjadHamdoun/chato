@@ -9,9 +9,11 @@ part of 'room_model.dart';
 RoomModel _$RoomModelFromJson(Map<String, dynamic> json) => RoomModel(
       id: json['id'] as int?,
       name: json['name'] as String?,
+      img: json['img'] as String?,
     );
 
 Map<String, dynamic> _$RoomModelToJson(RoomModel instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'img': instance.img,
     };

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
 
@@ -108,12 +110,21 @@ class RoomConversationBloc
             ..error = ''));
         }, (r) async {
           print('r');
-
+          ConversationOldMessageModel data=
+          ConversationOldMessageModel(status: false,
+          message: '',
+            error_code: 0,
+            data: []
+          );
+          for(int i=0;i<r.data!.length;i++){
+            data.data!.add(r.data![r.data!.length-i-1]);
+          }
           emit(state.rebuild((b) => b
             ..error=''
             ..isLoading=false
+
+            ..conversationOldMessageModel=data
             ..isSuccess=true
-            ..conversationOldMessageModel=r
           ));
         });
       });
@@ -312,8 +323,10 @@ class RoomConversationBloc
     add(GetAllTypeEvent(type: type,roomId: roomId));
   }
 
-  void onSendMessageEvent(String message,int roomId) {
-    add(SendMessageEvent(message: message,roomId: roomId));
+  void onSendMessageEvent(String message,int roomId,
+      File? file) {
+    add(SendMessageEvent(message: message,roomId: roomId,
+        allFile: file));
   }
 
   void onAddUserRoomEvent(int userId,int roomId) {

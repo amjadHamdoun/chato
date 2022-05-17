@@ -17,6 +17,7 @@ import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'feature/Pages/ProfilePage/api/blocked_user_remote.dart';
 import 'feature/Pages/ProfilePage/api/reset_remote.dart';
+import 'feature/Pages/ProfilePage/api/send_coins_remote.dart';
 import 'feature/Pages/ProfilePage/api/unblocked_user_remote.dart';
 import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
@@ -37,6 +38,7 @@ import 'feature/autho/forgot/api/forget-password_remote.dart';
 import 'feature/autho/forgot/bloc/forget_bloc.dart';
 import 'feature/autho/login/api/login_remote.dart';
 import 'feature/autho/login/bloc/login_bloc.dart';
+import 'feature/autho/register/api/register_amazing_account_remote.dart';
 import 'feature/autho/register/api/register_remote.dart';
 import 'feature/autho/register/bloc/register_bloc.dart';
 
@@ -211,6 +213,21 @@ Future<void> init() async {
         networkInfo: sl()),
   );
 
+  sl.registerLazySingleton<SendCoinsRemoteDataSource>(
+        () => SendCoinsRemoteDataSourceImpl(
+           dio: sl(),
+           networkInfo: sl()
+        ),
+  );
+  sl.registerLazySingleton<RegisterAmazingAccountRemoteDataSource>(
+        () => RegisterAmazingAccountRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
+
+
 
 
 
@@ -233,9 +250,13 @@ Future<void> init() async {
     addUserDataSource: sl()
   ));
 
-  sl.registerLazySingleton(() => RegisterBloc(registerRemoteDataSource: sl()));
+  sl.registerLazySingleton(() => RegisterBloc(
+      registerRemoteDataSource: sl(),
+    registerAmazingAccountRemoteDataSource: sl()
+  ));
 
-  sl.registerLazySingleton(() => LoginBloc(loginRemoteDataSource: sl()));
+  sl.registerLazySingleton(() => LoginBloc(
+      loginRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => ProfBloc(
       logoutRemoteDataSource: sl(),
@@ -244,7 +265,8 @@ Future<void> init() async {
       updateUserInfoDataSource: sl(),
       blockedUserRemoteDataSource: sl(),
     unBlockedUserRemoteDataSource: sl(),
-    resetPasswordRemoteDataSource: sl()
+    resetPasswordRemoteDataSource: sl(),
+      sendCoinsRemoteDataSource: sl()
 
   ));
 

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/Preference.dart';
@@ -12,9 +11,11 @@ import 'package:chato/feature/Pages/ProfilePage/model/resetPassword/reset_model.
 import '../api/blocked_user_remote.dart';
 import '../api/logout_remote.dart';
 import '../api/reset_remote.dart';
+import '../api/send_coins_remote.dart';
 import '../api/unblocked_user_remote.dart';
 import '../api/update_user_info_remote.dart';
 import '../model/profile/profile_model.dart';
+import '../model/sendCoins/send_coins_model.dart';
 import 'prof_event.dart';
 import 'prof_state.dart';
 
@@ -26,6 +27,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
   BlockedUserRemoteDataSource blockedUserRemoteDataSource;
   UnBlockedUserRemoteDataSource unBlockedUserRemoteDataSource;
   ResetPasswordRemoteDataSource resetPasswordRemoteDataSource;
+  SendCoinsRemoteDataSource sendCoinsRemoteDataSource;
   ProfBloc(
       {required this.profileDetailsRemoteDataSource,
       required this.logoutRemoteDataSource,
@@ -33,7 +35,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
         required this.updateUserInfoDataSource,
         required this.blockedUserRemoteDataSource,
         required this.unBlockedUserRemoteDataSource,
-        required this.resetPasswordRemoteDataSource
+        required this.resetPasswordRemoteDataSource,
+        required this.sendCoinsRemoteDataSource
       })
       : super(ProfState.initial()) {
     on<LogoutEvent>((event, emit) async {
@@ -281,6 +284,47 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       });
     });
 
+    on<SendCoinsEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..error=''
+          ..isLoadingSendCoins=true
+        ..isSuccessSendCoins=false
+          ..sendCoinsModel=SendCoinsModel(
+            status: false,
+            error_code: 0,
+            message: ''
+          )
+      ));
+
+      final result = await
+      sendCoinsRemoteDataSource.sendCoins(
+          userReceivedId: event.userReceivedId,
+          numberOfCoinsOrDiamond: event.numberOfCoinsOrDiamond,
+          type: event.type);
+
+      print("result");
+      print(result);
+      print("result");
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..error = l
+            ..isLoadingSendCoins=false
+            ..isSuccessSendCoins=false
+        ));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isLoadingSendCoins=false
+          ..isSuccessSendCoins=true
+            ..sendCoinsModel=r
+        ));
+      });
+    });
+
     on<ResetParamEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..error=''
@@ -331,6 +375,16 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
 
   void onResetParamEvent(){
     add(ResetParamEvent());
+  }
+  void onSendCoinsEvent(  String type,
+      String numberOfCoinsOrDiamond,
+      String userReceivedId,
+      ){
+    add(SendCoinsEvent(type:type,
+    numberOfCoinsOrDiamond: numberOfCoinsOrDiamond,
+      userReceivedId: userReceivedId
+
+    ));
   }
 
 }

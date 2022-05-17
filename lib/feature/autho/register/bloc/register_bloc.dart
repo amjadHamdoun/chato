@@ -2,6 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:chato/Preference.dart';
 import '../../../../Globals.dart';
+import '../api/register_amazing_account_remote.dart';
 import '../api/register_remote.dart';
 import '../model/register_data_model.dart';
 import '../model/register_model.dart';
@@ -11,9 +12,10 @@ import 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   RegisterRemoteDataSource registerRemoteDataSource;
-
+  RegisterAmazingAccountRemoteDataSource registerAmazingAccountRemoteDataSource;
   RegisterBloc({
     required this.registerRemoteDataSource,
+    required this.registerAmazingAccountRemoteDataSource
     }) : super(RegisterState.initial())
     {
     on<RegisterAccountEvent>((event, emit) async
@@ -83,6 +85,61 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     }
         );
 
+    on<RegisterAmazingAccountEvent>((event, emit) async
+    {
+      emit(state.rebuild((b) => b
+        ..isSuccess=false
+        ..isLoading=true
+        ..registerModel=RegisterModel(
+            data: RegisterDataModel(
+                email: '',
+                name: '',
+                id: 0,
+                token: '',
+                img: ''
+            ),
+            message: '',
+            error_code: 0,
+            status: false
+        )
+      )
+      );
+      final result = await registerAmazingAccountRemoteDataSource.
+      registerAmazingAccount(
+          name: event.name,
+          email: event.email,
+          password: event.password,
+          password_confirmation: event.passwordConfirm
+      );
+      print("result");
+      print(result);
+      print("result");
+
+      return  result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isSuccess=false
+          ..isLoading=false
+          ..error=l
+        )
+        );
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..isSuccess=true
+          ..isLoading=false
+          ..registerModel=r
+        )
+        );
+
+
+
+      });
+
+    }
+    );
+
 
   }
 
@@ -101,6 +158,22 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
     ));
   }
+  void onRegisterAmazingAccountEvent({
+    required String name,
+    required String email,
+    required String password,
+    required String passwordConfirm,
+  }) {
+
+    add(RegisterAmazingAccountEvent(
+        name: name,
+        password: password,
+        email: email,
+        passwordConfirm: passwordConfirm
+
+    ));
+  }
+
   void onChangePageEvent(int pageNumber) {
     add(ChangePageEvent(pageNumber));
   }

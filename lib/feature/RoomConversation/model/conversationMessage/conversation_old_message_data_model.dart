@@ -13,6 +13,7 @@ class ConversationOldMessageDataModel {
   int? id;
   String? conversation_id;
   String? message;
+  String? all_file;
   String? seen;
   String? created_at;
   String? updated_at;
@@ -30,6 +31,7 @@ class ConversationOldMessageDataModel {
          this.seen,
          this.created_at,
          this.updated_at,
-         this.user
+         this.user,
+        this.all_file
       });
 }

@@ -172,6 +172,11 @@
   "undefined": "غير محدد",
   "dark Mode": "الوضع مظلم",
   "Change Language": "تغير اللغة",
-  "Copy Done": "تم النسخ"
+  "Copy Done": "تم النسخ",
+  "Enter the recipients id and the amount sent": "ادخل رقم المستلم والمبلغ المرسل",
+  "The recipient's unique number": "الرقم المميز للشخص المستلم",
+  "Enter a valid id": "ادخل رقم مميز صحيح",
+  "No Room chats": "لا يوجد غرف",
+  "No Friends": "لا يوجد اصدقاء"
 
 }

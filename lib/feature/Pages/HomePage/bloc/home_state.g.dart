@@ -12,6 +12,10 @@ class _$HomeState extends HomeState {
   @override
   final bool? isLoading;
   @override
+  final bool? isSuccessGetAllFriend;
+  @override
+  final bool? isLoadingGetAllFriend;
+  @override
   final bool? isSuccessSearch;
   @override
   final bool? isLoadingSearch;
@@ -32,6 +36,8 @@ class _$HomeState extends HomeState {
   _$HomeState._(
       {this.isSuccess,
       this.isLoading,
+      this.isSuccessGetAllFriend,
+      this.isLoadingGetAllFriend,
       this.isSuccessSearch,
       this.isLoadingSearch,
       required this.error,
@@ -64,6 +70,8 @@ class _$HomeState extends HomeState {
     return other is HomeState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
+        isSuccessGetAllFriend == other.isSuccessGetAllFriend &&
+        isLoadingGetAllFriend == other.isLoadingGetAllFriend &&
         isSuccessSearch == other.isSuccessSearch &&
         isLoadingSearch == other.isLoadingSearch &&
         error == other.error &&
@@ -82,8 +90,12 @@ class _$HomeState extends HomeState {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, isSuccess.hashCode),
-                                    isLoading.hashCode),
+                                $jc(
+                                    $jc(
+                                        $jc($jc(0, isSuccess.hashCode),
+                                            isLoading.hashCode),
+                                        isSuccessGetAllFriend.hashCode),
+                                    isLoadingGetAllFriend.hashCode),
                                 isSuccessSearch.hashCode),
                             isLoadingSearch.hashCode),
                         error.hashCode),
@@ -98,6 +110,8 @@ class _$HomeState extends HomeState {
     return (newBuiltValueToStringHelper('HomeState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
+          ..add('isSuccessGetAllFriend', isSuccessGetAllFriend)
+          ..add('isLoadingGetAllFriend', isLoadingGetAllFriend)
           ..add('isSuccessSearch', isSuccessSearch)
           ..add('isLoadingSearch', isLoadingSearch)
           ..add('error', error)
@@ -119,6 +133,16 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   bool? _isLoading;
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
+
+  bool? _isSuccessGetAllFriend;
+  bool? get isSuccessGetAllFriend => _$this._isSuccessGetAllFriend;
+  set isSuccessGetAllFriend(bool? isSuccessGetAllFriend) =>
+      _$this._isSuccessGetAllFriend = isSuccessGetAllFriend;
+
+  bool? _isLoadingGetAllFriend;
+  bool? get isLoadingGetAllFriend => _$this._isLoadingGetAllFriend;
+  set isLoadingGetAllFriend(bool? isLoadingGetAllFriend) =>
+      _$this._isLoadingGetAllFriend = isLoadingGetAllFriend;
 
   bool? _isSuccessSearch;
   bool? get isSuccessSearch => _$this._isSuccessSearch;
@@ -162,6 +186,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
     if ($v != null) {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
+      _isSuccessGetAllFriend = $v.isSuccessGetAllFriend;
+      _isLoadingGetAllFriend = $v.isLoadingGetAllFriend;
       _isSuccessSearch = $v.isSuccessSearch;
       _isLoadingSearch = $v.isLoadingSearch;
       _error = $v.error;
@@ -191,6 +217,8 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
         new _$HomeState._(
             isSuccess: isSuccess,
             isLoading: isLoading,
+            isSuccessGetAllFriend: isSuccessGetAllFriend,
+            isLoadingGetAllFriend: isLoadingGetAllFriend,
             isSuccessSearch: isSuccessSearch,
             isLoadingSearch: isLoadingSearch,
             error: BuiltValueNullFieldError.checkNotNull(

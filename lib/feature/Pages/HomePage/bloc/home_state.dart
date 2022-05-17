@@ -13,6 +13,8 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
 
   bool? get isSuccess;
   bool? get isLoading;
+  bool? get isSuccessGetAllFriend;
+  bool? get isLoadingGetAllFriend;
   bool? get isSuccessSearch;
   bool? get isLoadingSearch;
   String get error;
@@ -32,6 +34,8 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
       ..isSuccess = false
       ..isLoadingSearch = false
       ..isSuccessSearch  = false
+      ..isSuccessGetAllFriend=false
+      ..isLoadingGetAllFriend=false
         ..selectedPage=0
         ..error=''
         ..searchFriendModel=SearchFriendModel(status: false,

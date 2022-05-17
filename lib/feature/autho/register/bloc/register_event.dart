@@ -27,4 +27,17 @@ class RegisterAccountEvent extends RegisterEvent{
     required this.passwordConfirm,
 });
 }
+// ignore: must_be_immutable
+class RegisterAmazingAccountEvent extends RegisterEvent{
+  String name;
+  String email;
+  String password;
+  String passwordConfirm;
+  RegisterAmazingAccountEvent({
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.passwordConfirm,
+  });
+}
 

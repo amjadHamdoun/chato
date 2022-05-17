@@ -36,7 +36,7 @@ class ConversationOldMessageDataSourceImpl extends
           queryParameters: {
             'room_id':conversationId,
             //'conversation_id':conversationId,
-            'max_id':'20'
+
           },
           options: Options(
             followRedirects: false,

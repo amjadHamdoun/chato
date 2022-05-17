@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Pages/ProfilePage/widget/acount_settings.dart';
+import 'package:chato/feature/Pages/ProfilePage/widget/send_coins_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../autho/login/login_screen.dart';
+import '../../autho/register/register_amazing_account_screen.dart';
 import 'bloc/prof_bloc.dart';
 import 'bloc/prof_state.dart';
 
@@ -158,35 +160,44 @@ class _ProfileScreenState extends State<ProfileScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffFAFAFA),
-                                  borderRadius: BorderRadius.circular(15)
-                              ),
-                              height: 80.h,
-                              width: 160.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/icons/send_gift.svg',
-                                    width: 26.w,
-                                    color: ColorManager.primaryColor,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  Text(
-                                    'Send Coins',
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: ColorManager.darkPrimary),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                  ).tr(),
-                                ],
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder:
+                                (context) => SendCoinsScreen(
+                                  bloc: widget.bloc,
+                                ),
+                                ));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: const Color(0xffFAFAFA),
+                                    borderRadius: BorderRadius.circular(15)
+                                ),
+                                height: 80.h,
+                                width: 160.w,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/send_gift.svg',
+                                      width: 26.w,
+                                      color: ColorManager.primaryColor,
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Text(
+                                      'Send Coins',
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: ColorManager.darkPrimary),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                    ).tr(),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -284,7 +295,50 @@ class _ProfileScreenState extends State<ProfileScreen>
                             ),
                           ),
                           SizedBox (width: 15.w,),
-                         const Expanded(child: SizedBox()),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(context,
+                                 MaterialPageRoute(builder:
+                                     (context) =>
+                                     const RegisterAmazingAccountScreen(),
+                                 )
+                                );
+                               // widget.bloc.onLogoutEvent();
+                              },
+                              child: Container(
+                                height: 80.h,
+                                width: 160.w,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xffFAFAFA),
+                                    borderRadius: BorderRadius.circular(15)
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/amazing_account.svg',
+                                      width: 26.w,
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Text(
+                                      'Create Amazing Account',
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color:
+                                          ColorManager.darkPrimary),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                    ).tr(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
 
                         ],
                       )),

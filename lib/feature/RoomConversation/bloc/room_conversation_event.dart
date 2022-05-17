@@ -58,11 +58,14 @@ class GetAllTypeEvent extends RoomConversationEvent
 // ignore: must_be_immutable
 class SendMessageEvent extends RoomConversationEvent
 {
+  File? allFile;
   String message;
   int roomId;
   SendMessageEvent({
      required this.message,
-     required this.roomId});
+     required this.roomId,
+     required this.allFile
+  });
 }
 
 // ignore: must_be_immutable

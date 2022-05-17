@@ -8,7 +8,6 @@ import 'package:chato/core/utils/values_manager.dart';
 import 'package:chato/feature/autho/forgot/forgot_screen.dart';
 import 'package:chato/feature/autho/login/bloc/login_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -231,6 +230,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             margin: EdgeInsets.symmetric(vertical: 4.h),
                             height: 45.h,
                             child: TextFormField(
+                              obscureText: true,
+                              enableSuggestions: false,
+                              autocorrect: false,
                               style: TextStyle(
                                   fontSize: FontSize.s16,
                                   color: Global.darkMode

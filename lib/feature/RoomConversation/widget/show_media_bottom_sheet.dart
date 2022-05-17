@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-void showMediaBottomSheet(BuildContext ctx) {
+import '../bloc/room_conversation_bloc.dart';
+
+void showMediaBottomSheet(BuildContext ctx,RoomConversationBloc bloc) {
 
   showModalBottomSheet(
       elevation: 10,

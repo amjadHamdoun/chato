@@ -296,149 +296,183 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                   Expanded(
 
                     child:
-                    ListView.separated(
+                        state.isLoadingGetAllFriend!?const Center(
+                          child: CircularProgressIndicator(),
+                        ):
+                    state.allFriendModel.data!.isNotEmpty?
+                    RefreshIndicator(
+                      onRefresh: ()async{
+                        widget.bloc.onGetAllFriendEvent();
+                      },
+                      child: ListView.separated(
 
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: state.allFriendModel.data!.length,
-                      itemBuilder: (context, index){
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: state.allFriendModel.data!.length,
+                        itemBuilder: (context, index){
 
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w
-                          ),
-                          child: Row(
-                            children: [
-                              Stack(
-                                children: [
-                                  SizedBox(
-                                    width: 60.w,
-                                    height: 60.w,
-                                    child: CachedNetworkImage(
-                                      imageUrl: state.allFriendModel.
-                                      data![index].img??
-                                          "http://via.placeholder.com/200x150",
-                                      imageBuilder: (context, imageProvider) => Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.fill,
-
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                                    ),
-                                  ),
-                                  if(Localizations.localeOf(context)==const Locale('ar','AR'))
-                                    Positioned(
-                                      top: 5.h,
-
-                                      left: 2.w,
-                                      child: Container(
-
-
-                                        width: 12.w,
-                                        height: 12.w,
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xff00EA11),
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                    )
-                                  else
-                                    Positioned(
-                                      top: 5.h,
-
-                                      right: 2.w,
-                                      child: Container(
-
-
-                                        width: 12.w,
-                                        height: 12.w,
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xff00EA11),
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                    )
-                                ],
-                              ),
-                              SizedBox(width: 4.w,),
-                              Expanded(
-                                flex: 3,
-
-                                child: Column(
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12.w
+                            ),
+                            child: Row(
+                              children: [
+                                Stack(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(state.allFriendModel.data![index]
-                                              .name!,
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                fontFamily: 'Roboto',
-                                                fontWeight: FontWeight.w700,
-                                                color: Theme.of(context).disabledColor
+                                    SizedBox(
+                                      width: 60.w,
+                                      height: 60.w,
+                                      child: CachedNetworkImage(
+                                        imageUrl: state.allFriendModel.
+                                        data![index].img??
+                                            "http://via.placeholder.com/200x150",
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
+
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.start,
                                           ),
                                         ),
-                                      ],
+                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                                      ),
                                     ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(state.allFriendModel.
-                                          data![index].status!,
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontFamily: 'DIN',
-                                                fontWeight: FontWeight.w700,
-                                                color: Theme.of(context).hintColor
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.start,
+                                    if(Localizations.localeOf(context)==const Locale('ar','AR'))
+                                      Positioned(
+                                        top: 5.h,
+
+                                        left: 2.w,
+                                        child: Container(
+
+
+                                          width: 12.w,
+                                          height: 12.w,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xff00EA11),
+                                            shape: BoxShape.circle,
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      )
+                                    else
+                                      Positioned(
+                                        top: 5.h,
+
+                                        right: 2.w,
+                                        child: Container(
+
+
+                                          width: 12.w,
+                                          height: 12.w,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xff00EA11),
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                      )
                                   ],
                                 ),
-                              ),
-                              SizedBox(width: 4.w,),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text('6:50 pm',
-                                        style: TextStyle(
-                                            fontSize: 15.sp,
-                                            fontFamily: 'DIN',
-                                            fontWeight: FontWeight.w700,
-                                            color: Theme.of(context).hintColor
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.start,
+                                SizedBox(width: 4.w,),
+                                Expanded(
+                                  flex: 3,
+
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(state.allFriendModel.data![index]
+                                                .name!,
+                                              style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  fontFamily: 'Roboto',
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Theme.of(context).disabledColor
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(state.allFriendModel.
+                                            data![index].status!,
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontFamily: 'DIN',
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Theme.of(context).hintColor
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(width: 4.w,),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text('6:50 pm',
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              fontFamily: 'DIN',
+                                              fontWeight: FontWeight.w700,
+                                              color: Theme.of(context).hintColor
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+
+                        },
+                        separatorBuilder:(context, i){
+                          return  SizedBox(
+                            height: 5.h,
+                          );
+
+                        },
+                      ),
+                    ):
+                        RefreshIndicator(
+                          onRefresh: ()async{
+                            widget.bloc.onGetAllFriendEvent();
+                          },
+                          child: ListView(
+                            children: [
+                              SizedBox(
+                                height: 0.6.sh,
+                                child: Center(
+                                  child: Text(state.error.isNotEmpty?
+                                  state.error:
+                                  'No Friends',
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: Theme.of(context).primaryColorDark
                                     ),
-                                  ],
+                                  ).tr(),
                                 ),
                               ),
                             ],
+
                           ),
-                        );
+                        )
 
-                      },
-                      separatorBuilder:(context, i){
-                        return  SizedBox(
-                          height: 5.h,
-                        );
-
-                      },
-                    ),),
+                    ,),
 
                   SizedBox(
                     height: 95.h,

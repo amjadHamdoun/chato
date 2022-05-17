@@ -59,3 +59,13 @@ class ChangePasswordEvent extends ProfEvent{
 class ResetParamEvent extends ProfEvent{
 
 }
+
+class SendCoinsEvent extends ProfEvent{
+   String userReceivedId;
+   String numberOfCoinsOrDiamond;
+   String type;
+   SendCoinsEvent({required this.type,
+   required this.numberOfCoinsOrDiamond,
+     required this.userReceivedId
+   });
+}

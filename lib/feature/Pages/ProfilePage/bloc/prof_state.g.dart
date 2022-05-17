@@ -16,6 +16,10 @@ class _$ProfState extends ProfState {
   @override
   final bool? isLoadingLogout;
   @override
+  final bool? isSuccessSendCoins;
+  @override
+  final bool? isLoadingSendCoins;
+  @override
   final bool? isSuccessChange;
   @override
   final bool? isLoadingChange;
@@ -31,6 +35,8 @@ class _$ProfState extends ProfState {
   final BlockedUserModel? blockedUserModel;
   @override
   final ResetModel resetModel;
+  @override
+  final SendCoinsModel sendCoinsModel;
 
   factory _$ProfState([void Function(ProfStateBuilder)? updates]) =>
       (new ProfStateBuilder()..update(updates)).build();
@@ -40,6 +46,8 @@ class _$ProfState extends ProfState {
       this.isLoading,
       this.isSuccessLogout,
       this.isLoadingLogout,
+      this.isSuccessSendCoins,
+      this.isLoadingSendCoins,
       this.isSuccessChange,
       this.isLoadingChange,
       this.error,
@@ -47,10 +55,13 @@ class _$ProfState extends ProfState {
       this.profileModel,
       this.countFriendModel,
       this.blockedUserModel,
-      required this.resetModel})
+      required this.resetModel,
+      required this.sendCoinsModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resetModel, 'ProfState', 'resetModel');
+    BuiltValueNullFieldError.checkNotNull(
+        sendCoinsModel, 'ProfState', 'sendCoinsModel');
   }
 
   @override
@@ -68,6 +79,8 @@ class _$ProfState extends ProfState {
         isLoading == other.isLoading &&
         isSuccessLogout == other.isSuccessLogout &&
         isLoadingLogout == other.isLoadingLogout &&
+        isSuccessSendCoins == other.isSuccessSendCoins &&
+        isLoadingSendCoins == other.isLoadingSendCoins &&
         isSuccessChange == other.isSuccessChange &&
         isLoadingChange == other.isLoadingChange &&
         error == other.error &&
@@ -75,7 +88,8 @@ class _$ProfState extends ProfState {
         profileModel == other.profileModel &&
         countFriendModel == other.countFriendModel &&
         blockedUserModel == other.blockedUserModel &&
-        resetModel == other.resetModel;
+        resetModel == other.resetModel &&
+        sendCoinsModel == other.sendCoinsModel;
   }
 
   @override
@@ -90,18 +104,29 @@ class _$ProfState extends ProfState {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, isSuccess.hashCode),
-                                                isLoading.hashCode),
-                                            isSuccessLogout.hashCode),
-                                        isLoadingLogout.hashCode),
-                                    isSuccessChange.hashCode),
-                                isLoadingChange.hashCode),
-                            error.hashCode),
-                        img.hashCode),
-                    profileModel.hashCode),
-                countFriendModel.hashCode),
-            blockedUserModel.hashCode),
-        resetModel.hashCode));
+                                            $jc(
+                                                $jc(
+                                                    $jc(
+                                                        $jc(
+                                                            $jc(
+                                                                0,
+                                                                isSuccess
+                                                                    .hashCode),
+                                                            isLoading.hashCode),
+                                                        isSuccessLogout
+                                                            .hashCode),
+                                                    isLoadingLogout.hashCode),
+                                                isSuccessSendCoins.hashCode),
+                                            isLoadingSendCoins.hashCode),
+                                        isSuccessChange.hashCode),
+                                    isLoadingChange.hashCode),
+                                error.hashCode),
+                            img.hashCode),
+                        profileModel.hashCode),
+                    countFriendModel.hashCode),
+                blockedUserModel.hashCode),
+            resetModel.hashCode),
+        sendCoinsModel.hashCode));
   }
 
   @override
@@ -111,6 +136,8 @@ class _$ProfState extends ProfState {
           ..add('isLoading', isLoading)
           ..add('isSuccessLogout', isSuccessLogout)
           ..add('isLoadingLogout', isLoadingLogout)
+          ..add('isSuccessSendCoins', isSuccessSendCoins)
+          ..add('isLoadingSendCoins', isLoadingSendCoins)
           ..add('isSuccessChange', isSuccessChange)
           ..add('isLoadingChange', isLoadingChange)
           ..add('error', error)
@@ -118,7 +145,8 @@ class _$ProfState extends ProfState {
           ..add('profileModel', profileModel)
           ..add('countFriendModel', countFriendModel)
           ..add('blockedUserModel', blockedUserModel)
-          ..add('resetModel', resetModel))
+          ..add('resetModel', resetModel)
+          ..add('sendCoinsModel', sendCoinsModel))
         .toString();
   }
 }
@@ -143,6 +171,16 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   bool? get isLoadingLogout => _$this._isLoadingLogout;
   set isLoadingLogout(bool? isLoadingLogout) =>
       _$this._isLoadingLogout = isLoadingLogout;
+
+  bool? _isSuccessSendCoins;
+  bool? get isSuccessSendCoins => _$this._isSuccessSendCoins;
+  set isSuccessSendCoins(bool? isSuccessSendCoins) =>
+      _$this._isSuccessSendCoins = isSuccessSendCoins;
+
+  bool? _isLoadingSendCoins;
+  bool? get isLoadingSendCoins => _$this._isLoadingSendCoins;
+  set isLoadingSendCoins(bool? isLoadingSendCoins) =>
+      _$this._isLoadingSendCoins = isLoadingSendCoins;
 
   bool? _isSuccessChange;
   bool? get isSuccessChange => _$this._isSuccessChange;
@@ -181,6 +219,11 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   ResetModel? get resetModel => _$this._resetModel;
   set resetModel(ResetModel? resetModel) => _$this._resetModel = resetModel;
 
+  SendCoinsModel? _sendCoinsModel;
+  SendCoinsModel? get sendCoinsModel => _$this._sendCoinsModel;
+  set sendCoinsModel(SendCoinsModel? sendCoinsModel) =>
+      _$this._sendCoinsModel = sendCoinsModel;
+
   ProfStateBuilder();
 
   ProfStateBuilder get _$this {
@@ -190,6 +233,8 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _isLoading = $v.isLoading;
       _isSuccessLogout = $v.isSuccessLogout;
       _isLoadingLogout = $v.isLoadingLogout;
+      _isSuccessSendCoins = $v.isSuccessSendCoins;
+      _isLoadingSendCoins = $v.isLoadingSendCoins;
       _isSuccessChange = $v.isSuccessChange;
       _isLoadingChange = $v.isLoadingChange;
       _error = $v.error;
@@ -198,6 +243,7 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _countFriendModel = $v.countFriendModel;
       _blockedUserModel = $v.blockedUserModel;
       _resetModel = $v.resetModel;
+      _sendCoinsModel = $v.sendCoinsModel;
       _$v = null;
     }
     return this;
@@ -222,6 +268,8 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             isLoading: isLoading,
             isSuccessLogout: isSuccessLogout,
             isLoadingLogout: isLoadingLogout,
+            isSuccessSendCoins: isSuccessSendCoins,
+            isLoadingSendCoins: isLoadingSendCoins,
             isSuccessChange: isSuccessChange,
             isLoadingChange: isLoadingChange,
             error: error,
@@ -230,7 +278,9 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             countFriendModel: countFriendModel,
             blockedUserModel: blockedUserModel,
             resetModel: BuiltValueNullFieldError.checkNotNull(
-                resetModel, 'ProfState', 'resetModel'));
+                resetModel, 'ProfState', 'resetModel'),
+            sendCoinsModel: BuiltValueNullFieldError.checkNotNull(
+                sendCoinsModel, 'ProfState', 'sendCoinsModel'));
     replace(_$result);
     return _$result;
   }

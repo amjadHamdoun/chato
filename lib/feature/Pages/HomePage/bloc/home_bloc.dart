@@ -69,6 +69,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     async {
       emit(state.rebuild((b) => b
         ..error=''
+          ..isLoadingGetAllFriend=true
+          ..isSuccessGetAllFriend=false
 
       ));
       final result=await
@@ -78,13 +80,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(state.rebuild((b) => b
           ..error = l));
         emit(state.rebuild((b) => b
-
+          ..isLoadingGetAllFriend=false
+          ..isSuccessGetAllFriend=false
           ..error = ''));
       }, (r) async {
         print('r');
 
         emit(state.rebuild((b) => b
           ..error=''
+          ..isLoadingGetAllFriend=false
+          ..isSuccessGetAllFriend=true
           ..allFriendModel = r
         ));
       });

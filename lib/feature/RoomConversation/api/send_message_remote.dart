@@ -5,7 +5,6 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/allType/all_type_model.dart';
 import '../model/sendMessage/send_message_model.dart';
 
 
@@ -24,8 +23,10 @@ class SendMessageDataSourceImpl extends
   final DataConnectionChecker networkInfo;
 
   SendMessageDataSourceImpl(
-      { required this.dio,
-        required this.networkInfo
+      {
+        required this.dio,
+        required this.networkInfo,
+
       });
 
   @override

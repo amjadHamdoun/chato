@@ -5,29 +5,27 @@ import 'package:chato/core/utils/font_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/core/utils/svg_manager.dart';
 import 'package:chato/core/utils/values_manager.dart';
-import 'package:chato/feature/Pages/pages_screen.dart';
-
 import 'package:chato/feature/autho/register/bloc/register_bloc.dart';
 import 'package:chato/feature/autho/register/bloc/register_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../../../injection.dart';
-import '../login/login_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+
+
+class RegisterAmazingAccountScreen extends StatefulWidget {
+  const RegisterAmazingAccountScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _RegisterAmazingAccountScreenState createState() => _RegisterAmazingAccountScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterAmazingAccountScreenState extends State<RegisterAmazingAccountScreen> {
   var checkBoxValue = true;
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
@@ -41,18 +39,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocConsumer<RegisterBloc,RegisterState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state.registerModel!.data != null) {
+        if (state.registerModel!.data!=null) {
           if (state.registerModel!.data!.token!.isNotEmpty) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => const PagesScreen(
-
-                ),
-              ),
-                  (route) => false,
+            Fluttertoast.showToast(
+                msg: state.registerModel!.message!,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: ColorManager.primaryColor,
+                textColor: Colors.white,
+                fontSize: 16.0
             );
+            Navigator.pop(context);
           }
+
         }
         else if (state.error!.isNotEmpty) {
           AwesomeDialog(
@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 10.h,
                         ),
                         Text(
-                          "Create Account".tr(),
+                          "Create Amazing Account".tr(),
                           style: getLightStyle(
                               color: Global.darkMode
                                   ? ColorManager.backgroundColor
@@ -174,9 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: Global.darkMode
                                             ? ColorManager.backgroundColor
                                             : ColorManager.textColor),
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z.-_]")),
-                                    ],
+
                                     decoration: InputDecoration(
                                         contentPadding: EdgeInsets.only(top: 5.h,bottom: 10.h,right: 5,left: 5),
                                         hintText: "Nickname".tr(),
@@ -413,7 +411,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (_formKey.currentState!.validate()) {
                                           // If the form is valid, display a snackbar. In the real world,
                                           // you'd often call a server or save the information in a database.
-                                          bloc.onRegisterAccountEvent(
+                                          bloc.onRegisterAmazingAccountEvent(
                                               name: nameController.text,
                                               email: emailController.text,
                                               password: passwordController.text,
@@ -435,34 +433,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 SizedBox(
                                   height: 15.h,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "do you have an account?".tr(),
-                                      style: getRegularStyle(
-                                          color: Global.darkMode
-                                              ? ColorManager.hintText
-                                              : ColorManager.textColor,
-                                          fontSize: FontSize.s14),
-                                    ),
-                                    InkWell(
-                                        onTap: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => const LoginScreen()),
-                                          );
-                                        },
-                                        child: Text(
-                                          "   login".tr(),
-                                          style: getRegularStyle(
-                                              color: Global.darkMode
-                                                  ? ColorManager.backgroundColor
-                                                  : ColorManager.primaryColor,
-                                              fontSize: FontSize.s14),
-                                        ))
-                                  ],
-                                ),
+
                               ],
                             ),
                           ),

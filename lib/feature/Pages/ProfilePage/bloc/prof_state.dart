@@ -7,6 +7,7 @@ import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart'
 import '../model/blockedUser/blocked_user_model.dart';
 import '../model/profile/profile_model.dart';
 import '../model/resetPassword/reset_model.dart';
+import '../model/sendCoins/send_coins_model.dart';
 
 
 part 'prof_state.g.dart';
@@ -19,6 +20,10 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
   bool? get isSuccessLogout;
 
   bool? get isLoadingLogout;
+
+  bool? get isSuccessSendCoins;
+
+  bool? get isLoadingSendCoins;
 
   bool? get isSuccessChange;
 
@@ -35,6 +40,9 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
   BlockedUserModel? get blockedUserModel;
 
   ResetModel get resetModel;
+
+  SendCoinsModel get sendCoinsModel;
+
   ProfState._();
 
   factory ProfState([void Function(ProfStateBuilder) updates]) = _$ProfState;
@@ -47,6 +55,8 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..isSuccessLogout = false
       ..isSuccessChange=false
       ..isLoadingChange=false
+      ..isSuccessSendCoins=false
+      ..isLoadingSendCoins=false
       ..error = ""
       ..img=null
       ..blockedUserModel=BlockedUserModel(
@@ -80,6 +90,9 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
 
 
         )
+        ..sendCoinsModel=SendCoinsModel(message: '',
+            status: false, error_code: 0)
+
     );
   }
 }

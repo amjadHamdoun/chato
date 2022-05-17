@@ -137,7 +137,11 @@
   "No Admins": "No Admins",
   "Users": "Users",
   "No Owners": "No Owners",
-  "Copy Done": "Copy Done"
+  "Copy Done": "Copy Done",
+  "Enter the recipients id and the amount sent": "Enter the recipients id and the amount sent",
+  "The recipient's unique number": "The recipient's unique number",
+  "Enter a valid id": "Enter a valid id",
+  "No Room chats": "No Room chats"
 
 
 

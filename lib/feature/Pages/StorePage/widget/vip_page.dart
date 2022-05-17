@@ -92,7 +92,8 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const BuyFeaturedUserScreen()),
+                      MaterialPageRoute(builder: (context) => const
+                      BuyFeaturedUserScreen()),
                     );
                   },
                   child: Column(
