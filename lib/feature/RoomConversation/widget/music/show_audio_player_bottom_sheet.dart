@@ -19,7 +19,7 @@ void showAudioPlayerBottomSheet(BuildContext ctx,bool isPlaying) {
       ),
       builder: (ctx) => Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: ColorManager.darkBackgroundColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),

@@ -1,9 +1,10 @@
 import 'package:chato/Globals.dart';
 import 'package:chato/core/utils/color_manager.dart';
-import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class AddMusic extends StatefulWidget {
   const AddMusic({Key? key}) : super(key: key);

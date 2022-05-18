@@ -28,7 +28,7 @@ class MessageImageSideOne extends StatefulWidget {
 
 class _MessageImageSideOneState extends State<MessageImageSideOne> {
 
- late File? file ;
+  File? file ;
   @override
   void initState() {
     isLocal(widget.message.localFile);
@@ -39,32 +39,40 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
 
 
   Future isLocal(String? localFile) async{
-    var dir;
-    if(Platform.isAndroid) {
-      dir = await getExternalStorageDirectory();
-    } else {
-      dir = await getTemporaryDirectory();
-    }
-    String fileName=widget.message.all_file!.substring(50,
-        widget.message.all_file!.length);
-  String  filePath = dir.path + "/" + fileName;
-     file = File(filePath);
-
-    if (await file!.exists()) {
-
-    }
+    print("localFile");
+    print(localFile);
+    print("localFile");
+    if(localFile!=null)
+      {
+        file = File(localFile);
+      }
     else{
-       if(localFile!=null)
-         {
-           file = File(localFile);
-         }
-       else{
-         Dio dio=Dio();
-         download(dio, widget.message.all_file!, filePath);
-       }
+      var dir;
+      if(Platform.isAndroid) {
+        dir = await getExternalStorageDirectory();
+      } else {
+        dir = await getTemporaryDirectory();
+      }
 
-    }
-  }
+      String fileName=widget.message.all_file!.substring(50,
+          widget.message.all_file!.length);
+      String  filePath = dir.path + "/" + fileName;
+      file = File(filePath);
+
+      if (await file!.exists()) {
+
+      }
+      else{
+
+
+        Dio dio=Dio();
+        download(dio, widget.message.all_file!, filePath);
+
+
+      }
+    }}
+
+
 
   Future download(Dio dio, String url, String savePath) async {
     try {
@@ -168,18 +176,39 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
                 ),
               ),
               Expanded(
-                child: Stack(
+                child: file!=null?
+                Row(
                   children: [
-                    file!=null?
-                    Image.file(file!,
-                      fit: BoxFit.contain,
-                    ):
-                    Image.network(
-                      widget.message.all_file!,
-                      fit: BoxFit.contain,
+                    Expanded(
+                      child: Image.file(file!,
+
+                        fit: BoxFit.fill,
+                      ),
                     ),
+                  ],
+                ):
+                Row(
+                  children: [
+                    Expanded(
+                      child:
+                      CachedNetworkImage(
+                        imageUrl: widget.message.all_file??
+                            "http://via.placeholder.com/200x150",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
 
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
 
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                      ),
+
+                    ),
                   ],
                 ),
               ),

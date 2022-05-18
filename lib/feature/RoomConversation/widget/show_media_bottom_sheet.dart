@@ -1,8 +1,5 @@
 
-
 import 'dart:io';
-
-import 'package:chato/core/utils/color_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../bloc/room_conversation_bloc.dart';
 
 void showMediaBottomSheet({
- required BuildContext ctx,required RoomConversationBloc bloc
+ required BuildContext ctx,
+  required RoomConversationBloc bloc,
+  required int roomId
 }) {
 
   showModalBottomSheet(
@@ -59,6 +58,7 @@ void showMediaBottomSheet({
                     if (result != null) {
                       File file = File(result.files.single.path!);
                     //  widget.bloc.onChangeImageEvent(file);
+                      bloc.onSendMessageEvent('', roomId, file);
                     }
                     else {
                       // User canceled the picker

@@ -25,7 +25,7 @@ class MessageVideoSideTwo extends StatefulWidget {
 }
 
 class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
-  late VideoPlayerController _controller;
+   VideoPlayerController? _controller;
 
   @override
   void initState() {
@@ -143,9 +143,12 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
               Expanded(
                 child: Stack(
                   children: [
-                    VideoPlayer(_controller),
-                    ControlsOverlay(controller: _controller),
-                    VideoProgressIndicator(_controller,
+                    if(_controller!=null)
+                    VideoPlayer(_controller!),
+                    if(_controller!=null)
+                    ControlsOverlay(controller: _controller!),
+                    if(_controller!=null)
+                    VideoProgressIndicator(_controller!,
                       allowScrubbing: true,
 
 
@@ -192,10 +195,6 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
+
 
 }

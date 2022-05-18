@@ -182,7 +182,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
-                        itemCount: state.allFriendModel.data!.length+1,
+                        itemCount:state.allFriendModel.data!=null?
+                        state.allFriendModel.data!.length+1:1,
                         itemBuilder: (context, index){
                           if(index==0) {
                             return GestureDetector(

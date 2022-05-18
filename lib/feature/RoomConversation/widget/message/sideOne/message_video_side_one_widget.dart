@@ -39,35 +39,37 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
 
 
   Future isLocal(String? localFile) async{
-    var dir;
-    if(Platform.isAndroid) {
-      dir = await getExternalStorageDirectory();
-    } else {
-      dir = await getTemporaryDirectory();
-    }
-    String fileName=widget.message.all_file!.substring(50,
-        widget.message.all_file!.length);
-  String  filePath = dir.path + "/" + fileName;
-    var file = File(filePath);
-    if (await file.exists()) {
+    if(localFile!=null)
+    {
       _controller=VideoPlayerController.file(
-          file)
+          File(localFile))
         ..initialize().then((_) {
           // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           setState(() {});
         });
     }
     else{
-      if(localFile!=null)
-        {
-          _controller=VideoPlayerController.file(
-              File(localFile))
-            ..initialize().then((_) {
-              // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-              setState(() {});
-            });
-        }
+      var dir;
+      if(Platform.isAndroid) {
+        dir = await getExternalStorageDirectory();
+      } else {
+        dir = await getTemporaryDirectory();
+      }
+      String fileName=widget.message.all_file!.substring(50,
+          widget.message.all_file!.length);
+      String  filePath = dir.path + "/" + fileName;
+      var file = File(filePath);
+      if (await file.exists()) {
+        _controller=VideoPlayerController.file(
+            file)
+          ..initialize().then((_) {
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+            setState(() {});
+          });
+      }
       else{
+
+
         _controller=VideoPlayerController.network
           (widget.message.all_file!)
           ..initialize().then((_) {
@@ -76,9 +78,11 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
           });
         Dio dio=Dio();
         download(dio, widget.message.all_file!, filePath);
-      }
 
+
+      }
     }
+
   }
 
   Future download(Dio dio, String url, String savePath) async {

@@ -129,20 +129,38 @@ class _MessageImageSideTwoState extends State<MessageImageSideTwo> {
                 ),
               ),
               Expanded(
-                child: Stack(
-                  children: [
-                    file!=null?
-                        Image.file(file!,
-                        fit: BoxFit.contain,
-                        ):
-                        Image.network(
-                          widget.message.all_file!,
-                          fit: BoxFit.contain,
+                child: file!=null?
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Image.file(file!,
+                          fit: BoxFit.fill,
+                          ),
                         ),
+                      ],
+                    ):
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CachedNetworkImage(
+                            imageUrl: widget.message.all_file??
+                                "http://via.placeholder.com/200x150",
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
 
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.fill,
 
-                  ],
-                ),
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                          ),
+                        ),
+                      ],
+                    ),
               ),
             ],
           ),

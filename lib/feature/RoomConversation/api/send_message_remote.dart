@@ -36,9 +36,20 @@ class SendMessageDataSourceImpl extends
     required int roomId,
     File? file,
   }) async {
-    print("roomId");
-    print(roomId);
-    print("roomId");
+    String fileName='';
+    if(file!=null) {
+      fileName =file.path.split('/').last;
+    }
+    FormData data =  FormData.fromMap(
+        {
+          if(file!=null)
+          "all_file":
+          await MultipartFile.
+          fromFile(file.path, filename:fileName),
+          'message':message,
+          'room_id':roomId,
+        }
+    );
     if (await networkInfo.hasConnection) {
       try {
         dio.options.headers["Authorization"] =
@@ -46,10 +57,7 @@ class SendMessageDataSourceImpl extends
         final re = await dio.post
           (
           Endpoints.sendMessage,
-          data: {
-            'message':message,
-            'room_id':roomId
-          },
+          data: data,
           options: Options(
             followRedirects: false,
             validateStatus: (status) {

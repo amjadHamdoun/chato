@@ -207,7 +207,8 @@ class RoomConversationBloc
                   ConversationOldMessageDataModel(
                     id: 0,
                     message: cleanString,
-
+                    localFile: event.allFile!=null?event.allFile!.path:
+                      null,
                     conversation_id: '0',
                     seen: '',
                     created_at: '',
@@ -228,7 +229,8 @@ class RoomConversationBloc
       sendMessageDataSource.
       sendMessage(
           message: cleanString,
-          roomId: event.roomId
+          roomId: event.roomId,
+        file: event.allFile
       );
       return result.fold((l) async {
         print('l');
