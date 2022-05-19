@@ -6,6 +6,7 @@ import 'package:chato/Globals.dart';
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 
+import '../../../core/utils/int_to_time.dart';
 import '../../../injection.dart';
 
 import '../api/add_user_remote.dart';
@@ -36,6 +37,10 @@ class RoomConversationBloc
     on<ShowEmojiEvent>(
         (event, emit) => emit(state.rebuild((b) =>
         b..showEmoji = event.show)));
+
+    on<ChangeRecordTimerEvent>(
+            (event, emit) => emit(state.rebuild((b) =>
+        b..recordTime = intToTimeLeft(event.count))));
 
     on<StartRecordEvent>((event, emit) =>
         emit(state.rebuild((b) => b..isRecord =
@@ -339,6 +344,9 @@ class RoomConversationBloc
       add(AddMessageFromPusherEvent(message: message));
     }
 
-
+  void onChangeRecordTimerEvent(
+      int counter) {
+    add(ChangeRecordTimerEvent(count: counter));
+  }
 
 }

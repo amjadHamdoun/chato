@@ -88,3 +88,13 @@ class AddMessageFromPusherEvent extends RoomConversationEvent
 
   });
 }
+
+// ignore: must_be_immutable
+class ChangeRecordTimerEvent extends RoomConversationEvent
+{
+  int count;
+  ChangeRecordTimerEvent({
+    required this.count,
+
+  });
+}

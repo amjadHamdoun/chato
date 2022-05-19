@@ -30,6 +30,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   AllTypeModel get allTypeOwner;
   AllTypeModel get allTypeAdmin;
   SendMessageModel get sendMessageModel;
+  String get recordTime;
 
   RoomConversationState._();
 
@@ -47,6 +48,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         ..smileOrSticker=true
         ..smile=''
         ..error=''
+      ..recordTime='00:00'
       ..sendMessageModel=SendMessageModel(message: '',
           status: null,
         error_code: 0

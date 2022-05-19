@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,6 +19,7 @@ import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_st
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,11 +52,16 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
    RoomConversationBloc bloc=sl<RoomConversationBloc>();
    Channel? channelChat;
    bool showProgress = false;
+   FlutterAudioRecorder2? _recorder;
+   Recording? _current;
+   late RecordingStatus _currentStatus ;
+   late Timer timer;
 
 
 
    @override
   void initState() {
+     _currentStatus = RecordingStatus.Unset;
      bloc.onAddUserRoomEvent(Global.userId!, widget.roomId);
      bloc.onGetConversationMessage(widget.roomId);
      bloc.onGetAllTypeEvent('',widget.roomId);
@@ -117,7 +124,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
             ||localFile.contains('avi')
             ||localFile.contains('flv'))
         {
-
           return true;
         }
       }
@@ -214,7 +220,25 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
      return false;
    }
 
+   int countSecond = 0;
 
+   void startTimer() {
+     countSecond=0;
+     const oneSec =  Duration(seconds: 1);
+     timer =  Timer.periodic(
+       oneSec,
+           (Timer timer) {
+             countSecond++;
+             setState(() {
+
+             });
+       },
+     );
+   }
+
+   void closeTimer() {
+      timer.cancel();
+   }
 
 
 
@@ -858,6 +882,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                        children:  [
                                                          IconButton(onPressed: (){
                                                            bloc.onStartRecord(false);
+                                                           closeTimer();
                                                          }, icon:  SvgPicture.asset(
                                                            'assets/icons/send.svg',
                                                            color: ColorManager.primaryColor,
@@ -870,7 +895,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                            child: DragTarget(
                                                              builder: (context, candidateData, rejectedData) {
                                                                return  Center(child:
-                                                               Text('Slide to cancel    01.00', style:
+                                                               Text('Slide to cancel    ${
+                                                                state.recordTime
+                                                               }', style:
                                                                TextStyle(color:  ColorManager.backgroundColor,
                                                                    fontSize: 15.sp),));
                                                              },
@@ -880,7 +907,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                              onAccept: (data) {
 
                                                                bloc.onStartRecord(false);
-
+                                                               closeTimer();
                                                              },
                                                            ),
                                                          ),
@@ -892,6 +919,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                    GestureDetector(
                                                      onTap: (){
                                                        bloc.onStartRecord(true);
+                                                       startTimer();
                                                      },
 
                                                      child: Draggable(
@@ -914,7 +942,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                          ),
                                                        ),
                                                        feedback:state.isRecord? Container(
-
                                                          decoration:  const BoxDecoration(
                                                              color:
                                                              ColorManager.primaryColor,

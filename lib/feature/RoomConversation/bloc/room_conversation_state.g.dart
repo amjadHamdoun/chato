@@ -39,6 +39,8 @@ class _$RoomConversationState extends RoomConversationState {
   final AllTypeModel allTypeAdmin;
   @override
   final SendMessageModel sendMessageModel;
+  @override
+  final String recordTime;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -60,7 +62,8 @@ class _$RoomConversationState extends RoomConversationState {
       required this.allTypeModel,
       required this.allTypeOwner,
       required this.allTypeAdmin,
-      required this.sendMessageModel})
+      required this.sendMessageModel,
+      required this.recordTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
@@ -86,6 +89,8 @@ class _$RoomConversationState extends RoomConversationState {
         allTypeAdmin, 'RoomConversationState', 'allTypeAdmin');
     BuiltValueNullFieldError.checkNotNull(
         sendMessageModel, 'RoomConversationState', 'sendMessageModel');
+    BuiltValueNullFieldError.checkNotNull(
+        recordTime, 'RoomConversationState', 'recordTime');
   }
 
   @override
@@ -116,7 +121,8 @@ class _$RoomConversationState extends RoomConversationState {
         allTypeModel == other.allTypeModel &&
         allTypeOwner == other.allTypeOwner &&
         allTypeAdmin == other.allTypeAdmin &&
-        sendMessageModel == other.sendMessageModel;
+        sendMessageModel == other.sendMessageModel &&
+        recordTime == other.recordTime;
   }
 
   @override
@@ -137,27 +143,29 @@ class _$RoomConversationState extends RoomConversationState {
                                                         $jc(
                                                             $jc(
                                                                 $jc(
-                                                                    0,
-                                                                    isSuccess
+                                                                    $jc(
+                                                                        0,
+                                                                        isSuccess
+                                                                            .hashCode),
+                                                                    isLoading
                                                                         .hashCode),
-                                                                isLoading
+                                                                isSuccessAllType
                                                                     .hashCode),
-                                                            isSuccessAllType
+                                                            isLoadingAllType
                                                                 .hashCode),
-                                                        isLoadingAllType
-                                                            .hashCode),
-                                                    showEmoji.hashCode),
-                                                isRecord.hashCode),
-                                            smileOrSticker.hashCode),
-                                        senGiftType.hashCode),
-                                    smile.hashCode),
-                                error.hashCode),
-                            conversationOldMessageModel.hashCode),
-                        allTypeUser.hashCode),
-                    allTypeModel.hashCode),
-                allTypeOwner.hashCode),
-            allTypeAdmin.hashCode),
-        sendMessageModel.hashCode));
+                                                        showEmoji.hashCode),
+                                                    isRecord.hashCode),
+                                                smileOrSticker.hashCode),
+                                            senGiftType.hashCode),
+                                        smile.hashCode),
+                                    error.hashCode),
+                                conversationOldMessageModel.hashCode),
+                            allTypeUser.hashCode),
+                        allTypeModel.hashCode),
+                    allTypeOwner.hashCode),
+                allTypeAdmin.hashCode),
+            sendMessageModel.hashCode),
+        recordTime.hashCode));
   }
 
   @override
@@ -178,7 +186,8 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('allTypeModel', allTypeModel)
           ..add('allTypeOwner', allTypeOwner)
           ..add('allTypeAdmin', allTypeAdmin)
-          ..add('sendMessageModel', sendMessageModel))
+          ..add('sendMessageModel', sendMessageModel)
+          ..add('recordTime', recordTime))
         .toString();
   }
 }
@@ -262,6 +271,10 @@ class RoomConversationStateBuilder
   set sendMessageModel(SendMessageModel? sendMessageModel) =>
       _$this._sendMessageModel = sendMessageModel;
 
+  String? _recordTime;
+  String? get recordTime => _$this._recordTime;
+  set recordTime(String? recordTime) => _$this._recordTime = recordTime;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -283,6 +296,7 @@ class RoomConversationStateBuilder
       _allTypeOwner = $v.allTypeOwner;
       _allTypeAdmin = $v.allTypeAdmin;
       _sendMessageModel = $v.sendMessageModel;
+      _recordTime = $v.recordTime;
       _$v = null;
     }
     return this;
@@ -326,7 +340,8 @@ class RoomConversationStateBuilder
             allTypeModel: BuiltValueNullFieldError.checkNotNull(allTypeModel, 'RoomConversationState', 'allTypeModel'),
             allTypeOwner: BuiltValueNullFieldError.checkNotNull(allTypeOwner, 'RoomConversationState', 'allTypeOwner'),
             allTypeAdmin: BuiltValueNullFieldError.checkNotNull(allTypeAdmin, 'RoomConversationState', 'allTypeAdmin'),
-            sendMessageModel: BuiltValueNullFieldError.checkNotNull(sendMessageModel, 'RoomConversationState', 'sendMessageModel'));
+            sendMessageModel: BuiltValueNullFieldError.checkNotNull(sendMessageModel, 'RoomConversationState', 'sendMessageModel'),
+            recordTime: BuiltValueNullFieldError.checkNotNull(recordTime, 'RoomConversationState', 'recordTime'));
     replace(_$result);
     return _$result;
   }
