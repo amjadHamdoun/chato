@@ -171,7 +171,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
 
                 children: [
                   Container(
@@ -197,7 +197,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w600
                         ),
-                        textAlign: TextAlign.start,
+                        textAlign: TextAlign.end,
 
                       ),
                     ),
@@ -228,7 +228,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                               ColorManager.backgroundColor,
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w600
-                          ),textAlign: TextAlign.start,),
+                          ),textAlign: TextAlign.end,),
                       ),
                     ),
                   ),

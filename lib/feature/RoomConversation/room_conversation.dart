@@ -224,14 +224,17 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
    void startTimer() {
      countSecond=0;
+     bloc.onChangeRecordTimerEvent(
+         countSecond
+     );
      const oneSec =  Duration(seconds: 1);
      timer =  Timer.periodic(
        oneSec,
            (Timer timer) {
              countSecond++;
-             setState(() {
-
-             });
+              bloc.onChangeRecordTimerEvent(
+                countSecond
+              );
        },
      );
    }

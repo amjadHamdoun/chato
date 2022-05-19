@@ -198,7 +198,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600
                                       ),
-                                      textAlign: TextAlign.end,
+                                      textAlign: TextAlign.start,
 
                                     ),
                                   ),
@@ -240,7 +240,10 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                                         ColorManager.backgroundColor,
                                         fontSize: 13.sp,
                                         fontWeight: FontWeight.w600
-                                    ),textAlign: TextAlign.end,),
+                                    ),textAlign: TextAlign.start,),
+                                  SizedBox(
+                                    width: 6.w,
+                                  ),
                                   Expanded(
                                     child: InkWell(
                                       onTap:isUrl (widget.message.message!)?()
@@ -254,7 +257,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                                             ColorManager.backgroundColor,
                                             fontSize: 13.sp,
                                             fontWeight: FontWeight.w600
-                                        ),textAlign: TextAlign.end,),
+                                        ),textAlign: TextAlign.start,),
                                     ),
                                   ),
 
@@ -337,6 +340,9 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                           Icons.file_copy_outlined,
                           color: ColorManager.backgroundColor,
                           size: 22.w,
+                        ),
+                        SizedBox(
+                          width: 6.w,
                         ),
                         InkWell(
                           onTap:isUrl(widget.message.message!)? () async {

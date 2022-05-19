@@ -161,7 +161,7 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                                           ColorManager.backgroundColor,
                                           fontSize: 13.sp,
                                           fontWeight: FontWeight.w600
-                                      ),textAlign: TextAlign.end,),
+                                      ),textAlign: TextAlign.start,),
                                   ),
                                 ),
                               ],
