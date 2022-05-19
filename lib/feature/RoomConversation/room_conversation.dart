@@ -25,6 +25,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_utils/keyboard_aware/keyboard_aware.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pusher_client/pusher_client.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../injection.dart';
@@ -32,7 +33,7 @@ import 'model/conversationMessage/message_pusher_model.dart';
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
 import 'widget/show_media_bottom_sheet.dart';
-
+import 'dart:io' as io;
 
 
  class RoomConversationScreen extends StatefulWidget {
@@ -61,6 +62,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
    @override
   void initState() {
+     _init();
      _currentStatus = RecordingStatus.Unset;
      bloc.onAddUserRoomEvent(Global.userId!, widget.roomId);
      bloc.onGetConversationMessage(widget.roomId);
@@ -102,6 +104,85 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
     super.initState();
   }
 
+
+
+   _init() async {
+     try {
+       bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
+
+       if (hasPermission) {
+         String customPath = '/flutter_audio_recorder_';
+         io.Directory appDocDirectory;
+//        io.Directory appDocDirectory = await getApplicationDocumentsDirectory();
+         if (io.Platform.isIOS) {
+           appDocDirectory = await getApplicationDocumentsDirectory();
+         } else {
+           appDocDirectory = (await getExternalStorageDirectory())!;
+         }
+
+         customPath = appDocDirectory.path +
+             customPath +
+             DateTime.now().millisecondsSinceEpoch.toString();
+
+
+         _recorder =
+             FlutterAudioRecorder2(customPath, audioFormat: AudioFormat.AAC);
+
+         await _recorder!.initialized;
+
+         var current = await _recorder!.current(channel: 0);
+         print(current);
+         setState(() {
+           _current = current;
+           _currentStatus = current!.status!;
+           print(_currentStatus);
+         });
+       } else {
+         ScaffoldMessenger.of(context).showSnackBar(
+             const SnackBar(content:  Text("You must accept permissions")));
+       }
+     } catch (e) {
+       print(e);
+     }
+   }
+
+   _start() async {
+     try {
+       await _recorder!.start();
+       var recording = await _recorder!.current(channel: 0);
+       setState(() {
+         _current = recording;
+       });
+
+       const tick =  Duration(milliseconds: 50);
+       Timer.periodic(tick, (Timer t) async {
+         if (_currentStatus == RecordingStatus.Stopped) {
+           t.cancel();
+         }
+
+         var current = await _recorder!.current(channel: 0);
+         // print(current.status);
+         setState(() {
+           _current = current;
+           _currentStatus = _current!.status!;
+         });
+       });
+     } catch (e) {
+       print(e);
+     }
+   }
+
+   _stop() async {
+     var result = await _recorder!.stop();
+     print("Stop recording: ${result!.path}");
+     print("Stop recording: ${result.duration}");
+     // File file = widget.localFileSystem.file(result.path);
+     //  print("File length: ${await file.length()}");
+     setState(() {
+       _current = result;
+       _currentStatus = _current!.status!;
+     });
+   }
 
   bool checkIsVideo(String? endUrl,String? localFile)
   {
@@ -168,9 +249,10 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
      {
        endUrl= endUrl.substring(endUrl.length-4,endUrl.length);
        if(endUrl.contains('mp3')
-           ||endUrl.contains('mp3')
-           ||endUrl.contains('mp3')
-           ||endUrl.contains('mp3')
+           ||endUrl.contains('wav')
+           ||endUrl.contains('m4a')
+           ||endUrl.contains('aac')
+
        )
        {
          return true;
@@ -180,9 +262,10 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
      if(localFile!=null)
      {
        if(localFile.contains('mp3')
-           ||localFile.contains('mp3')
-           ||localFile.contains('mp3')
-           ||localFile.contains('mp3'))
+           ||localFile.contains('wav')
+           ||localFile.contains('m4a')
+           ||localFile.contains('aac')
+           )
        {
          return true;
        }
@@ -320,7 +403,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                              backgroundColor: Colors.transparent,
                              elevation: 0,
                              leading: const SizedBox(),
-                             toolbarHeight: 80.h,
+                             toolbarHeight: 85.h,
                              actions: [
                                SizedBox(
                                  width: 1.sw,
@@ -794,14 +877,8 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                              onTap: ()async{
                                                                if(FocusScope.of(context).hasFocus)
                                                                {
-                                                                 FocusManager.instance.primaryFocus!.unfocus(
-
-                                                                 );
+                                                                 FocusManager.instance.primaryFocus!.unfocus();
                                                                }
-
-
-
-
                                                                Future.delayed(const Duration(milliseconds: 300)).then((value) {
                                                                  bloc.onShowEmojiEvent(true);
                                                                  //installFromAssets();
@@ -833,11 +910,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                  fontSize: 15.sp,
                                                                  color: ColorManager.backgroundColor,
                                                                  height: 1.5.h,
-
                                                                ),
                                                                cursorColor: ColorManager.backgroundColor,
-                                                               decoration:  InputDecoration(
-
+                                                               decoration: InputDecoration(
                                                                  contentPadding: EdgeInsets.symmetric(
                                                                    horizontal: 12.w,
                                                                  ),
@@ -852,8 +927,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                  ),
                                                                  focusColor: ColorManager.backgroundColor,
                                                                  fillColor:  ColorManager.backgroundColor,
-
-
                                                                ),
 
 
@@ -883,18 +956,17 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                    Expanded(
                                                      child: Row(
                                                        children:  [
-                                                         IconButton(onPressed: (){
+                                                         IconButton(onPressed: () async{
                                                            bloc.onStartRecord(false);
                                                            closeTimer();
+                                                           await _stop();
+                                                           bloc.onSendMessageEvent('',
+                                                               widget.roomId, io.File(_current!.path!));
                                                          }, icon:  SvgPicture.asset(
                                                            'assets/icons/send.svg',
                                                            color: ColorManager.primaryColor,
-
                                                          )),
-
                                                          Expanded(
-
-
                                                            child: DragTarget(
                                                              builder: (context, candidateData, rejectedData) {
                                                                return  Center(child:
@@ -908,9 +980,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                return true;
                                                              },
                                                              onAccept: (data) {
-
                                                                bloc.onStartRecord(false);
                                                                closeTimer();
+                                                               _stop();
                                                              },
                                                            ),
                                                          ),
@@ -922,6 +994,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                    GestureDetector(
                                                      onTap: (){
                                                        bloc.onStartRecord(true);
+                                                       _start();
                                                        startTimer();
                                                      },
 

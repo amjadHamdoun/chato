@@ -25,8 +25,10 @@ class MessageMusicSideOne extends StatefulWidget {
 }
 
 class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
-  late Duration duration =Duration();
-  Duration position =   const Duration(
+   Duration duration = Duration(
+     seconds: 0
+  );
+  Duration position =    Duration(
       seconds: 0
   );
   bool isPlaying = false;
@@ -40,16 +42,17 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
 
   @override
   void initState() {
-    isLocal();
+
+    isLocal(widget.message.localFile);
     audioPlayer.onAudioPositionChanged.listen((
         Duration d
         ) { position=Duration(
         seconds: d.inSeconds
     );
-    if(position==duration)
+    if(d.inSeconds==duration.inSeconds-1)
     {
+      position=duration;
       isPlaying = false;
-
       isPause = false;
       isFirst = true;
 
@@ -59,38 +62,53 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
     });});
     audioPlayer.onDurationChanged.listen((Duration d) {
       duration =Duration(
-          seconds: d.inSeconds-1
+          seconds: d.inSeconds
       );
       setState(() {
+
       });
+
     });
 
     super.initState();
   }
 
 
-  Future isLocal() async{
-    var dir;
-    if(Platform.isAndroid) {
-      dir = await getExternalStorageDirectory();
-    } else {
-      dir = await getTemporaryDirectory();
-    }
-    String fileName=widget.message.all_file!.substring(50,
-        widget.message.all_file!.length);
-    String  filePath = dir.path + "/" + fileName;
-    file = File(filePath);
-    if (await file!.exists()) {
-      int result =
-      await audioPlayer.setUrl(filePath,
-          isLocal: true);
-    }
+  Future isLocal(String? localFile) async{
+    if(localFile!=null)
+      {
+
+
+
+        file = File(localFile);
+
+        await audioPlayer.setUrl(localFile,
+            isLocal: true);
+      }
     else{
-      int result = await audioPlayer.setUrl(
-          widget.message.all_file!);
-      Dio dio=Dio();
-      download(dio, widget.message.all_file!, filePath);
+      var dir;
+      if(Platform.isAndroid) {
+        dir = await getExternalStorageDirectory();
+      } else {
+        dir = await getTemporaryDirectory();
+      }
+      String fileName=widget.message.all_file!.substring(50,
+          widget.message.all_file!.length);
+      String  filePath = dir.path + "/" + fileName;
+      file = File(filePath);
+      if (await file!.exists()) {
+
+        await audioPlayer.setUrl(filePath,
+            isLocal: true);
+      }
+      else{
+         await audioPlayer.setUrl(
+            widget.message.all_file!);
+        Dio dio=Dio();
+        download(dio, widget.message.all_file!, filePath);
+      }
     }
+
   }
 
   Future download(Dio dio, String url, String savePath) async {
@@ -236,18 +254,16 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
                       onPlayPauseButtonClick: (){
                         if(isFirst)
                         {
-                          audioPlayer.play(widget.message.all_file!);
+                          audioPlayer.play(widget.message.all_file??
+                              widget.message.localFile!);
                           isPlaying=true;
                           isFirst=false;
-                          setState(() {
-
-                          });
+                          setState(() {});
                         }
                         else if (isPlaying){
                           audioPlayer.pause();
                           isPlaying=false;
                           isPause=true;
-
                           setState(() {});
                         }
                         else if (!isPlaying){
@@ -296,7 +312,9 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
                       onPlayPauseButtonClick: (){
                         if(isFirst)
                         {
-                          audioPlayer.play(widget.message.all_file!);
+                          audioPlayer.play(widget.message.all_file??
+                          widget.message.localFile!
+                          );
                           isPlaying=true;
                           isFirst=false;
                           setState(() {

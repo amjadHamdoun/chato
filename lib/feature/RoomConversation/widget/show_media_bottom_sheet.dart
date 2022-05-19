@@ -98,7 +98,24 @@ void showMediaBottomSheet({
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    FilePickerResult? result = await
+                    FilePicker.platform.pickFiles(
+
+
+                    );
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      //  widget.bloc.onChangeImageEvent(file);
+                      bloc.onSendMessageEvent('', roomId, file);
+                      Navigator.pop(ctx);
+
+                    }
+                    else {
+                      // User canceled the picker
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/doc.svg'),
@@ -186,7 +203,24 @@ void showMediaBottomSheet({
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    FilePickerResult? result = await
+                    FilePicker.platform.pickFiles(
+                      type: FileType.audio,
+
+                    );
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      //  widget.bloc.onChangeImageEvent(file);
+                      bloc.onSendMessageEvent('', roomId, file);
+                      Navigator.pop(ctx);
+
+                    }
+                    else {
+                      // User canceled the picker
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/sound_clip.svg'),

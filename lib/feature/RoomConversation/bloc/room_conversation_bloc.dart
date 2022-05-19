@@ -213,7 +213,7 @@ class RoomConversationBloc
                     id: 0,
                     message: cleanString,
                     localFile: event.allFile!=null?event.allFile!.path:
-                      null,
+                      '',
                     conversation_id: '0',
                     seen: '',
                     created_at: '',
