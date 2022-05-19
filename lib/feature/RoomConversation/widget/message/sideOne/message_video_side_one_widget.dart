@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,14 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../../../core/utils/color_manager.dart';
-import '../../../../../injection.dart';
 import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
 import 'cont.dart';
 
-import 'dart:ui' as ui;
+
 
 
 
@@ -27,8 +26,9 @@ class MessageVideoSideOne extends StatefulWidget {
 }
 
 class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
-  late VideoPlayerController _controller;
-
+   VideoPlayerController? _controller;
+  String downloadFile='';
+   File? file;
   @override
   void initState() {
     isLocal(widget.message.localFile);
@@ -189,13 +189,58 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
               Expanded(
                 child: Stack(
                   children: [
-                    VideoPlayer(_controller),
-                    ControlsOverlay(controller: _controller),
-                    VideoProgressIndicator(_controller,
-                      allowScrubbing: true,
 
+                    if(downloadFile.contains('100')||
+                        widget.message.localFile!=null)
+                      ...[
+                        if(_controller!=null)
+                          VideoPlayer(_controller!),
+                        if(_controller!=null)
+                          ControlsOverlay(controller: _controller!),
+                        if(_controller!=null)
+                          VideoProgressIndicator(_controller!,
+                            allowScrubbing: true,
+                          ),
+                      ]
+                    else if(downloadFile.isEmpty)
+                      ...[
+                        if(_controller!=null)
+                          VideoPlayer(_controller!),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          child: IconButton(
+                            onPressed: (){
+                              Dio dio=Dio();
+                              download(dio, widget.message.all_file!, file!.path);
+                            },
+                            icon: Icon(
+                              Icons.download,
+                              size: 22.w,
+                              color: ColorManager.backgroundColor,
+                            ),
+                          ),
+                        ),
+                      ]
+                    else ...[
+                        if(_controller!=null)
+                          VideoPlayer(_controller!),
+                        Positioned(
+                          bottom: 70.h,
+                          left: 0,
+                          right: 0,
 
-                    ),
+                          child: Text(downloadFile
+                            ,style: TextStyle(
+                                color: ColorManager.backgroundColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w600
+                            ),textAlign: TextAlign.center,),
+                        )
+                      ]
+
                   ],
                 ),
               ),
@@ -212,10 +257,5 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
 
 }

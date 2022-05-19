@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/utils/color_manager.dart';
 import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
@@ -28,7 +29,19 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
 
     super.initState();
   }
+  bool isUrl(String message){
+    if(message.startsWith('https')){
+      return true;
+    }
+    if(message.startsWith('http')){
+      return true;
+    }
+    if(message.startsWith('www')){
+      return true;
+    }
 
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,12 +149,20 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text(widget.message.message!,
-                                    style: TextStyle(
-                                        color: ColorManager.backgroundColor,
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600
-                                    ),textAlign: TextAlign.start,),
+                                  child: InkWell(
+                                    onTap:isUrl (widget.message.message!)?()
+                                    async {
+                                      await launch(widget.message.message!);
+                                    }:null,
+                                    child: Text(widget.message.message!
+                                      ,style: TextStyle(
+                                          color:isUrl (widget.message.message!)?
+                                          Colors.blue.shade700:
+                                          ColorManager.backgroundColor,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w600
+                                      ),textAlign: TextAlign.end,),
+                                  ),
                                 ),
                               ],
                             ),
@@ -217,25 +238,32 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                   ),
 
 
-                  Container(
-                    decoration:
-                    widget.message.message!.length>
-                        widget.message.user!.name!.length?
-                    const BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                            color: ColorManager.backgroundColor,
-                          )
+                  InkWell(
+                    onTap:isUrl(widget.message.message!)? () async {
+                      await launch(widget.message.message!);
+                    }:null,
+                    child: Container(
+                      decoration:
+                      widget.message.message!.length>
+                          widget.message.user!.name!.length?
+                      const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                              color: ColorManager.backgroundColor,
+                            )
+                        ),
+                      ):const BoxDecoration(),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Text(widget.message.message!,
+                          style: TextStyle(
+                              color:isUrl(widget.message.message!)?
+                              Colors.blue.shade700:
+                              ColorManager.backgroundColor,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w600
+                          ),textAlign: TextAlign.start,),
                       ),
-                    ):const BoxDecoration(),
-                    child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                      child: Text(widget.message.message!,
-                        style: TextStyle(
-                            color: ColorManager.backgroundColor,
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w600
-                        ),textAlign: TextAlign.start,),
                     ),
                   ),
                 ],

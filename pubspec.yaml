@@ -65,6 +65,10 @@ dependencies:
   profanity_filter: 2.0.0
   video_player: ^2.4.2
   chat_bubbles: ^1.2.0
+  location: ^4.2.0
+  open_file: ^3.2.1
+
+
 
 dev_dependencies:
   flutter_test:

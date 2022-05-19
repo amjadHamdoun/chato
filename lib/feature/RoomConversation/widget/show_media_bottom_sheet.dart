@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:location/location.dart';
 
 import '../bloc/room_conversation_bloc.dart';
 
@@ -59,6 +60,8 @@ void showMediaBottomSheet({
                       File file = File(result.files.single.path!);
                     //  widget.bloc.onChangeImageEvent(file);
                       bloc.onSendMessageEvent('', roomId, file);
+                      Navigator.pop(ctx);
+
                     }
                     else {
                       // User canceled the picker
@@ -133,7 +136,41 @@ void showMediaBottomSheet({
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    Location location =  Location();
+
+                    bool _serviceEnabled;
+                    PermissionStatus _permissionGranted;
+                    LocationData _locationData;
+
+                    _serviceEnabled = await location.serviceEnabled();
+                    if (!_serviceEnabled) {
+                      _serviceEnabled = await location.requestService();
+                      if (!_serviceEnabled) {
+
+                      }
+                    }
+
+                    _permissionGranted = await location.hasPermission();
+                    if (_permissionGranted == PermissionStatus.denied) {
+                      _permissionGranted = await location.requestPermission();
+                      if (_permissionGranted != PermissionStatus.granted) {
+
+                      }
+                    }
+
+                   try{
+                     _locationData = await location.getLocation();
+                     bloc.onSendMessageEvent('https://www.google.com/maps/search/?api=1&query=${_locationData.latitude},${_locationData.longitude}'
+                         , roomId, null);
+                     Navigator.pop(ctx);
+                   }
+                    catch (e)
+                    // ignore: empty_catches
+                    {
+
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/location.svg'),

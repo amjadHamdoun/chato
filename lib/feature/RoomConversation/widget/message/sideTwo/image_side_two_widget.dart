@@ -24,6 +24,7 @@ class MessageImageSideTwo extends StatefulWidget {
 class _MessageImageSideTwoState extends State<MessageImageSideTwo> {
 
   File? file ;
+
   @override
   void initState() {
     isLocal();

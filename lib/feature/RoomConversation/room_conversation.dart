@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideOne/file_chat_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/image_side_one_widget.dart';
-
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_chat_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_video_side_one_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideOne/music_side_one_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideTwo/file_chat_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/image_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_chat_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_video_side_two_widget.dart';
@@ -16,7 +16,6 @@ import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dar
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
 import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_sticker.dart';
 import 'package:chato/feature/User/model/user_data.dart';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,16 +23,14 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:keyboard_utils/keyboard_aware/keyboard_aware.dart';
-
 import 'package:pusher_client/pusher_client.dart';
-
 import '../../../core/utils/color_manager.dart';
 import '../../injection.dart';
 import 'model/conversationMessage/message_pusher_model.dart';
-
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
 import 'widget/show_media_bottom_sheet.dart';
+
 
 
  class RoomConversationScreen extends StatefulWidget {
@@ -188,6 +185,35 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
      return false;
    }
+
+   bool checkIsFile(String? endUrl,String? localFile)
+   {
+     if(endUrl!=null)
+     {
+       endUrl= endUrl.substring(endUrl.length-4,endUrl.length);
+       if(endUrl.contains('pdf')
+           ||endUrl.contains('ppt')
+           ||endUrl.contains('docx')
+       )
+       {
+         return true;
+       }
+     }
+     if(localFile!=null)
+     {
+       if(localFile.contains('pdf')
+           ||localFile.contains('ppt')
+           ||localFile.contains('docx'))
+
+       {
+         return true;
+       }
+     }
+
+
+     return false;
+   }
+
 
 
 
@@ -527,13 +553,42 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                      ),
                                                    );
                                                  }
+                                                  else if(checkIsFile(state.
+                                                  conversationOldMessageModel.data![index].all_file,
+                                                      state.
+                                                      conversationOldMessageModel.data![index].localFile
+
+                                                  ))
+                                                  {
+                                                    return MessageFileSideOne(
+                                                      message:state.
+                                                      conversationOldMessageModel
+                                                          .data![index] ,
+                                                    );
+                                                  }
+                                                  else if(checkIsMusic(state.
+                                                  conversationOldMessageModel.data![index].all_file,
+                                                      state.
+                                                      conversationOldMessageModel.data![index].localFile
+
+                                                  ))
+                                                  {
+                                                    return SizedBox(
+                                                      height: 100.h,
+                                                      child: MessageMusicSideOne(
+                                                        message:state.
+                                                        conversationOldMessageModel
+                                                            .data![index] ,
+                                                      ),
+                                                    );
+                                                  }
                                                   return MessageChatSideOne(
                                                     message:state.
                                                     conversationOldMessageModel
                                                         .data![index] ,
                                                   );
                                                }
-                                               else{
+                                               else
                                                  if(
                                                  checkIsVideo(state.
                                                  conversationOldMessageModel.data![index].all_file,
@@ -543,17 +598,17 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                  )
 
                                                  )
-                                           {
-                                             return SizedBox(
-                                               height: 170.h,
+                                                 {
+                                                   return SizedBox(
+                                                     height: 170.h,
 
-                                               child: MessageVideoSideTwo(
-                                                 message:state.
-                                                 conversationOldMessageModel
-                                                     .data![index] ,
-                                               ),
-                                             );
-                                           }
+                                                     child: MessageVideoSideTwo(
+                                                       message:state.
+                                                       conversationOldMessageModel
+                                                           .data![index] ,
+                                                     ),
+                                                   );
+                                                 }
                                                  else if(checkIsImage(state.
                                                  conversationOldMessageModel.data![index].all_file,
                                                      state.
@@ -586,7 +641,74 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                      ),
                                                    );
                                                  }
-                                               }
+
+                                           else{
+                                             if(
+                                             checkIsVideo(state.
+                                             conversationOldMessageModel.data![index].all_file,
+                                                 state.
+                                                 conversationOldMessageModel.data![index].localFile
+
+                                             )
+
+                                             )
+                                             {
+                                               return SizedBox(
+                                                 height: 170.h,
+
+                                                 child: MessageVideoSideTwo(
+                                                   message:state.
+                                                   conversationOldMessageModel
+                                                       .data![index] ,
+                                                 ),
+                                               );
+                                             }
+                                             else if(checkIsImage(state.
+                                             conversationOldMessageModel.data![index].all_file,
+                                                 state.
+                                                 conversationOldMessageModel.data![index].localFile
+
+                                             ))
+                                             {
+                                               return SizedBox(
+                                                 height: 170.h,
+                                                 child: MessageImageSideTwo(
+                                                   message:state.
+                                                   conversationOldMessageModel
+                                                       .data![index] ,
+                                                 ),
+                                               );
+                                             }
+                                             else if(checkIsMusic(state.
+                                             conversationOldMessageModel.data![index].all_file,
+                                                 state.
+                                                 conversationOldMessageModel.data![index].localFile
+
+                                             ))
+                                             {
+                                               return SizedBox(
+                                                 height: 100.h,
+                                                 child: MessageMusicSideTwo(
+                                                   message:state.
+                                                   conversationOldMessageModel
+                                                       .data![index] ,
+                                                 ),
+                                               );
+                                             }
+                                             else if(checkIsFile(state.
+                                             conversationOldMessageModel.data![index].all_file,
+                                                 state.
+                                                 conversationOldMessageModel.data![index].localFile
+
+                                             ))
+                                             {
+                                               return MessageFileSideTwo(
+                                                 message:state.
+                                                 conversationOldMessageModel
+                                                     .data![index] ,
+                                               );
+                                             }
+                                           }
                                                return MessageChatSideTwo(
                                                  message:state.
                                                  conversationOldMessageModel
@@ -818,8 +940,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
                                                      if(FocusScope.of(context).hasFocus)
                                                      {
-                                                       FocusManager.instance.primaryFocus!.unfocus(
-                                                       );
+                                                       FocusManager.instance.primaryFocus!.unfocus();
                                                        textEditingController.clear();
                                                      }
                                                      bloc.onStartRecord(false);
@@ -827,7 +948,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                      Icons.send,
                                                      color: ColorManager.backgroundColor,
                                                      size: 22.w,
-
                                                    )),
                                                  SizedBox(
                                                    width: 6.w,

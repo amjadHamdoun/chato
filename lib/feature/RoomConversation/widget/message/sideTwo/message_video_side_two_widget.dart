@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import '../../../../../core/utils/color_manager.dart';
 import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
 import '../sideOne/cont.dart';
-import 'dart:ui' as ui;
+
 
 
 
@@ -26,6 +25,8 @@ class MessageVideoSideTwo extends StatefulWidget {
 
 class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
    VideoPlayerController? _controller;
+   String downloadFile='';
+   File? file;
 
   @override
   void initState() {
@@ -46,10 +47,10 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
     String fileName=widget.message.all_file!.substring(50,
         widget.message.all_file!.length);
     String  filePath = dir.path + "/" + fileName;
-    var file = File(filePath);
-    if (await file.exists()) {
+    file = File(filePath);
+    if (await file!.exists()) {
       _controller=VideoPlayerController.file(
-          file)
+          file!)
         ..initialize().then((_) {
           // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           setState(() {});
@@ -62,8 +63,8 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
           // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
           setState(() {});
         });
-      Dio dio=Dio();
-      download(dio, widget.message.all_file!, filePath);
+     // Dio dio=Dio();
+    //  download(dio, widget.message.all_file!, filePath);
     }
   }
 
@@ -92,7 +93,10 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
 
   void showDownloadProgress(received, total) {
     if (total != -1) {
-      print((received / total * 100).toStringAsFixed(0) + "%");
+      downloadFile=(received / total * 100).toStringAsFixed(0) + "%";
+      setState(() {
+
+      });
     }
   }
 
@@ -143,16 +147,57 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
               Expanded(
                 child: Stack(
                   children: [
-                    if(_controller!=null)
-                    VideoPlayer(_controller!),
-                    if(_controller!=null)
-                    ControlsOverlay(controller: _controller!),
-                    if(_controller!=null)
-                    VideoProgressIndicator(_controller!,
-                      allowScrubbing: true,
 
+                    if(downloadFile.contains('100'))
+                      ...[
+                        if(_controller!=null)
+                          VideoPlayer(_controller!),
+                        if(_controller!=null)
+                          ControlsOverlay(controller: _controller!),
+                        if(_controller!=null)
+                          VideoProgressIndicator(_controller!,
+                            allowScrubbing: true,
+                          ),
+                      ]
+                    else if(downloadFile.isEmpty)
+                      ...[
+                        if(_controller!=null)
+                          VideoPlayer(_controller!),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          child: IconButton(
+                            onPressed: (){
+                               Dio dio=Dio();
+                                download(dio, widget.message.all_file!, file!.path);
+                            },
+                            icon: Icon(
+                              Icons.download,
+                              size: 22.w,
+                              color: ColorManager.backgroundColor,
+                            ),
+                          ),
+                        ),
+                      ]
+                    else ...[
+                        if(_controller!=null)
+                        VideoPlayer(_controller!),
+                        Positioned(
+                          bottom: 70.h,
+                          left: 0,
+                          right: 0,
 
-                    ),
+                          child: Text(downloadFile
+                            ,style: TextStyle(
+                                color: ColorManager.backgroundColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w600
+                            ),textAlign: TextAlign.center,),
+                        )
+                         ]
+
                   ],
                 ),
               ),

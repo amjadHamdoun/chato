@@ -40,65 +40,57 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
 
   @override
   void initState() {
-    isLocal(widget.message.localFile!);
+    isLocal();
     audioPlayer.onAudioPositionChanged.listen((
         Duration d
         ) { position=Duration(
         seconds: d.inSeconds
     );
-        if(position==duration)
-          {
-             isPlaying = false;
+    if(position==duration)
+    {
+      isPlaying = false;
 
-             isPause = false;
-             isFirst = true;
+      isPause = false;
+      isFirst = true;
 
-          }
+    }
     setState(() {
 
     });});
     audioPlayer.onDurationChanged.listen((Duration d) {
-       duration =Duration(
-           seconds: d.inSeconds-1
-       );
-       setState(() {
-       });
+      duration =Duration(
+          seconds: d.inSeconds-1
+      );
+      setState(() {
+      });
     });
 
     super.initState();
   }
 
 
-  Future isLocal(String? localPath) async{
-    if(localPath!=null)
-      {
-        await audioPlayer.setUrl(
-            localPath,isLocal: true);
-      }
-    else{
-      var dir;
-      if(Platform.isAndroid) {
-        dir = await getExternalStorageDirectory();
-      } else {
-        dir = await getTemporaryDirectory();
-      }
-      String fileName=widget.message.all_file!.substring(50,
-          widget.message.all_file!.length);
-      String  filePath = dir.path + "/" + fileName;
-      file = File(filePath);
-      if (await file!.exists()) {
-        int result =
-        await audioPlayer.setUrl(filePath,
-            isLocal: true);
-      }
-      else{
-        int result = await audioPlayer.setUrl(
-            widget.message.all_file!);
-        Dio dio=Dio();
-        download(dio, widget.message.all_file!, filePath);
-      }
+  Future isLocal() async{
+    var dir;
+    if(Platform.isAndroid) {
+      dir = await getExternalStorageDirectory();
+    } else {
+      dir = await getTemporaryDirectory();
     }
-
+    String fileName=widget.message.all_file!.substring(50,
+        widget.message.all_file!.length);
+    String  filePath = dir.path + "/" + fileName;
+    file = File(filePath);
+    if (await file!.exists()) {
+      int result =
+      await audioPlayer.setUrl(filePath,
+          isLocal: true);
+    }
+    else{
+      int result = await audioPlayer.setUrl(
+          widget.message.all_file!);
+      Dio dio=Dio();
+      download(dio, widget.message.all_file!, filePath);
+    }
   }
 
   Future download(Dio dio, String url, String savePath) async {
@@ -135,183 +127,11 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
 
 
       children: [
 
-
-
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding:  EdgeInsets.symmetric(
-                  horizontal: 18.w,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:  const Color(0xff99AACD),
-                    borderRadius: BorderRadius.circular(12.w),
-                  ),
-
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                      vertical: 2.h
-                    ),
-                    child: Row(
-                      children: [
-
-                        Expanded(
-                          child: Text(widget.message.user!.name!,
-                            style: TextStyle(
-                                color: ColorManager.backgroundColor,
-                                fontSize: 13.sp,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w600
-                            ),
-                            textAlign: TextAlign.end,
-
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              file!=null?
-                  Row(
-                    children: [
-                      Expanded(
-                        child:  BubbleNormalAudio(
-                          color: const
-                          Color(0xFFE8E8EE),
-                          duration: duration.inSeconds.toDouble(),
-                          position: position.inSeconds.toDouble(),
-                          isPlaying: isPlaying,
-                          isLoading: isLoading,
-                          isPause: isPause,
-                          onSeekChanged: (dou){
-                            print(dou);
-                            position=Duration(
-                                seconds: int.parse(dou.floor().toString())
-                            );
-
-                            audioPlayer.seek(Duration(
-                                seconds: int.parse(dou.floor().toString())
-                            ));
-                            setState(() {
-
-                            });
-                          },
-                          // ignore: curly_braces_in_flow_control_structures
-                          onPlayPauseButtonClick: (){
-                            if(isFirst)
-                            {
-                              audioPlayer.play(widget.message.all_file!);
-                              isPlaying=true;
-                              isFirst=false;
-                              setState(() {
-
-                              });
-                            }
-                            else if (isPlaying){
-                              audioPlayer.pause();
-                              isPlaying=false;
-                              isPause=true;
-
-                              setState(() {});
-                            }
-                            else if (!isPlaying){
-                              audioPlayer.resume();
-                              isPlaying=true;
-                              isPause=false;
-
-
-                              setState(() {});
-                            }
-                            else{
-
-                            }
-
-                          },
-                          sent: false,
-                        ),
-                      ),
-                    ],
-                  ):
-                  Row(
-                    children: [
-                      Expanded(
-                        child:  BubbleNormalAudio(
-                          color: const
-                          Color(0xFFE8E8EE),
-                          duration: duration.inSeconds.toDouble(),
-                          position: position.inSeconds.toDouble(),
-                          isPlaying: isPlaying,
-                          isLoading: isLoading,
-                          isPause: isPause,
-                          onSeekChanged: (dou){
-                            print(dou);
-                            position=Duration(
-                                seconds: int.parse(dou.floor().toString())
-                            );
-
-                            audioPlayer.seek(Duration(
-                              seconds: int.parse(dou.floor().toString())
-                            ));
-                            setState(() {
-
-                            });
-                          },
-                          // ignore: curly_braces_in_flow_control_structures
-                          onPlayPauseButtonClick: (){
-                            if(isFirst)
-                              {
-                                audioPlayer.play(widget.message.all_file!);
-                                isPlaying=true;
-                                isFirst=false;
-                                setState(() {
-
-                                });
-                              }
-                            else if (isPlaying){
-                              audioPlayer.pause();
-                              isPlaying=false;
-                              isPause=true;
-
-                              setState(() {});
-                            }
-                            else if (!isPlaying){
-                              audioPlayer.resume();
-                              isPlaying=true;
-                              isPause=false;
-
-
-                              setState(() {});
-                            }
-                            else{
-
-                            }
-
-                          },
-                          sent: false,
-                        ),
-                      ),
-                    ],
-                  ),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 6.w,
-        ),
         GestureDetector(
           onTap: (){
             Navigator.push(
@@ -341,9 +161,183 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
             ),
           ),
         ),
+        SizedBox(
+          width: 6.w,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding:  EdgeInsets.symmetric(
+                  horizontal: 18.w,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color:  const Color(0xff99AACD),
+                    borderRadius: BorderRadius.circular(12.w),
+                  ),
+
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 2.h
+                    ),
+                    child: Row(
+                      children: [
+
+                        Expanded(
+                          child: Text(widget.message.user!.name!,
+                            style: TextStyle(
+                                color: ColorManager.backgroundColor,
+                                fontSize: 13.sp,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600
+                            ),
+                            textAlign: TextAlign.end,
+
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              file!=null?
+              Row(
+                children: [
+                  Expanded(
+                    child:  BubbleNormalAudio(
+                      color: const
+                      Color(0xFFE8E8EE),
+                      duration: duration.inSeconds.toDouble(),
+                      position: position.inSeconds.toDouble(),
+                      isPlaying: isPlaying,
+                      isLoading: isLoading,
+                      isPause: isPause,
+                      onSeekChanged: (dou){
+                        print(dou);
+                        position=Duration(
+                            seconds: int.parse(dou.floor().toString())
+                        );
+
+                        audioPlayer.seek(Duration(
+                            seconds: int.parse(dou.floor().toString())
+                        ));
+                        setState(() {
+
+                        });
+                      },
+                      // ignore: curly_braces_in_flow_control_structures
+                      onPlayPauseButtonClick: (){
+                        if(isFirst)
+                        {
+                          audioPlayer.play(widget.message.all_file!);
+                          isPlaying=true;
+                          isFirst=false;
+                          setState(() {
+
+                          });
+                        }
+                        else if (isPlaying){
+                          audioPlayer.pause();
+                          isPlaying=false;
+                          isPause=true;
+
+                          setState(() {});
+                        }
+                        else if (!isPlaying){
+                          audioPlayer.resume();
+                          isPlaying=true;
+                          isPause=false;
+
+
+                          setState(() {});
+                        }
+                        else{
+
+                        }
+
+                      },
+                      sent: false,
+                    ),
+                  ),
+                ],
+              ):
+              Row(
+                children: [
+                  Expanded(
+                    child:  BubbleNormalAudio(
+                      color: const
+                      Color(0xFFE8E8EE),
+                      duration: duration.inSeconds.toDouble(),
+                      position: position.inSeconds.toDouble(),
+                      isPlaying: isPlaying,
+                      isLoading: isLoading,
+                      isPause: isPause,
+                      onSeekChanged: (dou){
+                        print(dou);
+                        position=Duration(
+                            seconds: int.parse(dou.floor().toString())
+                        );
+
+                        audioPlayer.seek(Duration(
+                            seconds: int.parse(dou.floor().toString())
+                        ));
+                        setState(() {
+
+                        });
+                      },
+                      // ignore: curly_braces_in_flow_control_structures
+                      onPlayPauseButtonClick: (){
+                        if(isFirst)
+                        {
+                          audioPlayer.play(widget.message.all_file!);
+                          isPlaying=true;
+                          isFirst=false;
+                          setState(() {
+
+                          });
+                        }
+                        else if (isPlaying){
+                          audioPlayer.pause();
+                          isPlaying=false;
+                          isPause=true;
+
+                          setState(() {});
+                        }
+                        else if (!isPlaying){
+                          audioPlayer.resume();
+                          isPlaying=true;
+                          isPause=false;
+
+
+                          setState(() {});
+                        }
+                        else{
+
+                        }
+
+                      },
+                      sent: false,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 11.w,)
+
+
       ],
     );
   }
+
 
 
 

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/utils/color_manager.dart';
 import '../../../../User/user.dart';
@@ -24,107 +25,127 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
 
   @override
   void initState() {
-
-
-
     super.initState();
   }
 
 
+ bool isUrl(String message){
+    if(message.startsWith('https')){
+      return true;
+    }
+    if(message.startsWith('http')){
+      return true;
+    }
+    if(message.startsWith('www')){
+      return true;
+    }
+
+    return false;
+ }
+
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context)  {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         if(widget.message.message!.length>35
-            ||widget.message.user!.name!.length>35
-        )
-          Row(
-            children: [
-              const Expanded(
-                child: SizedBox(
+            ||widget.message.user!.name!.length>35)
+          Expanded(
+            child: Row(
+              children: [
+                const Expanded(
+                  child: SizedBox(
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
+                Expanded(
+                  flex: 2,
+                  child: Container(
 
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [
-                            Color(0xff99AACD),
-                            Color(0xff99AACD),
-                          ]
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Color(0xff99AACD),
+                              Color(0xff99AACD),
+                            ]
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topRight:  Radius.circular(12.w),
+                          bottomLeft: Radius.circular(12.w),
+                          topLeft: Radius.circular(12.w),
+                          bottomRight:  Radius.circular(12.w),
+
+                        )
+                    ),
+                    child:  Padding(
+                      padding:  EdgeInsets.symmetric(
+                          vertical: 4.h
                       ),
-                      borderRadius: BorderRadius.only(
-                        topRight:  Radius.circular(12.w),
-                        bottomLeft: Radius.circular(12.w),
-                        topLeft: Radius.circular(12.w),
-                        bottomRight:  Radius.circular(12.w),
+                      child: Column(
 
-                      )
-                  ),
-                  child:  Padding(
-                    padding:  EdgeInsets.symmetric(
-                        vertical: 4.h
-                    ),
-                    child: Column(
+                        children: [
+                          Padding(
+                            padding:  EdgeInsets.symmetric(
+                                horizontal: 12.w
+                            ),
+                            child: Row(
+                              children: [
 
-                      children: [
-                        Padding(
-                          padding:  EdgeInsets.symmetric(
-                              horizontal: 12.w
-                          ),
-                          child: Row(
-                            children: [
+                                Expanded(
+                                  child: Text(
+                                    widget.message.user!.name!,
+                                    style: TextStyle(
+                                        color: ColorManager.backgroundColor,
+                                        fontSize: 13.sp,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w600
+                                    ),
+                                    textAlign: TextAlign.end,
 
-                              Expanded(
-                                child: Text(
-                                  widget.message.user!.name!,
-                                  style: TextStyle(
-                                      color: ColorManager.backgroundColor,
-                                      fontSize: 13.sp,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w600
                                   ),
-                                  textAlign: TextAlign.end,
-
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Divider(
-                          color: ColorManager.backgroundColor,
+                          Divider(
+                            color: ColorManager.backgroundColor,
 
-                          thickness: 1,
-                          height: 3.h,
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.symmetric(
-                              horizontal: 12.w
+                            thickness: 1,
+                            height: 3.h,
                           ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(widget.message.message!
-                                  ,style: TextStyle(
-                                      color: ColorManager.backgroundColor,
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w600
-                                  ),textAlign: TextAlign.end,),
-                              ),
-                            ],
+                          Padding(
+                            padding:  EdgeInsets.symmetric(
+                                horizontal: 12.w
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap:isUrl (widget.message.message!)?()
+                                   async {
+                                     await launch(widget.message.message!);
+                                    }:null,
+                                    child: Text(widget.message.message!
+                                      ,style: TextStyle(
+                                          color:isUrl (widget.message.message!)?
+                                          Colors.blue.shade700:
+                                          ColorManager.backgroundColor,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w600
+                                      ),textAlign: TextAlign.end,),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )else
           Container(
             decoration: BoxDecoration(
@@ -183,25 +204,32 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                   ),
 
 
-                  Container(
-                    decoration:
-                    widget.message.message!.length>
-                        widget.message.user!.name!.length?
-                    const BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                            color: ColorManager.backgroundColor,
-                          )
+                  InkWell(
+                    onTap:isUrl(widget.message.message!)? () async {
+                      await launch(widget.message.message!);
+                    }:null,
+                    child: Container(
+                      decoration:
+                      widget.message.message!.length>
+                          widget.message.user!.name!.length?
+                      const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                              color: ColorManager.backgroundColor,
+                            )
+                        ),
+                      ):const BoxDecoration(),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Text(widget.message.message!,
+                          style: TextStyle(
+                              color:isUrl(widget.message.message!)?
+                              Colors.blue.shade700:
+                              ColorManager.backgroundColor,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w600
+                          ),textAlign: TextAlign.start,),
                       ),
-                    ):const BoxDecoration(),
-                    child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                      child: Text(widget.message.message!,
-                        style: TextStyle(
-                            color: ColorManager.backgroundColor,
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w600
-                        ),textAlign: TextAlign.start,),
                     ),
                   ),
                 ],
