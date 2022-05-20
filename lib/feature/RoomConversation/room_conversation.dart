@@ -40,6 +40,7 @@ import 'dart:io' as io;
  class RoomConversationScreen extends StatefulWidget {
    final int roomId;
   final String? background;
+   final String? roomName;
   final String? fav;
   final int? ownerId;
   const RoomConversationScreen({
@@ -47,7 +48,8 @@ import 'dart:io' as io;
      required this.roomId,
     required this.background,
     required this.fav,
-    required this.ownerId
+    required this.ownerId,
+    required this.roomName
   }) : super(key: key);
 
   @override
@@ -395,6 +397,14 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                        children: [
                          Row(
                            children: [
+                             if(widget.background!.isNotEmpty)
+                               Expanded(
+                                 child: Image.network(widget.background!,
+                                   fit: BoxFit.cover,
+
+
+                                 ),
+                               )else
                              Expanded(
                                child: Image.asset('assets/images/background.jpg',
                                  fit: BoxFit.cover,
@@ -456,7 +466,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                        ),
                                                      ),
                                                      SizedBox(width: 6.w,),
-                                                     Text("الوطن العربي",
+                                                     Text(widget.roomName!,
                                                        style: TextStyle(
                                                            fontWeight: FontWeight.w700,
                                                            fontSize: 17.sp,

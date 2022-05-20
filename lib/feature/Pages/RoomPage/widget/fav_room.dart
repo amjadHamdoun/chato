@@ -60,6 +60,7 @@ class _FavRoomPageState extends State<FavRoomPage>
                       background: state.favRoomModel.data[index].background!,
                       fav:state.favRoomModel.data[index].favorite_room_count! ,
                       ownerId: state.favRoomModel.data[index].user!.id!,
+                      roomName: state.allRoomModel.data[index].name!,
                     )),
                   );
                 },

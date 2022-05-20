@@ -59,6 +59,7 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                       background: state.trendRoomModel.data[index].background!,
                       fav:state.trendRoomModel.data[index].favorite_room_count! ,
                       ownerId: state.trendRoomModel.data[index].user!.id!,
+                      roomName: state.allRoomModel.data[index].name!,
                     )),
                   );
                 },

@@ -59,6 +59,7 @@ class _AllRoomPageState extends State<AllRoomPage>
                       background: state.allRoomModel.data[index].background??'',
                       fav:state.allRoomModel.data[index].favorite_room_count! ,
                       ownerId: state.allRoomModel.data[index].user!.id!,
+                      roomName: state.allRoomModel.data[index].name!,
 
                     )),
                   );

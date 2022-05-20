@@ -61,6 +61,7 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
                       background: state.userRoomModel.data[index].background!,
                       fav:state.userRoomModel.data[index].favorite_room_count! ,
                       ownerId: state.userRoomModel.data[index].user!.id!,
+                      roomName: state.allRoomModel.data[index].name!,
                     )),
                   );
                 },
