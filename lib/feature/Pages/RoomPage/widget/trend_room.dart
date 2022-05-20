@@ -56,6 +56,9 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                     MaterialPageRoute(builder: (context) =>
                     RoomConversationScreen(
                       roomId: state.trendRoomModel.data[index].id!,
+                      background: state.trendRoomModel.data[index].background!,
+                      fav:state.trendRoomModel.data[index].favorite_room_count! ,
+                      ownerId: state.trendRoomModel.data[index].user!.id!,
                     )),
                   );
                 },

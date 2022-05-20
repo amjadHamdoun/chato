@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 import '../bloc/room_conversation_bloc.dart';
@@ -82,7 +83,18 @@ void showMediaBottomSheet({
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: ()async{
+                    final ImagePicker _picker = ImagePicker();
+                    final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+                   if(photo!=null)
+                     {
+                       File file = File(photo.path);
+                       //  widget.bloc.onChangeImageEvent(file);
+                       bloc.onSendMessageEvent('', roomId, file);
+                       Navigator.pop(ctx);
+                     }
+
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/camera.svg'),
@@ -101,10 +113,7 @@ void showMediaBottomSheet({
                   onTap: () async {
                     FilePickerResult? result = await
                     FilePicker.platform.pickFiles(
-
-
                     );
-
                     if (result != null) {
                       File file = File(result.files.single.path!);
                       //  widget.bloc.onChangeImageEvent(file);

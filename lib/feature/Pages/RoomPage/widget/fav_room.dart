@@ -57,6 +57,9 @@ class _FavRoomPageState extends State<FavRoomPage>
                     MaterialPageRoute(builder: (context) =>
                     RoomConversationScreen(
                       roomId:  state.favRoomModel.data[index].id!,
+                      background: state.favRoomModel.data[index].background!,
+                      fav:state.favRoomModel.data[index].favorite_room_count! ,
+                      ownerId: state.favRoomModel.data[index].user!.id!,
                     )),
                   );
                 },

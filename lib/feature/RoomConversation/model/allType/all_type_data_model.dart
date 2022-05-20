@@ -1,3 +1,4 @@
+import 'package:chato/feature/User/model/user_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'all_type_data_model.g.dart';
@@ -24,7 +25,8 @@ class AllTypeDataModel {
     required this.id,
     required this.img,
     required this.birth_date,
-    required this.gender,
+    required this.gender
+
 
   });
 }

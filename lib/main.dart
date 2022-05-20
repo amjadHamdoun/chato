@@ -3,10 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Preference.dart';
-import 'feature/Conversation/widget/record_widget.dart';
 import 'feature/splash/splash_screen.dart';
 import 'injection.dart' as di;
 import 'core/utils/theme_manager.dart';
+
 
 
 void main() async{
@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         theme:Global.darkMode?  getApplicationDarkTheme()
             :getApplicationLightTheme(),
-
         home: const SplashScreen(),
       ),
     );

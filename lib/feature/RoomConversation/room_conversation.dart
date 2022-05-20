@@ -29,6 +29,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pusher_client/pusher_client.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../injection.dart';
+import 'model/allType/all_type_data_model.dart';
 import 'model/conversationMessage/message_pusher_model.dart';
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
@@ -38,9 +39,16 @@ import 'dart:io' as io;
 
  class RoomConversationScreen extends StatefulWidget {
    final int roomId;
+  final String? background;
+  final String? fav;
+  final int? ownerId;
   const RoomConversationScreen({
      Key? key,
-     required this.roomId}) : super(key: key);
+     required this.roomId,
+    required this.background,
+    required this.fav,
+    required this.ownerId
+  }) : super(key: key);
 
   @override
   _RoomConversationScreenState createState() => _RoomConversationScreenState();
@@ -458,6 +466,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                        textAlign: TextAlign.center,
                                                      ),
                                                      SizedBox(width: 6.w,),
+
                                                      Padding(
                                                        padding: const EdgeInsets.all(4.0),
                                                        child: SizedBox(

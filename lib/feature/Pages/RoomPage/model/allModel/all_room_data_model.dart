@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../User/model/user_data.dart';
+
 
 
 
@@ -12,6 +14,10 @@ class AllRoomDataModel {
 
   int? id;
   String? name;
+  final String? favorite_room_count;
+  final UserData? user;
+  final String? background;
+  final String? img;
 
 
 
@@ -23,5 +29,9 @@ class AllRoomDataModel {
       {
         required this.id,
         required this.name,
+        required this.user,
+        required this.favorite_room_count,
+        required this.background,
+        required this.img
       });
 }

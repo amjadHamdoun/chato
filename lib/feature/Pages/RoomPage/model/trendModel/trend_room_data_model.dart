@@ -1,6 +1,8 @@
 import 'package:chato/feature/Pages/RoomPage/model/trendModel/room_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../User/model/user_data.dart';
+
 
 
 
@@ -13,7 +15,10 @@ class TrendRoomDataModel {
 
   int? id;
   RoomModel? room;
-
+  final String? favorite_room_count;
+  final UserData? user;
+  final String? background;
+  final String? img;
 
 
   Map<String, dynamic> toJson() => _$TrendRoomDataModelToJson(this);
@@ -24,5 +29,9 @@ class TrendRoomDataModel {
       {
         required this.id,
         required this.room,
+        required this.img,
+        required this.background,
+        required this.favorite_room_count,
+        required this.user
       });
 }
