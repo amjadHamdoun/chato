@@ -2,9 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../../core/utils/color_manager.dart';
-import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
 
 

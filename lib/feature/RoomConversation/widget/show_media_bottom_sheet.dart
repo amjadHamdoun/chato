@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 import '../bloc/room_conversation_bloc.dart';
+import 'contact/flutter_contact.dart';
 
 void showMediaBottomSheet({
  required BuildContext ctx,
@@ -146,7 +148,22 @@ void showMediaBottomSheet({
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: (){},
+                  onTap: ()async{
+                   await Navigator.push(ctx, MaterialPageRoute(builder:
+                        (context) => const Contacts(),)).then((value) {
+                          if(value is Contact?)
+                            {
+                              bloc.onSendMessageEvent(value!.name.first
+                                  +' '+value.name.last+'\n '+value.phones[0].number
+                                  , roomId, null);
+                              Navigator.pop(ctx);
+                            }
+                   });
+                   // List<Contact> contacts = await ContactsService.getContacts();
+                 //   await ContactsService.openContactForm();
+
+
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/contact.svg'),

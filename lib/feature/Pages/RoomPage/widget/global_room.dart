@@ -58,7 +58,7 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
                     MaterialPageRoute(builder: (context) =>
                     RoomConversationScreen(
                       roomId: state.userRoomModel.data[index].id!,
-                      background: state.userRoomModel.data[index].background!,
+                      background: state.userRoomModel.data[index].background??'',
                       fav:state.userRoomModel.data[index].favorite_room_count! ,
                       ownerId: state.userRoomModel.data[index].user!.id!,
                       roomName: state.allRoomModel.data[index].name!,

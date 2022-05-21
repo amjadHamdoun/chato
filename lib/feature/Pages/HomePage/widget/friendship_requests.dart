@@ -124,11 +124,17 @@ class _FriendshipRequestsState extends State<FriendshipRequests> {
                                     widget.bloc.onChangeRequestsFriend(id: state.friendshipRequestsModel.
                                     data![index].id!, status:'approve' );
                                     state.friendshipRequestsModel.data!.removeAt(index);
+                                    setState(() {
+
+                                    });
                                   }, icon: SvgPicture.asset('assets/icons/check.svg')),
                                   IconButton(onPressed: (){
                                     widget.bloc.onChangeRequestsFriend(id: state.friendshipRequestsModel.
                                     data![index].id!, status:'reject' );
                                     state.friendshipRequestsModel.data!.removeAt(index);
+                                    setState(() {
+
+                                    });
                                   },
                                       icon: SvgPicture.asset('assets/icons/trash.svg')),
 

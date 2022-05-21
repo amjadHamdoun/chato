@@ -35,7 +35,10 @@
     <!-- Permissions options for the `record` group -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-   <application
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <application
         android:label="chato"
         android:name="${applicationName}"
         tools:replace="android:icon, android:label, android:name"

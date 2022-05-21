@@ -36,6 +36,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
   Future isLocal(String? localFile) async{
     if(localFile!=null)
       {
+        downloadFile='100%';
         file=File(widget.message.localFile!);
       }
     else{

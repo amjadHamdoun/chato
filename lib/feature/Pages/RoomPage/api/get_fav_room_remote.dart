@@ -52,10 +52,12 @@ class GetFavRoomRemoteDataSourceImpl extends GetFavRoomRemoteDataSource {
         }
         return Left(Er.networkError);
       } catch (e) {
+         print(e);
         return Left(Er.error);
       }
     }
     else {
+
       return Left(Er.error);
     }
   }

@@ -46,9 +46,15 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
     }
     String fileName=widget.message.all_file!.substring(50,
         widget.message.all_file!.length);
+
     String  filePath = dir.path + "/" + fileName;
+    print("filePath");
+    print(filePath);
+    print("filePath");
     file = File(filePath);
     if (await file!.exists()) {
+      print('1');
+      downloadFile='100';
       _controller=VideoPlayerController.file(
           file!)
         ..initialize().then((_) {
@@ -57,6 +63,8 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
         });
     }
     else{
+
+      print('2');
       _controller=VideoPlayerController.network
         (widget.message.all_file!)
         ..initialize().then((_) {
@@ -80,7 +88,7 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
             validateStatus: (status) { return status! < 500; }
         ),
       );
-      print(response.headers);
+      print("response.headers");
       File file = File(savePath);
       var raf = file.openSync(mode: FileMode.write);
       // response.data is List<int> type

@@ -41,6 +41,7 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
   Future isLocal(String? localFile) async{
     if(localFile!=null)
     {
+      downloadFile='100';
       _controller=VideoPlayerController.file(
           File(localFile))
         ..initialize().then((_) {
@@ -60,6 +61,7 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
       String  filePath = dir.path + "/" + fileName;
       var file = File(filePath);
       if (await file.exists()) {
+        downloadFile='100';
         _controller=VideoPlayerController.file(
             file)
           ..initialize().then((_) {
