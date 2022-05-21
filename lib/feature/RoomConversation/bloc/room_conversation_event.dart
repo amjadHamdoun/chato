@@ -98,3 +98,14 @@ class ChangeRecordTimerEvent extends RoomConversationEvent
 
   });
 }
+
+
+// ignore: must_be_immutable
+class AddRemoveFavRoomEvent extends RoomConversationEvent
+{
+  int roomId;
+  AddRemoveFavRoomEvent({
+    required this.roomId,
+
+  });
+}

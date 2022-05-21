@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
-
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:profanity_filter/profanity_filter.dart';
-
 import '../../../core/utils/int_to_time.dart';
 import '../../../injection.dart';
-
+import '../api/add_remove_fav_remote.dart';
 import '../api/add_user_remote.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
@@ -25,12 +22,14 @@ class RoomConversationBloc
   AllTypeDataSource allTypeDataSource;
   SendMessageDataSource sendMessageDataSource;
   AddUserDataSource addUserDataSource;
+  AddRemoveFavDataSource addRemoveFavDataSource;
 
   RoomConversationBloc({
     required this.conversationOldMessageDataSource,
     required this.allTypeDataSource,
     required this.sendMessageDataSource,
-    required this.addUserDataSource
+    required this.addUserDataSource,
+    required this.addRemoveFavDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -127,7 +126,6 @@ class RoomConversationBloc
           emit(state.rebuild((b) => b
             ..error=''
             ..isLoading=false
-
             ..conversationOldMessageModel=data
             ..isSuccess=true
           ));

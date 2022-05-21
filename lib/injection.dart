@@ -27,6 +27,7 @@ import 'feature/Pages/RoomPage/api/get_fav_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
+import 'feature/RoomConversation/api/add_remove_fav_remote.dart';
 import 'feature/RoomConversation/api/add_user_remote.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
@@ -226,6 +227,13 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<AddRemoveFavDataSource>(
+        () => AddRemoveFavDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
 
 
 
@@ -246,8 +254,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => RoomConversationBloc(
     conversationOldMessageDataSource: sl(),
-     allTypeDataSource:sl(), sendMessageDataSource: sl(),
-    addUserDataSource: sl()
+     allTypeDataSource:sl(),
+    sendMessageDataSource: sl(),
+    addUserDataSource: sl(),
+    addRemoveFavDataSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(

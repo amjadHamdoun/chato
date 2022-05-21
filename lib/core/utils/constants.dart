@@ -34,6 +34,7 @@ class Endpoints {
   static const addUserRoom = 'room/add-user-room';
   static const restPassword = 'auth/rest_password';
   static const sendCoins = 'send_coins';
+  static const addDeleteFavoriteRoom = 'add-delete-favorite-room';
 
 
 
