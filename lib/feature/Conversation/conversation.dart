@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
@@ -9,11 +11,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pusher_client/pusher_client.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../Globals.dart';
 import '../../injection.dart';
 
+import '../User/model/user_data.dart';
 import 'bloc/conversation_bloc.dart';
+import 'model/private_message_pusher_model.dart';
 import 'widget/message/sideOne/file_chat_side_one_widget.dart';
 import 'widget/message/sideOne/image_side_one_widget.dart';
 import 'widget/message/sideOne/message_chat_side_one_widget.dart';
@@ -45,13 +50,44 @@ class _ConversationScreenState extends State<ConversationScreen> {
    ScrollController singleScrollController=ScrollController();
    TextEditingController textEditingController= TextEditingController();
    ConversationBloc bloc=sl<ConversationBloc>();
-
+   Channel? channelChat;
 
    @override
   void initState() {
      bloc.onGetConversationMessage(
          widget.conversationId
      );
+
+     channelChat =
+         Global.pusher!.subscribe("chat.${widget.conversationId}");
+
+     channelChat!.bind('App\\Events\\ChatEvent', (event) {
+
+       log("event.toString()");
+
+       Map<String,dynamic> arguments =
+       (json.decode(event!.data!)??{}) as Map<String,dynamic>;
+
+       PrivateMessagePusherModel message=
+       PrivateMessagePusherModel.fromJson(arguments);
+       UserData user=UserData.fromJson(arguments['user']);
+       message.msg.user=user;
+       if(user.id!=Global.userId)
+       {
+         bloc.onAddMessageFromPusherEvent(message.msg);
+       }
+
+
+
+       Future.delayed(const Duration(milliseconds: 300)).then((value) {
+
+         scrollController.animateTo(scrollController.position.maxScrollExtent
+             , duration: const Duration(milliseconds: 500),
+             curve: Curves.linearToEaseOut);
+       });
+
+
+     });
 
     super.initState();
   }

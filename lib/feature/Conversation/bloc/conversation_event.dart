@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import '../model/private_old_message_data_model.dart';
+
 @immutable
 abstract class ConversationEvent extends Equatable {
   @override
@@ -27,4 +29,14 @@ class GetConversationMessage extends ConversationEvent
   GetConversationMessage({required this.id});
 }
 
+
+// ignore: must_be_immutable
+class AddMessageFromPusherEvent extends ConversationEvent
+{
+  PrivateOldMessageDataModel message;
+  AddMessageFromPusherEvent({
+    required this.message,
+
+  });
+}
 

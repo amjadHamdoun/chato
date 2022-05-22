@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import '../api/get_conversation_old_message_remote.dart';
+import '../model/private_old_message_data_model.dart';
 import '../model/private_old_message_model.dart';
 import 'conversation_event.dart';
 import 'conversation_state.dart';
@@ -77,6 +78,25 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     });
 
 
+    on<AddMessageFromPusherEvent>((event, emit) {
+      PrivateOldMessageModel messageModel=
+      PrivateOldMessageModel(data: [],
+          status: false,
+          error_code: 0,
+          message: ''
+      );
+      for(var message in state.privateOldMessageModel.data!)
+      {
+        messageModel.data!.add(message);
+
+      }
+      messageModel.data!.add(event.message);
+      emit(state.rebuild((b) =>
+      b..privateOldMessageModel=
+          messageModel  ));
+    });
+
+
 
   }
 
@@ -84,15 +104,15 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   void onShowEmojiEvent(bool show) {
     add(ShowEmojiEvent(show));
   }
-
   void onStartRecord(bool show) {
     add(StartRecordEvent(show));
   }
   void onGetConversationMessage(String id) {
     add(GetConversationMessage( id: id));
   }
-
-
+  void onAddMessageFromPusherEvent(PrivateOldMessageDataModel message) {
+    add(AddMessageFromPusherEvent(message:message ));
+  }
 
 
 }

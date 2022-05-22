@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/utils/color_manager.dart';
-import '../../../core/utils/styles_manager.dart';
 import '../../Conversation/conversation.dart';
 import 'bloc/chat_bloc.dart';
 
@@ -82,8 +81,6 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
 
 
                   ),
-
-
 
 
                   Padding(
@@ -196,7 +193,7 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
 
                     child:
                     state.isLoadingGet!?
-                    Center(child: const CircularProgressIndicator()):
+                    const Center(child: CircularProgressIndicator()):
                     state.getConversationPrivateModel.data!.isEmpty?
                     RefreshIndicator(
                       onRefresh: () async{
@@ -221,7 +218,9 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                       },
                       child: ListView.separated(
 
-                        physics: const BouncingScrollPhysics(),
+                        physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics()
+                        ),
                         itemCount: state.getConversationPrivateModel.data!.length,
                         itemBuilder: (context, index){
 
@@ -231,7 +230,7 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                 context,
                                 MaterialPageRoute(builder: (context) =>
                                     ConversationScreen(
-                                      conversationId: state.getConversationPrivateModel.data![0].message!
+                                      conversationId: state.getConversationPrivateModel.data![index].message!
                                           .conversation_id,
                                     )),
                               );
@@ -389,7 +388,7 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                     child: Row(
                                       children: [
                                         Expanded(
-                                          child: Text(DateFormat('kk:mm a').format(state.getConversationPrivateModel.data![index].updated_at!)
+                                          child: Text(DateFormat('hh:mm a').format(state.getConversationPrivateModel.data![index].updated_at!)
                                             ,
                                             style: TextStyle(
                                                 fontSize: 15.sp,

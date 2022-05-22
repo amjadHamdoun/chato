@@ -56,6 +56,7 @@ class RoomConversationBloc
          b..smile = ''  ));
     });
 
+
     on<AddMessageFromPusherEvent>((event, emit) {
       ConversationOldMessageModel messageModel=
       ConversationOldMessageModel(data: [],
@@ -73,6 +74,7 @@ class RoomConversationBloc
              b..conversationOldMessageModel=
                  messageModel  ));
     });
+
 
       on<SwitchSmileStickerEvent>((event, emit) {
         emit(state.rebuild((b) =>
