@@ -67,7 +67,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
    late RecordingStatus _currentStatus ;
    late Timer timer;
 
-
+   bool update=false;
 
    @override
   void initState() {
@@ -389,8 +389,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                          return false;
                        }
                        else{
-                         return true;
+                         Navigator.pop(context,update);
                        }
+                       return true;
                      },
                      child: Stack(
                        children: [
@@ -478,7 +479,15 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                      if(widget.fav=='0')
                                                      Padding(
                                                        padding: const EdgeInsets.all(4.0),
-                                                       child: SizedBox(
+                                                       child: InkWell(
+                                                         onTap: (){
+                                                           widget.fav='1';
+                                                           update=true;
+                                                           setState(() {
+
+                                                           });
+                                                           bloc.onAddRemoveFavRoomEvent(widget.roomId);
+                                                         },
                                                          child: SvgPicture.asset('assets/icons/love.svg',
                                                            width: 35.w,
                                                          ),

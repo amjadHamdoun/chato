@@ -11,7 +11,9 @@ abstract class StoreEvent extends Equatable {
 
 // ignore: must_be_immutable
 class ChangePageEvent extends StoreEvent{
+
    int pageNumber;
    ChangePageEvent(this.pageNumber);
+
 }
 

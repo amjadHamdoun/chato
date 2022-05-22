@@ -9,7 +9,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'core/utils/constants.dart';
+import 'feature/Pages/ChatPage/api/get_conversation_private_remote.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
+import 'feature/Pages/ChatPage/bloc/chat_bloc.dart';
 import 'feature/Pages/HomePage/api/all_friend_remote.dart';
 import 'feature/Pages/HomePage/api/change-requests-friend_remote.dart';
 import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
@@ -234,6 +236,13 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<GetConversationPrivateDataSource>(
+        () => GetConversationPrivateDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
 
 
 
@@ -248,9 +257,18 @@ Future<void> init() async {
 
   ));
 
-  sl.registerLazySingleton(() => ConversationBloc());
+  sl.registerLazySingleton(() => ConversationBloc(
+     conversationOldMessageDataSource: sl()
+
+  ));
+
+  sl.registerLazySingleton(() => ChatBloc(
+    getConversationPrivateDataSource: sl()
+  ));
+
 
   sl.registerLazySingleton(() => StoreBloc());
+
 
   sl.registerLazySingleton(() => RoomConversationBloc(
     conversationOldMessageDataSource: sl(),

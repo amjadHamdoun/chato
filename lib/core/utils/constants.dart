@@ -27,6 +27,7 @@ class Endpoints {
   static const getAllUserVipRoom= 'room/all-user-vip-room';
   static const addRoomTrend = 'room/add-room-trend';
   static const getConversationOldMessage = 'room/get-conversation-old-message';
+  static const getConversationPrivet = 'room/get-conversation-privet';
   static const getAllBlockUser = 'get-all-block-user';
   static const unblockUser = 'unblock-user';
   static const allTypeRoom = 'room/all-type-room';
@@ -34,7 +35,7 @@ class Endpoints {
   static const addUserRoom = 'room/add-user-room';
   static const restPassword = 'auth/rest_password';
   static const sendCoins = 'send_coins';
-  static const addDeleteFavoriteRoom = 'add-delete-favorite-room';
+  static const addDeleteFavoriteRoom = 'room/add-delete-favorite-room';
 
 
 

@@ -50,8 +50,8 @@ class _TrendRoomPageState extends State<TrendRoomPage>
             itemBuilder: (context, index){
 
               return GestureDetector(
-                onTap: (){
-                  Navigator.push(
+                onTap: ()async{
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>
                     RoomConversationScreen(
@@ -61,7 +61,15 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                       ownerId: state.trendRoomModel.data[index].user!.id!,
                       roomName: state.allRoomModel.data[index].name!,
                     )),
-                  );
+                  ).then((value) {
+                    if(value is bool)
+                    {
+                      if(value)
+                      {
+                        widget.bloc.onGetAllRoomEvent();
+                      }
+                    }
+                  });
                 },
                 child: Row(
                   children: [

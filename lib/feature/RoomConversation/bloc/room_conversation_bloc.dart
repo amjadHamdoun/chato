@@ -292,6 +292,40 @@ class RoomConversationBloc
     });
 
 
+    on<AddRemoveFavRoomEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+
+          ));
+      final result=await
+      addRemoveFavDataSource.
+      addRemoveFavRoom(
+          roomId: event.roomId
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+
+
+        ));
+
+
+      });
+    });
+
 
 
 
@@ -346,5 +380,12 @@ class RoomConversationBloc
       int counter) {
     add(ChangeRecordTimerEvent(count: counter));
   }
+
+
+  void onAddRemoveFavRoomEvent(
+      int roomId) {
+    add(AddRemoveFavRoomEvent(roomId: roomId));
+  }
+
 
 }

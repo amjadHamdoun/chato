@@ -9,6 +9,7 @@ import 'package:pusher_client/pusher_client.dart';
 
 import '../../core/utils/color_manager.dart';
 import '../../injection.dart';
+import 'ChatPage/bloc/chat_bloc.dart';
 import 'ChatPage/chat_page.dart';
 import 'HomePage/bloc/home_bloc.dart';
 import 'HomePage/bloc/home_state.dart';
@@ -33,6 +34,7 @@ class _PagesScreenState extends State<PagesScreen> {
    HomeBloc bloc=sl<HomeBloc>();
    ProfBloc profBloc=sl<ProfBloc>();
    RoomBloc roomBloc=sl<RoomBloc>();
+  ChatBloc chatBloc=sl<ChatBloc>();
    PageController pageController=PageController(initialPage: 0);
 
 
@@ -81,7 +83,7 @@ class _PagesScreenState extends State<PagesScreen> {
                     },
                     children:  [
                       HomeScreen(bloc: bloc),
-                      ChatScreen(),
+                      ChatScreen(bloc: chatBloc),
                       RoomScreen(bloc:roomBloc ),
                       StoreScreen(),
                       ProfileScreen(

@@ -1,0 +1,34 @@
+import 'package:chato/feature/User/model/user_data.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'message_data_model.dart';
+
+
+part 'get_conversation_privet_data_model.g.dart';
+
+@JsonSerializable()
+  class GetConversationPrivateDataModel {
+
+
+  String? conversation_id;
+  MessageDataModel? message;
+  String? seen;
+  DateTime? created_at;
+  DateTime? updated_at;
+  UserData? user2;
+
+  Map<String, dynamic> toJson() =>
+      _$GetConversationPrivateDataModelToJson(this);
+  factory GetConversationPrivateDataModel.fromJson(Map<String, dynamic> json) =>
+      _$GetConversationPrivateDataModelFromJson(json);
+
+  GetConversationPrivateDataModel(
+      {
+        required this.conversation_id,
+        required this.message,
+        required this.seen,
+        required this.created_at,
+        required this.updated_at,
+        required this.user2
+      });
+}

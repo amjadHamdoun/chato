@@ -50,8 +50,8 @@ class _AllRoomPageState extends State<AllRoomPage>
             itemCount: state.allRoomModel.data.length,
             itemBuilder: (context, index){
               return GestureDetector(
-                onTap: (){
-                  Navigator.push(
+                onTap: () async {
+                await  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>
                     RoomConversationScreen(
@@ -62,7 +62,15 @@ class _AllRoomPageState extends State<AllRoomPage>
                       roomName: state.allRoomModel.data[index].name!,
 
                     )),
-                  );
+                  ).then((value) {
+                    if(value is bool)
+                      {
+                        if(value)
+                          {
+                            widget.bloc.onGetAllRoomEvent();
+                          }
+                      }
+                });
                 },
                 child: Row(
                   children: [

@@ -1,4 +1,5 @@
 import 'package:built_value/built_value.dart';
+import '../../Pages/ChatPage/model/get_conversation_privet_model.dart';
 import '../model/private_old_message_model.dart';
 part 'conversation_state.g.dart';
 
@@ -9,10 +10,12 @@ abstract class ConversationState implements
 
   bool? get isSuccess;
   bool? get isLoading;
+  bool? get isSuccessGet;
+  bool? get isLoadingGet;
   bool get showEmoji;
   bool get isRecord;
   PrivateOldMessageModel get conversationOldMessageModel;
-
+  String get error;
 
   ConversationState._();
 
@@ -22,6 +25,8 @@ abstract class ConversationState implements
     return ConversationState((b) => b
       ..isLoading = false
       ..isSuccess = false
+      ..isLoadingGet = false
+      ..isSuccessGet = false
         ..showEmoji=false
         ..isRecord=false
         ..conversationOldMessageModel=
@@ -30,6 +35,9 @@ abstract class ConversationState implements
               error_code: 0,
               data: []
             )
+
+
+        ..error=''
 
     );
   }

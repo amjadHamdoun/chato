@@ -26,7 +26,7 @@ abstract class StoreState implements Built<StoreState, StoreStateBuilder> {
     return StoreState((b) => b
       ..isLoading = false
       ..isSuccess = false
-        ..selectedPage=0
+        ..selectedPage = 0
 
     );
   }
