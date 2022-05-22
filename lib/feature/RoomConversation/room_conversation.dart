@@ -84,7 +84,8 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
          log("event.toString()");
 
-         Map<String,dynamic> arguments = (json.decode(event!.data!)??{}) as Map<String,dynamic>;
+         Map<String,dynamic> arguments =
+         (json.decode(event!.data!)??{}) as Map<String,dynamic>;
 
          MessagePusherModel message=
          MessagePusherModel.fromJson(arguments);

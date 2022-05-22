@@ -12,7 +12,18 @@ import 'package:flutter_svg/svg.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../Globals.dart';
 import '../../injection.dart';
+
 import 'bloc/conversation_bloc.dart';
+import 'widget/message/sideOne/file_chat_side_one_widget.dart';
+import 'widget/message/sideOne/image_side_one_widget.dart';
+import 'widget/message/sideOne/message_chat_side_one_widget.dart';
+import 'widget/message/sideOne/message_video_side_one_widget.dart';
+import 'widget/message/sideOne/music_side_one_widget.dart';
+import 'widget/message/sideTwo/file_chat_side_two_widget.dart';
+import 'widget/message/sideTwo/image_side_two_widget.dart';
+import 'widget/message/sideTwo/message_chat_side_two_widget.dart';
+import 'widget/message/sideTwo/message_video_side_two_widget.dart';
+import 'widget/message/sideTwo/music_side_two_widget.dart';
 import 'widget/show_menu_bottom_sheet.dart';
 
 
@@ -42,10 +53,132 @@ class _ConversationScreenState extends State<ConversationScreen> {
          widget.conversationId
      );
 
-
-
     super.initState();
   }
+
+
+
+
+   bool checkIsVideo(String? endUrl,String? localFile)
+   {
+     if(endUrl!=null)
+     {
+       if(endUrl.contains('mp4')
+           ||endUrl.contains('mov')
+           ||endUrl.contains('wmv')
+           ||endUrl.contains('avi')
+           ||endUrl.contains('flv'))
+       {
+         return true;
+       }
+     }
+     if(localFile!=null)
+     {
+       if (localFile.contains('mp4')
+           ||localFile.contains('mov')
+           ||localFile.contains('wmv')
+           ||localFile.contains('avi')
+           ||localFile.contains('flv'))
+       {
+         return true;
+       }
+     }
+
+     return false;
+   }
+
+   bool checkIsImage(String? endUrl,String? localFile)
+   {
+     if(endUrl!=null)
+     {
+       endUrl= endUrl.substring(endUrl.length-4,endUrl.length);
+       if(endUrl.contains('jpeg')
+           ||endUrl.contains('jpg')
+           ||endUrl.contains('png')
+           ||endUrl.contains('gif')
+       )
+       {
+         return true;
+       }
+
+     }
+     if(localFile!=null)
+     {
+       if(localFile.contains('jpeg')
+           ||localFile.contains('jpg')
+           ||localFile.contains('png')
+           ||localFile.contains('gif'))
+       {
+         return true;
+       }
+     }
+
+
+     return false;
+   }
+
+
+   bool checkIsMusic(String? endUrl,String? localFile)
+   {
+     if(endUrl!=null)
+     {
+       endUrl= endUrl.substring(endUrl.length-4,endUrl.length);
+       if(endUrl.contains('mp3')
+           ||endUrl.contains('wav')
+           ||endUrl.contains('m4a')
+           ||endUrl.contains('aac')
+
+       )
+       {
+         return true;
+       }
+
+     }
+     if(localFile!=null)
+     {
+       if(localFile.contains('mp3')
+           ||localFile.contains('wav')
+           ||localFile.contains('m4a')
+           ||localFile.contains('aac')
+       )
+       {
+         return true;
+       }
+     }
+
+
+     return false;
+   }
+
+   bool checkIsFile(String? endUrl,String? localFile)
+   {
+     if(endUrl!=null)
+     {
+       endUrl= endUrl.substring(endUrl.length-4,endUrl.length);
+       if(endUrl.contains('pdf')
+           ||endUrl.contains('ppt')
+           ||endUrl.contains('docx')
+       )
+       {
+         return true;
+       }
+     }
+     if(localFile!=null)
+     {
+       if(localFile.contains('pdf')
+           ||localFile.contains('ppt')
+           ||localFile.contains('docx'))
+
+       {
+         return true;
+       }
+     }
+
+
+     return false;
+   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -218,101 +351,215 @@ class _ConversationScreenState extends State<ConversationScreen> {
                               physics: const AlwaysScrollableScrollPhysics(
                                   parent: BouncingScrollPhysics()
                               ),
-                              itemCount: 5,
+                              itemCount: state.privateOldMessageModel.data!.length,
 
-                              shrinkWrap: true,
+
                               itemBuilder: (context, index){
-                                if(index%2==0)
-                                {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
 
-                                        decoration: BoxDecoration(
-                                            gradient: const LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                colors: [
-                                                  ColorManager.primaryColor,
-                                                  ColorManager.primaryColorLight,
-                                                ]
-                                            ),
-                                            borderRadius: BorderRadius.only(
-                                              topRight:  Radius.circular(12.w),
-                                              bottomLeft: Radius.circular(12.w),
-                                              topLeft: Radius.circular(12.w),
+                                  if(Global.userId==state.
+                                  privateOldMessageModel
+                                      .data![index].user!.id)
+                                  {
 
-                                            )
+                                    if(checkIsVideo(
+                                        state.
+                                        privateOldMessageModel.data![index].all_file!=null?
+                                        state.
+                                        privateOldMessageModel.data![index].all_file!.substring(state.
+                                        privateOldMessageModel.data![index].all_file!.length-4,
+                                            state.privateOldMessageModel
+                                                .data![index].all_file!.length):null,state.
+                                    privateOldMessageModel.data![index].localFile))
+                                    {
+                                      return SizedBox(
+                                        height: 170.h,
+                                        child: MessageVideoSideOne(
+                                          message:state.
+                                          privateOldMessageModel
+                                              .data![index] ,
                                         ),
-                                        child:  Padding(
-                                          padding:  EdgeInsets.symmetric(horizontal: 18.w,vertical: 6.h),
-                                          child: Row(
-                                            children: [
-                                              Text('مرحبا سامي',style: TextStyle(
-                                                  color: ColorManager.backgroundColor,
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w600
-                                              )),
-                                            ],
-                                          ),
+                                      );
+                                    }
+                                    else if(checkIsImage(
+                                        state.
+                                        privateOldMessageModel.data![index].all_file
+                                        ,state.
+                                    privateOldMessageModel.data![index].localFile))
+                                    {
+                                      return SizedBox(
+                                        height: 170.h,
+                                        child: MessageImageSideOne(
+                                          message:state.
+                                          privateOldMessageModel
+                                              .data![index] ,
                                         ),
+                                      );
+                                    }
+                                    else if(checkIsFile(state.
+                                    privateOldMessageModel.data![index].all_file,
+                                        state.
+                                        privateOldMessageModel.data![index].localFile
+
+                                    ))
+                                    {
+                                      return MessageFileSideOne(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
+                                      );
+                                    }
+                                    else if(checkIsMusic(state.
+                                    privateOldMessageModel.data![index].all_file,
+                                        state.
+                                        privateOldMessageModel.data![index].localFile
+
+                                    ))
+                                    {
+                                      return SizedBox(
+                                        height: 100.h,
+                                        child: MessageMusicSideOne(
+                                          message:state.
+                                          privateOldMessageModel
+                                              .data![index] ,
+                                        ),
+                                      );
+                                    }
+                                    return MessageChatSideOne(
+                                      message:state.
+                                      privateOldMessageModel
+                                          .data![index] ,
+                                    );
+                                  }
+                                  else
+                                  if(
+                                  checkIsVideo(state.
+                                  privateOldMessageModel.data![index].all_file,
+                                      state.
+                                      privateOldMessageModel.data![index].localFile
+
+                                  )
+
+                                  )
+                                  {
+                                    return SizedBox(
+                                      height: 170.h,
+
+                                      child: MessageVideoSideTwo(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
                                       ),
-                                      const Expanded(
-                                        child: SizedBox(
+                                    );
+                                  }
+                                  else if(checkIsImage(state.
+                                  privateOldMessageModel.data![index].all_file,
+                                      state.
+                                      privateOldMessageModel.data![index].localFile
 
-                                        ),
+                                  ))
+                                  {
+                                    return SizedBox(
+                                      height: 170.h,
+                                      child: MessageImageSideTwo(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
                                       ),
-                                    ],
+                                    );
+                                  }
+                                  else if(checkIsMusic(state.
+                                  privateOldMessageModel.data![index].all_file,
+                                      state.
+                                      privateOldMessageModel.data![index].localFile
+
+                                  ))
+                                  {
+                                    return SizedBox(
+                                      height: 100.h,
+                                      child: MessageMusicSideTwo(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
+                                      ),
+                                    );
+                                  }
+
+                                  else{
+                                    if(
+                                    checkIsVideo(state.
+                                    privateOldMessageModel.data![index].all_file,
+                                        state.
+                                        privateOldMessageModel.data![index].localFile
+
+                                    )
+
+                                    )
+                                    {
+                                      return SizedBox(
+                                        height: 170.h,
+
+                                        child: MessageVideoSideTwo(
+                                          message:state.
+                                          privateOldMessageModel
+                                              .data![index] ,
+                                        ),
+                                      );
+                                    }
+                                    else if(checkIsImage(state.
+                                    privateOldMessageModel.data![index].all_file,
+                                        state.
+                                        privateOldMessageModel.data![index].localFile
+
+                                    ))
+                                    {
+                                      return SizedBox(
+                                        height: 170.h,
+                                        child: MessageImageSideTwo(
+                                          message:state.
+                                          privateOldMessageModel
+                                              .data![index] ,
+                                        ),
+                                      );
+                                    }
+                                    else if(checkIsMusic(state.
+                                    privateOldMessageModel.data![index].all_file,
+                                        state.
+                                        privateOldMessageModel.data![index].localFile
+
+                                    ))
+                                    {
+                                      return SizedBox(
+                                        height: 100.h,
+                                        child: MessageMusicSideTwo(
+                                          message:state.
+                                          privateOldMessageModel
+                                              .data![index] ,
+                                        ),
+                                      );
+                                    }
+                                    else if(checkIsFile(state.
+                                    privateOldMessageModel.data![index].all_file,
+                                        state.
+                                        privateOldMessageModel.data![index].localFile
+
+                                    ))
+                                    {
+                                      return MessageFileSideTwo(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
+                                      );
+                                    }
+                                  }
+                                  return MessageChatSideTwo(
+                                    message:state.
+                                    privateOldMessageModel
+                                        .data![index] ,
                                   );
-                                }
-                                else{
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: 0.4.sw,
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-
-                                              gradient:Global.darkMode?  LinearGradient(
-                                                  begin: Alignment.topRight,
-                                                  end: Alignment.bottomLeft,
-                                                  colors: [
-                                                    Theme.of(context).primaryColor,
-                                                    Theme.of(context).primaryColorLight,
-                                                  ]
-                                              ):null,
-                                              borderRadius: BorderRadius.only(
-                                                topRight:  Radius.circular(12.w),
-                                                bottomLeft: Radius.circular(12.w),
-                                                topLeft: Radius.circular(12.w),
-
-                                              ),
-                                              border: Border.all(
-                                                  color: const Color(0xffDEDEDE)
-                                              )
-                                          ),
-                                          child:  Padding(
-                                            padding:  EdgeInsets.symmetric(horizontal: 18.w,vertical: 6.h),
-                                            child: Text('الحمدلله لقد كانت عطلة جميلة واستمتعت كثيرا.',style: TextStyle(
-                                              color: Theme.of(context).primaryColorDark,
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w600,
-
-                                            ),
 
 
 
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                }
+
 
 
                               },

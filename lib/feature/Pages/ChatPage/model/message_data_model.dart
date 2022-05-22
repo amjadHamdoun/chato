@@ -8,7 +8,7 @@ part 'message_data_model.g.dart';
   class MessageDataModel {
 
 
-
+  String conversation_id;
   String? message;
 
 
@@ -21,6 +21,6 @@ part 'message_data_model.g.dart';
       {
 
         required this.message,
-
+           required this.conversation_id
       });
 }

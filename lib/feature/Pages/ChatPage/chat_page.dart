@@ -231,8 +231,8 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                 context,
                                 MaterialPageRoute(builder: (context) =>
                                     ConversationScreen(
-                                      conversationId: state.getConversationPrivateModel.data![0]
-                                          .conversation_id!,
+                                      conversationId: state.getConversationPrivateModel.data![0].message!
+                                          .conversation_id,
                                     )),
                               );
                             },

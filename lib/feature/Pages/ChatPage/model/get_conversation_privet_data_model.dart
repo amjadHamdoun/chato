@@ -10,7 +10,7 @@ part 'get_conversation_privet_data_model.g.dart';
   class GetConversationPrivateDataModel {
 
 
-  String? conversation_id;
+
   MessageDataModel? message;
   String? seen;
   DateTime? created_at;
@@ -24,7 +24,7 @@ part 'get_conversation_privet_data_model.g.dart';
 
   GetConversationPrivateDataModel(
       {
-        required this.conversation_id,
+
         required this.message,
         required this.seen,
         required this.created_at,
