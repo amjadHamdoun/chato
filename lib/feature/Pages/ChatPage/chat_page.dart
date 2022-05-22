@@ -229,7 +229,11 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                             onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const ConversationScreen()),
+                                MaterialPageRoute(builder: (context) =>
+                                    ConversationScreen(
+                                      conversationId: state.getConversationPrivateModel.data![0]
+                                          .conversation_id!,
+                                    )),
                               );
                             },
                             child: Padding(
@@ -363,7 +367,8 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                         Row(
                                           children: [
                                             Expanded(
-                                              child: Text(state.getConversationPrivateModel.data![index].message!.message??'',
+                                              child: Text(state.getConversationPrivateModel
+                                                  .data![index].message!.message??'',
                                                 style: TextStyle(
                                                     fontSize: 14.sp,
                                                     fontFamily: 'DIN',

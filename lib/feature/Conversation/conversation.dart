@@ -19,8 +19,10 @@ import 'widget/show_menu_bottom_sheet.dart';
 
 
 class ConversationScreen extends StatefulWidget {
-
-  const ConversationScreen({Key? key}) : super(key: key);
+  final String conversationId;
+  const ConversationScreen({Key? key,
+   required this.conversationId
+  }) : super(key: key);
 
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
@@ -36,12 +38,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
    @override
   void initState() {
+     bloc.onGetConversationMessage(
+         widget.conversationId
+     );
 
-     Future.delayed(const Duration(seconds: 1)).
-      then((value) {
-       scrollController.jumpTo(
-           scrollController.position.maxScrollExtent);
-     });
 
 
     super.initState();
@@ -52,7 +52,14 @@ class _ConversationScreenState extends State<ConversationScreen> {
     return BlocConsumer<ConversationBloc,ConversationState>(
       bloc:bloc ,
       listener: (context, state) {
-
+         if(state.isSuccess!)
+           {
+             Future.delayed(const Duration(seconds: 1)).
+             then((value) {
+               scrollController.jumpTo(
+                  scrollController.position.maxScrollExtent);
+             });
+           }
       },
       builder: (context, state) {
         return  KeyboardVisibilityBuilder(

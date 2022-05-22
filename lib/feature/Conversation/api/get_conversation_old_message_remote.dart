@@ -8,24 +8,24 @@ import '../model/private_old_message_model.dart';
 
 
 
-abstract class ConversationOldMessageDataSource {
+abstract class PrivateOldMessageDataSource {
   Future<Either<String, PrivateOldMessageModel>>
-   getConversationOldMessage({required int conversationId});
+   getConversationOldMessage({required String conversationId});
 }
 
-class ConversationOldMessageDataSourceImpl extends
-      ConversationOldMessageDataSource {
+class PrivateOldMessageDataSourceImpl extends
+     PrivateOldMessageDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  ConversationOldMessageDataSourceImpl(
+  PrivateOldMessageDataSourceImpl(
       { required this.dio,
         required this.networkInfo
       });
 
   @override
   Future<Either<String, PrivateOldMessageModel>>
-  getConversationOldMessage({required int conversationId}) async {
+  getConversationOldMessage({required String conversationId}) async {
     if (await networkInfo.hasConnection) {
       try {
         dio.options.headers["Authorization"] =
@@ -33,7 +33,9 @@ class ConversationOldMessageDataSourceImpl extends
         final re = await dio.get
           (
           Endpoints.getConversationOldMessage,
-          queryParameters: {},
+          queryParameters: {
+            "conversation_id":conversationId
+          },
           options: Options(
             followRedirects: false,
             validateStatus: (status) {

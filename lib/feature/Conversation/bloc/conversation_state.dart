@@ -14,7 +14,7 @@ abstract class ConversationState implements
   bool? get isLoadingGet;
   bool get showEmoji;
   bool get isRecord;
-  PrivateOldMessageModel get conversationOldMessageModel;
+  PrivateOldMessageModel get privateOldMessageModel;
   String get error;
 
   ConversationState._();
@@ -29,9 +29,10 @@ abstract class ConversationState implements
       ..isSuccessGet = false
         ..showEmoji=false
         ..isRecord=false
-        ..conversationOldMessageModel=
-        PrivateOldMessageModel(status: false,
-            message: '',
+        ..privateOldMessageModel=
+        PrivateOldMessageModel(
+            status: false,
+               message: '',
               error_code: 0,
               data: []
             )

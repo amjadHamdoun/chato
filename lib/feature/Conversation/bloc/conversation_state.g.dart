@@ -20,7 +20,7 @@ class _$ConversationState extends ConversationState {
   @override
   final bool isRecord;
   @override
-  final PrivateOldMessageModel conversationOldMessageModel;
+  final PrivateOldMessageModel privateOldMessageModel;
   @override
   final String error;
 
@@ -35,15 +35,15 @@ class _$ConversationState extends ConversationState {
       this.isLoadingGet,
       required this.showEmoji,
       required this.isRecord,
-      required this.conversationOldMessageModel,
+      required this.privateOldMessageModel,
       required this.error})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'ConversationState', 'showEmoji');
     BuiltValueNullFieldError.checkNotNull(
         isRecord, 'ConversationState', 'isRecord');
-    BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel,
-        'ConversationState', 'conversationOldMessageModel');
+    BuiltValueNullFieldError.checkNotNull(
+        privateOldMessageModel, 'ConversationState', 'privateOldMessageModel');
     BuiltValueNullFieldError.checkNotNull(error, 'ConversationState', 'error');
   }
 
@@ -65,7 +65,7 @@ class _$ConversationState extends ConversationState {
         isLoadingGet == other.isLoadingGet &&
         showEmoji == other.showEmoji &&
         isRecord == other.isRecord &&
-        conversationOldMessageModel == other.conversationOldMessageModel &&
+        privateOldMessageModel == other.privateOldMessageModel &&
         error == other.error;
   }
 
@@ -81,7 +81,7 @@ class _$ConversationState extends ConversationState {
                         isLoadingGet.hashCode),
                     showEmoji.hashCode),
                 isRecord.hashCode),
-            conversationOldMessageModel.hashCode),
+            privateOldMessageModel.hashCode),
         error.hashCode));
   }
 
@@ -94,7 +94,7 @@ class _$ConversationState extends ConversationState {
           ..add('isLoadingGet', isLoadingGet)
           ..add('showEmoji', showEmoji)
           ..add('isRecord', isRecord)
-          ..add('conversationOldMessageModel', conversationOldMessageModel)
+          ..add('privateOldMessageModel', privateOldMessageModel)
           ..add('error', error))
         .toString();
   }
@@ -128,12 +128,11 @@ class ConversationStateBuilder
   bool? get isRecord => _$this._isRecord;
   set isRecord(bool? isRecord) => _$this._isRecord = isRecord;
 
-  PrivateOldMessageModel? _conversationOldMessageModel;
-  PrivateOldMessageModel? get conversationOldMessageModel =>
-      _$this._conversationOldMessageModel;
-  set conversationOldMessageModel(
-          PrivateOldMessageModel? conversationOldMessageModel) =>
-      _$this._conversationOldMessageModel = conversationOldMessageModel;
+  PrivateOldMessageModel? _privateOldMessageModel;
+  PrivateOldMessageModel? get privateOldMessageModel =>
+      _$this._privateOldMessageModel;
+  set privateOldMessageModel(PrivateOldMessageModel? privateOldMessageModel) =>
+      _$this._privateOldMessageModel = privateOldMessageModel;
 
   String? _error;
   String? get error => _$this._error;
@@ -150,7 +149,7 @@ class ConversationStateBuilder
       _isLoadingGet = $v.isLoadingGet;
       _showEmoji = $v.showEmoji;
       _isRecord = $v.isRecord;
-      _conversationOldMessageModel = $v.conversationOldMessageModel;
+      _privateOldMessageModel = $v.privateOldMessageModel;
       _error = $v.error;
       _$v = null;
     }
@@ -180,10 +179,10 @@ class ConversationStateBuilder
                 showEmoji, 'ConversationState', 'showEmoji'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
                 isRecord, 'ConversationState', 'isRecord'),
-            conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(
-                conversationOldMessageModel,
+            privateOldMessageModel: BuiltValueNullFieldError.checkNotNull(
+                privateOldMessageModel,
                 'ConversationState',
-                'conversationOldMessageModel'),
+                'privateOldMessageModel'),
             error: BuiltValueNullFieldError.checkNotNull(
                 error, 'ConversationState', 'error'));
     replace(_$result);

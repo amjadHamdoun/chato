@@ -9,8 +9,11 @@ part 'private_old_message_data_model.g.dart';
 class PrivateOldMessageDataModel {
 
 
+  int? id;
   String? conversation_id;
   String? message;
+  String? all_file;
+  String? localFile;
   String? seen;
   String? created_at;
   String? updated_at;
