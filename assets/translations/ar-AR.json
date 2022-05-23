@@ -179,6 +179,11 @@
   "No Room chats": "لا يوجد غرف",
   "No Friends": "لا يوجد اصدقاء",
   "contacts": "جهات الاتصال",
-  "No Chats": "لا يوجد محادثات"
+  "No Chats": "لا يوجد محادثات",
+  "Bloc User Done": "تم حظر هذا المستخدم",
+  "Room name contains profanity": "اسم الغرفة يحتوي كلمات نابية",
+  "name contains profanity": "الاسم يحتوي كلمات نابية"
+
+
 
 }

@@ -330,7 +330,8 @@ Future<void> init() async {
       getUserRoomRemoteDataSource: sl(),
       getFavRoomRemoteDataSource: sl(),
       getTrendRoomRemoteDataSource: sl(),
-      getAllRoomRemoteDataSource: sl()
+      getAllRoomRemoteDataSource: sl(),
+       addRemoveFavDataSource: sl()
   ));
 
 

@@ -72,6 +72,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
    @override
   void initState() {
      _init();
+      Global.currentRoomId=widget.roomId.toString();
      _currentStatus = RecordingStatus.Unset;
      bloc.onAddUserRoomEvent(Global.userId!, widget.roomId);
      bloc.onGetConversationMessage(widget.roomId);
@@ -91,13 +92,12 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
          MessagePusherModel.fromJson(arguments);
          UserData user=UserData.fromJson(arguments['user']);
         message.msg.user=user;
-        if(user.id!=Global.userId)
+        String roomIdPusher=arguments['room_id'];
+        if(user.id!=Global.userId&&
+            roomIdPusher==Global.currentRoomId)
           {
             bloc.onAddMessageFromPusherEvent(message.msg);
           }
-
-
-
            Future.delayed(const Duration(milliseconds: 300)).then((value) {
 
              scrollController.animateTo(scrollController.position.maxScrollExtent

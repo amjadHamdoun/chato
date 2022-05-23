@@ -3,6 +3,7 @@ import 'package:chato/feature/Pages/RoomPage/bloc/room_event.dart';
 import 'package:chato/feature/Pages/RoomPage/bloc/room_state.dart';
 import 'package:chato/feature/Pages/RoomPage/model/create_room_model.dart';
 import 'package:chato/feature/Pages/RoomPage/model/favModel/fav_room_data_model.dart';
+import '../../../RoomConversation/api/add_remove_fav_remote.dart';
 import '../api/create_room_remote.dart';
 import '../api/get_all_room_remote.dart';
 import '../api/get_fav_room_remote.dart';
@@ -24,13 +25,15 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
   GetFavRoomRemoteDataSource getFavRoomRemoteDataSource;
   GetTrendRoomRemoteDataSource getTrendRoomRemoteDataSource;
   GetAllRoomRemoteDataSource getAllRoomRemoteDataSource;
+  AddRemoveFavDataSource addRemoveFavDataSource;
 
   RoomBloc({
     required this.createRoomRemoteDataSource,
     required this.getUserRoomRemoteDataSource,
     required this.getFavRoomRemoteDataSource,
     required this.getTrendRoomRemoteDataSource,
-    required this.getAllRoomRemoteDataSource
+    required this.getAllRoomRemoteDataSource,
+    required this.addRemoveFavDataSource
   }) :
         super(RoomState.initial())
   {
@@ -256,6 +259,41 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     });
 
 
+    on<RemoveFavEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+
+          ));
+      final result=await
+      addRemoveFavDataSource.
+      addRemoveFavRoom(
+          roomId: event.roomId
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+
+
+        ));
+
+
+      });
+    });
+
+
   }
 
 
@@ -282,4 +320,9 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
   void onGetAllRoomEvent() {
     add(GetAllRoomEvent());
   }
+  void onRemoveFavEvent(int roomId) {
+    add(RemoveFavEvent(roomId: roomId));
+  }
+
+
 }

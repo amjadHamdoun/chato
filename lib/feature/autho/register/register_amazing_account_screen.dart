@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:profanity_filter/profanity_filter.dart';
 import '../../../injection.dart';
 
 
@@ -408,14 +409,29 @@ class _RegisterAmazingAccountScreenState extends State<RegisterAmazingAccountScr
                                     width: 335.w,
                                     child: ElevatedButton(
                                       onPressed: () {
+                                        final filter =sl<ProfanityFilter> ();
+                                        bool hasProfanity=  filter.hasProfanity(nameController.text);
                                         if (_formKey.currentState!.validate()) {
-                                          // If the form is valid, display a snackbar. In the real world,
-                                          // you'd often call a server or save the information in a database.
-                                          bloc.onRegisterAmazingAccountEvent(
-                                              name: nameController.text,
-                                              email: emailController.text,
-                                              password: passwordController.text,
-                                              passwordConfirm: confirmPasswordController.text);
+                                          if(!hasProfanity)
+                                          {
+                                            bloc.onRegisterAmazingAccountEvent(
+                                                name: nameController.text,
+                                                email: emailController.text,
+                                                password: passwordController.text,
+                                                passwordConfirm: confirmPasswordController.text);
+                                          }
+                                          else{
+                                            Fluttertoast.showToast(
+                                                msg: 'name contains profanity'.tr(),
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: ColorManager.primaryColor,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0
+                                            );
+                                          }
+
                                         } else {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(

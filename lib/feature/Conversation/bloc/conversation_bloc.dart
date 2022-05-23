@@ -124,6 +124,11 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
           ..blocUser=r
           ..isSuccessBloc=true
         ));
+        emit(state.rebuild((b) => b
+
+          ..blocUser=''
+          ..isSuccessBloc=false
+        ));
       });
     });
 
@@ -153,6 +158,9 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
 
       String cleanString = filter.censor(event.message);
+
+
+
 
       emit(
           state.rebuild((b) => b

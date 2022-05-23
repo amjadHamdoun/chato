@@ -7,6 +7,7 @@ class Global{
 
  static String? userToken='';
  static int? userId=0;
+ static String? currentRoomId='0';
  static String? userImage='';
  static String? userName='';
  static String? lan='ar';

@@ -6,7 +6,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:profanity_filter/profanity_filter.dart';
+import '../../../../injection.dart';
 import '../bloc/room_bloc.dart';
 import '../bloc/room_state.dart';
 
@@ -154,10 +157,27 @@ class _CreateRoomState extends State<CreateRoom> {
                                 SizedBox(height: 200.h,),
                                 InkWell(
                                   onTap: (){
-                                    if(controller.text.isNotEmpty) {
-                                      widget.bloc.onCreateRoomEvent
+                                    final filter =sl<ProfanityFilter> ();
+                                   bool hasProfanity=  filter.hasProfanity(controller.text);
+                                  if(!hasProfanity)
+                                    {
+                                        if(controller.text.isNotEmpty) {
+                                         widget.bloc.onCreateRoomEvent
                                         (controller.text);
+                                      }
                                     }
+                                  else{
+                                    Fluttertoast.showToast(
+                                        msg: 'Room name contains profanity'.tr(),
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: ColorManager.primaryColor,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0
+                                    );
+                                  }
+
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(4),

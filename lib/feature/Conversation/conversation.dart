@@ -70,7 +70,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
      bloc.onGetConversationMessage(
          widget.conversationId
      );
-
+      print("widget.conversationId");
+     print(widget.conversationId);
+     print("widget.conversationId");
      channelChat =
          Global.pusher!.subscribe("chat.${widget.conversationId}");
 
@@ -463,6 +465,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                           showMenuBottomSheet(
                                             ctx: context,
                                             userTwoId: widget.userTwoId!,
+                                            bloc: bloc
                                           );
                                         },
                                         child: SvgPicture.asset(

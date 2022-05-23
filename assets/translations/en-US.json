@@ -143,7 +143,10 @@
   "Enter a valid id": "Enter a valid id",
   "No Room chats": "No Room chats",
   "contacts": "contacts",
-  "No Chats": "No Chats"
+  "No Chats": "No Chats",
+  "Bloc User Done": "Bloc User Done",
+  "Room name contains profanity": "Room name contains profanity",
+  "name contains profanity": "name contains profanity"
 
 
 

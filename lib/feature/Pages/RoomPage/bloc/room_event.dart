@@ -22,6 +22,12 @@ class CreateRoomEvent extends RoomEvent{
 }
 
 // ignore: must_be_immutable
+class RemoveFavEvent extends RoomEvent{
+  int roomId;
+  RemoveFavEvent({required this.roomId});
+}
+
+// ignore: must_be_immutable
 class GetUserRoomEvent extends RoomEvent{
 }
 // ignore: must_be_immutable

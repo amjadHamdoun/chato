@@ -76,11 +76,11 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                     SizedBox(
                       width: 60.w,
                       height: 60.w,
-                      child:state.trendRoomModel.
-                      data[index].room!=null? CachedNetworkImage(
+                      child:
+                       CachedNetworkImage(
                         imageUrl:
                         state.trendRoomModel.
-                        data[index].room!.img??
+                        data[index].img??
                         "http://via.placeholder.com/200x150",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
@@ -94,8 +94,7 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                         ),
                         placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => const Icon(Icons.error),
-                      ):
-                      const SizedBox(),
+                      )
                     ),
                     SizedBox(width: 4.w,),
                     Expanded(
@@ -106,10 +105,9 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                           Row(
                             children: [
                               Expanded(
-                                child:state.trendRoomModel.
-                              data[index].room!=null?
+                                child:
                                 Text(state.trendRoomModel.
-                                data[index].room!.name!,
+                                data[index].name!,
                                   style: TextStyle(
                                       fontSize: 15.sp,
                                       fontFamily: 'DIN',
@@ -118,7 +116,7 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.start,
-                                ):const SizedBox(),
+                                ),
                               ),
                             ],
                           ),

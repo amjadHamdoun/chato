@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,10 @@ class _FavRoomPageState extends State<FavRoomPage>
     widget.bloc.onGetFavRoomEvent();
     super.initState();
   }
-
+  String generateRandomString(int len) {
+    var r = Random();
+    return String.fromCharCodes(List.generate(len, (index) => r.nextInt(33) + 89));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,101 +55,121 @@ class _FavRoomPageState extends State<FavRoomPage>
             ),
             itemCount: state.favRoomModel.data.length,
             itemBuilder: (context, index){
-              return GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                    RoomConversationScreen(
-                      roomId:  state.favRoomModel.data[index].id!,
-                      background: state.favRoomModel.data[index].background!,
-                      fav:state.favRoomModel.data[index].favorite_room_count! ,
-                      ownerId: state.favRoomModel.data[index].user!.id!,
-                      roomName: state.allRoomModel.data[index].name!,
-                    )),
-                  );
-                },
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 60.w,
-                      height: 60.w,
-                      child: CachedNetworkImage(
-                        imageUrl: "http://via.placeholder.com/200x150",
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.fill,
+              return Dismissible(
+                key: Key(generateRandomString(25)),
+                background:Container(
+                  color: Colors.red,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete,
+                        size: 22.w,
+                        color: Colors.grey.shade50,
 
+                      ),
+
+                    ],
+                  ),
+                ) ,
+                onDismissed: (dis){
+                 widget.bloc.onRemoveFavEvent(state.favRoomModel.data[index].id!);
+                },
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                      RoomConversationScreen(
+                        roomId:  state.favRoomModel.data[index].id!,
+                        background: state.favRoomModel.data[index].background??"",
+                        fav:state.favRoomModel.data[index].favorite_room_count! ,
+                        ownerId: state.favRoomModel.data[index].user!.id!,
+                        roomName: state.allRoomModel.data[index].name!,
+                      )),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 60.w,
+                        height: 60.w,
+                        child: CachedNetworkImage(
+                          imageUrl: "http://via.placeholder.com/200x150",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+
+                              ),
                             ),
                           ),
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
                         ),
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
-                    ),
-                    SizedBox(width: 4.w,),
-                    Expanded(
-                      flex: 3,
+                      SizedBox(width: 4.w,),
+                      Expanded(
+                        flex: 3,
 
-                      child: Column(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(state.favRoomModel.data[index].name!,
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontFamily: 'DIN',
+                                        fontWeight: FontWeight.w700,
+                                        color: Theme.of(context).disabledColor
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 4.w,),
+                      Column(
+
                         children: [
+                          if(index<5)
+                            SvgPicture.
+                            asset('assets/icons/awesome-crown.svg'),
                           Row(
                             children: [
-                              Expanded(
-                                child: Text(state.favRoomModel.data[index].name!,
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontFamily: 'DIN',
-                                      fontWeight: FontWeight.w700,
-                                      color: Theme.of(context).disabledColor
+                              Container(
+                                decoration:  const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffFCAF65)
+                                ),
+                                child: Padding(
+                                  padding:  EdgeInsets.all(14.0.w),
+                                  child: Text((index+1).toString(),
+                                    style: TextStyle(
+                                        fontSize: 15.sp,
+                                        fontFamily: 'DIN',
+                                        fontWeight: FontWeight.w700,
+                                        color: ColorManager.backgroundColor
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.start,
                                 ),
                               ),
                             ],
                           ),
-
                         ],
                       ),
-                    ),
-                    SizedBox(width: 4.w,),
-                    Column(
-
-                      children: [
-                        if(index<5)
-                          SvgPicture.
-                          asset('assets/icons/awesome-crown.svg'),
-                        Row(
-                          children: [
-                            Container(
-                              decoration:  const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xffFCAF65)
-                              ),
-                              child: Padding(
-                                padding:  EdgeInsets.all(14.0.w),
-                                child: Text((index+1).toString(),
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontFamily: 'DIN',
-                                      fontWeight: FontWeight.w700,
-                                      color: ColorManager.backgroundColor
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 16.w,),
-                  ],
+                      SizedBox(width: 16.w,),
+                    ],
+                  ),
                 ),
               );
 

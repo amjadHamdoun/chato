@@ -1,4 +1,4 @@
-import 'package:chato/feature/Pages/RoomPage/model/trendModel/room_model.dart';
+
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../User/model/user_data.dart';
@@ -14,7 +14,8 @@ part 'trend_room_data_model.g.dart';
 class TrendRoomDataModel {
 
   int? id;
-  RoomModel? room;
+
+  String? name;
   final String? favorite_room_count;
   final UserData? user;
   final String? background;
@@ -28,7 +29,7 @@ class TrendRoomDataModel {
   TrendRoomDataModel(
       {
         required this.id,
-        required this.room,
+
         required this.img,
         required this.background,
         required this.favorite_room_count,
