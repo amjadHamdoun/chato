@@ -12,9 +12,9 @@ class _$ConversationState extends ConversationState {
   @override
   final bool? isLoading;
   @override
-  final bool? isSuccessGet;
+  final bool? isSuccessBloc;
   @override
-  final bool? isLoadingGet;
+  final bool? isLoadingBloc;
   @override
   final bool showEmoji;
   @override
@@ -23,6 +23,14 @@ class _$ConversationState extends ConversationState {
   final PrivateOldMessageModel privateOldMessageModel;
   @override
   final String error;
+  @override
+  final SendMessageModel sendMessageModel;
+  @override
+  final String smile;
+  @override
+  final String recordTime;
+  @override
+  final String blocUser;
 
   factory _$ConversationState(
           [void Function(ConversationStateBuilder)? updates]) =>
@@ -31,12 +39,16 @@ class _$ConversationState extends ConversationState {
   _$ConversationState._(
       {this.isSuccess,
       this.isLoading,
-      this.isSuccessGet,
-      this.isLoadingGet,
+      this.isSuccessBloc,
+      this.isLoadingBloc,
       required this.showEmoji,
       required this.isRecord,
       required this.privateOldMessageModel,
-      required this.error})
+      required this.error,
+      required this.sendMessageModel,
+      required this.smile,
+      required this.recordTime,
+      required this.blocUser})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'ConversationState', 'showEmoji');
@@ -45,6 +57,13 @@ class _$ConversationState extends ConversationState {
     BuiltValueNullFieldError.checkNotNull(
         privateOldMessageModel, 'ConversationState', 'privateOldMessageModel');
     BuiltValueNullFieldError.checkNotNull(error, 'ConversationState', 'error');
+    BuiltValueNullFieldError.checkNotNull(
+        sendMessageModel, 'ConversationState', 'sendMessageModel');
+    BuiltValueNullFieldError.checkNotNull(smile, 'ConversationState', 'smile');
+    BuiltValueNullFieldError.checkNotNull(
+        recordTime, 'ConversationState', 'recordTime');
+    BuiltValueNullFieldError.checkNotNull(
+        blocUser, 'ConversationState', 'blocUser');
   }
 
   @override
@@ -61,12 +80,16 @@ class _$ConversationState extends ConversationState {
     return other is ConversationState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
-        isSuccessGet == other.isSuccessGet &&
-        isLoadingGet == other.isLoadingGet &&
+        isSuccessBloc == other.isSuccessBloc &&
+        isLoadingBloc == other.isLoadingBloc &&
         showEmoji == other.showEmoji &&
         isRecord == other.isRecord &&
         privateOldMessageModel == other.privateOldMessageModel &&
-        error == other.error;
+        error == other.error &&
+        sendMessageModel == other.sendMessageModel &&
+        smile == other.smile &&
+        recordTime == other.recordTime &&
+        blocUser == other.blocUser;
   }
 
   @override
@@ -76,13 +99,23 @@ class _$ConversationState extends ConversationState {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                            isSuccessGet.hashCode),
-                        isLoadingGet.hashCode),
-                    showEmoji.hashCode),
-                isRecord.hashCode),
-            privateOldMessageModel.hashCode),
-        error.hashCode));
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, isSuccess.hashCode),
+                                                isLoading.hashCode),
+                                            isSuccessBloc.hashCode),
+                                        isLoadingBloc.hashCode),
+                                    showEmoji.hashCode),
+                                isRecord.hashCode),
+                            privateOldMessageModel.hashCode),
+                        error.hashCode),
+                    sendMessageModel.hashCode),
+                smile.hashCode),
+            recordTime.hashCode),
+        blocUser.hashCode));
   }
 
   @override
@@ -90,12 +123,16 @@ class _$ConversationState extends ConversationState {
     return (newBuiltValueToStringHelper('ConversationState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
-          ..add('isSuccessGet', isSuccessGet)
-          ..add('isLoadingGet', isLoadingGet)
+          ..add('isSuccessBloc', isSuccessBloc)
+          ..add('isLoadingBloc', isLoadingBloc)
           ..add('showEmoji', showEmoji)
           ..add('isRecord', isRecord)
           ..add('privateOldMessageModel', privateOldMessageModel)
-          ..add('error', error))
+          ..add('error', error)
+          ..add('sendMessageModel', sendMessageModel)
+          ..add('smile', smile)
+          ..add('recordTime', recordTime)
+          ..add('blocUser', blocUser))
         .toString();
   }
 }
@@ -112,13 +149,15 @@ class ConversationStateBuilder
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
 
-  bool? _isSuccessGet;
-  bool? get isSuccessGet => _$this._isSuccessGet;
-  set isSuccessGet(bool? isSuccessGet) => _$this._isSuccessGet = isSuccessGet;
+  bool? _isSuccessBloc;
+  bool? get isSuccessBloc => _$this._isSuccessBloc;
+  set isSuccessBloc(bool? isSuccessBloc) =>
+      _$this._isSuccessBloc = isSuccessBloc;
 
-  bool? _isLoadingGet;
-  bool? get isLoadingGet => _$this._isLoadingGet;
-  set isLoadingGet(bool? isLoadingGet) => _$this._isLoadingGet = isLoadingGet;
+  bool? _isLoadingBloc;
+  bool? get isLoadingBloc => _$this._isLoadingBloc;
+  set isLoadingBloc(bool? isLoadingBloc) =>
+      _$this._isLoadingBloc = isLoadingBloc;
 
   bool? _showEmoji;
   bool? get showEmoji => _$this._showEmoji;
@@ -138,6 +177,23 @@ class ConversationStateBuilder
   String? get error => _$this._error;
   set error(String? error) => _$this._error = error;
 
+  SendMessageModel? _sendMessageModel;
+  SendMessageModel? get sendMessageModel => _$this._sendMessageModel;
+  set sendMessageModel(SendMessageModel? sendMessageModel) =>
+      _$this._sendMessageModel = sendMessageModel;
+
+  String? _smile;
+  String? get smile => _$this._smile;
+  set smile(String? smile) => _$this._smile = smile;
+
+  String? _recordTime;
+  String? get recordTime => _$this._recordTime;
+  set recordTime(String? recordTime) => _$this._recordTime = recordTime;
+
+  String? _blocUser;
+  String? get blocUser => _$this._blocUser;
+  set blocUser(String? blocUser) => _$this._blocUser = blocUser;
+
   ConversationStateBuilder();
 
   ConversationStateBuilder get _$this {
@@ -145,12 +201,16 @@ class ConversationStateBuilder
     if ($v != null) {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
-      _isSuccessGet = $v.isSuccessGet;
-      _isLoadingGet = $v.isLoadingGet;
+      _isSuccessBloc = $v.isSuccessBloc;
+      _isLoadingBloc = $v.isLoadingBloc;
       _showEmoji = $v.showEmoji;
       _isRecord = $v.isRecord;
       _privateOldMessageModel = $v.privateOldMessageModel;
       _error = $v.error;
+      _sendMessageModel = $v.sendMessageModel;
+      _smile = $v.smile;
+      _recordTime = $v.recordTime;
+      _blocUser = $v.blocUser;
       _$v = null;
     }
     return this;
@@ -173,18 +233,24 @@ class ConversationStateBuilder
         new _$ConversationState._(
             isSuccess: isSuccess,
             isLoading: isLoading,
-            isSuccessGet: isSuccessGet,
-            isLoadingGet: isLoadingGet,
+            isSuccessBloc: isSuccessBloc,
+            isLoadingBloc: isLoadingBloc,
             showEmoji: BuiltValueNullFieldError.checkNotNull(
                 showEmoji, 'ConversationState', 'showEmoji'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
                 isRecord, 'ConversationState', 'isRecord'),
             privateOldMessageModel: BuiltValueNullFieldError.checkNotNull(
-                privateOldMessageModel,
-                'ConversationState',
-                'privateOldMessageModel'),
+                privateOldMessageModel, 'ConversationState', 'privateOldMessageModel'),
             error: BuiltValueNullFieldError.checkNotNull(
-                error, 'ConversationState', 'error'));
+                error, 'ConversationState', 'error'),
+            sendMessageModel: BuiltValueNullFieldError.checkNotNull(
+                sendMessageModel, 'ConversationState', 'sendMessageModel'),
+            smile: BuiltValueNullFieldError.checkNotNull(
+                smile, 'ConversationState', 'smile'),
+            recordTime: BuiltValueNullFieldError.checkNotNull(
+                recordTime, 'ConversationState', 'recordTime'),
+            blocUser: BuiltValueNullFieldError.checkNotNull(
+                blocUser, 'ConversationState', 'blocUser'));
     replace(_$result);
     return _$result;
   }

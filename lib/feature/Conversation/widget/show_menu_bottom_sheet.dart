@@ -5,7 +5,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void showMenuBottomSheet(BuildContext ctx) {
+import '../../User/user.dart';
+
+void showMenuBottomSheet({
+  required BuildContext ctx,
+  required int userTwoId
+}) {
 
   showModalBottomSheet(
       elevation: 10,
@@ -54,7 +59,11 @@ void showMenuBottomSheet(BuildContext ctx) {
                       vertical: 15.h
                     ))
                   ),
-                  onPressed: () {}
+                  onPressed: () {
+                    Navigator.push(ctx,
+                        MaterialPageRoute(builder: (context) =>
+                            UserScreen(id: userTwoId,) ,));
+                  }
               ),
             ),
             SizedBox(height: 20.h,),

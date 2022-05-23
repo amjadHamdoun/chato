@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'core/utils/constants.dart';
+import 'feature/Conversation/api/block_user_remote.dart';
 import 'feature/Conversation/api/get_conversation_old_message_remote.dart';
 import 'feature/Pages/ChatPage/api/get_conversation_private_remote.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
@@ -250,6 +251,12 @@ Future<void> init() async {
         networkInfo: sl()
     ),
   );
+  sl.registerLazySingleton<BlockUserRemoteDataSource>(
+        () => BlockUserRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
 
 
 
@@ -266,7 +273,9 @@ Future<void> init() async {
   ));
 
   sl.registerLazySingleton(() => ConversationBloc(
-     privateOldMessageDataSource: sl()
+     privateOldMessageDataSource: sl(),
+    sendMessageDataSource: sl(),
+    blockUserRemoteDataSource: sl()
 
   ));
 

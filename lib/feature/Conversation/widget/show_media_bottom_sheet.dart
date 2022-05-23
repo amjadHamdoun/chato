@@ -1,12 +1,23 @@
 
-
-import 'package:chato/core/utils/color_manager.dart';
+import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 
-void showMediaBottomSheet(BuildContext ctx) {
+import '../../RoomConversation/widget/contact/flutter_contact.dart';
+import '../bloc/conversation_bloc.dart';
+
+
+void showMediaBottomSheet({
+ required BuildContext ctx,
+  required ConversationBloc bloc,
+  required int conId
+}) {
 
   showModalBottomSheet(
       elevation: 10,
@@ -42,7 +53,24 @@ void showMediaBottomSheet(BuildContext ctx) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    FilePickerResult? result = await
+                    FilePicker.platform.pickFiles(
+                      type: FileType.media,
+
+                    );
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                    //  widget.bloc.onChangeImageEvent(file);
+                      bloc.onSendMessageEvent('', conId, file);
+                      Navigator.pop(ctx);
+
+                    }
+                    else {
+                      // User canceled the picker
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/gallery.svg'),
@@ -58,7 +86,18 @@ void showMediaBottomSheet(BuildContext ctx) {
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: ()async{
+                    final ImagePicker _picker = ImagePicker();
+                    final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+                   if(photo!=null)
+                     {
+                       File file = File(photo.path);
+                       //  widget.bloc.onChangeImageEvent(file);
+                       bloc.onSendMessageEvent('', conId, file);
+                       Navigator.pop(ctx);
+                     }
+
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/camera.svg'),
@@ -74,7 +113,21 @@ void showMediaBottomSheet(BuildContext ctx) {
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    FilePickerResult? result = await
+                    FilePicker.platform.pickFiles(
+                    );
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      //  widget.bloc.onChangeImageEvent(file);
+                      bloc.onSendMessageEvent('', conId, file);
+                      Navigator.pop(ctx);
+
+                    }
+                    else {
+                      // User canceled the picker
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/doc.svg'),
@@ -96,7 +149,22 @@ void showMediaBottomSheet(BuildContext ctx) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: (){},
+                  onTap: ()async{
+                   await Navigator.push(ctx, MaterialPageRoute(builder:
+                        (context) => const Contacts(),)).then((value) {
+                          if(value is Contact?)
+                            {
+                              bloc.onSendMessageEvent(value!.name.first
+                                  +' '+value.name.last+'\n '+value.phones[0].number
+                                  , conId, null);
+                              Navigator.pop(ctx);
+                            }
+                   });
+                   // List<Contact> contacts = await ContactsService.getContacts();
+                 //   await ContactsService.openContactForm();
+
+
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/contact.svg'),
@@ -112,7 +180,41 @@ void showMediaBottomSheet(BuildContext ctx) {
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    Location location =  Location();
+
+                    bool _serviceEnabled;
+                    PermissionStatus _permissionGranted;
+                    LocationData _locationData;
+
+                    _serviceEnabled = await location.serviceEnabled();
+                    if (!_serviceEnabled) {
+                      _serviceEnabled = await location.requestService();
+                      if (!_serviceEnabled) {
+
+                      }
+                    }
+
+                    _permissionGranted = await location.hasPermission();
+                    if (_permissionGranted == PermissionStatus.denied) {
+                      _permissionGranted = await location.requestPermission();
+                      if (_permissionGranted != PermissionStatus.granted) {
+
+                      }
+                    }
+
+                   try{
+                     _locationData = await location.getLocation();
+                     bloc.onSendMessageEvent('https://www.google.com/maps/search/?api=1&query=${_locationData.latitude},${_locationData.longitude}'
+                         , conId, null);
+                     Navigator.pop(ctx);
+                   }
+                    catch (e)
+                    // ignore: empty_catches
+                    {
+
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/location.svg'),
@@ -128,7 +230,24 @@ void showMediaBottomSheet(BuildContext ctx) {
                 ),
                 SizedBox(width: 30.w,),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    FilePickerResult? result = await
+                    FilePicker.platform.pickFiles(
+                      type: FileType.audio,
+
+                    );
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      //  widget.bloc.onChangeImageEvent(file);
+                      bloc.onSendMessageEvent('', conId, file);
+                      Navigator.pop(ctx);
+
+                    }
+                    else {
+                      // User canceled the picker
+                    }
+                  },
                   child: Column(
                     children: [
                       SvgPicture.asset('assets/icons/sound_clip.svg'),

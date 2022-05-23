@@ -68,6 +68,12 @@ class _MessageMusicSideTwoState extends State<MessageMusicSideTwo> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    audioPlayer.stop();
+    super.dispose();
+  }
+
 
   Future isLocal() async{
     var dir;

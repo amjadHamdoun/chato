@@ -30,6 +30,7 @@ class Endpoints {
   static const getConversationPrivet = 'room/get-conversation-privet';
   static const getAllBlockUser = 'get-all-block-user';
   static const unblockUser = 'unblock-user';
+  static const blockUser = 'block-user';
   static const allTypeRoom = 'room/all-type-room';
   static const sendMessage = 'room/send-message';
   static const addUserRoom = 'room/add-user-room';

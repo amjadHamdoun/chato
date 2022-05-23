@@ -31,6 +31,9 @@ class PrivateOldMessageDataModel {
         required this.seen,
         required this.created_at,
         required this.updated_at,
-        required this.user
+        required this.user,
+        required this.id,
+        required this.localFile,
+        required this.all_file
       });
 }

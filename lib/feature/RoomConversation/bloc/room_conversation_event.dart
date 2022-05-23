@@ -109,3 +109,4 @@ class AddRemoveFavRoomEvent extends RoomConversationEvent
 
   });
 }
+

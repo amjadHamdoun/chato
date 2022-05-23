@@ -90,6 +90,12 @@ class _MessageMusicSideTwoState extends State<MessageMusicSideTwo> {
     }
   }
 
+  @override
+  void dispose() {
+    audioPlayer.stop();
+    super.dispose();
+  }
+
   Future download(Dio dio, String url, String savePath) async {
     try {
       Response response = await dio.get(

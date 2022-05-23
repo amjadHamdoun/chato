@@ -51,3 +51,23 @@ class SendMessageEvent extends ConversationEvent
     required this.allFile
   });
 }
+
+// ignore: must_be_immutable
+class BlockUserEvent extends ConversationEvent
+{
+
+  int userId;
+  BlockUserEvent({
+    required this.userId,
+  });
+}
+
+// ignore: must_be_immutable
+class ChangeRecordTimerEvent extends ConversationEvent
+{
+  int count;
+  ChangeRecordTimerEvent({
+    required this.count,
+
+  });
+}

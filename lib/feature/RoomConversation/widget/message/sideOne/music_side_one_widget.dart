@@ -25,10 +25,10 @@ class MessageMusicSideOne extends StatefulWidget {
 }
 
 class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
-   Duration duration = Duration(
+   Duration duration = const Duration(
      seconds: 0
   );
-  Duration position =    Duration(
+  Duration position =    const Duration(
       seconds: 0
   );
   bool isPlaying = false;
@@ -138,6 +138,13 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
     if (total != -1) {
       print((received / total * 100).toStringAsFixed(0) + "%");
     }
+  }
+
+
+  @override
+  void dispose() {
+    audioPlayer.stop();
+    super.dispose();
   }
 
 
