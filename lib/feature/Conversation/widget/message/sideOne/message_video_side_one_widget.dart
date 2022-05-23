@@ -1,13 +1,10 @@
-
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import '../../../../../core/utils/color_manager.dart';
-import '../../../../User/user.dart';
 import '../../../model/private_old_message_data_model.dart';
 import 'cont.dart';
 
@@ -123,70 +120,14 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
 
 
       children: [
-        GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  UserScreen(id: widget.message.user!.id!,)),
-            );
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
 
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-        ),
         SizedBox(
           width: 6.w,
         ),
         Expanded(
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color:  const Color(0xff99AACD),
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
 
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(
-                      horizontal: 12.w
-                  ),
-                  child: Row(
-                    children: [
-
-                      Expanded(
-                        child: Text(widget.message.user!.name!,
-                          style: TextStyle(
-                              color: ColorManager.backgroundColor,
-                              fontSize: 13.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600
-                          ),
-                          textAlign: TextAlign.end,
-
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Expanded(
                 child: Stack(
                   children: [
@@ -249,10 +190,8 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
           ),
         ),
          SizedBox(
-           width: 50.w,
+           width: 70.w,
          ),
-
-
 
       ],
     );

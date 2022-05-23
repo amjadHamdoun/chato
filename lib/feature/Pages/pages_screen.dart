@@ -86,9 +86,7 @@ class _PagesScreenState extends State<PagesScreen> {
                       ChatScreen(bloc: chatBloc),
                       RoomScreen(bloc:roomBloc ),
                       StoreScreen(),
-                      ProfileScreen(
-                        bloc: profBloc,
-                      ) ,
+                      ProfileScreen(bloc: profBloc,) ,
 
                     ],
                   ),

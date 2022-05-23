@@ -128,25 +128,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img?? "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
 
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
           SizedBox(
             width: 6.w,
           ),
@@ -183,35 +165,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                         child: Column(
 
                           children: [
-                            Padding(
-                              padding:  EdgeInsets.symmetric(
-                                  horizontal: 12.w
-                              ),
-                              child: Row(
-                                children: [
 
-                                  Expanded(
-                                    child: Text(
-                                      widget.message.user!.name!,
-                                      style: TextStyle(
-                                          color: ColorManager.backgroundColor,
-                                          fontSize: 13.sp,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                      textAlign: TextAlign.start,
-
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(
-                              color: ColorManager.backgroundColor,
-
-                              thickness: 1,
-                              height: 3.h,
-                            ),
                             Padding(
                               padding:  EdgeInsets.symmetric(
                                   horizontal: 12.w

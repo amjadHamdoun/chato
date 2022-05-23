@@ -39,4 +39,15 @@ class AddMessageFromPusherEvent extends ConversationEvent
 
   });
 }
-
+// ignore: must_be_immutable
+class SendMessageEvent extends ConversationEvent
+{
+  File? allFile;
+  String message;
+  int roomId;
+  SendMessageEvent({
+    required this.message,
+    required this.roomId,
+    required this.allFile
+  });
+}

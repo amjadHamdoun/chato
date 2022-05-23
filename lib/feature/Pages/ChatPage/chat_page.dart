@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/Globals.dart';
 import 'package:chato/feature/Pages/ChatPage/bloc/chat_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -105,8 +106,12 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                     height: 57.w,
                                     child: CachedNetworkImage(
                                       imageUrl:
+                                          Global.userId==
+                                              state.getConversationPrivateModel.data![index].user1!.id?
                                       state.getConversationPrivateModel.data![index].user2!.img??
-                                      "http://via.placeholder.com/200x150",
+                                      "http://via.placeholder.com/200x150":
+                                          state.getConversationPrivateModel.data![index].user1!.img??
+                                              "http://via.placeholder.com/200x150",
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
@@ -156,8 +161,12 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                               SizedBox(
                                 width: 70.w,
                                 child: Text(
+                                  Global.userId==
+                                      state.getConversationPrivateModel.data![index].user1!.id?
                                   state.getConversationPrivateModel.data![index].
-                                  user2!.name!,
+                                  user2!.name!:
+                                  state.getConversationPrivateModel.data![index].
+                                  user1!.name!,
                                   style: TextStyle(
                                       fontSize: 14.sp,
                                       fontFamily: 'Roboto',
@@ -190,7 +199,6 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
 
                   //المحادثات
                   Expanded(
-
                     child:
                     state.isLoadingGet!?
                     const Center(child: CircularProgressIndicator()):
@@ -203,12 +211,12 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                          children: [
                            SizedBox(height: 0.3.sh,),
                            Center(child: Text('No Chats',
-                      style: TextStyle(
-                            fontSize: 18.sp,
+                             style: TextStyle(
+                               fontSize: 18.sp,
 
 
-                      ),
-                      ).tr()),
+                             ),
+                           ).tr()),
                          ],
                        ),
                     ):
@@ -232,6 +240,20 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                     ConversationScreen(
                                       conversationId: state.getConversationPrivateModel.data![index].message!
                                           .conversation_id,
+                                      userTwoImage:
+                                      Global.userId==
+                                          state.getConversationPrivateModel.data![index].user1!.id?
+                                      state.getConversationPrivateModel.data![index].
+                                      user2!.img:
+                                      state.getConversationPrivateModel.data![index].
+                                      user1!.img,
+                                      userTwoName:
+                                      Global.userId==
+                                          state.getConversationPrivateModel.data![index].user1!.id?
+                                      state.getConversationPrivateModel.data![index].
+                                      user2!.name:
+                                      state.getConversationPrivateModel.data![index].
+                                      user1!.name,
                                     )),
                               );
                             },
@@ -247,7 +269,12 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                         width: 60.w,
                                         height: 60.w,
                                         child: CachedNetworkImage(
-                                          imageUrl:state.getConversationPrivateModel.data![index].user2!.img??
+                                          imageUrl:
+                                          Global.userId==
+                                              state.getConversationPrivateModel.data![index].user1!.id?
+                                          state.getConversationPrivateModel.data![index].user2!.img??
+                                              "http://via.placeholder.com/200x150":
+                                          state.getConversationPrivateModel.data![index].user1!.img??
                                               "http://via.placeholder.com/200x150",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
@@ -350,7 +377,11 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                         Row(
                                           children: [
                                             Expanded(
-                                              child: Text(state.getConversationPrivateModel.data![index].user2!.name!,
+                                              child: Text(
+                                                Global.userId==
+                                                    state.getConversationPrivateModel.data![index].user1!.id?
+                                                state.getConversationPrivateModel.data![index].user2!.name!:
+                                                state.getConversationPrivateModel.data![index].user1!.name!,
                                                 style: TextStyle(
                                                     fontSize: 15.sp,
                                                     fontFamily: 'Roboto',

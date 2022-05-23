@@ -117,263 +117,188 @@ class _MessageFileSideTwoState extends State<MessageFileSideTwo> {
         }
 
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          if(widget.message.all_file!.length>35
-              ||widget.message.user!.name!.length>35)
-            Expanded(
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: SizedBox(
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-
-                      decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
-                                Color(0xff99AACD),
-                                Color(0xff99AACD),
-                              ]
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topRight:  Radius.circular(12.w),
-                            bottomLeft: Radius.circular(12.w),
-                            topLeft: Radius.circular(12.w),
-                            bottomRight:  Radius.circular(12.w),
-
-                          )
-                      ),
-                      child:  Padding(
-                        padding:  EdgeInsets.symmetric(
-                            vertical: 4.h
-                        ),
-                        child: Column(
-
-                          children: [
-                            Padding(
-                              padding:  EdgeInsets.symmetric(
-                                  horizontal: 12.w
-                              ),
-                              child: Row(
-                                children: [
-
-                                  Expanded(
-                                    child: Text(
-                                      widget.message.user!.name!,
-                                      style: TextStyle(
-                                          color: ColorManager.backgroundColor,
-                                          fontSize: 13.sp,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.w600
-                                      ),
-                                      textAlign: TextAlign.end,
-
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(
-                              color: ColorManager.backgroundColor,
-
-                              thickness: 1,
-                              height: 3.h,
-                            ),
-                            Padding(
-                              padding:  EdgeInsets.symmetric(
-                                  horizontal: 12.w
-                              ),
-                              child: Row(
-                                children: [
-                                  downloadFile.isEmpty?
-                                      InkWell(
-                                        onTap: (){
-                                            Dio dio=Dio();
-                                            download(dio, widget.message.all_file!, file!.path);
-                                        },
-                                        child: Icon(Icons.download,
-                                          color: ColorManager.backgroundColor,
-                                          size: 22.w,
-                                        ),
-                                      ):
-                                  downloadFile.contains('100')?
-                                   Icon(
-                                    Icons.file_copy_outlined,
-                                    color: ColorManager.backgroundColor,
-                                    size: 22.w,
-                                  ):Text(downloadFile
-                                    ,style: TextStyle(
-                                        color:isUrl (widget.message.message!)?
-                                        Colors.blue.shade700:
-                                        ColorManager.backgroundColor,
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600
-                                    ),textAlign: TextAlign.end,),
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap:isUrl (widget.message.message!)?()
-                                     async {
-                                       await launch(widget.message.message!);
-                                      }:null,
-                                      child: Text(widget.message.all_file!
-                                        ,style: TextStyle(
-                                            color:isUrl (widget.message.message!)?
-                                            Colors.blue.shade700:
-                                            ColorManager.backgroundColor,
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w600
-                                        ),textAlign: TextAlign.end,),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )else
-            Container(
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Color(0xff99AACD),
-                        Color(0xff99AACD),
-                      ]
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topRight:  Radius.circular(12.w),
-                    bottomLeft: Radius.circular(12.w),
-                    topLeft: Radius.circular(12.w),
-                    bottomRight:  Radius.circular(12.w),
-
-                  )
-              ),
-              child:  Padding(
-                padding:  EdgeInsets.symmetric(
-                    vertical: 4.h
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
+      child: Padding(
+        padding:  EdgeInsets.symmetric(
+          horizontal: 12.w
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if(widget.message.all_file!.length>35
+                ||widget.message.user!.name!.length>35)
+              Expanded(
+                child: Row(
                   children: [
-                    Container(
-                      decoration:
-                      widget.message.all_file!.length<=
-                          widget.message.user!.name!.length?
-                      const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                              color: ColorManager.backgroundColor,
+                    const Expanded(
+                      child: SizedBox(
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color(0xffFF7642),
+                                  Color(0xffF9C45C),
+                                ]
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topRight:  Radius.circular(12.w),
+                              bottomLeft: Radius.circular(12.w),
+                              topLeft: Radius.circular(12.w),
+                              bottomRight:  Radius.circular(12.w),
+
                             )
                         ),
-                      ):const BoxDecoration(),
-
-                      child: Padding(
-                        padding:  EdgeInsets.symmetric(
-                            horizontal: 12.w
-                        ),
-                        child: Text(widget.message.user!.name!,
-                          style: TextStyle(
-                              color: ColorManager.backgroundColor,
-                              fontSize: 13.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600
+                        child:  Padding(
+                          padding:  EdgeInsets.symmetric(
+                              vertical: 4.h
                           ),
-                          textAlign: TextAlign.start,
+                          child: Column(
 
+                            children: [
+
+
+                              Padding(
+                                padding:  EdgeInsets.symmetric(
+                                    horizontal: 12.w
+                                ),
+                                child: Row(
+                                  children: [
+                                    downloadFile.isEmpty?
+                                        InkWell(
+                                          onTap: (){
+                                              Dio dio=Dio();
+                                              download(dio, widget.message.all_file!, file!.path);
+                                          },
+                                          child: Icon(Icons.download,
+                                            color: ColorManager.backgroundColor,
+                                            size: 22.w,
+                                          ),
+                                        ):
+                                    downloadFile.contains('100')?
+                                     Icon(
+                                      Icons.file_copy_outlined,
+                                      color: ColorManager.backgroundColor,
+                                      size: 22.w,
+                                    ):Text(downloadFile
+                                      ,style: TextStyle(
+                                          color:isUrl (widget.message.message!)?
+                                          Colors.blue.shade700:
+                                          ColorManager.backgroundColor,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w600
+                                      ),textAlign: TextAlign.end,),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap:isUrl (widget.message.message!)?()
+                                       async {
+                                         await launch(widget.message.message!);
+                                        }:null,
+                                        child: Text(widget.message.all_file!
+                                          ,style: TextStyle(
+                                              color:isUrl (widget.message.message!)?
+                                              Colors.blue.shade700:
+                                              ColorManager.backgroundColor,
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w600
+                                          ),textAlign: TextAlign.end,),
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-
-
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.file_copy_outlined,
-                          color: ColorManager.backgroundColor,
-                          size: 22.w,
-                        ),
-                        InkWell(
-                          onTap:isUrl(widget.message.message!)? () async {
-                            await launch(widget.message.message!);
-                          }:null,
-                          child: Container(
-                            decoration:
-                            widget.message.message!.length>
-                                widget.message.user!.name!.length?
-                            const BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                    color: ColorManager.backgroundColor,
-                                  )
-                              ),
-                            ):const BoxDecoration(),
-                            child: Padding(
-                              padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                              child: Text(widget.message.all_file!,
-                                style: TextStyle(
-                                    color:isUrl(widget.message.message!)?
-                                    Colors.blue.shade700:
-                                    ColorManager.backgroundColor,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w600
-                                ),textAlign: TextAlign.start,),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
-              ),
-            ),
-
-          SizedBox(
-            width: 6.w,
-          ),
-          SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img?? "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
+              )else
+              Container(
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
+                    gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xffFF7642),
+                          Color(0xffF9C45C),
+                        ]
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topRight:  Radius.circular(12.w),
+                      bottomLeft: Radius.circular(12.w),
+                      topLeft: Radius.circular(12.w),
+                      bottomRight:  Radius.circular(12.w),
 
+                    )
+                ),
+                child:  Padding(
+                  padding:  EdgeInsets.symmetric(
+                      vertical: 4.h
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: [
+
+
+
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.file_copy_outlined,
+                            color: ColorManager.backgroundColor,
+                            size: 22.w,
+                          ),
+                          InkWell(
+                            onTap:isUrl(widget.message.message!)? () async {
+                              await launch(widget.message.message!);
+                            }:null,
+                            child: Container(
+                              decoration:
+                              widget.message.message!.length>
+                                  widget.message.user!.name!.length?
+                              const BoxDecoration(
+                                border: Border(
+                                    top: BorderSide(
+                                      color: ColorManager.backgroundColor,
+                                    )
+                                ),
+                              ):const BoxDecoration(),
+                              child: Padding(
+                                padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                                child: Text(widget.message.all_file!,
+                                  style: TextStyle(
+                                      color:isUrl(widget.message.message!)?
+                                      Colors.blue.shade700:
+                                      ColorManager.backgroundColor,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600
+                                  ),textAlign: TextAlign.start,),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-
-          //   Image.asset('assets/stickers/01_Cuppy_smile.webp',
-          //    width: 40.w,
-          //     fit: BoxFit.fill,
-          //   ),
 
 
 
-        ],
+
+
+          ],
+        ),
       ),
     );
   }

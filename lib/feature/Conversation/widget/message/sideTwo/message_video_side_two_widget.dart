@@ -111,140 +111,79 @@ class _MessageVideoSideTwoState extends State<MessageVideoSideTwo> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding:  EdgeInsets.symmetric(
+        horizontal: 12.w
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
 
-      children: [
+        children: [
 
-        SizedBox(
-          width: 50.w,
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color:  const Color(0xff99AACD),
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
+          SizedBox(
+            width: 70.w,
+          ),
+          Expanded(
+            child: Stack(
+              children: [
 
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(
-                      horizontal: 12.w
-                  ),
-                  child: Row(
-                    children: [
-
-                      Expanded(
-                        child: Text(widget.message.user!.name!,
-                          style: TextStyle(
-                              color: ColorManager.backgroundColor,
-                              fontSize: 13.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600
-                          ),
-                          textAlign: TextAlign.end,
-
+                if(downloadFile.contains('100'))
+                  ...[
+                    if(_controller!=null)
+                      VideoPlayer(_controller!),
+                    if(_controller!=null)
+                      ControlsOverlay(controller: _controller!),
+                    if(_controller!=null)
+                      VideoProgressIndicator(_controller!,
+                        allowScrubbing: true,
+                      ),
+                  ]
+                else if(downloadFile.isEmpty)
+                  ...[
+                    if(_controller!=null)
+                      VideoPlayer(_controller!),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      top: 0,
+                      child: IconButton(
+                        onPressed: (){
+                           Dio dio=Dio();
+                            download(dio, widget.message.all_file!, file!.path);
+                        },
+                        icon: Icon(
+                          Icons.download,
+                          size: 22.w,
+                          color: ColorManager.backgroundColor,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Stack(
-                  children: [
+                    ),
+                  ]
+                else ...[
+                    if(_controller!=null)
+                    VideoPlayer(_controller!),
+                    Positioned(
+                      bottom: 70.h,
+                      left: 0,
+                      right: 0,
 
-                    if(downloadFile.contains('100'))
-                      ...[
-                        if(_controller!=null)
-                          VideoPlayer(_controller!),
-                        if(_controller!=null)
-                          ControlsOverlay(controller: _controller!),
-                        if(_controller!=null)
-                          VideoProgressIndicator(_controller!,
-                            allowScrubbing: true,
-                          ),
-                      ]
-                    else if(downloadFile.isEmpty)
-                      ...[
-                        if(_controller!=null)
-                          VideoPlayer(_controller!),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          top: 0,
-                          child: IconButton(
-                            onPressed: (){
-                               Dio dio=Dio();
-                                download(dio, widget.message.all_file!, file!.path);
-                            },
-                            icon: Icon(
-                              Icons.download,
-                              size: 22.w,
-                              color: ColorManager.backgroundColor,
-                            ),
-                          ),
-                        ),
-                      ]
-                    else ...[
-                        if(_controller!=null)
-                        VideoPlayer(_controller!),
-                        Positioned(
-                          bottom: 70.h,
-                          left: 0,
-                          right: 0,
+                      child: Text(downloadFile
+                        ,style: TextStyle(
+                            color: ColorManager.backgroundColor,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w600
+                        ),textAlign: TextAlign.center,),
+                    )
+                     ]
 
-                          child: Text(downloadFile
-                            ,style: TextStyle(
-                                color: ColorManager.backgroundColor,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w600
-                            ),textAlign: TextAlign.center,),
-                        )
-                         ]
-
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: 6.w,
-        ),
-        GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  UserScreen(id: widget.message.user!.id!,)),
-            );
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+              ],
             ),
           ),
-        ),
-      ],
+
+        ],
+      ),
     );
   }
 

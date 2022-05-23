@@ -112,70 +112,14 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
 
 
       children: [
-        GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  UserScreen(id: widget.message.user!.id!,)),
-            );
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
 
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-        ),
         SizedBox(
           width: 6.w,
         ),
         Expanded(
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color:  const Color(0xff99AACD),
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
 
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(
-                      horizontal: 12.w
-                  ),
-                  child: Row(
-                    children: [
-
-                      Expanded(
-                        child: Text(widget.message.user!.name!,
-                          style: TextStyle(
-                              color: ColorManager.backgroundColor,
-                              fontSize: 13.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600
-                          ),
-                          textAlign: TextAlign.end,
-
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Expanded(
                 child: file!=null?
                 Row(
@@ -217,7 +161,7 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
           ),
         ),
          SizedBox(
-           width: 50.w,
+           width: 80.w,
          ),
 
 

@@ -144,215 +144,133 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-
+    return file!=null?
+    Row(
 
       children: [
+        Expanded(
+          child:  BubbleNormalAudio(
+            color: const
+            Color(0xFFE8E8EE),
+            duration: duration.inSeconds.toDouble(),
+            position: position.inSeconds.toDouble(),
+            isPlaying: isPlaying,
+            isLoading: isLoading,
+            isPause: isPause,
+            onSeekChanged: (dou){
+              print(dou);
+              position=Duration(
+                  seconds: int.parse(dou.floor().toString())
+              );
 
-        GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  UserScreen(id: widget.message.user!.id!,)),
-            );
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
+              audioPlayer.seek(Duration(
+                  seconds: int.parse(dou.floor().toString())
+              ));
+              setState(() {
 
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
+              });
+            },
+            // ignore: curly_braces_in_flow_control_structures
+            onPlayPauseButtonClick: (){
+              if(isFirst)
+              {
+                audioPlayer.play(widget.message.all_file??
+                    widget.message.localFile!);
+                isPlaying=true;
+                isFirst=false;
+                setState(() {});
+              }
+              else if (isPlaying){
+                audioPlayer.pause();
+                isPlaying=false;
+                isPause=true;
+                setState(() {});
+              }
+              else if (!isPlaying){
+                audioPlayer.resume();
+                isPlaying=true;
+                isPause=false;
+
+
+                setState(() {});
+              }
+              else{
+
+              }
+
+            },
+            sent: false,
           ),
         ),
         SizedBox(
-          width: 6.w,
+          width: 75.w,
         ),
+      ],
+    ):
+    Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding:  EdgeInsets.symmetric(
-                  horizontal: 18.w,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:  const Color(0xff99AACD),
-                    borderRadius: BorderRadius.circular(12.w),
-                  ),
+          child:  BubbleNormalAudio(
+            color: const
+            Color(0xFFE8E8EE),
+            duration: duration.inSeconds.toDouble(),
+            position: position.inSeconds.toDouble(),
+            isPlaying: isPlaying,
+            isLoading: isLoading,
+            isPause: isPause,
+            onSeekChanged: (dou){
+              print(dou);
+              position=Duration(
+                  seconds: int.parse(dou.floor().toString())
+              );
 
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 2.h
-                    ),
-                    child: Row(
-                      children: [
+              audioPlayer.seek(Duration(
+                  seconds: int.parse(dou.floor().toString())
+              ));
+              setState(() {
 
-                        Expanded(
-                          child: Text(widget.message.user!.name!,
-                            style: TextStyle(
-                                color: ColorManager.backgroundColor,
-                                fontSize: 13.sp,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w600
-                            ),
-                            textAlign: TextAlign.end,
+              });
+            },
+            // ignore: curly_braces_in_flow_control_structures
+            onPlayPauseButtonClick: (){
+              if(isFirst)
+              {
+                audioPlayer.play(widget.message.all_file??
+                widget.message.localFile!
+                );
+                isPlaying=true;
+                isFirst=false;
+                setState(() {
 
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              file!=null?
-              Row(
-                children: [
-                  Expanded(
-                    child:  BubbleNormalAudio(
-                      color: const
-                      Color(0xFFE8E8EE),
-                      duration: duration.inSeconds.toDouble(),
-                      position: position.inSeconds.toDouble(),
-                      isPlaying: isPlaying,
-                      isLoading: isLoading,
-                      isPause: isPause,
-                      onSeekChanged: (dou){
-                        print(dou);
-                        position=Duration(
-                            seconds: int.parse(dou.floor().toString())
-                        );
+                });
+              }
+              else if (isPlaying){
+                audioPlayer.pause();
+                isPlaying=false;
+                isPause=true;
 
-                        audioPlayer.seek(Duration(
-                            seconds: int.parse(dou.floor().toString())
-                        ));
-                        setState(() {
-
-                        });
-                      },
-                      // ignore: curly_braces_in_flow_control_structures
-                      onPlayPauseButtonClick: (){
-                        if(isFirst)
-                        {
-                          audioPlayer.play(widget.message.all_file??
-                              widget.message.localFile!);
-                          isPlaying=true;
-                          isFirst=false;
-                          setState(() {});
-                        }
-                        else if (isPlaying){
-                          audioPlayer.pause();
-                          isPlaying=false;
-                          isPause=true;
-                          setState(() {});
-                        }
-                        else if (!isPlaying){
-                          audioPlayer.resume();
-                          isPlaying=true;
-                          isPause=false;
+                setState(() {});
+              }
+              else if (!isPlaying){
+                audioPlayer.resume();
+                isPlaying=true;
+                isPause=false;
 
 
-                          setState(() {});
-                        }
-                        else{
+                setState(() {});
+              }
+              else{
 
-                        }
+              }
 
-                      },
-                      sent: false,
-                    ),
-                  ),
-                ],
-              ):
-              Row(
-                children: [
-                  Expanded(
-                    child:  BubbleNormalAudio(
-                      color: const
-                      Color(0xFFE8E8EE),
-                      duration: duration.inSeconds.toDouble(),
-                      position: position.inSeconds.toDouble(),
-                      isPlaying: isPlaying,
-                      isLoading: isLoading,
-                      isPause: isPause,
-                      onSeekChanged: (dou){
-                        print(dou);
-                        position=Duration(
-                            seconds: int.parse(dou.floor().toString())
-                        );
-
-                        audioPlayer.seek(Duration(
-                            seconds: int.parse(dou.floor().toString())
-                        ));
-                        setState(() {
-
-                        });
-                      },
-                      // ignore: curly_braces_in_flow_control_structures
-                      onPlayPauseButtonClick: (){
-                        if(isFirst)
-                        {
-                          audioPlayer.play(widget.message.all_file??
-                          widget.message.localFile!
-                          );
-                          isPlaying=true;
-                          isFirst=false;
-                          setState(() {
-
-                          });
-                        }
-                        else if (isPlaying){
-                          audioPlayer.pause();
-                          isPlaying=false;
-                          isPause=true;
-
-                          setState(() {});
-                        }
-                        else if (!isPlaying){
-                          audioPlayer.resume();
-                          isPlaying=true;
-                          isPause=false;
-
-
-                          setState(() {});
-                        }
-                        else{
-
-                        }
-
-                      },
-                      sent: false,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            },
+            sent: false,
           ),
         ),
-        SizedBox(width: 11.w,)
-
-
+        SizedBox(
+          width: 75.w,
+        ),
       ],
     );
   }

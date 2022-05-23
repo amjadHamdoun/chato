@@ -36,8 +36,12 @@ import 'widget/show_menu_bottom_sheet.dart';
 
 class ConversationScreen extends StatefulWidget {
   final String conversationId;
+  final String? userTwoImage;
+  final String? userTwoName;
   const ConversationScreen({Key? key,
-   required this.conversationId
+   required this.conversationId,
+    required this.userTwoImage,
+    required this.userTwoName
   }) : super(key: key);
 
   @override
@@ -299,7 +303,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     width: 50.h,
                                     height: 50.h,
                                     child: CachedNetworkImage(
-                                      imageUrl: "http://via.placeholder.com/200x150",
+                                      imageUrl:
+                                     widget.userTwoImage??
+                                      "http://via.placeholder.com/200x150",
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
@@ -316,7 +322,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                   ),
                                   SizedBox(width: 6.w,),
                                   Expanded(child:
-                                  Text('ۦ⇜اسـۦـۦـد❪᪣❫ديـۦــرالـۦـزور⇝ۦ',
+                                  Text( widget.userTwoName??'',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
                                         fontSize: 17.sp,
