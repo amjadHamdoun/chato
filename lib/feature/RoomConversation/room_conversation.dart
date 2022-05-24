@@ -15,6 +15,7 @@ import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_vi
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/music_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
+import 'package:chato/feature/RoomConversation/widget/setting/show_vip_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_sticker.dart';
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -568,21 +569,27 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                          children: [
                                            const SizedBox(width: 6,),
 
-                                           Container(
-                                             decoration: const BoxDecoration(
-                                                 shape:BoxShape.circle,
-                                                 color: Color(0xff1E3859)
-                                             ),
-
-                                             child: Padding(
-                                               padding:  EdgeInsets.symmetric(
-                                                   vertical: 12.5.h,horizontal: 12.5.h
+                                           GestureDetector(
+                                             onTap: (){
+                                               showVipBottomSheet(
+                                                 context,bloc);
+                                             },
+                                             child: Container(
+                                               decoration: const BoxDecoration(
+                                                   shape:BoxShape.circle,
+                                                   color: Color(0xff1E3859)
                                                ),
-                                               child: Text(state.allTypeModel.data!.length.toString(),style: TextStyle(
-                                                   fontSize: 15.sp,
-                                                   color: ColorManager.backgroundColor,
-                                                   fontWeight: FontWeight.w700
-                                               ),),
+
+                                               child: Padding(
+                                                 padding:  EdgeInsets.symmetric(
+                                                     vertical: 12.5.h,horizontal: 12.5.h
+                                                 ),
+                                                 child: Text(state.allTypeModel.data!.length.toString(),style: TextStyle(
+                                                     fontSize: 15.sp,
+                                                     color: ColorManager.backgroundColor,
+                                                     fontWeight: FontWeight.w700
+                                                 ),),
+                                               ),
                                              ),
                                            ),
                                            SizedBox(width:3.w,),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../bloc/room_conversation_bloc.dart';
 import '../../bloc/room_conversation_state.dart';
 
@@ -58,7 +57,7 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
                 ),
                 SizedBox(height: 30.h,),
                 Expanded(
-                  child:state.allTypeModel.data==null?
+                  child:state.allTypeUser.data==null?
                   Center(
                     child: Text('No Users',
                       style: TextStyle(
@@ -77,7 +76,7 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
                                   width: 50.h,
                                   height: 50.h,
                                   child: CachedNetworkImage(
-                                    imageUrl:state.allTypeModel.data![index].img??
+                                    imageUrl:state.allTypeUser.data![index].img??
                                         "http://via.placeholder.com/200x150",
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
@@ -95,7 +94,7 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
                                 ),
                                 SizedBox(width: 6.w,),
                                 Expanded(
-                                  child: Text(state.allTypeModel.data![index].name!,
+                                  child: Text(state.allTypeUser.data![index].name!,
                                     style: TextStyle(
                                         fontSize: 15.sp,
                                         fontFamily: 'Roboto',
@@ -118,8 +117,8 @@ Future<String?> showUserBottomSheet(BuildContext ctx,
                       color: Theme.of(context).hintColor,
                     );
                   }, itemCount:
-                  state.allTypeModel.data!=null?
-                  state.allTypeModel.data!.length:0),
+                  state.allTypeUser.data!=null?
+                  state.allTypeUser.data!.length:0),
                 ),
                 Divider(
                   thickness:1,
