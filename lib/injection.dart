@@ -33,6 +33,7 @@ import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/api/add_remove_fav_remote.dart';
 import 'feature/RoomConversation/api/add_user_remote.dart';
+import 'feature/RoomConversation/api/change-permeation-user-room_remote.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
 import 'feature/RoomConversation/api/send_message_remote.dart';
@@ -259,6 +260,14 @@ Future<void> init() async {
   );
 
 
+  sl.registerLazySingleton<ChangePermeationUserRoomDataSource>(
+        () => ChangePermeationUserRoomDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
+
 
 
 
@@ -292,7 +301,8 @@ Future<void> init() async {
      allTypeDataSource:sl(),
     sendMessageDataSource: sl(),
     addUserDataSource: sl(),
-    addRemoveFavDataSource: sl()
+    addRemoveFavDataSource: sl(),
+    changePermeationUserRoomDataSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(

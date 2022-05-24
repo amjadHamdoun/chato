@@ -7,6 +7,7 @@ import '../../../core/utils/int_to_time.dart';
 import '../../../injection.dart';
 import '../api/add_remove_fav_remote.dart';
 import '../api/add_user_remote.dart';
+import '../api/change-permeation-user-room_remote.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
 import '../api/send_message_remote.dart';
@@ -23,13 +24,15 @@ class RoomConversationBloc
   SendMessageDataSource sendMessageDataSource;
   AddUserDataSource addUserDataSource;
   AddRemoveFavDataSource addRemoveFavDataSource;
+  ChangePermeationUserRoomDataSource changePermeationUserRoomDataSource;
 
   RoomConversationBloc({
     required this.conversationOldMessageDataSource,
     required this.allTypeDataSource,
     required this.sendMessageDataSource,
     required this.addUserDataSource,
-    required this.addRemoveFavDataSource
+    required this.addRemoveFavDataSource,
+    required this.changePermeationUserRoomDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -198,6 +201,9 @@ class RoomConversationBloc
       });
     });
 
+
+
+    //sendMessage
     on<SendMessageEvent>((event, emit)
     async {
       final filter =sl<ProfanityFilter> ();
@@ -258,6 +264,56 @@ class RoomConversationBloc
 
       });
     });
+
+
+    on<ChangePermeationUserEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+              ..isSuccessChangePer=false
+              ..isLoadingChangePer=true
+
+          ));
+      final result=await
+      changePermeationUserRoomDataSource.
+      changePermeationUser(
+          userId: event.userId,
+          roomId: event.roomId,
+             type: event.type
+
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isSuccessChangePer=false
+          ..isLoadingChangePer=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isSuccessChangePer=true
+          ..isLoadingChangePer=false
+          ..changePermeationModel=r
+
+        ));
+
+        emit(state.rebuild((b) => b
+          ..isSuccessChangePer=false
+        ));
+
+
+      });
+    });
+
+
+   //AddUserRoomEvent
     on<AddUserRoomEvent>((event, emit)
     async {
       emit(
@@ -387,6 +443,17 @@ class RoomConversationBloc
   void onAddRemoveFavRoomEvent(
       int roomId) {
     add(AddRemoveFavRoomEvent(roomId: roomId));
+  }
+
+  void onChangePermeationUserEvent(
+      int roomId,
+      int userId,
+      String type) {
+    add(ChangePermeationUserEvent(
+        roomId: roomId,
+        type: type,
+        userId:userId
+    ));
   }
 
 

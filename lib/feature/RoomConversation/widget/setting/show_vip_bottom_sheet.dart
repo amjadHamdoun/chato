@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../bloc/room_conversation_bloc.dart';
 import '../../bloc/room_conversation_state.dart';
 
@@ -13,6 +14,7 @@ import '../../bloc/room_conversation_state.dart';
 Future<String?> showVipBottomSheet(
     BuildContext ctx,
     RoomConversationBloc bloc,
+    int roomId
 
     ) async {
   showModalBottomSheet(
@@ -26,8 +28,23 @@ Future<String?> showVipBottomSheet(
         ),
       ),
       builder: (ctx) =>
-          BlocBuilder<RoomConversationBloc,RoomConversationState>(
+          BlocConsumer<RoomConversationBloc,RoomConversationState>(
            bloc: bloc,
+           listener: (context, state){
+             if(state.isSuccessChangePer!)
+               {
+                 Fluttertoast.showToast(
+                     msg: state.changePermeationModel.message!,
+                     toastLength: Toast.LENGTH_SHORT,
+                     gravity: ToastGravity.BOTTOM,
+                     timeInSecForIosWeb: 1,
+                     backgroundColor: ColorManager.primaryColor,
+                     textColor: Colors.white,
+                     fontSize: 16.0
+                 );
+
+               }
+           },
            builder: (context, state) {
             return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -41,7 +58,11 @@ Future<String?> showVipBottomSheet(
             alignment: Alignment.center,
               width: 1.sw,
               height: 450.h,
-            child: Column(
+            child:state.isLoadingChangePer!?
+            const Center(
+              child: CircularProgressIndicator(),
+            ):
+            Column(
               children: [
                 Row(
                   children: [
@@ -119,6 +140,12 @@ Future<String?> showVipBottomSheet(
                               <PopupMenuEntry>[
 
                                  PopupMenuItem(
+                                   onTap: (){
+                                     bloc.onChangePermeationUserEvent(
+                                     roomId,
+                                     state.allTypeModel.data![index].id!,
+                                     'owner');
+                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -139,6 +166,12 @@ Future<String?> showVipBottomSheet(
                                   ),
                                 ),
                                  PopupMenuItem(
+                                   onTap: (){
+                                     bloc.onChangePermeationUserEvent(
+                                         roomId,
+                                         state.allTypeModel.data![index].id!,
+                                         'admin');
+                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -159,6 +192,12 @@ Future<String?> showVipBottomSheet(
                                   ),
                                 ),
                                  PopupMenuItem(
+                                   onTap: (){
+                                     bloc.onChangePermeationUserEvent(
+                                         roomId,
+                                         state.allTypeModel.data![index].id!,
+                                         'user');
+                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

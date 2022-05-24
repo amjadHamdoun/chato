@@ -110,3 +110,18 @@ class AddRemoveFavRoomEvent extends RoomConversationEvent
   });
 }
 
+
+// ignore: must_be_immutable
+class ChangePermeationUserEvent extends RoomConversationEvent
+{
+  int roomId;
+  int userId;
+  String type;
+  ChangePermeationUserEvent({
+    required this.roomId,
+    required this.type,
+    required this.userId
+
+  });
+}
+

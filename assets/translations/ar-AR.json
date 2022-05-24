@@ -182,8 +182,13 @@
   "No Chats": "لا يوجد محادثات",
   "Bloc User Done": "تم حظر هذا المستخدم",
   "Room name contains profanity": "اسم الغرفة يحتوي كلمات نابية",
-  "name contains profanity": "الاسم يحتوي كلمات نابية"
-
+  "name contains profanity": "الاسم يحتوي كلمات نابية",
+  "Make Owner": "منح اونر",
+  "Make Admin": "منح اشراف",
+  "Make User": "منح عضوية",
+  "Expulsion": "طرد",
+  "ban": "حظر",
+  "Permanent Ban": "حظر دائم"
 
 
 }

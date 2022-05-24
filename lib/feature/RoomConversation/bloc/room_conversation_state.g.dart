@@ -16,6 +16,10 @@ class _$RoomConversationState extends RoomConversationState {
   @override
   final bool? isLoadingAllType;
   @override
+  final bool? isSuccessChangePer;
+  @override
+  final bool? isLoadingChangePer;
+  @override
   final bool showEmoji;
   @override
   final bool isRecord;
@@ -41,6 +45,8 @@ class _$RoomConversationState extends RoomConversationState {
   final SendMessageModel sendMessageModel;
   @override
   final String recordTime;
+  @override
+  final ChangePermeationModel changePermeationModel;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -51,6 +57,8 @@ class _$RoomConversationState extends RoomConversationState {
       this.isLoading,
       this.isSuccessAllType,
       this.isLoadingAllType,
+      this.isSuccessChangePer,
+      this.isLoadingChangePer,
       required this.showEmoji,
       required this.isRecord,
       required this.smileOrSticker,
@@ -63,7 +71,8 @@ class _$RoomConversationState extends RoomConversationState {
       required this.allTypeOwner,
       required this.allTypeAdmin,
       required this.sendMessageModel,
-      required this.recordTime})
+      required this.recordTime,
+      required this.changePermeationModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
@@ -91,6 +100,8 @@ class _$RoomConversationState extends RoomConversationState {
         sendMessageModel, 'RoomConversationState', 'sendMessageModel');
     BuiltValueNullFieldError.checkNotNull(
         recordTime, 'RoomConversationState', 'recordTime');
+    BuiltValueNullFieldError.checkNotNull(changePermeationModel,
+        'RoomConversationState', 'changePermeationModel');
   }
 
   @override
@@ -110,6 +121,8 @@ class _$RoomConversationState extends RoomConversationState {
         isLoading == other.isLoading &&
         isSuccessAllType == other.isSuccessAllType &&
         isLoadingAllType == other.isLoadingAllType &&
+        isSuccessChangePer == other.isSuccessChangePer &&
+        isLoadingChangePer == other.isLoadingChangePer &&
         showEmoji == other.showEmoji &&
         isRecord == other.isRecord &&
         smileOrSticker == other.smileOrSticker &&
@@ -122,7 +135,8 @@ class _$RoomConversationState extends RoomConversationState {
         allTypeOwner == other.allTypeOwner &&
         allTypeAdmin == other.allTypeAdmin &&
         sendMessageModel == other.sendMessageModel &&
-        recordTime == other.recordTime;
+        recordTime == other.recordTime &&
+        changePermeationModel == other.changePermeationModel;
   }
 
   @override
@@ -144,28 +158,36 @@ class _$RoomConversationState extends RoomConversationState {
                                                             $jc(
                                                                 $jc(
                                                                     $jc(
-                                                                        0,
-                                                                        isSuccess
+                                                                        $jc(
+                                                                            $jc(
+                                                                                $jc(
+                                                                                    0,
+                                                                                    isSuccess
+                                                                                        .hashCode),
+                                                                                isLoading
+                                                                                    .hashCode),
+                                                                            isSuccessAllType
+                                                                                .hashCode),
+                                                                        isLoadingAllType
                                                                             .hashCode),
-                                                                    isLoading
+                                                                    isSuccessChangePer
                                                                         .hashCode),
-                                                                isSuccessAllType
+                                                                isLoadingChangePer
                                                                     .hashCode),
-                                                            isLoadingAllType
-                                                                .hashCode),
-                                                        showEmoji.hashCode),
-                                                    isRecord.hashCode),
-                                                smileOrSticker.hashCode),
-                                            senGiftType.hashCode),
-                                        smile.hashCode),
-                                    error.hashCode),
-                                conversationOldMessageModel.hashCode),
-                            allTypeUser.hashCode),
-                        allTypeModel.hashCode),
-                    allTypeOwner.hashCode),
-                allTypeAdmin.hashCode),
-            sendMessageModel.hashCode),
-        recordTime.hashCode));
+                                                            showEmoji.hashCode),
+                                                        isRecord.hashCode),
+                                                    smileOrSticker.hashCode),
+                                                senGiftType.hashCode),
+                                            smile.hashCode),
+                                        error.hashCode),
+                                    conversationOldMessageModel.hashCode),
+                                allTypeUser.hashCode),
+                            allTypeModel.hashCode),
+                        allTypeOwner.hashCode),
+                    allTypeAdmin.hashCode),
+                sendMessageModel.hashCode),
+            recordTime.hashCode),
+        changePermeationModel.hashCode));
   }
 
   @override
@@ -175,6 +197,8 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('isLoading', isLoading)
           ..add('isSuccessAllType', isSuccessAllType)
           ..add('isLoadingAllType', isLoadingAllType)
+          ..add('isSuccessChangePer', isSuccessChangePer)
+          ..add('isLoadingChangePer', isLoadingChangePer)
           ..add('showEmoji', showEmoji)
           ..add('isRecord', isRecord)
           ..add('smileOrSticker', smileOrSticker)
@@ -187,7 +211,8 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('allTypeOwner', allTypeOwner)
           ..add('allTypeAdmin', allTypeAdmin)
           ..add('sendMessageModel', sendMessageModel)
-          ..add('recordTime', recordTime))
+          ..add('recordTime', recordTime)
+          ..add('changePermeationModel', changePermeationModel))
         .toString();
   }
 }
@@ -213,6 +238,16 @@ class RoomConversationStateBuilder
   bool? get isLoadingAllType => _$this._isLoadingAllType;
   set isLoadingAllType(bool? isLoadingAllType) =>
       _$this._isLoadingAllType = isLoadingAllType;
+
+  bool? _isSuccessChangePer;
+  bool? get isSuccessChangePer => _$this._isSuccessChangePer;
+  set isSuccessChangePer(bool? isSuccessChangePer) =>
+      _$this._isSuccessChangePer = isSuccessChangePer;
+
+  bool? _isLoadingChangePer;
+  bool? get isLoadingChangePer => _$this._isLoadingChangePer;
+  set isLoadingChangePer(bool? isLoadingChangePer) =>
+      _$this._isLoadingChangePer = isLoadingChangePer;
 
   bool? _showEmoji;
   bool? get showEmoji => _$this._showEmoji;
@@ -275,6 +310,12 @@ class RoomConversationStateBuilder
   String? get recordTime => _$this._recordTime;
   set recordTime(String? recordTime) => _$this._recordTime = recordTime;
 
+  ChangePermeationModel? _changePermeationModel;
+  ChangePermeationModel? get changePermeationModel =>
+      _$this._changePermeationModel;
+  set changePermeationModel(ChangePermeationModel? changePermeationModel) =>
+      _$this._changePermeationModel = changePermeationModel;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -284,6 +325,8 @@ class RoomConversationStateBuilder
       _isLoading = $v.isLoading;
       _isSuccessAllType = $v.isSuccessAllType;
       _isLoadingAllType = $v.isLoadingAllType;
+      _isSuccessChangePer = $v.isSuccessChangePer;
+      _isLoadingChangePer = $v.isLoadingChangePer;
       _showEmoji = $v.showEmoji;
       _isRecord = $v.isRecord;
       _smileOrSticker = $v.smileOrSticker;
@@ -297,6 +340,7 @@ class RoomConversationStateBuilder
       _allTypeAdmin = $v.allTypeAdmin;
       _sendMessageModel = $v.sendMessageModel;
       _recordTime = $v.recordTime;
+      _changePermeationModel = $v.changePermeationModel;
       _$v = null;
     }
     return this;
@@ -321,6 +365,8 @@ class RoomConversationStateBuilder
             isLoading: isLoading,
             isSuccessAllType: isSuccessAllType,
             isLoadingAllType: isLoadingAllType,
+            isSuccessChangePer: isSuccessChangePer,
+            isLoadingChangePer: isLoadingChangePer,
             showEmoji: BuiltValueNullFieldError.checkNotNull(
                 showEmoji, 'RoomConversationState', 'showEmoji'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
@@ -341,7 +387,8 @@ class RoomConversationStateBuilder
             allTypeOwner: BuiltValueNullFieldError.checkNotNull(allTypeOwner, 'RoomConversationState', 'allTypeOwner'),
             allTypeAdmin: BuiltValueNullFieldError.checkNotNull(allTypeAdmin, 'RoomConversationState', 'allTypeAdmin'),
             sendMessageModel: BuiltValueNullFieldError.checkNotNull(sendMessageModel, 'RoomConversationState', 'sendMessageModel'),
-            recordTime: BuiltValueNullFieldError.checkNotNull(recordTime, 'RoomConversationState', 'recordTime'));
+            recordTime: BuiltValueNullFieldError.checkNotNull(recordTime, 'RoomConversationState', 'recordTime'),
+            changePermeationModel: BuiltValueNullFieldError.checkNotNull(changePermeationModel, 'RoomConversationState', 'changePermeationModel'));
     replace(_$result);
     return _$result;
   }

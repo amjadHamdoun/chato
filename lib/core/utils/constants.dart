@@ -37,7 +37,7 @@ class Endpoints {
   static const restPassword = 'auth/rest_password';
   static const sendCoins = 'send_coins';
   static const addDeleteFavoriteRoom = 'room/add-delete-favorite-room';
-
+  static const changePermeationUserRoom = 'room/change-permeation-user-room';
 
 
 }

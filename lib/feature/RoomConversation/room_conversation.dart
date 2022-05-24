@@ -448,23 +448,37 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                  ),
                                                  child: Row(
                                                    children: [
-                                                     SizedBox(
-                                                       width: 50.h,
-                                                       height: 50.h,
-                                                       child: CachedNetworkImage(
-                                                         imageUrl: "http://via.placeholder.com/200x150",
-                                                         imageBuilder: (context, imageProvider) => Container(
-                                                           decoration: BoxDecoration(
-                                                             shape: BoxShape.circle,
-                                                             image: DecorationImage(
-                                                               image: imageProvider,
-                                                               fit: BoxFit.fill,
+                                                     GestureDetector(
+                                                       onTap: (){
+                                                         if(widget.ownerId==Global.userId)
+                                                         {
 
+                                                           Navigator.push(context,
+                                                               MaterialPageRoute(builder: (context) =>
+                                                                   RoomSettings(bloc: bloc,
+                                                                     roomId: widget.roomId,
+                                                                   ) ,));
+
+                                                         }
+                                                       },
+                                                       child: SizedBox(
+                                                         width: 50.h,
+                                                         height: 50.h,
+                                                         child: CachedNetworkImage(
+                                                           imageUrl: "http://via.placeholder.com/200x150",
+                                                           imageBuilder: (context, imageProvider) => Container(
+                                                             decoration: BoxDecoration(
+                                                               shape: BoxShape.circle,
+                                                               image: DecorationImage(
+                                                                 image: imageProvider,
+                                                                 fit: BoxFit.fill,
+
+                                                               ),
                                                              ),
                                                            ),
+                                                           placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                                           errorWidget: (context, url, error) => const Icon(Icons.error),
                                                          ),
-                                                         placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                         errorWidget: (context, url, error) => const Icon(Icons.error),
                                                        ),
                                                      ),
                                                      SizedBox(width: 6.w,),
@@ -516,11 +530,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                SizedBox(width: 25.w,),
                                                IconButton(
                                                  onPressed: (){
-                                                   Navigator.push(context,
-                                                       MaterialPageRoute(builder: (context) =>
-                                                           RoomSettings(bloc: bloc,
-                                                             roomId: widget.roomId,
-                                                           ) ,));
+
                                                  },
                                                  icon:SvgPicture.asset(
                                                    'assets/icons/menu.svg',
@@ -571,8 +581,13 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
                                            GestureDetector(
                                              onTap: (){
-                                               showVipBottomSheet(
-                                                 context,bloc);
+                                               if(widget.ownerId==Global.userId)
+                                                 {
+                                                   showVipBottomSheet(context,bloc,
+                                                    widget.roomId
+                                                   );
+                                                 }
+
                                              },
                                              child: Container(
                                                decoration: const BoxDecoration(
