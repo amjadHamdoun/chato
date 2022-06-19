@@ -4,45 +4,35 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/private_old_message_model.dart';
+import '../model/backgroundImageRoom/background_image_model.dart';
 
 
 
-abstract class PrivateOldMessageDataSource {
-  Future<Either<String, PrivateOldMessageModel>>
-   getConversationOldMessage({required String conversationId,
-   required int page
-  });
+abstract class GetBackgroundImageSource {
+  Future<Either<String, BackgroundImageModel>>
+   getBackgroundImage();
 }
 
-class PrivateOldMessageDataSourceImpl extends
-     PrivateOldMessageDataSource {
+class GetBackgroundImageSourceImpl extends
+GetBackgroundImageSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  PrivateOldMessageDataSourceImpl(
+  GetBackgroundImageSourceImpl(
       { required this.dio,
         required this.networkInfo
       });
 
   @override
-  Future<Either<String, PrivateOldMessageModel>>
-  getConversationOldMessage({
-    required String conversationId,
-    required int page
-  }) async {
+  Future<Either<String, BackgroundImageModel>>
+  getBackgroundImage() async {
     if (await networkInfo.hasConnection) {
       try {
-
         dio.options.headers["Authorization"] =
         "Bearer ${Global.userToken}";
         final re = await dio.get
           (
-          Endpoints.getConversationOldMessage,
-          queryParameters: {
-            "conversation_id":conversationId,
-            "page":page
-          },
+          Endpoints.getBackgroundImage,
           options: Options(
             followRedirects: false,
             validateStatus: (status) {
@@ -50,7 +40,7 @@ class PrivateOldMessageDataSourceImpl extends
             },
           ),
         );
-        return Right(PrivateOldMessageModel
+        return Right(BackgroundImageModel
             .fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {

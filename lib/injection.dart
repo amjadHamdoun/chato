@@ -11,6 +11,7 @@ import 'package:profanity_filter/profanity_filter.dart';
 import 'core/utils/constants.dart';
 import 'feature/Conversation/api/block_user_remote.dart';
 import 'feature/Conversation/api/get_conversation_old_message_remote.dart';
+import 'feature/Conversation/api/private_send_message_remote.dart';
 import 'feature/Pages/ChatPage/api/get_conversation_private_remote.dart';
 import 'feature/Conversation/bloc/conversation_bloc.dart';
 import 'feature/Pages/ChatPage/bloc/chat_bloc.dart';
@@ -35,8 +36,10 @@ import 'feature/RoomConversation/api/add_remove_fav_remote.dart';
 import 'feature/RoomConversation/api/add_user_remote.dart';
 import 'feature/RoomConversation/api/change-permeation-user-room_remote.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
+import 'feature/RoomConversation/api/get_background_image_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
 import 'feature/RoomConversation/api/send_message_remote.dart';
+import 'feature/RoomConversation/api/update_room_remote.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
 import 'feature/User/api/add_friend_remote.dart';
 import 'feature/autho/forgot/api/change_password_remote.dart';
@@ -266,7 +269,24 @@ Future<void> init() async {
         networkInfo: sl()
     ),
   );
-
+  sl.registerLazySingleton<PrivateSendMessageDataSource>(
+        () => PrivateSendMessageDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+  sl.registerLazySingleton<GetBackgroundImageSource>(
+        () => GetBackgroundImageSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+  sl.registerLazySingleton<UpdateRoomDataSource>(
+        () => UpdateRoomDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
 
 
 
@@ -278,7 +298,6 @@ Future<void> init() async {
     changeRequestsFriendRemoteDataSource: sl(),
     searchFriendRemoteDataSource: sl(),
     allFriendRemoteDataSource:  sl()
-
   ));
 
   sl.registerLazySingleton(() => ConversationBloc(
@@ -302,7 +321,9 @@ Future<void> init() async {
     sendMessageDataSource: sl(),
     addUserDataSource: sl(),
     addRemoveFavDataSource: sl(),
-    changePermeationUserRoomDataSource: sl()
+    changePermeationUserRoomDataSource: sl(),
+    getBackgroundImageSource: sl(),
+    updateRoomDataSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(

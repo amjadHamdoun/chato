@@ -26,7 +26,10 @@ class StartRecordEvent extends ConversationEvent{
 class GetConversationMessage extends ConversationEvent
 {
   String id;
-  GetConversationMessage({required this.id});
+  int page;
+  GetConversationMessage({
+    required this.id,
+    required this.page});
 }
 
 
@@ -44,10 +47,10 @@ class SendMessageEvent extends ConversationEvent
 {
   File? allFile;
   String message;
-  int roomId;
+  int userTwoId;
   SendMessageEvent({
     required this.message,
-    required this.roomId,
+    required this.userTwoId,
     required this.allFile
   });
 }

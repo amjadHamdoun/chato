@@ -1,48 +1,65 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:chato/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/private_old_message_model.dart';
+import '../../RoomConversation/model/sendMessage/send_message_model.dart';
 
 
 
-abstract class PrivateOldMessageDataSource {
-  Future<Either<String, PrivateOldMessageModel>>
-   getConversationOldMessage({required String conversationId,
-   required int page
-  });
+
+abstract class PrivateSendMessageDataSource {
+  Future<Either<String, SendMessageModel>>
+   sendMessage({
+    required String message,
+    required int userTwoId,
+     File? file,
+   });
 }
 
-class PrivateOldMessageDataSourceImpl extends
-     PrivateOldMessageDataSource {
+class PrivateSendMessageDataSourceImpl extends
+   PrivateSendMessageDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  PrivateOldMessageDataSourceImpl(
-      { required this.dio,
-        required this.networkInfo
+  PrivateSendMessageDataSourceImpl(
+      {
+        required this.dio,
+        required this.networkInfo,
+
       });
 
   @override
-  Future<Either<String, PrivateOldMessageModel>>
-  getConversationOldMessage({
-    required String conversationId,
-    required int page
+  Future<Either<String, SendMessageModel>>
+  sendMessage({
+    required String message,
+    required int userTwoId,
+    File? file,
   }) async {
+    String fileName='';
+    if(file!=null) {
+      fileName =file.path.split('/').last;
+    }
+    FormData data =  FormData.fromMap(
+        {
+          if(file!=null)
+          "all_file":
+          await MultipartFile.
+          fromFile(file.path, filename:fileName),
+          'message':message,
+          'user2_id':userTwoId,
+        }
+    );
     if (await networkInfo.hasConnection) {
       try {
-
         dio.options.headers["Authorization"] =
         "Bearer ${Global.userToken}";
-        final re = await dio.get
+        final re = await dio.post
           (
-          Endpoints.getConversationOldMessage,
-          queryParameters: {
-            "conversation_id":conversationId,
-            "page":page
-          },
+          Endpoints.sendMessage,
+          data: data,
           options: Options(
             followRedirects: false,
             validateStatus: (status) {
@@ -50,7 +67,7 @@ class PrivateOldMessageDataSourceImpl extends
             },
           ),
         );
-        return Right(PrivateOldMessageModel
+        return Right(SendMessageModel
             .fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {

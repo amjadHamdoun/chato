@@ -96,7 +96,7 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                                 ),
                                 SizedBox(width: 6.w,),
                                 Expanded(
-                                  child: Text('ۦ⇜اسـۦـۦـد❪᪣❫ديـۦــرالـۦـزور⇝',
+                                  child: Text(state.allTypeOwner.data![index].name!,
                                     style: TextStyle(
                                         fontSize: 15.sp,
                                         fontFamily: 'Roboto',
@@ -108,7 +108,9 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                                   ),
                                 ),
 
-                                IconButton(onPressed: (){}, icon: SvgPicture.asset('assets/icons/trash.svg')),
+                                IconButton(onPressed: (){},
+                                    icon: SvgPicture.asset(
+                                        'assets/icons/trash.svg')),
 
                               ],
                             )

@@ -12,6 +12,8 @@ class _$RoomConversationState extends RoomConversationState {
   @override
   final bool? isLoading;
   @override
+  final bool? isLoadingGetBackgroundImage;
+  @override
   final bool? isSuccessAllType;
   @override
   final bool? isLoadingAllType;
@@ -47,6 +49,12 @@ class _$RoomConversationState extends RoomConversationState {
   final String recordTime;
   @override
   final ChangePermeationModel changePermeationModel;
+  @override
+  final bool wantToExit;
+  @override
+  final BackgroundImageModel backgroundImageModel;
+  @override
+  final BackgroundImageDataModel primaryBackground;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -55,6 +63,7 @@ class _$RoomConversationState extends RoomConversationState {
   _$RoomConversationState._(
       {this.isSuccess,
       this.isLoading,
+      this.isLoadingGetBackgroundImage,
       this.isSuccessAllType,
       this.isLoadingAllType,
       this.isSuccessChangePer,
@@ -72,7 +81,10 @@ class _$RoomConversationState extends RoomConversationState {
       required this.allTypeAdmin,
       required this.sendMessageModel,
       required this.recordTime,
-      required this.changePermeationModel})
+      required this.changePermeationModel,
+      required this.wantToExit,
+      required this.backgroundImageModel,
+      required this.primaryBackground})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
@@ -102,6 +114,12 @@ class _$RoomConversationState extends RoomConversationState {
         recordTime, 'RoomConversationState', 'recordTime');
     BuiltValueNullFieldError.checkNotNull(changePermeationModel,
         'RoomConversationState', 'changePermeationModel');
+    BuiltValueNullFieldError.checkNotNull(
+        wantToExit, 'RoomConversationState', 'wantToExit');
+    BuiltValueNullFieldError.checkNotNull(
+        backgroundImageModel, 'RoomConversationState', 'backgroundImageModel');
+    BuiltValueNullFieldError.checkNotNull(
+        primaryBackground, 'RoomConversationState', 'primaryBackground');
   }
 
   @override
@@ -119,6 +137,7 @@ class _$RoomConversationState extends RoomConversationState {
     return other is RoomConversationState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
+        isLoadingGetBackgroundImage == other.isLoadingGetBackgroundImage &&
         isSuccessAllType == other.isSuccessAllType &&
         isLoadingAllType == other.isLoadingAllType &&
         isSuccessChangePer == other.isSuccessChangePer &&
@@ -136,7 +155,10 @@ class _$RoomConversationState extends RoomConversationState {
         allTypeAdmin == other.allTypeAdmin &&
         sendMessageModel == other.sendMessageModel &&
         recordTime == other.recordTime &&
-        changePermeationModel == other.changePermeationModel;
+        changePermeationModel == other.changePermeationModel &&
+        wantToExit == other.wantToExit &&
+        backgroundImageModel == other.backgroundImageModel &&
+        primaryBackground == other.primaryBackground;
   }
 
   @override
@@ -159,35 +181,26 @@ class _$RoomConversationState extends RoomConversationState {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc(
-                                                                                $jc(
-                                                                                    0,
-                                                                                    isSuccess
-                                                                                        .hashCode),
-                                                                                isLoading
-                                                                                    .hashCode),
-                                                                            isSuccessAllType
-                                                                                .hashCode),
-                                                                        isLoadingAllType
-                                                                            .hashCode),
-                                                                    isSuccessChangePer
-                                                                        .hashCode),
-                                                                isLoadingChangePer
-                                                                    .hashCode),
-                                                            showEmoji.hashCode),
-                                                        isRecord.hashCode),
-                                                    smileOrSticker.hashCode),
-                                                senGiftType.hashCode),
-                                            smile.hashCode),
-                                        error.hashCode),
-                                    conversationOldMessageModel.hashCode),
-                                allTypeUser.hashCode),
-                            allTypeModel.hashCode),
-                        allTypeOwner.hashCode),
-                    allTypeAdmin.hashCode),
-                sendMessageModel.hashCode),
-            recordTime.hashCode),
-        changePermeationModel.hashCode));
+                                                                            $jc($jc($jc($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode), isLoadingGetBackgroundImage.hashCode), isSuccessAllType.hashCode), isLoadingAllType.hashCode),
+                                                                                isSuccessChangePer.hashCode),
+                                                                            isLoadingChangePer.hashCode),
+                                                                        showEmoji.hashCode),
+                                                                    isRecord.hashCode),
+                                                                smileOrSticker.hashCode),
+                                                            senGiftType.hashCode),
+                                                        smile.hashCode),
+                                                    error.hashCode),
+                                                conversationOldMessageModel.hashCode),
+                                            allTypeUser.hashCode),
+                                        allTypeModel.hashCode),
+                                    allTypeOwner.hashCode),
+                                allTypeAdmin.hashCode),
+                            sendMessageModel.hashCode),
+                        recordTime.hashCode),
+                    changePermeationModel.hashCode),
+                wantToExit.hashCode),
+            backgroundImageModel.hashCode),
+        primaryBackground.hashCode));
   }
 
   @override
@@ -195,6 +208,7 @@ class _$RoomConversationState extends RoomConversationState {
     return (newBuiltValueToStringHelper('RoomConversationState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
+          ..add('isLoadingGetBackgroundImage', isLoadingGetBackgroundImage)
           ..add('isSuccessAllType', isSuccessAllType)
           ..add('isLoadingAllType', isLoadingAllType)
           ..add('isSuccessChangePer', isSuccessChangePer)
@@ -212,7 +226,10 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('allTypeAdmin', allTypeAdmin)
           ..add('sendMessageModel', sendMessageModel)
           ..add('recordTime', recordTime)
-          ..add('changePermeationModel', changePermeationModel))
+          ..add('changePermeationModel', changePermeationModel)
+          ..add('wantToExit', wantToExit)
+          ..add('backgroundImageModel', backgroundImageModel)
+          ..add('primaryBackground', primaryBackground))
         .toString();
   }
 }
@@ -228,6 +245,11 @@ class RoomConversationStateBuilder
   bool? _isLoading;
   bool? get isLoading => _$this._isLoading;
   set isLoading(bool? isLoading) => _$this._isLoading = isLoading;
+
+  bool? _isLoadingGetBackgroundImage;
+  bool? get isLoadingGetBackgroundImage => _$this._isLoadingGetBackgroundImage;
+  set isLoadingGetBackgroundImage(bool? isLoadingGetBackgroundImage) =>
+      _$this._isLoadingGetBackgroundImage = isLoadingGetBackgroundImage;
 
   bool? _isSuccessAllType;
   bool? get isSuccessAllType => _$this._isSuccessAllType;
@@ -316,6 +338,21 @@ class RoomConversationStateBuilder
   set changePermeationModel(ChangePermeationModel? changePermeationModel) =>
       _$this._changePermeationModel = changePermeationModel;
 
+  bool? _wantToExit;
+  bool? get wantToExit => _$this._wantToExit;
+  set wantToExit(bool? wantToExit) => _$this._wantToExit = wantToExit;
+
+  BackgroundImageModel? _backgroundImageModel;
+  BackgroundImageModel? get backgroundImageModel =>
+      _$this._backgroundImageModel;
+  set backgroundImageModel(BackgroundImageModel? backgroundImageModel) =>
+      _$this._backgroundImageModel = backgroundImageModel;
+
+  BackgroundImageDataModel? _primaryBackground;
+  BackgroundImageDataModel? get primaryBackground => _$this._primaryBackground;
+  set primaryBackground(BackgroundImageDataModel? primaryBackground) =>
+      _$this._primaryBackground = primaryBackground;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -323,6 +360,7 @@ class RoomConversationStateBuilder
     if ($v != null) {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
+      _isLoadingGetBackgroundImage = $v.isLoadingGetBackgroundImage;
       _isSuccessAllType = $v.isSuccessAllType;
       _isLoadingAllType = $v.isLoadingAllType;
       _isSuccessChangePer = $v.isSuccessChangePer;
@@ -341,6 +379,9 @@ class RoomConversationStateBuilder
       _sendMessageModel = $v.sendMessageModel;
       _recordTime = $v.recordTime;
       _changePermeationModel = $v.changePermeationModel;
+      _wantToExit = $v.wantToExit;
+      _backgroundImageModel = $v.backgroundImageModel;
+      _primaryBackground = $v.primaryBackground;
       _$v = null;
     }
     return this;
@@ -363,6 +404,7 @@ class RoomConversationStateBuilder
         new _$RoomConversationState._(
             isSuccess: isSuccess,
             isLoading: isLoading,
+            isLoadingGetBackgroundImage: isLoadingGetBackgroundImage,
             isSuccessAllType: isSuccessAllType,
             isLoadingAllType: isLoadingAllType,
             isSuccessChangePer: isSuccessChangePer,
@@ -388,7 +430,10 @@ class RoomConversationStateBuilder
             allTypeAdmin: BuiltValueNullFieldError.checkNotNull(allTypeAdmin, 'RoomConversationState', 'allTypeAdmin'),
             sendMessageModel: BuiltValueNullFieldError.checkNotNull(sendMessageModel, 'RoomConversationState', 'sendMessageModel'),
             recordTime: BuiltValueNullFieldError.checkNotNull(recordTime, 'RoomConversationState', 'recordTime'),
-            changePermeationModel: BuiltValueNullFieldError.checkNotNull(changePermeationModel, 'RoomConversationState', 'changePermeationModel'));
+            changePermeationModel: BuiltValueNullFieldError.checkNotNull(changePermeationModel, 'RoomConversationState', 'changePermeationModel'),
+            wantToExit: BuiltValueNullFieldError.checkNotNull(wantToExit, 'RoomConversationState', 'wantToExit'),
+            backgroundImageModel: BuiltValueNullFieldError.checkNotNull(backgroundImageModel, 'RoomConversationState', 'backgroundImageModel'),
+            primaryBackground: BuiltValueNullFieldError.checkNotNull(primaryBackground, 'RoomConversationState', 'primaryBackground'));
     replace(_$result);
     return _$result;
   }

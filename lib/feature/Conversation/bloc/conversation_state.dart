@@ -1,5 +1,4 @@
 import 'package:built_value/built_value.dart';
-import '../../Pages/ChatPage/model/get_conversation_privet_model.dart';
 import '../../RoomConversation/model/sendMessage/send_message_model.dart';
 import '../model/private_old_message_model.dart';
 part 'conversation_state.g.dart';
@@ -21,7 +20,6 @@ abstract class ConversationState implements
   String get smile;
   String get recordTime;
   String get blocUser;
-
   ConversationState._();
 
   factory ConversationState([void Function(ConversationStateBuilder) updates]) = _$ConversationState;
@@ -43,14 +41,13 @@ abstract class ConversationState implements
            error_code: 0
          )
         ..privateOldMessageModel=
-        PrivateOldMessageModel(
+          PrivateOldMessageModel(
             status: false,
                message: '',
               error_code: 0,
-              data: []
+              data: [],
+            next_page_url: null
             )
-
-
         ..error=''
 
     );

@@ -5,10 +5,10 @@ import 'package:profanity_filter/profanity_filter.dart';
 import '../../../Globals.dart';
 import '../../../core/utils/int_to_time.dart';
 import '../../../injection.dart';
-import '../../RoomConversation/api/send_message_remote.dart';
 import '../../User/model/user_data.dart';
 import '../api/block_user_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
+import '../api/private_send_message_remote.dart';
 import '../model/private_old_message_data_model.dart';
 import '../model/private_old_message_model.dart';
 import 'conversation_event.dart';
@@ -17,7 +17,7 @@ import 'conversation_state.dart';
 
 class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   PrivateOldMessageDataSource privateOldMessageDataSource;
-  SendMessageDataSource sendMessageDataSource;
+  PrivateSendMessageDataSource sendMessageDataSource;
   BlockUserRemoteDataSource blockUserRemoteDataSource;
   ConversationBloc({
     required this.privateOldMessageDataSource,
@@ -45,51 +45,66 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
     on<GetConversationMessage>((event, emit)
     async {
-      emit(
-          state.rebuild((b) => b
-            ..error=''
-            ..isLoading=true
-            ..isSuccess=false
-            ..privateOldMessageModel=
-            PrivateOldMessageModel(
+
+
+      if(state.privateOldMessageModel.next_page_url!=null||event.page==1)
+        {
+          emit(
+              state.rebuild((b) => b
+                ..error=''
+                ..isLoading=true
+                ..isSuccess=false
+              ));
+          final result=await
+          privateOldMessageDataSource.
+          getConversationOldMessage(
+              conversationId: event.id,
+            page: event.page
+          );
+          return result.fold((l) async {
+            print('l');
+            emit(state.rebuild((b) => b
+              ..isLoading=false
+              ..isSuccess=false
+              ..error = l
+            ));
+            emit(state.rebuild((b) => b
+              ..error = ''));
+          }, (r) async {
+            print('r');
+            PrivateOldMessageModel data=
+            PrivateOldMessageModel(status: false,
                 message: '',
                 error_code: 0,
-                status: false,
-                data: []
-            )
-          ));
-      final result=await
-      privateOldMessageDataSource.
-      getConversationOldMessage(
-          conversationId: event.id
-      );
-      return result.fold((l) async {
-        print('l');
-        emit(state.rebuild((b) => b
-          ..isLoading=false
-          ..isSuccess=false
-          ..error = l
-        ));
-        emit(state.rebuild((b) => b
-          ..error = ''));
-      }, (r) async {
-        print('r');
-        PrivateOldMessageModel data=
-        PrivateOldMessageModel(status: false,
-            message: '',
-            error_code: 0,
-            data: []
-        );
-        for(int i=0;i<r.data!.length;i++){
-          data.data!.add(r.data![r.data!.length-i-1]);
+                data: [],
+                next_page_url: r.next_page_url
+            );
+            for(int i=0;i<r.data!.length;i++){
+              data.data!.add(r.data![r.data!.length-i-1]);
+            }
+            for(int i=0;i<state.privateOldMessageModel.data!.length;i++){
+              data.data!.add(state.privateOldMessageModel.data![i]);
+            }
+
+            if(event.page==1)
+              {
+                emit(state.rebuild((b) => b
+
+
+                  ..isSuccess=true
+                ));
+              }
+
+            emit(state.rebuild((b) => b
+              ..error=''
+              ..isLoading=false
+              ..privateOldMessageModel=data
+
+
+            ));
+          });
         }
-        emit(state.rebuild((b) => b
-          ..error=''
-          ..isLoading=false
-          ..privateOldMessageModel=data
-          ..isSuccess=true
-        ));
-      });
+
     });
 
 
@@ -138,7 +153,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       PrivateOldMessageModel(data: [],
           status: false,
           error_code: 0,
-          message: ''
+          message: '',
+        next_page_url: state.privateOldMessageModel.next_page_url
       );
       for(var message in state.privateOldMessageModel.data!)
       {
@@ -156,11 +172,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     async {
       final filter =sl<ProfanityFilter> ();
 
-
       String cleanString = filter.censor(event.message);
-
-
-
 
       emit(
           state.rebuild((b) => b
@@ -192,7 +204,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       sendMessageDataSource.
       sendMessage(
           message: cleanString,
-          roomId: event.roomId,
+          userTwoId: event.userTwoId,
           file: event.allFile
       );
       return result.fold((l) async {
@@ -228,15 +240,15 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   void onStartRecord(bool show) {
     add(StartRecordEvent(show));
   }
-  void onGetConversationMessage(String id) {
-    add(GetConversationMessage( id: id));
+  void onGetConversationMessage(String id,int page) {
+    add(GetConversationMessage( id: id,page: page));
   }
   void onAddMessageFromPusherEvent(PrivateOldMessageDataModel message) {
     add(AddMessageFromPusherEvent(message:message ));
   }
-  void onSendMessageEvent(String message,int roomId,
+  void onSendMessageEvent(String message,int userTwoId,
       File? file) {
-    add(SendMessageEvent(message: message,roomId: roomId,
+    add(SendMessageEvent(message: message,userTwoId: userTwoId,
         allFile: file));
   }
   void onChangeRecordTimerEvent(

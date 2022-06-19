@@ -11,8 +11,8 @@ class PrivateOldMessageModel {
   bool? status;
   int? error_code;
   String? message;
-  final List<PrivateOldMessageDataModel>? data;
-
+   List<PrivateOldMessageDataModel>? data;
+  String? next_page_url;
 
 
   Map<String, dynamic> toJson() =>
@@ -25,6 +25,7 @@ class PrivateOldMessageModel {
         required this.data,
         required this.error_code,
         required this.message,
-        required this.status
+        required this.status,
+        required this.next_page_url
       });
 }

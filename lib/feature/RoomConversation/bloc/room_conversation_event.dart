@@ -125,3 +125,30 @@ class ChangePermeationUserEvent extends RoomConversationEvent
   });
 }
 
+// ignore: must_be_immutable
+class WantToExitEvent extends RoomConversationEvent
+{
+  bool wantExit;
+
+  WantToExitEvent({
+    required this.wantExit,
+  });
+}
+
+// ignore: must_be_immutable
+class ChangeBackgroundImageEvent extends RoomConversationEvent
+{
+  int? id;
+  int? roomId;
+  String? backgroundImage;
+  ChangeBackgroundImageEvent({
+     this.roomId,
+    this.id,
+    this.backgroundImage,
+     });
+}
+// ignore: must_be_immutable
+class GetBackgroundImageEvent extends RoomConversationEvent
+{
+
+}

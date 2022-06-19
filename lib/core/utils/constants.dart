@@ -38,7 +38,8 @@ class Endpoints {
   static const sendCoins = 'send_coins';
   static const addDeleteFavoriteRoom = 'room/add-delete-favorite-room';
   static const changePermeationUserRoom = 'room/change-permeation-user-room';
-
+  static const getBackgroundImage = '/room/get-background-room';
+  static const updateRoom = '/room/update-room';
 
 }
 

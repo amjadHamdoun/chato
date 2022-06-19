@@ -67,9 +67,10 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
    Recording? _current;
    late RecordingStatus _currentStatus ;
    late Timer timer;
-
    bool update=false;
 
+    
+    
    @override
   void initState() {
      _init();
@@ -114,8 +115,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
     super.initState();
   }
-
-
 
    _init() async {
      try {
@@ -371,7 +370,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                    if(state.showEmoji)
                    {
 
-                     bloc.onShowEmojiEvent(false);
+                      bloc.onShowEmojiEvent(false);
 
                    }
                  }
@@ -401,17 +400,34 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                            children: [
                              if(widget.background!.isNotEmpty)
                                Expanded(
-                                 child: Image.network(widget.background!,
-                                   fit: BoxFit.cover,
-
-
+                                 child: CachedNetworkImage(
+                                   imageUrl: widget.background!,
+                                   imageBuilder: (context, imageProvider) => Container(
+                                     decoration: BoxDecoration(
+                                       image: DecorationImage(
+                                         image: imageProvider,
+                                         fit: BoxFit.cover,
+                                       ),
+                                     ),
+                                   ),
+                                   placeholder: (context, url) => const Center(child:  CircularProgressIndicator()),
+                                   errorWidget: (context, url, error) =>const Icon(Icons.error),
                                  ),
-                               )else
+                               )
+                             else
                              Expanded(
-                               child: Image.asset('assets/images/background.jpg',
-                                 fit: BoxFit.cover,
-
-
+                               child: CachedNetworkImage(
+                                 imageUrl: state.primaryBackground.background!,
+                                 imageBuilder: (context, imageProvider) => Container(
+                                   decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: imageProvider,
+                                         fit: BoxFit.cover,
+                                     ),
+                                   ),
+                                 ),
+                                 placeholder: (context, url) => const Center(child:  CircularProgressIndicator()),
+                                 errorWidget: (context, url, error) =>const Icon(Icons.error),
                                ),
                              ),
                            ],
@@ -452,13 +468,11 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                        onTap: (){
                                                          if(widget.ownerId==Global.userId)
                                                          {
-
                                                            Navigator.push(context,
                                                                MaterialPageRoute(builder: (context) =>
                                                                    RoomSettings(bloc: bloc,
                                                                      roomId: widget.roomId,
                                                                    ) ,));
-
                                                          }
                                                        },
                                                        child: SizedBox(
@@ -530,7 +544,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                SizedBox(width: 25.w,),
                                                IconButton(
                                                  onPressed: (){
-
+                                                   bloc.onWantToExitEvent(true);
                                                  },
                                                  icon:SvgPicture.asset(
                                                    'assets/icons/menu.svg',
@@ -1184,6 +1198,116 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
 
                          ),
+                         if(state.wantToExit)
+                           GestureDetector(
+                             onTap: (){
+                               bloc.onWantToExitEvent(false);
+                             },
+                             child: Material(
+                               color: Colors.transparent.withOpacity(0.8),
+                               child: SizedBox(
+                                 height: 1.sh,
+                                 width: 1.sw,
+                                 child: Column(
+                                   children: [
+                                     SizedBox(
+                                       height: 0.1.sh,
+                                     ),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                       children: [
+                                         GestureDetector(
+                                           onTap: (){
+                                             bloc.onWantToExitEvent(false);
+                                             Navigator.pop(context);
+                                           },
+                                           child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.center,
+                                             mainAxisAlignment: MainAxisAlignment.center,
+                                             children: [
+                                               Container(
+
+                                                  decoration: const BoxDecoration(
+                                                      color: ColorManager.primaryColor,
+                                                    shape: BoxShape.circle
+                                                  ),
+                                                 child: Padding(
+                                                   padding:  EdgeInsets.all(15.0.w),
+                                                   child: Icon(Icons.check,
+                                                   color: ColorManager.backgroundColor,
+                                                     size: 36.w,
+
+
+                                                   ),
+                                                 ),
+                                               ),
+                                               SizedBox(
+                                                 height: 10.h,
+                                               ),
+                                               SizedBox(
+                                                 width: 0.4.sw,
+                                                 child: Text('Stay in Background',
+                                                 style: TextStyle(
+                                                   fontSize: 16.sp,
+                                                   color: ColorManager.backgroundColor
+                                                 ),
+                                                   textAlign: TextAlign.center,
+                                                 ),
+                                               )
+                                             ],
+                                           ),
+                                         ),
+
+                                         GestureDetector(
+                                           onTap: (){
+                                             bloc.onWantToExitEvent(false);
+                                                 Global.pusher!.unsubscribe("chat.${widget.roomId}");
+                                                 Navigator.pop(context);
+                                           },
+                                           child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.center,
+                                             mainAxisAlignment: MainAxisAlignment.center,
+                                             children: [
+                                               Container(
+                                                 decoration: const BoxDecoration(
+                                                     color: ColorManager.primaryColor,
+                                                     shape: BoxShape.circle
+                                                 ),
+                                                 child: Padding(
+                                                   padding:  EdgeInsets.all(15.0.w),
+                                                   child: Icon(Icons.exit_to_app,
+                                                     color: ColorManager.backgroundColor,
+                                                     size: 36.w,
+
+
+                                                   ),
+                                                 ),
+                                               ),
+                                               SizedBox(
+                                                 height: 10.h,
+                                               ),
+                                               SizedBox(
+                                                 width: 0.4.sw,
+                                                 child: Text('Exit',
+                                                   style: TextStyle(
+                                                       fontSize: 16.sp,
+                                                       color: ColorManager.backgroundColor
+                                                   ),
+                                                   textAlign: TextAlign.center,
+                                                 ),
+                                               )
+                                             ],
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   ],
+                                 ),
+                               ),
+                             ),
+                           ),
+                           
+
                        ],
                      ),
                    ),

@@ -7,6 +7,7 @@ import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
 import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,15 +65,31 @@ class _ConversationScreenState extends State<ConversationScreen> {
    Recording? _current;
    late RecordingStatus _currentStatus ;
    late Timer timer;
+   int page=1;
+
+
+
    @override
   void initState() {
      _init();
+     scrollController.addListener(() {
+       if (scrollController.position.atEdge) {
+         bool isTop = scrollController.position.pixels == 0;
+         if (isTop) {
+           page++;
+           bloc.onGetConversationMessage(
+               "10",page
+           );
+           print('At the top');
+         } else {
+           print('At the bottom');
+         }
+       }
+     });
      bloc.onGetConversationMessage(
-         widget.conversationId
+         "10",page
      );
-      print("widget.conversationId");
-     print(widget.conversationId);
-     print("widget.conversationId");
+
      channelChat =
          Global.pusher!.subscribe("chat.${widget.conversationId}");
 
@@ -502,12 +519,13 @@ class _ConversationScreenState extends State<ConversationScreen> {
                               height: 25.h,
                             ),
 
-
+                            if(state.isLoading!)
+                              const Center(
+                                child: CircularProgressIndicator(),
+                              ),
                             //المحادثة
                             Expanded(
-
-                              child:
-                              ListView.separated(
+                              child: ListView.separated(
                                 controller: scrollController,
 
                                 physics: const AlwaysScrollableScrollPhysics(
@@ -731,7 +749,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                   );
 
                                 },
-                              ),),
+                              ),
+                            ),
 
 
 
@@ -757,9 +776,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
                                                 );
                                               }
-
-
-
 
                                               Future.delayed(const Duration(milliseconds: 300)).then((value) {
                                                 bloc.onShowEmojiEvent(true);
@@ -835,7 +851,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                           InkWell(
                                             onTap: (){
                                               showMediaBottomSheet(bloc: bloc,ctx: context,
-                                              conId: int.parse(widget.conversationId )
+                                               userIdTwo: widget.userTwoId!
                                               );
                                             },
                                             child: SvgPicture.asset('assets/icons/media.svg',
@@ -851,7 +867,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                         ],
                                       ),
                                     ),
-
                                   //record_enable
                                   if(state.isRecord)
                                     Expanded(
@@ -886,7 +901,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                             closeTimer();
                                             await _stop();
                                             bloc.onSendMessageEvent('',
-                                               int.parse( widget.conversationId),
+                                              widget.userTwoId!,
                                                 io.File(_current!.path!));
                                           }, icon: const Icon(
                                             Icons.send,
@@ -898,7 +913,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     ),
                                   if(!isKeyboardVisible)
                                   GestureDetector(
-
                                     onTap: (){
                                       bloc.onStartRecord(true);
                                       _start();
@@ -949,7 +963,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
                                       bloc.onSendMessageEvent(
                                           textEditingController.text,
-                                          int.parse(widget.conversationId),null);
+                                          widget.userTwoId!,null);
 
                                       if(FocusScope.of(context).hasFocus)
                                       {

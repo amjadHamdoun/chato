@@ -9,8 +9,11 @@ import '../api/add_remove_fav_remote.dart';
 import '../api/add_user_remote.dart';
 import '../api/change-permeation-user-room_remote.dart';
 import '../api/get_all_type_message_remote.dart';
+import '../api/get_background_image_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
 import '../api/send_message_remote.dart';
+import '../api/update_room_remote.dart';
+import '../model/backgroundImageRoom/background_image_data_model.dart';
 import '../model/conversationMessage/conversation_old_message_data_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
 import 'room_conversation_event.dart';
@@ -25,6 +28,8 @@ class RoomConversationBloc
   AddUserDataSource addUserDataSource;
   AddRemoveFavDataSource addRemoveFavDataSource;
   ChangePermeationUserRoomDataSource changePermeationUserRoomDataSource;
+  GetBackgroundImageSource getBackgroundImageSource;
+  UpdateRoomDataSource updateRoomDataSource;
 
   RoomConversationBloc({
     required this.conversationOldMessageDataSource,
@@ -32,7 +37,9 @@ class RoomConversationBloc
     required this.sendMessageDataSource,
     required this.addUserDataSource,
     required this.addRemoveFavDataSource,
-    required this.changePermeationUserRoomDataSource
+    required this.changePermeationUserRoomDataSource,
+    required this.getBackgroundImageSource,
+    required this.updateRoomDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -51,6 +58,12 @@ class RoomConversationBloc
     on<ChangeGiftEvent>((event, emit) =>
         emit(state.rebuild((b) => b..senGiftType =
             event.type)));
+
+
+    on<WantToExitEvent>((event, emit) =>
+        emit(state.rebuild((b) => b..wantToExit =
+            event.wantExit)));
+
 
     on<AddSmileEvent>((event, emit) {
       emit(state.rebuild((b) =>
@@ -350,6 +363,43 @@ class RoomConversationBloc
     });
 
 
+    //GetBackgroundImageEvent
+    on<GetBackgroundImageEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+              ..isLoadingGetBackgroundImage=true
+
+          ));
+      final result=await
+      getBackgroundImageSource.
+      getBackgroundImage(
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+         ..isLoadingGetBackgroundImage=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..isLoadingGetBackgroundImage=false
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isLoadingGetBackgroundImage=false
+            ..backgroundImageModel=r
+
+        ));
+
+
+      });
+    });
+
+
     on<AddRemoveFavRoomEvent>((event, emit)
     async {
       emit(
@@ -384,7 +434,46 @@ class RoomConversationBloc
       });
     });
 
+    on<ChangeBackgroundImageEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+              ..primaryBackground=BackgroundImageDataModel(
+                id: event.id??1,
+                background: event.backgroundImage
 
+              )
+          ));
+
+      if(event.id!=null)
+        {final result=await
+          updateRoomDataSource.updateRoom
+            (backId: event.id!, roomId: event.roomId!);
+
+          return result.fold((l) async {
+            print('l');
+            emit(state.rebuild((b) => b
+
+              ..error = l
+            ));
+            emit(state.rebuild((b) => b
+
+              ..error = ''));
+          }, (r) async {
+            print('r');
+
+            emit(state.rebuild((b) => b
+              ..error=''
+
+
+            ));
+
+
+          });
+        }
+
+    });
 
 
 
@@ -445,6 +534,11 @@ class RoomConversationBloc
     add(AddRemoveFavRoomEvent(roomId: roomId));
   }
 
+  void onWantToExitEvent(
+      bool wantToExit) {
+    add(WantToExitEvent(wantExit: wantToExit));
+  }
+
   void onChangePermeationUserEvent(
       int roomId,
       int userId,
@@ -453,6 +547,23 @@ class RoomConversationBloc
         roomId: roomId,
         type: type,
         userId:userId
+    ));
+  }
+
+  void onGetBackgroundImageEvent(
+      ) {
+    add(GetBackgroundImageEvent(
+
+    ));
+  }
+
+  void onChangeBackgroundImageEvent(
+      int? id,
+      String? backgroundImage,
+      ) {
+      add(ChangeBackgroundImageEvent(
+          backgroundImage: backgroundImage,
+        id: id
     ));
   }
 

@@ -16,7 +16,8 @@ import '../bloc/conversation_bloc.dart';
 void showMediaBottomSheet({
  required BuildContext ctx,
   required ConversationBloc bloc,
-  required int conId
+  required int userIdTwo,
+
 }) {
 
   showModalBottomSheet(
@@ -63,7 +64,7 @@ void showMediaBottomSheet({
                     if (result != null) {
                       File file = File(result.files.single.path!);
                     //  widget.bloc.onChangeImageEvent(file);
-                      bloc.onSendMessageEvent('', conId, file);
+                      bloc.onSendMessageEvent('', userIdTwo, file);
                       Navigator.pop(ctx);
 
                     }
@@ -93,7 +94,7 @@ void showMediaBottomSheet({
                      {
                        File file = File(photo.path);
                        //  widget.bloc.onChangeImageEvent(file);
-                       bloc.onSendMessageEvent('', conId, file);
+                       bloc.onSendMessageEvent('', userIdTwo, file);
                        Navigator.pop(ctx);
                      }
 
@@ -120,7 +121,7 @@ void showMediaBottomSheet({
                     if (result != null) {
                       File file = File(result.files.single.path!);
                       //  widget.bloc.onChangeImageEvent(file);
-                      bloc.onSendMessageEvent('', conId, file);
+                      bloc.onSendMessageEvent('', userIdTwo, file);
                       Navigator.pop(ctx);
 
                     }
@@ -156,7 +157,7 @@ void showMediaBottomSheet({
                             {
                               bloc.onSendMessageEvent(value!.name.first
                                   +' '+value.name.last+'\n '+value.phones[0].number
-                                  , conId, null);
+                                  , userIdTwo, null);
                               Navigator.pop(ctx);
                             }
                    });
@@ -206,7 +207,7 @@ void showMediaBottomSheet({
                    try{
                      _locationData = await location.getLocation();
                      bloc.onSendMessageEvent('https://www.google.com/maps/search/?api=1&query=${_locationData.latitude},${_locationData.longitude}'
-                         , conId, null);
+                         , userIdTwo, null);
                      Navigator.pop(ctx);
                    }
                     catch (e)
@@ -240,7 +241,7 @@ void showMediaBottomSheet({
                     if (result != null) {
                       File file = File(result.files.single.path!);
                       //  widget.bloc.onChangeImageEvent(file);
-                      bloc.onSendMessageEvent('', conId, file);
+                      bloc.onSendMessageEvent('', userIdTwo, file);
                       Navigator.pop(ctx);
 
                     }

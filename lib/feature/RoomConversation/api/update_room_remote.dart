@@ -1,47 +1,52 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:chato/core/utils/constants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import '../../../../Globals.dart';
-import '../model/private_old_message_model.dart';
+import '../model/allType/all_type_model.dart';
+import '../model/sendMessage/send_message_model.dart';
+import '../model/updateRoom/update_room_model.dart';
 
 
 
-abstract class PrivateOldMessageDataSource {
-  Future<Either<String, PrivateOldMessageModel>>
-   getConversationOldMessage({required String conversationId,
-   required int page
-  });
+abstract class UpdateRoomDataSource {
+  Future<Either<String, UpdateRoomModel>>
+   updateRoom({required int backId,
+    required int roomId,
+
+   });
 }
 
-class PrivateOldMessageDataSourceImpl extends
-     PrivateOldMessageDataSource {
+class UpdateRoomDataSourceImpl extends
+UpdateRoomDataSource {
   final Dio dio;
   final DataConnectionChecker networkInfo;
 
-  PrivateOldMessageDataSourceImpl(
+  UpdateRoomDataSourceImpl(
       { required this.dio,
         required this.networkInfo
       });
 
   @override
-  Future<Either<String, PrivateOldMessageModel>>
-  getConversationOldMessage({
-    required String conversationId,
-    required int page
+  Future<Either<String, UpdateRoomModel>>
+  updateRoom({
+    required int backId,
+    required int roomId,
+
   }) async {
+
     if (await networkInfo.hasConnection) {
       try {
-
         dio.options.headers["Authorization"] =
         "Bearer ${Global.userToken}";
-        final re = await dio.get
+        final re = await dio.post
           (
-          Endpoints.getConversationOldMessage,
-          queryParameters: {
-            "conversation_id":conversationId,
-            "page":page
+          Endpoints.updateRoom,
+          data: {
+            'background_id':backId,
+            'room_id':roomId
           },
           options: Options(
             followRedirects: false,
@@ -50,8 +55,7 @@ class PrivateOldMessageDataSourceImpl extends
             },
           ),
         );
-        return Right(PrivateOldMessageModel
-            .fromJson(json.decode(re.data)));
+        return  Right(json.decode(re.data));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {
           return Left(Er.networkError);

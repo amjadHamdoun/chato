@@ -1,11 +1,10 @@
 import 'package:built_value/built_value.dart';
-
-import '../../Conversation/model/private_old_message_model.dart';
 import '../model/allType/all_type_model.dart';
+import '../model/backgroundImageRoom/background_image_data_model.dart';
+import '../model/backgroundImageRoom/background_image_model.dart';
 import '../model/changePermeationUser/change_permeation_user_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
 import '../model/sendMessage/send_message_model.dart';
-
 
 
 part 'room_conversation_state.g.dart';
@@ -16,6 +15,10 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
 
   bool? get isSuccess;
   bool? get isLoading;
+
+  bool? get isLoadingGetBackgroundImage;
+
+
 
   bool? get isSuccessAllType;
   bool? get isLoadingAllType;
@@ -37,6 +40,9 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   SendMessageModel get sendMessageModel;
   String get recordTime;
   ChangePermeationModel get changePermeationModel;
+  bool get wantToExit;
+  BackgroundImageModel get backgroundImageModel;
+  BackgroundImageDataModel get primaryBackground;
 
 
   RoomConversationState._();
@@ -47,10 +53,18 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
     return RoomConversationState((b) => b
       ..isLoading = false
       ..isSuccess = false
+
+      ..primaryBackground=BackgroundImageDataModel(
+          id: 1,
+        background:'https://www.room.tecknick.net/uploads/backgroundRoom/1653439556.jpg'
+
+      )
+
       ..isLoadingAllType = false
       ..isSuccessAllType = false
       ..isLoadingChangePer=false
       ..isSuccessChangePer=false
+      ..isLoadingGetBackgroundImage=false
         ..showEmoji=false
         ..isRecord=false
         ..senGiftType=0
@@ -58,6 +72,10 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         ..smile=''
         ..error=''
       ..recordTime='00:00'
+      ..wantToExit=false
+      ..backgroundImageModel=BackgroundImageModel(message: '',
+             status: false,error_code: 0,data: []
+      )
       ..changePermeationModel=ChangePermeationModel(
         error_code: 0,
         message: '',

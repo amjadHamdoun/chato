@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import '../../bloc/room_conversation_bloc.dart';
 import '../../bloc/room_conversation_state.dart';
+import '../background_widget.dart';
 
 
 
@@ -38,6 +39,7 @@ class _RoomSettingsState extends State<RoomSettings> {
   void initState() {
    widget.bloc.onGetAllTypeEvent('owner', widget.roomId);
    widget.bloc.onGetAllTypeEvent('admin', widget.roomId);
+   widget.bloc.onGetAllTypeEvent('user', widget.roomId);
     super.initState();
   }
 
@@ -74,13 +76,13 @@ class _RoomSettingsState extends State<RoomSettings> {
                           SizedBox(
                             width: 6.w,
                           ),
-                          Text('اعدادات الروم',
+                          Text('Room Settings',
                             style: TextStyle(
                                 fontSize: 19.sp,
                                 color: Theme.of(context).primaryColorDark
                             ),
                             textAlign: TextAlign.center,
-                          ),
+                          ).tr(),
                         ],
                       ),
                       SizedBox(
@@ -162,39 +164,49 @@ class _RoomSettingsState extends State<RoomSettings> {
                         ],
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/icons/change_background.svg",
-                                height: 25.h,
-                                width: 25.w,
-                                color: ColorManager.primaryColor,
-                              ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              Text(
-                                "change room background".tr(),
-                                style: getRegularStyle(
-                                    fontSize: 14.sp,
-                                    color: Global.darkMode
-                                        ? ColorManager.backGroundIcon
-                                        : ColorManager.textColor),
-                              ),
-                            ],
-                          ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) =>
+                                   BackgroundImagesScreen(
+                                     bloc: widget.bloc,
+                                   ),)
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/icons/change_background.svg",
+                                  height: 25.h,
+                                  width: 25.w,
+                                  color: ColorManager.primaryColor,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Text(
+                                  "change room background".tr(),
+                                  style: getRegularStyle(
+                                      fontSize: 14.sp,
+                                      color: Global.darkMode
+                                          ? ColorManager.backGroundIcon
+                                          : ColorManager.textColor),
+                                ),
+                              ],
+                            ),
 
 
-                          IconButton(onPressed: (){},
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                size: 22.w,
-                                color: ColorManager.primaryColor,
-                              )),
-                        ],
+                            IconButton(onPressed: (){},
+                                icon: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 22.w,
+                                  color: ColorManager.primaryColor,
+                                )),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 10.h,
@@ -322,8 +334,8 @@ class _RoomSettingsState extends State<RoomSettings> {
                                   horizontal: 20.w
                               ),
                               child: Text(
-                                  state.allTypeModel.data!=null?
-                                state.allTypeModel.data!.length.toString():'0',
+                                  state.allTypeUser.data!=null?
+                                state.allTypeUser.data!.length.toString():'0',
                                 style: getRegularStyle(
                                     fontSize: 15.sp,
                                     color: Theme.of(context).hintColor),
