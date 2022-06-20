@@ -4,8 +4,7 @@ class Endpoints {
 
   static const baseURL = 'https://www.room.tecknick.net/api/';
   static const register = 'auth/register';
-  static const registerAmazingAccount =
-      'auth/register_account_arabic';
+  static const registerAmazingAccount = 'auth/register_account_arabic';
   static const login = 'auth/login';
   static const friendShipRequests = 'friendship-requests';
   static const searchFriend = 'search-friend';
@@ -40,6 +39,9 @@ class Endpoints {
   static const changePermeationUserRoom = 'room/change-permeation-user-room';
   static const getBackgroundImage = '/room/get-background-room';
   static const updateRoom = '/room/update-room';
+  static const gitGiftRoom = '/room/git-gift-room';
+
+
 
 }
 

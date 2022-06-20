@@ -204,7 +204,9 @@ void showMediaBottomSheet({
 
                    try{
                      _locationData = await location.getLocation();
-                     bloc.onSendMessageEvent('https://www.google.com/maps/search/?api=1&query=${_locationData.latitude},${_locationData.longitude}'
+                     bloc.onSendMessageEvent(
+                         'https://www.google.com/maps/search/?api=1&query='
+                             '${_locationData.latitude},${_locationData.longitude}'
                          , roomId, null);
                      Navigator.pop(ctx);
                    }

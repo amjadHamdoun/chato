@@ -235,14 +235,15 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                           } else {
                             return Column(
                               children: [
+                                state.allFriendModel.
+                                data![index-1].img!=null?
                                 SizedBox(
                                   width: 57.w,
                                   height: 57.w,
                                   child: CachedNetworkImage(
 
                                     imageUrl:state.allFriendModel.
-                                    data![index-1].img??
-                                        "http://via.placeholder.com/200x150",
+                                    data![index-1].img!,
                                     imageBuilder: (context, imageProvider) => Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -255,6 +256,27 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                     ),
                                     placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
+                                  ),
+                                ):
+                                SizedBox(
+                                  width: 57.w,
+                                  height: 57.w,
+                                  child:  Container(
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+
+                                        image: AssetImage(
+                                          'assets/icons/logo.png',
+                                        ),
+                                        fit: BoxFit.fill,
+
+
+
+                                      ),
+
+                                    ),
+
                                   ),
                                 ),
                                 SizedBox(

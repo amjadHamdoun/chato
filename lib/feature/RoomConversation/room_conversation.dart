@@ -5,11 +5,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/file_chat_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/image_side_one_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideOne/map_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_chat_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/message_video_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/music_side_one_widget.dart';
-import 'package:chato/feature/RoomConversation/widget/message/sideTwo/file_chat_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/image_side_two_widget.dart';
+import 'package:chato/feature/RoomConversation/widget/message/sideTwo/map_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_chat_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/message_video_side_two_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideTwo/music_side_two_widget.dart';
@@ -313,6 +314,21 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
      return false;
    }
 
+   bool checkIsMap(String? endUrl)
+   {
+     if(endUrl!=null)
+     {
+
+       if(endUrl.contains('google.com/maps'))
+       {
+         return true;
+       }
+     }
+
+
+     return false;
+   }
+
    int countSecond = 0;
 
    void startTimer() {
@@ -504,8 +520,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                            fontFamily: 'Roboto'
                                                        ),
                                                        textAlign: TextAlign.center,
+
                                                      ),
-                                                     SizedBox(width: 6.w,),
+                                                     SizedBox(width: 7.w,),
                                                      if(widget.fav=='0')
                                                      Padding(
                                                        padding: const EdgeInsets.all(4.0),
@@ -756,6 +773,16 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                       ),
                                                     );
                                                   }
+                                                  else if(checkIsMap(state.
+                                                  conversationOldMessageModel.data![index].message,
+                                                  ))
+                                                  {
+                                                    return MessageMapSideOne(
+                                                      message:state.
+                                                      conversationOldMessageModel
+                                                          .data![index] ,
+                                                    );
+                                                  }
                                                   return MessageChatSideOne(
                                                     message:state.
                                                     conversationOldMessageModel
@@ -815,74 +842,19 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                      ),
                                                    );
                                                  }
+                                                 else if(checkIsMap(state.
+                                                 conversationOldMessageModel.data![index].message,
+                                                 ))
+                                                 {
+                                                   return MessageMapSideTwo(
+                                                     message:state.
+                                                     conversationOldMessageModel
+                                                         .data![index] ,
+                                                   );
+                                                 }
 
-                                           else{
-                                             if(
-                                             checkIsVideo(state.
-                                             conversationOldMessageModel.data![index].all_file,
-                                                 state.
-                                                 conversationOldMessageModel.data![index].localFile
 
-                                             )
 
-                                             )
-                                             {
-                                               return SizedBox(
-                                                 height: 170.h,
-
-                                                 child: MessageVideoSideTwo(
-                                                   message:state.
-                                                   conversationOldMessageModel
-                                                       .data![index] ,
-                                                 ),
-                                               );
-                                             }
-                                             else if(checkIsImage(state.
-                                             conversationOldMessageModel.data![index].all_file,
-                                                 state.
-                                                 conversationOldMessageModel.data![index].localFile
-
-                                             ))
-                                             {
-                                               return SizedBox(
-                                                 height: 170.h,
-                                                 child: MessageImageSideTwo(
-                                                   message:state.
-                                                   conversationOldMessageModel
-                                                       .data![index] ,
-                                                 ),
-                                               );
-                                             }
-                                             else if(checkIsMusic(state.
-                                             conversationOldMessageModel.data![index].all_file,
-                                                 state.
-                                                 conversationOldMessageModel.data![index].localFile
-
-                                             ))
-                                             {
-                                               return SizedBox(
-                                                 height: 100.h,
-                                                 child: MessageMusicSideTwo(
-                                                   message:state.
-                                                   conversationOldMessageModel
-                                                       .data![index] ,
-                                                 ),
-                                               );
-                                             }
-                                             else if(checkIsFile(state.
-                                             conversationOldMessageModel.data![index].all_file,
-                                                 state.
-                                                 conversationOldMessageModel.data![index].localFile
-
-                                             ))
-                                             {
-                                               return MessageFileSideTwo(
-                                                 message:state.
-                                                 conversationOldMessageModel
-                                                     .data![index] ,
-                                               );
-                                             }
-                                           }
                                                return MessageChatSideTwo(
                                                  message:state.
                                                  conversationOldMessageModel

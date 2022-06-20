@@ -343,8 +343,8 @@ Future<void> init() async {
     unBlockedUserRemoteDataSource: sl(),
     resetPasswordRemoteDataSource: sl(),
       sendCoinsRemoteDataSource: sl()
-
   ));
+
 
   sl.registerLazySingleton(() => UserBloc(
       userRemoteDataSource: sl(),

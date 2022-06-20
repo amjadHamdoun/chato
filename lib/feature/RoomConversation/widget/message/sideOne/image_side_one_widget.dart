@@ -124,7 +124,7 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
             height: 50.h,
             child: CachedNetworkImage(
               imageUrl:widget.message.user!.img??
-                  "http://via.placeholder.com/200x150",
+                  "https://i.ibb.co/Dwh8sx7/logo.png",
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
