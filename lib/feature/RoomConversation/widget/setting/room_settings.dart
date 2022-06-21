@@ -170,6 +170,7 @@ class _RoomSettingsState extends State<RoomSettings> {
                               MaterialPageRoute(builder: (context) =>
                                    BackgroundImagesScreen(
                                      bloc: widget.bloc,
+                                     roomId: widget.roomId,
                                    ),)
                           );
                         },

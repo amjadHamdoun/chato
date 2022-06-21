@@ -117,6 +117,7 @@ class _MessageMapSideTwoState extends State<MessageMapSideTwo> {
                     myLocationButtonEnabled: false,
                     scrollGesturesEnabled: false,
                     zoomGesturesEnabled: false,
+                    zoomControlsEnabled: false,
                     initialCameraPosition: _kGooglePlex,
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);

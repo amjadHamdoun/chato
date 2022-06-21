@@ -39,7 +39,9 @@ class Endpoints {
   static const changePermeationUserRoom = 'room/change-permeation-user-room';
   static const getBackgroundImage = '/room/get-background-room';
   static const updateRoom = '/room/update-room';
-  static const gitGiftRoom = '/room/git-gift-room';
+  static const getGiftRoom = '/room/git-gift-room';
+  static const sendGiftRoom = '/room/send-gift-room';
+  static const deleteUserRoom = '/room/delete-user-room';
 
 
 

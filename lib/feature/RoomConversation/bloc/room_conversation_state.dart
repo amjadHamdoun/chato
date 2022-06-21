@@ -4,6 +4,8 @@ import '../model/backgroundImageRoom/background_image_data_model.dart';
 import '../model/backgroundImageRoom/background_image_model.dart';
 import '../model/changePermeationUser/change_permeation_user_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
+import '../model/getGiftRoom/get_gift_model.dart';
+import '../model/sendGiftRoom/send_gift_model.dart';
 import '../model/sendMessage/send_message_model.dart';
 
 
@@ -22,6 +24,9 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
 
   bool? get isSuccessAllType;
   bool? get isLoadingAllType;
+
+  bool? get isSuccessGetGift;
+  bool? get isLoadingGetGift;
 
   bool? get isSuccessChangePer;
   bool? get isLoadingChangePer;
@@ -43,7 +48,8 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   bool get wantToExit;
   BackgroundImageModel get backgroundImageModel;
   BackgroundImageDataModel get primaryBackground;
-
+  GetGiftModel get getGiftModel;
+  SendGiftModel get sendGiftModel;
 
   RoomConversationState._();
 
@@ -53,13 +59,11 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
     return RoomConversationState((b) => b
       ..isLoading = false
       ..isSuccess = false
-
       ..primaryBackground=BackgroundImageDataModel(
           id: 1,
         background:'https://www.room.tecknick.net/uploads/backgroundRoom/1653439556.jpg'
 
       )
-
       ..isLoadingAllType = false
       ..isSuccessAllType = false
       ..isLoadingChangePer=false
@@ -73,9 +77,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         ..error=''
       ..recordTime='00:00'
       ..wantToExit=false
-      ..backgroundImageModel=BackgroundImageModel(message: '',
-             status: false,error_code: 0,data: []
-      )
+      ..backgroundImageModel=BackgroundImageModel(message: '', status: false,error_code: 0,data: [])
       ..changePermeationModel=ChangePermeationModel(
         error_code: 0,
         message: '',
@@ -100,6 +102,22 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
           error_code: 0, message: '', status: false)
          ..allTypeUser=AllTypeModel(data: [],
              error_code: 0, message: '', status: false)
+        ..getGiftModel=GetGiftModel(status: false,
+         data: [],
+          error_code: 0,
+          message: ''
+
+        )
+        ..isSuccessGetGift=false
+        ..isLoadingGetGift=false
+        ..sendGiftModel=SendGiftModel(error_code: 0,
+          message: '',
+          status: false
+        )
+
+
+
+
     );
   }
 }

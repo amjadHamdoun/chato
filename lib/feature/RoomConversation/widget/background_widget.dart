@@ -14,9 +14,11 @@ import '../bloc/room_conversation_bloc.dart';
 
 class BackgroundImagesScreen extends StatefulWidget {
   final RoomConversationBloc bloc;
+  final int roomId;
 
   const BackgroundImagesScreen({Key? key,
-    required this.bloc
+    required this.bloc,
+    required this.roomId
 
   }) : super(key: key);
 
@@ -137,7 +139,9 @@ class _BackgroundImagesScreenState extends State<BackgroundImagesScreen> {
                         widget.bloc.onChangeBackgroundImageEvent
                           (
                             state.backgroundImageModel.data![i].id,
-                            state.backgroundImageModel.data![i].background
+                            state.backgroundImageModel.data![i].background,
+                          widget.roomId
+
                         );
                         Navigator.pop(context);
                       },

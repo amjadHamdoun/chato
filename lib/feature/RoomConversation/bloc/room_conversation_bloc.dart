@@ -1,6 +1,8 @@
+
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
+import 'package:chato/feature/RoomConversation/model/sendGiftRoom/send_gift_model.dart';
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import '../../../core/utils/int_to_time.dart';
@@ -11,6 +13,8 @@ import '../api/change-permeation-user-room_remote.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_background_image_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
+import '../api/get_gift_remote.dart';
+import '../api/send_gift_room_remote.dart';
 import '../api/send_message_remote.dart';
 import '../api/update_room_remote.dart';
 import '../model/backgroundImageRoom/background_image_data_model.dart';
@@ -30,6 +34,10 @@ class RoomConversationBloc
   ChangePermeationUserRoomDataSource changePermeationUserRoomDataSource;
   GetBackgroundImageSource getBackgroundImageSource;
   UpdateRoomDataSource updateRoomDataSource;
+  GetGiftSource getGiftSource;
+  SendGiftRoomDataSource sendGiftRoomDataSource;
+
+
 
   RoomConversationBloc({
     required this.conversationOldMessageDataSource,
@@ -39,7 +47,9 @@ class RoomConversationBloc
     required this.addRemoveFavDataSource,
     required this.changePermeationUserRoomDataSource,
     required this.getBackgroundImageSource,
-    required this.updateRoomDataSource
+    required this.updateRoomDataSource,
+    required this.getGiftSource,
+    required this.sendGiftRoomDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -401,6 +411,46 @@ class RoomConversationBloc
     });
 
 
+    //GetGiftEvent
+    on<GetGiftEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+            ..isLoadingGetGift=true
+            ..isSuccessGetGift=false
+
+          ));
+
+      final result=await
+      getGiftSource.getGift();
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoadingGetGift=false
+          ..isSuccessGetGift=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..isLoadingGetBackgroundImage=false
+          ..error = ''));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isLoadingGetGift=false
+          ..isSuccessGetGift=true
+          ..getGiftModel=r
+
+        ));
+
+
+      });
+    });
+
+
     on<AddRemoveFavRoomEvent>((event, emit)
     async {
       emit(
@@ -430,6 +480,54 @@ class RoomConversationBloc
 
 
         ));
+
+
+      });
+    });
+
+
+    on<SendGiftEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+              ..isLoadingGetGift=true
+              ..isSuccessGetGift=true
+
+          ));
+      final result=await
+      sendGiftRoomDataSource.
+      sendGift(
+          userId: event.userId,
+         roomId: event.roomId,
+        giftId: event.giftId
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoadingGetGift=false
+          ..isSuccessGetGift=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..error=''
+        ));
+      }, (r) async {
+        print('r');
+        emit(state.rebuild((b) => b
+          ..isLoadingGetGift=false
+          ..isSuccessGetGift=true
+          ..error = ''
+          ..sendGiftModel=r
+        ));
+
+        emit(state.rebuild((b) => b
+          ..sendGiftModel=SendGiftModel(
+              error_code: 0,
+              message: '',
+              status: false)
+        ));
+
 
 
       });
@@ -558,15 +656,39 @@ class RoomConversationBloc
     ));
   }
 
+  void onGetGiftEvent() {
+    add(GetGiftEvent(
+    ));
+  }
+
+
+
   void onChangeBackgroundImageEvent(
       int? id,
       String? backgroundImage,
+      int? roomId,
       ) {
       add(ChangeBackgroundImageEvent(
           backgroundImage: backgroundImage,
-        id: id
+        id: id,
+        roomId: roomId
     ));
   }
+
+  void onSendGiftEvent(
+      int userId,
+      int roomId,
+      int giftId,
+      ) {
+    add(SendGiftEvent(
+       giftId: giftId,
+      roomId: roomId,
+      userId: userId
+
+    ));
+  }
+
+
 
 
 }

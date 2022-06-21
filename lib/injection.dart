@@ -38,6 +38,8 @@ import 'feature/RoomConversation/api/change-permeation-user-room_remote.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_background_image_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
+import 'feature/RoomConversation/api/get_gift_remote.dart';
+import 'feature/RoomConversation/api/send_gift_room_remote.dart';
 import 'feature/RoomConversation/api/send_message_remote.dart';
 import 'feature/RoomConversation/api/update_room_remote.dart';
 import 'feature/RoomConversation/bloc/room_conversation_bloc.dart';
@@ -275,18 +277,34 @@ Future<void> init() async {
         networkInfo: sl()
     ),
   );
+
   sl.registerLazySingleton<GetBackgroundImageSource>(
         () => GetBackgroundImageSourceImpl(
         dio: sl(),
         networkInfo: sl()
     ),
   );
+
   sl.registerLazySingleton<UpdateRoomDataSource>(
         () => UpdateRoomDataSourceImpl(
         dio: sl(),
         networkInfo: sl()
     ),
   );
+
+  sl.registerLazySingleton<GetGiftSource>(
+        () => GetGiftSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+  sl.registerLazySingleton<SendGiftRoomDataSource>(
+        () => SendGiftRoomDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
 
 
 
@@ -316,6 +334,7 @@ Future<void> init() async {
 
 
   sl.registerLazySingleton(() => RoomConversationBloc(
+    sendGiftRoomDataSource: sl(),
     conversationOldMessageDataSource: sl(),
      allTypeDataSource:sl(),
     sendMessageDataSource: sl(),
@@ -323,7 +342,8 @@ Future<void> init() async {
     addRemoveFavDataSource: sl(),
     changePermeationUserRoomDataSource: sl(),
     getBackgroundImageSource: sl(),
-    updateRoomDataSource: sl()
+    updateRoomDataSource: sl(),
+    getGiftSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(

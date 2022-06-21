@@ -136,6 +136,7 @@ class _MessageMapSideOneState extends State<MessageMapSideOne> {
                   height: 150.h,
 
                   child: GoogleMap(
+
                     onTap: (la){
                       launch(widget.message.message!);
                     },
@@ -147,6 +148,9 @@ class _MessageMapSideOneState extends State<MessageMapSideOne> {
                     myLocationButtonEnabled: false,
                     scrollGesturesEnabled: false,
                     zoomGesturesEnabled: false,
+                    zoomControlsEnabled: false,
+
+
                     initialCameraPosition: _kGooglePlex,
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);

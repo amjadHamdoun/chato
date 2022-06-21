@@ -1098,7 +1098,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                          SizedBox(width: 6.w,),
                                          GestureDetector(
                                            onTap: (){
-                                             sendGiftBottomSheet(context,bloc);
+                                             sendGiftBottomSheet(context,bloc,widget.roomId);
                                            },
                                            child: Container(
 

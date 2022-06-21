@@ -147,8 +147,27 @@ class ChangeBackgroundImageEvent extends RoomConversationEvent
     this.backgroundImage,
      });
 }
-// ignore: must_be_immutable
+
+
 class GetBackgroundImageEvent extends RoomConversationEvent
 {
 
+}
+
+
+class GetGiftEvent extends RoomConversationEvent
+{
+
+}
+// ignore: must_be_immutable
+class SendGiftEvent extends RoomConversationEvent
+{
+  int userId;
+  int roomId;
+  int giftId;
+  SendGiftEvent({
+   required this.userId,
+   required this.roomId,
+   required  this.giftId,
+  });
 }
