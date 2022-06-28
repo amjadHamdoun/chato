@@ -7,9 +7,13 @@ import 'package:chato/feature/User/model/user_data.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import '../../../core/utils/int_to_time.dart';
 import '../../../injection.dart';
+import '../../Conversation/model/bloc_user_model.dart';
 import '../api/add_remove_fav_remote.dart';
+import '../api/add_trend_room_remote.dart';
 import '../api/add_user_remote.dart';
+import '../api/block_user_room_remote.dart';
 import '../api/change-permeation-user-room_remote.dart';
+import '../api/delete_user_room_remote.dart';
 import '../api/get_all_type_message_remote.dart';
 import '../api/get_background_image_remote.dart';
 import '../api/get_conversation_old_message_remote.dart';
@@ -17,9 +21,12 @@ import '../api/get_gift_remote.dart';
 import '../api/send_gift_room_remote.dart';
 import '../api/send_message_remote.dart';
 import '../api/update_room_remote.dart';
+import '../model/addTrendRoom/add_trend_model.dart';
+import '../model/allType/all_type_model.dart';
 import '../model/backgroundImageRoom/background_image_data_model.dart';
 import '../model/conversationMessage/conversation_old_message_data_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
+import '../model/deleteUserRoom/delete_user_model.dart';
 import 'room_conversation_event.dart';
 import 'room_conversation_state.dart';
 
@@ -36,7 +43,9 @@ class RoomConversationBloc
   UpdateRoomDataSource updateRoomDataSource;
   GetGiftSource getGiftSource;
   SendGiftRoomDataSource sendGiftRoomDataSource;
-
+  DeleteUserRoomDataSource deleteUserRoomDataSource;
+  BlockUserRoomDataSource blockUserRoomDataSource;
+  AddTrendDataSource addTrendDataSource;
 
 
   RoomConversationBloc({
@@ -49,7 +58,10 @@ class RoomConversationBloc
     required this.getBackgroundImageSource,
     required this.updateRoomDataSource,
     required this.getGiftSource,
-    required this.sendGiftRoomDataSource
+    required this.sendGiftRoomDataSource,
+    required this.deleteUserRoomDataSource,
+    required this.blockUserRoomDataSource,
+    required this.addTrendDataSource
    }) : super(
       RoomConversationState.initial()) {
 
@@ -107,6 +119,14 @@ class RoomConversationBloc
             b..smileOrSticker = event.smile
         ));
       });
+
+
+    on<ChangeRocketEvent>((event, emit) {
+      emit(state.rebuild((b) =>
+      b..showRocket = event.showRocket
+          ..showRocketUserName=event.userName
+      ));
+    });
 
 
 
@@ -417,9 +437,8 @@ class RoomConversationBloc
       emit(
           state.rebuild((b) => b
             ..error=''
-            ..isLoadingGetGift=true
             ..isSuccessGetGift=false
-
+            ..isLoadingGetGift=true
           ));
 
       final result=await
@@ -428,8 +447,9 @@ class RoomConversationBloc
       return result.fold((l) async {
         print('l');
         emit(state.rebuild((b) => b
-          ..isLoadingGetGift=false
           ..isSuccessGetGift=false
+          ..isLoadingGetGift=false
+
           ..error = l
         ));
         emit(state.rebuild((b) => b
@@ -438,10 +458,12 @@ class RoomConversationBloc
       }, (r) async {
         print('r');
 
+
+
         emit(state.rebuild((b) => b
           ..error=''
-          ..isLoadingGetGift=false
           ..isSuccessGetGift=true
+          ..isLoadingGetGift=false
           ..getGiftModel=r
 
         ));
@@ -527,6 +549,193 @@ class RoomConversationBloc
               message: '',
               status: false)
         ));
+
+
+
+      });
+    });
+
+
+    on<DeleteUserEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+            ..isLoadingChangePer=true
+            ..isSuccessChangePer=true
+
+          ));
+      final result=await
+      deleteUserRoomDataSource.
+      deleteUser(
+          userId: event.userId,
+          roomId: event.roomId,
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoadingChangePer=false
+          ..isSuccessChangePer=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..error=''
+        ));
+      }, (r) async {
+
+        AllTypeModel  allTypeUser=AllTypeModel(status: false,message: '',error_code: 0,data: []);
+        AllTypeModel  allTypeModel=AllTypeModel(status: false,message: '',error_code: 0,data: []);
+        AllTypeModel  allTypeOwner=AllTypeModel(status: false,message: '',error_code: 0,data: []);
+        AllTypeModel  allTypeAdmin=AllTypeModel(status: false,message: '',error_code: 0,data: []);
+
+        for(var al in state.allTypeModel.data!)
+        {
+          if(al.id!=event.userId)
+            {
+              allTypeModel.data!.add(al);
+            }
+        }
+        for(var al in state.allTypeUser.data!)
+        {
+          if(al.id!=event.userId)
+          {
+            allTypeUser.data!.add(al);
+          }
+        }
+        for(var al in state.allTypeAdmin.data!)
+        {
+          if(al.id!=event.userId)
+          {
+            allTypeAdmin.data!.add(al);
+          }
+        }
+        for(var al in state.allTypeOwner.data!)
+        {
+          if(al.id!=event.userId)
+          {
+            allTypeOwner.data!.add(al);
+          }
+        }
+
+
+        print('r');
+        print(event.userId);
+        emit(state.rebuild((b) => b
+          ..isLoadingChangePer=false
+          ..isSuccessChangePer=true
+          ..error = ''
+          ..deleteUserModel=r
+            ..allTypeModel=allTypeModel
+            ..allTypeUser=allTypeUser
+            ..allTypeOwner=allTypeOwner
+            ..allTypeAdmin=allTypeAdmin
+        ));
+        emit(state.rebuild((b) => b
+
+          ..deleteUserModel=DeleteUserModel(error_code: 0,message: '',status: false)
+
+        ));
+
+
+
+
+
+      });
+    });
+
+
+    on<BlockUserEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+            ..isLoadingChangePer=true
+            ..isSuccessChangePer=true
+
+          ));
+      final result=await
+      blockUserRoomDataSource.
+      blockUser(
+        userId: event.userId,
+        roomId: event.roomId,
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoadingChangePer=false
+          ..isSuccessChangePer=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..error=''
+        ));
+      }, (r) async {
+
+        print('r');
+        print(event.userId);
+        emit(state.rebuild((b) => b
+          ..isLoadingChangePer=false
+          ..isSuccessChangePer=true
+          ..error = ''
+          ..blockUserModel=r
+        ));
+        emit(state.rebuild((b) => b
+
+          ..blockUserModel=BlockUserModel(error_code: 0,message: '',status: false)
+
+        ));
+
+
+
+
+
+      });
+    });
+
+
+
+    on<AddTrendEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..error=''
+            ..isLoadingChangePer=true
+            ..isSuccessChangePer=true
+
+          ));
+      final result=await
+      addTrendDataSource.
+      addTrendRoom(
+        payment: event.payment,
+        roomId: event.roomId,
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoadingChangePer=false
+          ..isSuccessChangePer=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..error=''
+        ));
+      }, (r) async {
+
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..isLoadingChangePer=false
+          ..isSuccessChangePer=true
+          ..error = ''
+          ..addTrendModel=r
+        ));
+        emit(state.rebuild((b) => b
+
+          ..addTrendModel=AddTrendModel(error_code: 0,message: '',status: false)
+
+        ));
+
+
 
 
 
@@ -666,7 +875,7 @@ class RoomConversationBloc
   void onChangeBackgroundImageEvent(
       int? id,
       String? backgroundImage,
-      int? roomId,
+      int roomId
       ) {
       add(ChangeBackgroundImageEvent(
           backgroundImage: backgroundImage,
@@ -687,7 +896,55 @@ class RoomConversationBloc
 
     ));
   }
+  void onDeleteUserEvent(
+      int userId,
+      int roomId,
 
+      ) {
+    add(DeleteUserEvent(
+
+        roomId: roomId,
+        userId: userId
+
+    ));
+  }
+  void onBlockUserEvent(
+      int userId,
+      int roomId,
+
+      ) {
+    add(BlockUserEvent(
+
+        roomId: roomId,
+        userId: userId
+
+    ));
+  }
+
+
+  void onAddTrendEvent(
+  String payment,
+  int roomId
+
+      ) {
+    add(AddTrendEvent(
+
+        payment: payment,
+        roomId: roomId
+
+    ));
+  }
+
+  void onChangeRocketEvent(
+      bool showRocket,
+      String userName
+
+      ) {
+    add(ChangeRocketEvent(
+        showRocket: showRocket,
+        userName: userName,
+    ));
+  }
 
 
 

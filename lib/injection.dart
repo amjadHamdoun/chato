@@ -33,8 +33,11 @@ import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
 import 'feature/RoomConversation/api/add_remove_fav_remote.dart';
+import 'feature/RoomConversation/api/add_trend_room_remote.dart';
 import 'feature/RoomConversation/api/add_user_remote.dart';
+import 'feature/RoomConversation/api/block_user_room_remote.dart';
 import 'feature/RoomConversation/api/change-permeation-user-room_remote.dart';
+import 'feature/RoomConversation/api/delete_user_room_remote.dart';
 import 'feature/RoomConversation/api/get_all_type_message_remote.dart';
 import 'feature/RoomConversation/api/get_background_image_remote.dart';
 import 'feature/RoomConversation/api/get_conversation_old_message_remote.dart';
@@ -305,6 +308,25 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<DeleteUserRoomDataSource>(
+        () => DeleteUserRoomDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+  sl.registerLazySingleton<BlockUserRoomDataSource>(
+        () => BlockUserRoomDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+  sl.registerLazySingleton<AddTrendDataSource>(
+        () => AddTrendDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
 
 
 
@@ -343,7 +365,10 @@ Future<void> init() async {
     changePermeationUserRoomDataSource: sl(),
     getBackgroundImageSource: sl(),
     updateRoomDataSource: sl(),
-    getGiftSource: sl()
+    getGiftSource: sl(),
+    deleteUserRoomDataSource: sl(),
+    blockUserRoomDataSource: sl(),
+    addTrendDataSource: sl()
   ));
 
   sl.registerLazySingleton(() => RegisterBloc(

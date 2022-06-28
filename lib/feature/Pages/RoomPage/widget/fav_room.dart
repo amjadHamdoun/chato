@@ -81,7 +81,8 @@ class _FavRoomPageState extends State<FavRoomPage>
                       MaterialPageRoute(builder: (context) =>
                       RoomConversationScreen(
                         roomId:  state.favRoomModel.data[index].id!,
-                        background: state.favRoomModel.data[index].background??"",
+                        background: state.favRoomModel.data[index].background!=null?
+                        state.favRoomModel.data[index].background!.background:'',
                         fav:state.favRoomModel.data[index].favorite_room_count! ,
                         ownerId: state.favRoomModel.data[index].user!.id!,
                         roomName: state.allRoomModel.data[index].name!,

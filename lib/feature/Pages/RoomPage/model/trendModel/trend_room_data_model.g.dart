@@ -10,7 +10,10 @@ TrendRoomDataModel _$TrendRoomDataModelFromJson(Map<String, dynamic> json) =>
     TrendRoomDataModel(
       id: json['id'] as int?,
       img: json['img'] as String?,
-      background: json['background'] as String?,
+      background: json['background'] == null
+          ? null
+          : BackgroundRoomModel.fromJson(
+              json['background'] as Map<String, dynamic>),
       favorite_room_count: json['favorite_room_count'] as String?,
       user: json['user'] == null
           ? null

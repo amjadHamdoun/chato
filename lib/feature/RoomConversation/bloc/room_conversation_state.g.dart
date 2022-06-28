@@ -18,11 +18,19 @@ class _$RoomConversationState extends RoomConversationState {
   @override
   final bool? isLoadingAllType;
   @override
+  final bool? isSuccessGetGift;
+  @override
+  final bool? isLoadingGetGift;
+  @override
   final bool? isSuccessChangePer;
   @override
   final bool? isLoadingChangePer;
   @override
   final bool showEmoji;
+  @override
+  final bool showRocket;
+  @override
+  final String showRocketUserName;
   @override
   final bool isRecord;
   @override
@@ -55,6 +63,16 @@ class _$RoomConversationState extends RoomConversationState {
   final BackgroundImageModel backgroundImageModel;
   @override
   final BackgroundImageDataModel primaryBackground;
+  @override
+  final GetGiftModel getGiftModel;
+  @override
+  final SendGiftModel sendGiftModel;
+  @override
+  final DeleteUserModel deleteUserModel;
+  @override
+  final BlockUserModel blockUserModel;
+  @override
+  final AddTrendModel addTrendModel;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -66,9 +84,13 @@ class _$RoomConversationState extends RoomConversationState {
       this.isLoadingGetBackgroundImage,
       this.isSuccessAllType,
       this.isLoadingAllType,
+      this.isSuccessGetGift,
+      this.isLoadingGetGift,
       this.isSuccessChangePer,
       this.isLoadingChangePer,
       required this.showEmoji,
+      required this.showRocket,
+      required this.showRocketUserName,
       required this.isRecord,
       required this.smileOrSticker,
       required this.senGiftType,
@@ -84,10 +106,19 @@ class _$RoomConversationState extends RoomConversationState {
       required this.changePermeationModel,
       required this.wantToExit,
       required this.backgroundImageModel,
-      required this.primaryBackground})
+      required this.primaryBackground,
+      required this.getGiftModel,
+      required this.sendGiftModel,
+      required this.deleteUserModel,
+      required this.blockUserModel,
+      required this.addTrendModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
+    BuiltValueNullFieldError.checkNotNull(
+        showRocket, 'RoomConversationState', 'showRocket');
+    BuiltValueNullFieldError.checkNotNull(
+        showRocketUserName, 'RoomConversationState', 'showRocketUserName');
     BuiltValueNullFieldError.checkNotNull(
         isRecord, 'RoomConversationState', 'isRecord');
     BuiltValueNullFieldError.checkNotNull(
@@ -120,6 +151,16 @@ class _$RoomConversationState extends RoomConversationState {
         backgroundImageModel, 'RoomConversationState', 'backgroundImageModel');
     BuiltValueNullFieldError.checkNotNull(
         primaryBackground, 'RoomConversationState', 'primaryBackground');
+    BuiltValueNullFieldError.checkNotNull(
+        getGiftModel, 'RoomConversationState', 'getGiftModel');
+    BuiltValueNullFieldError.checkNotNull(
+        sendGiftModel, 'RoomConversationState', 'sendGiftModel');
+    BuiltValueNullFieldError.checkNotNull(
+        deleteUserModel, 'RoomConversationState', 'deleteUserModel');
+    BuiltValueNullFieldError.checkNotNull(
+        blockUserModel, 'RoomConversationState', 'blockUserModel');
+    BuiltValueNullFieldError.checkNotNull(
+        addTrendModel, 'RoomConversationState', 'addTrendModel');
   }
 
   @override
@@ -140,9 +181,13 @@ class _$RoomConversationState extends RoomConversationState {
         isLoadingGetBackgroundImage == other.isLoadingGetBackgroundImage &&
         isSuccessAllType == other.isSuccessAllType &&
         isLoadingAllType == other.isLoadingAllType &&
+        isSuccessGetGift == other.isSuccessGetGift &&
+        isLoadingGetGift == other.isLoadingGetGift &&
         isSuccessChangePer == other.isSuccessChangePer &&
         isLoadingChangePer == other.isLoadingChangePer &&
         showEmoji == other.showEmoji &&
+        showRocket == other.showRocket &&
+        showRocketUserName == other.showRocketUserName &&
         isRecord == other.isRecord &&
         smileOrSticker == other.smileOrSticker &&
         senGiftType == other.senGiftType &&
@@ -158,7 +203,12 @@ class _$RoomConversationState extends RoomConversationState {
         changePermeationModel == other.changePermeationModel &&
         wantToExit == other.wantToExit &&
         backgroundImageModel == other.backgroundImageModel &&
-        primaryBackground == other.primaryBackground;
+        primaryBackground == other.primaryBackground &&
+        getGiftModel == other.getGiftModel &&
+        sendGiftModel == other.sendGiftModel &&
+        deleteUserModel == other.deleteUserModel &&
+        blockUserModel == other.blockUserModel &&
+        addTrendModel == other.addTrendModel;
   }
 
   @override
@@ -181,26 +231,26 @@ class _$RoomConversationState extends RoomConversationState {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode), isLoadingGetBackgroundImage.hashCode), isSuccessAllType.hashCode), isLoadingAllType.hashCode),
-                                                                                isSuccessChangePer.hashCode),
-                                                                            isLoadingChangePer.hashCode),
-                                                                        showEmoji.hashCode),
-                                                                    isRecord.hashCode),
-                                                                smileOrSticker.hashCode),
-                                                            senGiftType.hashCode),
-                                                        smile.hashCode),
-                                                    error.hashCode),
-                                                conversationOldMessageModel.hashCode),
-                                            allTypeUser.hashCode),
-                                        allTypeModel.hashCode),
-                                    allTypeOwner.hashCode),
-                                allTypeAdmin.hashCode),
-                            sendMessageModel.hashCode),
-                        recordTime.hashCode),
-                    changePermeationModel.hashCode),
-                wantToExit.hashCode),
-            backgroundImageModel.hashCode),
-        primaryBackground.hashCode));
+                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode), isLoadingGetBackgroundImage.hashCode), isSuccessAllType.hashCode), isLoadingAllType.hashCode), isSuccessGetGift.hashCode), isLoadingGetGift.hashCode), isSuccessChangePer.hashCode), isLoadingChangePer.hashCode), showEmoji.hashCode), showRocket.hashCode), showRocketUserName.hashCode), isRecord.hashCode), smileOrSticker.hashCode),
+                                                                                senGiftType.hashCode),
+                                                                            smile.hashCode),
+                                                                        error.hashCode),
+                                                                    conversationOldMessageModel.hashCode),
+                                                                allTypeUser.hashCode),
+                                                            allTypeModel.hashCode),
+                                                        allTypeOwner.hashCode),
+                                                    allTypeAdmin.hashCode),
+                                                sendMessageModel.hashCode),
+                                            recordTime.hashCode),
+                                        changePermeationModel.hashCode),
+                                    wantToExit.hashCode),
+                                backgroundImageModel.hashCode),
+                            primaryBackground.hashCode),
+                        getGiftModel.hashCode),
+                    sendGiftModel.hashCode),
+                deleteUserModel.hashCode),
+            blockUserModel.hashCode),
+        addTrendModel.hashCode));
   }
 
   @override
@@ -211,9 +261,13 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('isLoadingGetBackgroundImage', isLoadingGetBackgroundImage)
           ..add('isSuccessAllType', isSuccessAllType)
           ..add('isLoadingAllType', isLoadingAllType)
+          ..add('isSuccessGetGift', isSuccessGetGift)
+          ..add('isLoadingGetGift', isLoadingGetGift)
           ..add('isSuccessChangePer', isSuccessChangePer)
           ..add('isLoadingChangePer', isLoadingChangePer)
           ..add('showEmoji', showEmoji)
+          ..add('showRocket', showRocket)
+          ..add('showRocketUserName', showRocketUserName)
           ..add('isRecord', isRecord)
           ..add('smileOrSticker', smileOrSticker)
           ..add('senGiftType', senGiftType)
@@ -229,7 +283,12 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('changePermeationModel', changePermeationModel)
           ..add('wantToExit', wantToExit)
           ..add('backgroundImageModel', backgroundImageModel)
-          ..add('primaryBackground', primaryBackground))
+          ..add('primaryBackground', primaryBackground)
+          ..add('getGiftModel', getGiftModel)
+          ..add('sendGiftModel', sendGiftModel)
+          ..add('deleteUserModel', deleteUserModel)
+          ..add('blockUserModel', blockUserModel)
+          ..add('addTrendModel', addTrendModel))
         .toString();
   }
 }
@@ -261,6 +320,16 @@ class RoomConversationStateBuilder
   set isLoadingAllType(bool? isLoadingAllType) =>
       _$this._isLoadingAllType = isLoadingAllType;
 
+  bool? _isSuccessGetGift;
+  bool? get isSuccessGetGift => _$this._isSuccessGetGift;
+  set isSuccessGetGift(bool? isSuccessGetGift) =>
+      _$this._isSuccessGetGift = isSuccessGetGift;
+
+  bool? _isLoadingGetGift;
+  bool? get isLoadingGetGift => _$this._isLoadingGetGift;
+  set isLoadingGetGift(bool? isLoadingGetGift) =>
+      _$this._isLoadingGetGift = isLoadingGetGift;
+
   bool? _isSuccessChangePer;
   bool? get isSuccessChangePer => _$this._isSuccessChangePer;
   set isSuccessChangePer(bool? isSuccessChangePer) =>
@@ -274,6 +343,15 @@ class RoomConversationStateBuilder
   bool? _showEmoji;
   bool? get showEmoji => _$this._showEmoji;
   set showEmoji(bool? showEmoji) => _$this._showEmoji = showEmoji;
+
+  bool? _showRocket;
+  bool? get showRocket => _$this._showRocket;
+  set showRocket(bool? showRocket) => _$this._showRocket = showRocket;
+
+  String? _showRocketUserName;
+  String? get showRocketUserName => _$this._showRocketUserName;
+  set showRocketUserName(String? showRocketUserName) =>
+      _$this._showRocketUserName = showRocketUserName;
 
   bool? _isRecord;
   bool? get isRecord => _$this._isRecord;
@@ -353,6 +431,31 @@ class RoomConversationStateBuilder
   set primaryBackground(BackgroundImageDataModel? primaryBackground) =>
       _$this._primaryBackground = primaryBackground;
 
+  GetGiftModel? _getGiftModel;
+  GetGiftModel? get getGiftModel => _$this._getGiftModel;
+  set getGiftModel(GetGiftModel? getGiftModel) =>
+      _$this._getGiftModel = getGiftModel;
+
+  SendGiftModel? _sendGiftModel;
+  SendGiftModel? get sendGiftModel => _$this._sendGiftModel;
+  set sendGiftModel(SendGiftModel? sendGiftModel) =>
+      _$this._sendGiftModel = sendGiftModel;
+
+  DeleteUserModel? _deleteUserModel;
+  DeleteUserModel? get deleteUserModel => _$this._deleteUserModel;
+  set deleteUserModel(DeleteUserModel? deleteUserModel) =>
+      _$this._deleteUserModel = deleteUserModel;
+
+  BlockUserModel? _blockUserModel;
+  BlockUserModel? get blockUserModel => _$this._blockUserModel;
+  set blockUserModel(BlockUserModel? blockUserModel) =>
+      _$this._blockUserModel = blockUserModel;
+
+  AddTrendModel? _addTrendModel;
+  AddTrendModel? get addTrendModel => _$this._addTrendModel;
+  set addTrendModel(AddTrendModel? addTrendModel) =>
+      _$this._addTrendModel = addTrendModel;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -363,9 +466,13 @@ class RoomConversationStateBuilder
       _isLoadingGetBackgroundImage = $v.isLoadingGetBackgroundImage;
       _isSuccessAllType = $v.isSuccessAllType;
       _isLoadingAllType = $v.isLoadingAllType;
+      _isSuccessGetGift = $v.isSuccessGetGift;
+      _isLoadingGetGift = $v.isLoadingGetGift;
       _isSuccessChangePer = $v.isSuccessChangePer;
       _isLoadingChangePer = $v.isLoadingChangePer;
       _showEmoji = $v.showEmoji;
+      _showRocket = $v.showRocket;
+      _showRocketUserName = $v.showRocketUserName;
       _isRecord = $v.isRecord;
       _smileOrSticker = $v.smileOrSticker;
       _senGiftType = $v.senGiftType;
@@ -382,6 +489,11 @@ class RoomConversationStateBuilder
       _wantToExit = $v.wantToExit;
       _backgroundImageModel = $v.backgroundImageModel;
       _primaryBackground = $v.primaryBackground;
+      _getGiftModel = $v.getGiftModel;
+      _sendGiftModel = $v.sendGiftModel;
+      _deleteUserModel = $v.deleteUserModel;
+      _blockUserModel = $v.blockUserModel;
+      _addTrendModel = $v.addTrendModel;
       _$v = null;
     }
     return this;
@@ -407,10 +519,16 @@ class RoomConversationStateBuilder
             isLoadingGetBackgroundImage: isLoadingGetBackgroundImage,
             isSuccessAllType: isSuccessAllType,
             isLoadingAllType: isLoadingAllType,
+            isSuccessGetGift: isSuccessGetGift,
+            isLoadingGetGift: isLoadingGetGift,
             isSuccessChangePer: isSuccessChangePer,
             isLoadingChangePer: isLoadingChangePer,
             showEmoji: BuiltValueNullFieldError.checkNotNull(
                 showEmoji, 'RoomConversationState', 'showEmoji'),
+            showRocket: BuiltValueNullFieldError.checkNotNull(
+                showRocket, 'RoomConversationState', 'showRocket'),
+            showRocketUserName: BuiltValueNullFieldError.checkNotNull(
+                showRocketUserName, 'RoomConversationState', 'showRocketUserName'),
             isRecord: BuiltValueNullFieldError.checkNotNull(
                 isRecord, 'RoomConversationState', 'isRecord'),
             smileOrSticker: BuiltValueNullFieldError.checkNotNull(
@@ -419,12 +537,10 @@ class RoomConversationStateBuilder
                 senGiftType, 'RoomConversationState', 'senGiftType'),
             smile: BuiltValueNullFieldError.checkNotNull(
                 smile, 'RoomConversationState', 'smile'),
-            error: BuiltValueNullFieldError.checkNotNull(
-                error, 'RoomConversationState', 'error'),
-            conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(
-                conversationOldMessageModel, 'RoomConversationState', 'conversationOldMessageModel'),
-            allTypeUser: BuiltValueNullFieldError.checkNotNull(
-                allTypeUser, 'RoomConversationState', 'allTypeUser'),
+            error:
+                BuiltValueNullFieldError.checkNotNull(error, 'RoomConversationState', 'error'),
+            conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel, 'RoomConversationState', 'conversationOldMessageModel'),
+            allTypeUser: BuiltValueNullFieldError.checkNotNull(allTypeUser, 'RoomConversationState', 'allTypeUser'),
             allTypeModel: BuiltValueNullFieldError.checkNotNull(allTypeModel, 'RoomConversationState', 'allTypeModel'),
             allTypeOwner: BuiltValueNullFieldError.checkNotNull(allTypeOwner, 'RoomConversationState', 'allTypeOwner'),
             allTypeAdmin: BuiltValueNullFieldError.checkNotNull(allTypeAdmin, 'RoomConversationState', 'allTypeAdmin'),
@@ -433,7 +549,12 @@ class RoomConversationStateBuilder
             changePermeationModel: BuiltValueNullFieldError.checkNotNull(changePermeationModel, 'RoomConversationState', 'changePermeationModel'),
             wantToExit: BuiltValueNullFieldError.checkNotNull(wantToExit, 'RoomConversationState', 'wantToExit'),
             backgroundImageModel: BuiltValueNullFieldError.checkNotNull(backgroundImageModel, 'RoomConversationState', 'backgroundImageModel'),
-            primaryBackground: BuiltValueNullFieldError.checkNotNull(primaryBackground, 'RoomConversationState', 'primaryBackground'));
+            primaryBackground: BuiltValueNullFieldError.checkNotNull(primaryBackground, 'RoomConversationState', 'primaryBackground'),
+            getGiftModel: BuiltValueNullFieldError.checkNotNull(getGiftModel, 'RoomConversationState', 'getGiftModel'),
+            sendGiftModel: BuiltValueNullFieldError.checkNotNull(sendGiftModel, 'RoomConversationState', 'sendGiftModel'),
+            deleteUserModel: BuiltValueNullFieldError.checkNotNull(deleteUserModel, 'RoomConversationState', 'deleteUserModel'),
+            blockUserModel: BuiltValueNullFieldError.checkNotNull(blockUserModel, 'RoomConversationState', 'blockUserModel'),
+            addTrendModel: BuiltValueNullFieldError.checkNotNull(addTrendModel, 'RoomConversationState', 'addTrendModel'));
     replace(_$result);
     return _$result;
   }

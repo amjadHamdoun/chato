@@ -53,6 +53,7 @@ class GetAllRoomRemoteDataSourceImpl extends GetAllRoomRemoteDataSource {
         }
         return Left(Er.networkError);
       } catch (e) {
+         print(e);
         return Left(Er.error);
       }
     }

@@ -8,6 +8,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/utils/color_manager.dart';
+import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
 
 
@@ -346,23 +347,33 @@ class _MessageFileSideTwoState extends State<MessageFileSideTwo> {
           SizedBox(
             width: 6.w,
           ),
-          SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img?? "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>
+                    UserScreen(id: widget.message.user!.id!,)),
+              );
+            },
+            child: SizedBox(
+              width: 50.h,
+              height: 50.h,
+              child: CachedNetworkImage(
+                imageUrl:widget.message.user!.img??
+                    "http://via.placeholder.com/200x150",
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.fill,
 
+                    ),
                   ),
                 ),
+                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
 

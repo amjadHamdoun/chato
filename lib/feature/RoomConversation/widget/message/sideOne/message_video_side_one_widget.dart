@@ -126,11 +126,7 @@ class _MessageVideoSideOneState extends State<MessageVideoSideOne> {
       children: [
         GestureDetector(
           onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>
-                  UserScreen(id: widget.message.user!.id!,)),
-            );
+
           },
           child: SizedBox(
             width: 50.h,

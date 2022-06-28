@@ -14,7 +14,10 @@ UserRoomDataModel _$UserRoomDataModelFromJson(Map<String, dynamic> json) =>
           ? null
           : UserData.fromJson(json['user'] as Map<String, dynamic>),
       favorite_room_count: json['favorite_room_count'] as String?,
-      background: json['background'] as String?,
+      background: json['background'] == null
+          ? null
+          : BackgroundRoomModel.fromJson(
+              json['background'] as Map<String, dynamic>),
       img: json['img'] as String?,
     );
 

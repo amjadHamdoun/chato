@@ -1,4 +1,5 @@
 import 'package:built_value/built_value.dart';
+import '../../RoomConversation/model/sendMessage/send_message_data_model.dart';
 import '../../RoomConversation/model/sendMessage/send_message_model.dart';
 import '../model/private_old_message_model.dart';
 part 'conversation_state.g.dart';
@@ -20,6 +21,7 @@ abstract class ConversationState implements
   String get smile;
   String get recordTime;
   String get blocUser;
+
   ConversationState._();
 
   factory ConversationState([void Function(ConversationStateBuilder) updates]) = _$ConversationState;
@@ -28,6 +30,7 @@ abstract class ConversationState implements
     return ConversationState((b) => b
       ..isLoading = false
       ..isSuccess = false
+
       ..isLoadingBloc = false
       ..isSuccessBloc = false
       ..showEmoji=false
@@ -38,7 +41,10 @@ abstract class ConversationState implements
          ..sendMessageModel=SendMessageModel(
            status: false,
             message: '',
-           error_code: 0
+           error_code: 0,
+             data: SendMessageDataModel(
+                 conversation_id: -1
+             )
          )
         ..privateOldMessageModel=
           PrivateOldMessageModel(

@@ -1,11 +1,16 @@
 import 'package:built_value/built_value.dart';
+import 'package:chato/core/utils/constants.dart';
+import '../../Conversation/model/bloc_user_model.dart';
+import '../model/addTrendRoom/add_trend_model.dart';
 import '../model/allType/all_type_model.dart';
 import '../model/backgroundImageRoom/background_image_data_model.dart';
 import '../model/backgroundImageRoom/background_image_model.dart';
 import '../model/changePermeationUser/change_permeation_user_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
+import '../model/deleteUserRoom/delete_user_model.dart';
 import '../model/getGiftRoom/get_gift_model.dart';
 import '../model/sendGiftRoom/send_gift_model.dart';
+import '../model/sendMessage/send_message_data_model.dart';
 import '../model/sendMessage/send_message_model.dart';
 
 
@@ -32,6 +37,9 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   bool? get isLoadingChangePer;
 
   bool get showEmoji;
+  bool get showRocket;
+  String get showRocketUserName;
+
   bool get isRecord;
   bool get smileOrSticker;
   int get senGiftType;
@@ -50,6 +58,10 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   BackgroundImageDataModel get primaryBackground;
   GetGiftModel get getGiftModel;
   SendGiftModel get sendGiftModel;
+  DeleteUserModel get deleteUserModel;
+  BlockUserModel get blockUserModel;
+  AddTrendModel get addTrendModel;
+
 
   RoomConversationState._();
 
@@ -68,7 +80,15 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
       ..isSuccessAllType = false
       ..isLoadingChangePer=false
       ..isSuccessChangePer=false
+      ..showRocket=false
+      ..showRocketUserName=''
       ..isLoadingGetBackgroundImage=false
+
+      ..addTrendModel=AddTrendModel(
+          error_code: 0,
+          message: '',
+          status: false)
+
         ..showEmoji=false
         ..isRecord=false
         ..senGiftType=0
@@ -86,7 +106,11 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
       )
       ..sendMessageModel=SendMessageModel(message: '',
           status: null,
-        error_code: 0
+        error_code: 0,
+        data: SendMessageDataModel(
+          conversation_id: -1
+        )
+
       )
         ..conversationOldMessageModel= ConversationOldMessageModel(
               data: [],
@@ -102,6 +126,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
           error_code: 0, message: '', status: false)
          ..allTypeUser=AllTypeModel(data: [],
              error_code: 0, message: '', status: false)
+
         ..getGiftModel=GetGiftModel(status: false,
          data: [],
           error_code: 0,
@@ -110,12 +135,13 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
         )
         ..isSuccessGetGift=false
         ..isLoadingGetGift=false
-        ..sendGiftModel=SendGiftModel(error_code: 0,
+        ..sendGiftModel=SendGiftModel(
+            error_code: 0,
           message: '',
           status: false
         )
-
-
+        ..deleteUserModel=DeleteUserModel(error_code: 0, message: '', status: false)
+        ..blockUserModel=BlockUserModel(error_code: 0, message: '', status: false)
 
 
     );

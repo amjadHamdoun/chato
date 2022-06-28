@@ -46,8 +46,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     on<GetConversationMessage>((event, emit)
     async {
 
-
-      if(state.privateOldMessageModel.next_page_url!=null||event.page==1)
+      if(state.privateOldMessageModel.next_page_url!=null||
+          event.page==1)
         {
           emit(
               state.rebuild((b) => b
@@ -55,6 +55,20 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
                 ..isLoading=true
                 ..isSuccess=false
               ));
+          if(event.page==1)
+          {
+            emit(state.rebuild((b) => b
+              ..isSuccess=true
+              ..privateOldMessageModel=PrivateOldMessageModel(
+                  status: false,
+                  message: '',
+                  error_code: 0,
+                  data: [],
+                  next_page_url: null,
+              )
+            ));
+          }
+
           final result=await
           privateOldMessageDataSource.
           getConversationOldMessage(
@@ -99,8 +113,6 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
               ..error=''
               ..isLoading=false
               ..privateOldMessageModel=data
-
-
             ));
           });
         }

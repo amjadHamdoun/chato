@@ -121,17 +121,17 @@ flutter:
   fonts:
     - family: DIN
       fonts:
-          - asset: assets\fonts\ArbFONTS-DINNextLTArabic-Bold-2.ttf
+          - asset: assets/fonts/ArbFONTS-DINNextLTArabic-Bold-2.ttf
             weight: 700
-          - asset: assets\fonts\ArbFONTS-DINNextLTArabic-Medium-2.ttf
+          - asset: assets/fonts/ArbFONTS-DINNextLTArabic-Medium-2.ttf
             weight: 500
-          - asset: assets\fonts\ArbFONTS-DINNextLTArabic-Regular-2.ttf
+          - asset: assets/fonts/ArbFONTS-DINNextLTArabic-Regular-2.ttf
             weight: 400
-          - asset: assets\fonts\ArbFONTS-DINNextLTArabic-LIGHT-1.ttf
+          - asset: assets/fonts/ArbFONTS-DINNextLTArabic-LIGHT-1.ttf
             weight: 300
     - family: Roboto
       fonts:
-        - asset: assets\fonts\Roboto-Medium.ttf
+        - asset: assets/fonts/Roboto-Medium.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

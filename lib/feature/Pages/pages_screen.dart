@@ -22,7 +22,8 @@ import 'StorePage/store_page.dart';
 
 
 class PagesScreen extends StatefulWidget {
-  const PagesScreen({Key? key}) : super(key: key);
+  final int pageNumber;
+  const PagesScreen({Key? key,required this.pageNumber}) : super(key: key);
 
   @override
   _PagesScreenState createState() => _PagesScreenState();
@@ -35,12 +36,12 @@ class _PagesScreenState extends State<PagesScreen> {
    ProfBloc profBloc=sl<ProfBloc>();
    RoomBloc roomBloc=sl<RoomBloc>();
   ChatBloc chatBloc=sl<ChatBloc>();
-   PageController pageController=PageController(initialPage: 0);
+   late PageController pageController;
 
 
    @override
   void initState() {
-
+     pageController=PageController(initialPage: widget.pageNumber);
      Global.pusher!.connect();
 
      Global.pusher!.onConnectionStateChange((state) {
@@ -52,7 +53,7 @@ class _PagesScreenState extends State<PagesScreen> {
        print("error: ${error!.message}");
      });
 
-     bloc.onChangePageEvent(0);
+     bloc.onChangePageEvent(widget.pageNumber);
 
      super.initState();
   }

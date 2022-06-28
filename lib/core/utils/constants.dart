@@ -24,7 +24,7 @@ class Endpoints {
   static const getTrendRoom = 'room/get-all-trend';
   static const getAllRoom = 'room/get-all-room';
   static const getAllUserVipRoom= 'room/all-user-vip-room';
-  static const addRoomTrend = 'room/add-room-trend';
+
   static const getConversationOldMessage = 'room/get-conversation-old-message';
   static const getConversationPrivet = 'room/get-conversation-privet';
   static const getAllBlockUser = 'get-all-block-user';
@@ -42,6 +42,8 @@ class Endpoints {
   static const getGiftRoom = '/room/git-gift-room';
   static const sendGiftRoom = '/room/send-gift-room';
   static const deleteUserRoom = '/room/delete-user-room';
+  static const blockUserRoom = '/room/block-user-room';
+  static const addTrend = '/room/add-room-trend';
 
 
 

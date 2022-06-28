@@ -17,6 +17,7 @@ import 'package:chato/feature/RoomConversation/widget/message/sideTwo/music_side
 import 'package:chato/feature/RoomConversation/widget/send_gift_bottom_sheet.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/room_settings.dart';
 import 'package:chato/feature/RoomConversation/widget/setting/show_vip_bottom_sheet.dart';
+import 'package:chato/feature/RoomConversation/widget/show_menu_bottom_sheet_rocket.dart';
 import 'package:chato/feature/RoomConversation/widget/smile&sticker/smile_and_sticker.dart';
 import 'package:chato/feature/User/model/user_data.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -31,13 +32,16 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pusher_client/pusher_client.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../injection.dart';
+import '../Pages/pages_screen.dart';
 import 'model/conversationMessage/message_pusher_model.dart';
 import 'bloc/room_conversation_bloc.dart';
 import 'bloc/room_conversation_state.dart';
+import 'widget/show_games_bottom_sheet.dart';
 import 'widget/show_media_bottom_sheet.dart';
 import 'dart:io' as io;
 
 
+ // ignore: must_be_immutable
  class RoomConversationScreen extends StatefulWidget {
    final int roomId;
   final String? background;
@@ -80,10 +84,8 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
      bloc.onAddUserRoomEvent(Global.userId!, widget.roomId);
      bloc.onGetConversationMessage(widget.roomId);
      bloc.onGetAllTypeEvent('',widget.roomId);
-
      channelChat =
          Global.pusher!.subscribe("chat.${widget.roomId}");
-
      channelChat!.bind('App\\Events\\ChatEvent', (event) {
 
          log("event.toString()");
@@ -93,20 +95,56 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
          MessagePusherModel message=
          MessagePusherModel.fromJson(arguments);
-         UserData user=UserData.fromJson(arguments['user']);
-        message.msg.user=user;
-        String roomIdPusher=arguments['room_id'];
-        if(user.id!=Global.userId&&
-            roomIdPusher==Global.currentRoomId)
-          {
-            bloc.onAddMessageFromPusherEvent(message.msg);
-          }
-           Future.delayed(const Duration(milliseconds: 300)).then((value) {
+         ///receiveMassage
+         if(message.msg.type==null)
+           {
+             UserData user=UserData.fromJson(arguments['user']);
+             message.msg.user=user;
+             String roomIdPusher=arguments['room_id'];
+             if(user.id!=Global.userId&&
+                 roomIdPusher==Global.currentRoomId)
+             {
+               bloc.onAddMessageFromPusherEvent(message.msg);
+             }
 
-             scrollController.animateTo(scrollController.position.maxScrollExtent
-                 , duration: const Duration(milliseconds: 500),
-                 curve: Curves.linearToEaseOut);
+             Future.delayed(const Duration(milliseconds: 300)).then((value) {
+               scrollController.animateTo(scrollController.position.maxScrollExtent
+                   , duration: const Duration(milliseconds: 500),
+                   curve: Curves.linearToEaseOut);
+             });
+           }
+         ///rocket
+         else if(message.msg.type=='add_room_trend'){
+           UserData user=UserData.fromJson(arguments['user']);
+           bloc.onChangeRocketEvent(true, user.name!);
+           Future.delayed(const Duration(seconds: 3)).then((value) {
+
+             bloc.onChangeRocketEvent(false,'');
+
            });
+         }
+         ///remove room
+         else if(message.msg.type=='remove_from_room'){
+           UserData user=UserData.fromJson(arguments['user']);
+
+
+           if(user.id==Global.userId)
+             {
+               Navigator.pushAndRemoveUntil(
+                 context,
+                 MaterialPageRoute(
+                   builder: (BuildContext context) => const PagesScreen(
+                     pageNumber: 2,
+                   ),
+                 ),
+                     (route) => false,
+               );
+             }
+
+
+
+
+         }
 
 
      });
@@ -316,6 +354,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
    bool checkIsMap(String? endUrl)
    {
+
      if(endUrl!=null)
      {
 
@@ -362,13 +401,14 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           if(state.smile.isNotEmpty)
             {
                 textEditingController
-                 ..text += state.smile
+                  ..text += state.smile
                 ..selection = TextSelection.fromPosition(
                   TextPosition(offset: textEditingController.text.length));
             }
           if(state.isSuccess!)
             {
-                Future.delayed(const Duration(milliseconds: 300)).then((value) {
+                Future.delayed(const Duration(milliseconds: 300))
+                    .then((value) {
                   scrollController.animateTo(scrollController.position.maxScrollExtent
                       , duration: const Duration(milliseconds: 500),
                       curve: Curves.linearToEaseOut);
@@ -379,14 +419,13 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
          return  KeyboardAware(
            builder: (context, keyboardConfig) {
              return KeyboardVisibilityBuilder(
-
                builder: (context , bool isKeyboardVisible) {
                  if(isKeyboardVisible)
                  {
                    if(state.showEmoji)
                    {
 
-                      bloc.onShowEmojiEvent(false);
+                     bloc.onShowEmojiEvent(false);
 
                    }
                  }
@@ -450,7 +489,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                          ),
                          Scaffold(
                            backgroundColor: Colors.transparent,
-
                            appBar: AppBar(
                              backgroundColor: Colors.transparent,
                              elevation: 0,
@@ -469,8 +507,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                        Row(
                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                          children: [
-
-
                                            Row(
                                              children: [
                                                Container(
@@ -502,12 +538,13 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                image: DecorationImage(
                                                                  image: imageProvider,
                                                                  fit: BoxFit.fill,
-
                                                                ),
                                                              ),
                                                            ),
-                                                           placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                                           errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                           placeholder: (context, url) =>
+                                                           const Center(child: CircularProgressIndicator()),
+                                                           errorWidget: (context, url, error) =>
+                                                           const Icon(Icons.error),
                                                          ),
                                                        ),
                                                      ),
@@ -552,7 +589,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                SizedBox(width: 15.w,),
                                                InkWell(
                                                  onTap: (){
-
+                                                   showMenuBottomSheetRocket(context,bloc,widget.roomId);
                                                  },
                                                  child: SvgPicture.asset('assets/icons/Rocket.svg',
                                                    width: 19.w,
@@ -561,7 +598,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                SizedBox(width: 25.w,),
                                                IconButton(
                                                  onPressed: (){
+
                                                    bloc.onWantToExitEvent(true);
+
                                                  },
                                                  icon:SvgPicture.asset(
                                                    'assets/icons/menu.svg',
@@ -1276,6 +1315,108 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                    ],
                                  ),
                                ),
+                             ),
+                           ),
+
+                         if(state.showRocket)
+                           GestureDetector(
+                             onTap: (){
+                               bloc.onWantToExitEvent(false);
+                             },
+                             child: Column(
+                               children: [
+                                 SizedBox(
+                                   height: 0.2.sh,
+                                 ),
+                                 Padding(
+                                   padding:  EdgeInsets.symmetric(
+                                     horizontal: 0.w
+                                   ),
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.end,
+                                     children: [
+
+
+                                       Material(
+                                         color: Colors.transparent,
+                                         child: Container(
+                                           width: 0.4.sw,
+                                           decoration:  BoxDecoration(
+                                               gradient:  const LinearGradient(
+                                                   begin: Alignment.topRight,
+                                                   end: Alignment.bottomLeft,
+                                                   colors: [
+                                                     ColorManager.primaryColor,
+                                                     ColorManager.primaryColorLight,
+                                                   ]
+                                               ),
+                                             borderRadius: BorderRadius.only(
+                                               topLeft:context.locale==const Locale('ar','AR')?
+                                               Radius.circular(0.w):Radius.circular(20.w),
+                                               bottomLeft: context.locale==const Locale('ar','AR')?
+                                               Radius.circular(0.w):Radius.circular(20.w),
+                                               topRight:context.locale==const Locale('ar','AR')?
+                                               Radius.circular(20.w):Radius.circular(0.w),
+                                               bottomRight: context.locale==const Locale('ar','AR')?
+                                               Radius.circular(20.w):Radius.circular(0.w),
+                                             ),
+                                           ),
+                                           child: Padding(
+                                             padding:  EdgeInsets.symmetric(
+                                               horizontal: 12.w
+                                             ),
+                                             child: Row(
+                                               children: [
+                                                 Container(
+                                                   decoration: const BoxDecoration(
+                                                       color: Color(0xffFE9F61),
+                                                       shape: BoxShape.circle
+                                                   ),
+                                                   child: Padding(
+
+                                                     padding:  EdgeInsets.all(16.0.w),
+
+                                                     child: Image.asset("assets/icons/rocket.png",
+                                                       width: 16.w,
+
+                                                     ),
+                                                   ),
+                                                 ),
+                                                 Expanded(
+                                                   child: Column(
+                                                     children: [
+                                                       Text(state.showRocketUserName,
+                                                         style: TextStyle(
+                                                             fontWeight: FontWeight.w700,
+                                                             fontSize: 15.sp,
+                                                             color: ColorManager.backgroundColor,
+                                                             fontFamily: 'Roboto'
+                                                         ),
+                                                         textAlign: TextAlign.center,
+
+                                                       ),
+                                                       Text("x 1",
+                                                         style: TextStyle(
+                                                             fontWeight: FontWeight.w700,
+                                                             fontSize: 15.sp,
+                                                             color: ColorManager.backgroundColor,
+
+                                                         ),
+                                                         textAlign: TextAlign.center,
+
+                                                       ),
+                                                     ],
+                                                   ),
+                                                 ),
+                                               ],
+                                             ),
+                                           ),
+                                         ),
+                                       ),
+                                     ],
+                                   ),
+                                 ),
+                               ],
                              ),
                            ),
                            

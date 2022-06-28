@@ -10,7 +10,10 @@ FavRoomDataModel _$FavRoomDataModelFromJson(Map<String, dynamic> json) =>
     FavRoomDataModel(
       id: json['id'] as int?,
       name: json['name'] as String?,
-      background: json['background'] as String?,
+      background: json['background'] == null
+          ? null
+          : BackgroundRoomModel.fromJson(
+              json['background'] as Map<String, dynamic>),
       favorite_room_count: json['favorite_room_count'] as String?,
       user: json['user'] == null
           ? null

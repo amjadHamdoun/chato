@@ -7,7 +7,6 @@ import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
 import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,11 +24,13 @@ import 'bloc/conversation_bloc.dart';
 import 'model/private_message_pusher_model.dart';
 import 'widget/message/sideOne/file_chat_side_one_widget.dart';
 import 'widget/message/sideOne/image_side_one_widget.dart';
+import 'widget/message/sideOne/map_side_one_widget.dart';
 import 'widget/message/sideOne/message_chat_side_one_widget.dart';
 import 'widget/message/sideOne/message_video_side_one_widget.dart';
 import 'widget/message/sideOne/music_side_one_widget.dart';
 import 'widget/message/sideTwo/file_chat_side_two_widget.dart';
 import 'widget/message/sideTwo/image_side_two_widget.dart';
+import 'widget/message/sideTwo/map_side_two_widget.dart';
 import 'widget/message/sideTwo/message_chat_side_two_widget.dart';
 import 'widget/message/sideTwo/message_video_side_two_widget.dart';
 import 'widget/message/sideTwo/music_side_two_widget.dart';
@@ -59,18 +60,29 @@ class _ConversationScreenState extends State<ConversationScreen> {
    ScrollController scrollController=ScrollController();
    ScrollController singleScrollController=ScrollController();
    TextEditingController textEditingController= TextEditingController();
-   ConversationBloc bloc=sl<ConversationBloc>();
+
+   late ConversationBloc bloc;
+
    Channel? channelChat;
    FlutterAudioRecorder2? _recorder;
    Recording? _current;
    late RecordingStatus _currentStatus ;
    late Timer timer;
    int page=1;
-
+   late bool conIdNotFound;
 
 
    @override
   void initState() {
+     bloc=sl<ConversationBloc>();
+     if(widget.conversationId=="-1")
+       {
+         conIdNotFound=true;
+       }
+     else{
+       conIdNotFound=false;
+     }
+
      _init();
      scrollController.addListener(() {
        if (scrollController.position.atEdge) {
@@ -78,7 +90,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
          if (isTop) {
            page++;
            bloc.onGetConversationMessage(
-               "10",page
+               widget.conversationId,page
            );
            print('At the top');
          } else {
@@ -86,9 +98,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
          }
        }
      });
-     bloc.onGetConversationMessage(
-         "10",page
+
+       bloc.onGetConversationMessage(
+         widget.conversationId,page
      );
+
 
      channelChat =
          Global.pusher!.subscribe("chat.${widget.conversationId}");
@@ -346,7 +360,21 @@ class _ConversationScreenState extends State<ConversationScreen> {
      return false;
    }
 
+   bool checkIsMap(String? endUrl)
+   {
 
+     if(endUrl!=null)
+     {
+
+       if(endUrl.contains('google.com/maps'))
+       {
+         return true;
+       }
+     }
+
+
+     return false;
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -367,6 +395,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
                scrollController.jumpTo(
                   scrollController.position.maxScrollExtent);
              });
+           }
+         if(state.sendMessageModel.data!.conversation_id!>-1)
+           { print(state.sendMessageModel.data!.conversation_id);
+               if(conIdNotFound)
+                 {
+                   print("state.sendMessageModel.data!.conversation_id");
+                   channelChat =
+                       Global.pusher!.subscribe("chat.${state.sendMessageModel.data!.conversation_id}");
+                   conIdNotFound=false;
+                 }
            }
       },
       builder: (context, state) {
@@ -579,7 +617,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     privateOldMessageModel.data![index].all_file,
                                         state.
                                         privateOldMessageModel.data![index].localFile
-
                                     ))
                                     {
                                       return MessageFileSideOne(
@@ -592,7 +629,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     privateOldMessageModel.data![index].all_file,
                                         state.
                                         privateOldMessageModel.data![index].localFile
-
                                     ))
                                     {
                                       return SizedBox(
@@ -602,6 +638,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                           privateOldMessageModel
                                               .data![index] ,
                                         ),
+                                      );
+                                    }
+                                    else if(checkIsMap(state.
+                                    privateOldMessageModel.data![index].message,
+                                    ))
+                                    {
+                                      return MessageMapSideOne(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
                                       );
                                     }
                                     return MessageChatSideOne(
@@ -616,14 +662,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                   privateOldMessageModel.data![index].all_file,
                                       state.
                                       privateOldMessageModel.data![index].localFile
-
                                   )
-
                                   )
                                   {
                                     return SizedBox(
                                       height: 170.h,
-
                                       child: MessageVideoSideTwo(
                                         message:state.
                                         privateOldMessageModel
@@ -635,7 +678,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                   privateOldMessageModel.data![index].all_file,
                                       state.
                                       privateOldMessageModel.data![index].localFile
-
                                   ))
                                   {
                                     return SizedBox(
@@ -651,7 +693,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                   privateOldMessageModel.data![index].all_file,
                                       state.
                                       privateOldMessageModel.data![index].localFile
-
                                   ))
                                   {
                                     return SizedBox(
@@ -670,14 +711,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     privateOldMessageModel.data![index].all_file,
                                         state.
                                         privateOldMessageModel.data![index].localFile
-
                                     )
-
                                     )
                                     {
                                       return SizedBox(
                                         height: 170.h,
-
                                         child: MessageVideoSideTwo(
                                           message:state.
                                           privateOldMessageModel
@@ -689,7 +727,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     privateOldMessageModel.data![index].all_file,
                                         state.
                                         privateOldMessageModel.data![index].localFile
-
                                     ))
                                     {
                                       return SizedBox(
@@ -730,18 +767,22 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                             .data![index] ,
                                       );
                                     }
+                                    else if(checkIsMap(state.
+                                    privateOldMessageModel.data![index].message,
+                                    ))
+                                    {
+                                      return MessageMapSideTwo(
+                                        message:state.
+                                        privateOldMessageModel
+                                            .data![index] ,
+                                      );
+                                    }
                                   }
                                   return MessageChatSideTwo(
                                     message:state.
                                     privateOldMessageModel
                                         .data![index] ,
                                   );
-
-
-
-
-
-
                                 },
                                 separatorBuilder:(context, i){
                                   return  SizedBox(
@@ -777,7 +818,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                                 );
                                               }
 
-                                              Future.delayed(const Duration(milliseconds: 300)).then((value) {
+                                              Future.delayed(const Duration(milliseconds: 300))
+                                                  .then((value) {
                                                 bloc.onShowEmojiEvent(true);
 
                                               });
@@ -879,9 +921,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
                                             child: DragTarget(
                                               builder: (context, candidateData, rejectedData) {
-                                                return  Center(child:
-                                                Text('Slide to cancel    ${ state.recordTime}}', style:
-                                                TextStyle(color: Theme.of(context).primaryColorDark,
+                                                 return  Center(child:
+                                                  Text('Slide to cancel    ${ state.recordTime}}', style:
+                                                  TextStyle(color: Theme.of(context).primaryColorDark,
                                                     fontSize: 15.sp),));
                                               },
                                               onWillAccept: (data) {
@@ -1048,4 +1090,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     );
   }
+
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+
 }

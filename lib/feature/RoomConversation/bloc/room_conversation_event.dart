@@ -171,3 +171,56 @@ class SendGiftEvent extends RoomConversationEvent
    required  this.giftId,
   });
 }
+
+// ignore: must_be_immutable
+class DeleteUserEvent extends RoomConversationEvent
+{
+  int userId;
+  int roomId;
+
+  DeleteUserEvent({
+    required this.userId,
+    required this.roomId,
+
+  });
+}
+
+// ignore: must_be_immutable
+class BlockUserEvent extends RoomConversationEvent
+{
+  int userId;
+  int roomId;
+
+  BlockUserEvent({
+    required this.userId,
+    required this.roomId,
+
+  });
+}
+
+// ignore: must_be_immutable
+class AddTrendEvent extends RoomConversationEvent
+{
+  String payment;
+  int roomId;
+
+  AddTrendEvent({
+    required this.payment,
+    required this.roomId,
+
+  });
+}
+
+
+// ignore: must_be_immutable
+class ChangeRocketEvent extends RoomConversationEvent
+{
+  String userName;
+  bool showRocket;
+
+  ChangeRocketEvent({
+    required this.userName,
+    required this.showRocket,
+
+  });
+}

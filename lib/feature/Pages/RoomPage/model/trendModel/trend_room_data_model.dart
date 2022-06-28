@@ -2,6 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../User/model/user_data.dart';
+import '../background_room_model.dart';
 
 
 
@@ -18,7 +19,7 @@ class TrendRoomDataModel {
   String? name;
   final String? favorite_room_count;
   final UserData? user;
-  final String? background;
+  final BackgroundRoomModel? background;
   final String? img;
 
 

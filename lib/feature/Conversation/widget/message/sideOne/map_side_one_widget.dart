@@ -1,23 +1,22 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../../core/utils/color_manager.dart';
-import '../../../../User/user.dart';
-import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
+import '../../../../../../../core/utils/color_manager.dart';
+import '../../../model/private_old_message_data_model.dart';
 
 
 
 
 
 class MessageMapSideOne extends StatefulWidget {
-  final ConversationOldMessageDataModel message;
+  final PrivateOldMessageDataModel message;
   const MessageMapSideOne({Key? key,required this.message}) :
         super(key: key);
 
@@ -26,7 +25,7 @@ class MessageMapSideOne extends StatefulWidget {
 }
 
 class _MessageMapSideOneState extends State<MessageMapSideOne> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
  late double lan;
   late double lat;
 
@@ -63,67 +62,12 @@ class _MessageMapSideOneState extends State<MessageMapSideOne> {
 
 
       children: [
-        GestureDetector(
-          onTap: (){
 
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "http://via.placeholder.com/200x150",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-
-                  ),
-                ),
-              ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 6.w,
-        ),
 
         Expanded(
           child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color:  const Color(0xff99AACD),
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
 
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(
-                      horizontal: 12.w
-                  ),
-                  child: Row(
-                    children: [
-
-                      Expanded(
-                        child: Text(widget.message.user!.name!,
-                          style: TextStyle(
-                              color: ColorManager.backgroundColor,
-                              fontSize: 13.sp,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600
-                          ),
-                          textAlign: TextAlign.start,
-
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               GestureDetector(
                 onTap: (){
                   launch(widget.message.message!);

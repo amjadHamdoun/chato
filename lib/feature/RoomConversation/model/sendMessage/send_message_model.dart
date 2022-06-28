@@ -1,3 +1,4 @@
+import 'package:chato/feature/RoomConversation/model/sendMessage/send_message_data_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 
@@ -9,7 +10,7 @@ class SendMessageModel {
   bool? status;
   int? error_code;
   String? message;
-
+  SendMessageDataModel? data;
 
 
 
@@ -22,7 +23,8 @@ class SendMessageModel {
 
         required this.error_code,
         required this.message,
-        required this.status
+        required this.status,
+        required this.data
 
       });
 }

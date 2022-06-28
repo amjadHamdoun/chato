@@ -71,6 +71,7 @@ class ChangeRecordTimerEvent extends ConversationEvent
   int count;
   ChangeRecordTimerEvent({
     required this.count,
-
   });
 }
+
+

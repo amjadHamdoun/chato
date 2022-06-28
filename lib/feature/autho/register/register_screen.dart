@@ -49,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) => const PagesScreen(
-
+                   pageNumber: 0,
                 ),
               ),
                   (route) => false,

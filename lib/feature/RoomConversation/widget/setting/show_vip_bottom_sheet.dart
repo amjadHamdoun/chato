@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/Globals.dart';
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -33,17 +34,48 @@ Future<String?> showVipBottomSheet(
            listener: (context, state){
              if(state.isSuccessChangePer!)
                {
-                 Fluttertoast.showToast(
-                     msg: state.changePermeationModel.message!,
-                     toastLength: Toast.LENGTH_SHORT,
-                     gravity: ToastGravity.BOTTOM,
-                     timeInSecForIosWeb: 1,
-                     backgroundColor: ColorManager.primaryColor,
-                     textColor: Colors.white,
-                     fontSize: 16.0
-                 );
+                 if(state.changePermeationModel.message!.isNotEmpty)
+                   {
+                     Fluttertoast.showToast(
+                         msg: state.changePermeationModel.message!,
+                         toastLength: Toast.LENGTH_SHORT,
+                         gravity: ToastGravity.BOTTOM,
+                         timeInSecForIosWeb: 1,
+                         backgroundColor: ColorManager.primaryColor,
+                         textColor: Colors.white,
+                         fontSize: 16.0
+                     );
+                   }
 
                }
+             if(state.deleteUserModel.message!.isNotEmpty)
+               {
+
+                   Fluttertoast.showToast(
+                       msg: state.deleteUserModel.message!,
+                       toastLength: Toast.LENGTH_SHORT,
+                       gravity: ToastGravity.BOTTOM,
+                       timeInSecForIosWeb: 1,
+                       backgroundColor: ColorManager.primaryColor,
+                       textColor: Colors.white,
+                       fontSize: 16.0
+                   );
+
+               }
+             if(state.blockUserModel.message.isNotEmpty)
+             {
+
+               Fluttertoast.showToast(
+                   msg: state.blockUserModel.message,
+                   toastLength: Toast.LENGTH_SHORT,
+                   gravity: ToastGravity.BOTTOM,
+                   timeInSecForIosWeb: 1,
+                   backgroundColor: ColorManager.primaryColor,
+                   textColor: Colors.white,
+                   fontSize: 16.0
+               );
+
+             }
            },
            builder: (context, state) {
             return Container(
@@ -90,9 +122,11 @@ Future<String?> showVipBottomSheet(
                     ).tr(),
                   ): ListView.separated(
                       itemBuilder: (context, index) {
-                        return  Padding(
+                        if(state.allTypeModel.data![index].id!=Global.userId) {
+                          return  Padding(
                             padding:  EdgeInsets.symmetric(
-                                horizontal: 12.w
+                                horizontal: 12.w,
+                              vertical: 4.h
                             ),
                             child: Row(
                               children: [
@@ -220,6 +254,9 @@ Future<String?> showVipBottomSheet(
 
 
                                 PopupMenuItem(
+                                  onTap: (){
+                                    bloc.onDeleteUserEvent(state.allTypeModel.data![index].id!, roomId);
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -241,6 +278,9 @@ Future<String?> showVipBottomSheet(
                                 ),
 
                                 PopupMenuItem(
+                                  onTap: (){
+                                    bloc.onBlockUserEvent(state.allTypeModel.data![index].id!, roomId);
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -261,6 +301,9 @@ Future<String?> showVipBottomSheet(
                                   ),
                                 ),
                                 PopupMenuItem(
+                                  onTap: (){
+                                    bloc.onBlockUserEvent(state.allTypeModel.data![index].id!, roomId);
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -289,9 +332,14 @@ Future<String?> showVipBottomSheet(
                               ],
                             )
                         );
+                        }
+                        else{
+                          return   const SizedBox(
+                          );
+                        }
                       }, separatorBuilder: (context, index) {
-                    return   SizedBox(
-                      height: 10.h,
+                    return   const SizedBox(
+
                     );
                   }, itemCount:
                   state.allTypeModel.data!=null?

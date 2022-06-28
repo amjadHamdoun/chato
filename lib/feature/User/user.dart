@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../core/utils/color_manager.dart';
+import '../Conversation/conversation.dart';
 import 'bloc/user_bloc.dart';
 import 'bloc/user_state.dart';
 
@@ -396,9 +397,7 @@ class _UserScreenState extends State<UserScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-
                                   SvgPicture.asset('assets/icons/eye.svg',
-
                                   ),
                                   SizedBox(
                                     height: 2.h,
@@ -679,7 +678,19 @@ class _UserScreenState extends State<UserScreen> {
                                         vertical: 5.h
                                     ))
                             ),
-                            onPressed: () {}
+                            onPressed: () {
+                              Navigator.push(context,
+                               MaterialPageRoute(builder: (context) =>
+                                   ConversationScreen(
+                                 userTwoId:state.userModel!.data!.id ,
+                                     userTwoName: state.userModel!.data!.name,
+                                     userTwoImage: state.userModel!.data!.img,
+                                     conversationId: '-1',
+
+
+                               ) ,)
+                              );
+                            }
                         ),
                       ),
                     ],
