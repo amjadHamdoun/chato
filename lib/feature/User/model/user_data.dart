@@ -11,7 +11,7 @@ class UserData {
   final String? birth_date;
   final String? gender;
   final String? token;
-
+  var  vip_user;
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 
   factory UserData.fromJson(Map<String, dynamic> json) =>
@@ -25,6 +25,7 @@ class UserData {
      this.img,
      this.birth_date,
      this.gender,
+     this.vip_user
 
   });
 }

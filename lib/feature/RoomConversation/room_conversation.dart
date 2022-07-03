@@ -651,12 +651,13 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
 
                                            GestureDetector(
                                              onTap: (){
-                                               if(widget.ownerId==Global.userId)
-                                                 {
+
+
                                                    showVipBottomSheet(context,bloc,
-                                                    widget.roomId
+                                                    widget.roomId,
+                                                     widget.ownerId!
                                                    );
-                                                 }
+
 
                                              },
                                              child: Container(
@@ -1191,12 +1192,13 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                        ],
                                      ),
                                    ),
-                                   if(isKeyboardVisible)
-                                     SizedBox(height: keyboardConfig.keyboardHeight,),
-
                                    SizedBox(
                                      height: 20.h,
                                    ),
+                                   if(isKeyboardVisible)
+                                     SizedBox(height: keyboardConfig.keyboardHeight+10.h,),
+
+
                                    SmileAndSticker(
                                      bloc: bloc,
                                    ),

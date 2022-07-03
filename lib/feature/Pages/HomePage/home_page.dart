@@ -15,6 +15,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../core/utils/color_manager.dart';
+import '../../User/user.dart';
 import 'widget/friendship_requests.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -322,6 +323,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                         state.isLoadingGetAllFriend!?const Center(
                           child: CircularProgressIndicator(),
                         ):
+                        state.allFriendModel.data!=null&&
                     state.allFriendModel.data!.isNotEmpty?
                     RefreshIndicator(
                       onRefresh: ()async{
@@ -341,25 +343,35 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               children: [
                                 Stack(
                                   children: [
-                                    SizedBox(
-                                      width: 60.w,
-                                      height: 60.w,
-                                      child: CachedNetworkImage(
-                                        imageUrl: state.allFriendModel.
-                                        data![index].img??
-                                            "http://via.placeholder.com/200x150",
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.fill,
+                                    GestureDetector(
+                                      onTap: (){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>
+                                              UserScreen(id: state.allFriendModel.
+                                              data![index].id!,)),
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        width: 60.w,
+                                        height: 60.w,
+                                        child: CachedNetworkImage(
+                                          imageUrl: state.allFriendModel.
+                                          data![index].img??
+                                              "http://via.placeholder.com/200x150",
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill,
 
+                                              ),
                                             ),
                                           ),
+                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
                                         ),
-                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
                                       ),
                                     ),
                                     if(Localizations.localeOf(context)==const Locale('ar','AR'))

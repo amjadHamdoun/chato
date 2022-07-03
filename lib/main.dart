@@ -20,6 +20,8 @@ void main() async{
   await EasyLocalization.ensureInitialized();
   await Preferences.init();
   await Firebase.initializeApp();
+  String? token = await FirebaseMessaging.instance.getToken();
+  print(token);
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   if (Platform.isIOS) {
     _firebaseMessaging.requestPermission(

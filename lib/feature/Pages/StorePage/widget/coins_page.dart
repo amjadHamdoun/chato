@@ -84,13 +84,14 @@ class _CoinsPageState extends State<CoinsPage> with AutomaticKeepAliveClientMixi
                 horizontal: 12.w
             ),
             child: GridView.builder(
-
                 physics: const BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                gridDelegate: const
+                SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
-                    childAspectRatio: 1.5,
+                    childAspectRatio: 1.42,
                     crossAxisSpacing: 20,
-                    mainAxisSpacing: 20),
+                    mainAxisSpacing: 20,
+                ),
                 itemCount: 10,
                 itemBuilder: (BuildContext ctx, index) {
 

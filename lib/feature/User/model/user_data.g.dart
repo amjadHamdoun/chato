@@ -14,6 +14,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       img: json['img'] as String?,
       birth_date: json['birth_date'] as String?,
       gender: json['gender'] as String?,
+      vip_user: json['vip_user'],
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
@@ -24,4 +25,5 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'birth_date': instance.birth_date,
       'gender': instance.gender,
       'token': instance.token,
+      'vip_user': instance.vip_user,
     };

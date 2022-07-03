@@ -14,7 +14,6 @@ class UserModel {
   final UserData? data;
 
 
-
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

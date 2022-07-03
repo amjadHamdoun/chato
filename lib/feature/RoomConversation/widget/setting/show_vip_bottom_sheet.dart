@@ -15,7 +15,8 @@ import '../../bloc/room_conversation_state.dart';
 Future<String?> showVipBottomSheet(
     BuildContext ctx,
     RoomConversationBloc bloc,
-    int roomId
+    int roomId,
+    int ownerId
 
     ) async {
   showModalBottomSheet(
@@ -164,7 +165,7 @@ Future<String?> showVipBottomSheet(
                                   ),
                                 ),
 
-
+                                if(ownerId==Global.userId)
                             PopupMenuButton(
                               color: ColorManager.darkPrimary,
                               shape:RoundedRectangleBorder(
