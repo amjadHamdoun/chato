@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 /// [LightThemeColors] class is responsible for declaring the light theme colors in the app
 ///
 class ColorManager{
-
   static const primaryColor=Color(0xffff7642);
   static const primaryColorLight=Color(0xffF9C45C);
   static const darkPrimary=Color(0xff363636);
@@ -23,7 +22,4 @@ class ColorManager{
   static const selectedBackgroundColor = Color(0xff7DD1FF);
   static const whatsApp = Colors.green;
   static const textFiledColor=Color(0xFFf2f2f2);
-
-
-
 }

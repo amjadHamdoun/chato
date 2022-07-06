@@ -124,7 +124,7 @@ class _SearchFriendsScreenState extends State<SearchFriendsScreen> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                       state.searchFriendModel.data![index].img ??
-                                          "http://via.placeholder.com/200x150",
+                                          "https://www.room.tecknick.net/WI.jpeg",
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
                                         decoration: BoxDecoration(

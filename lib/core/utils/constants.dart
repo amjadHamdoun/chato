@@ -6,6 +6,7 @@ class Endpoints {
   static const register = 'auth/register';
   static const registerAmazingAccount = 'auth/register_account_arabic';
   static const login = 'auth/login';
+  static const createDevice = 'create_device';
   static const friendShipRequests = 'friendship-requests';
   static const searchFriend = 'search-friend';
   static const logout = 'auth/logout';
@@ -24,7 +25,6 @@ class Endpoints {
   static const getTrendRoom = 'room/get-all-trend';
   static const getAllRoom = 'room/get-all-room';
   static const getAllUserVipRoom= 'room/all-user-vip-room';
-
   static const getConversationOldMessage = 'room/get-conversation-old-message';
   static const getConversationPrivet = 'room/get-conversation-privet';
   static const getAllBlockUser = 'get-all-block-user';
@@ -44,6 +44,7 @@ class Endpoints {
   static const deleteUserRoom = '/room/delete-user-room';
   static const blockUserRoom = '/room/block-user-room';
   static const addTrend = '/room/add-room-trend';
+  static const updateCoins = '/update_coins';
 
 
 

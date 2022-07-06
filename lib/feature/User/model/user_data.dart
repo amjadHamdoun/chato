@@ -1,3 +1,4 @@
+import 'package:chato/feature/User/model/user_friend.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_data.g.dart';
@@ -11,6 +12,13 @@ class UserData {
   final String? birth_date;
   final String? gender;
   final String? token;
+  final List?  gift_transaction_s;
+  final List?  gift_transaction_r;
+  final UserFriend? userfriend;
+  final List? friend;
+  final List? block;
+   var viewers;
+
   var  vip_user;
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 
@@ -25,7 +33,13 @@ class UserData {
      this.img,
      this.birth_date,
      this.gender,
-     this.vip_user
+     this.vip_user,
+    this.gift_transaction_r,
+    this.gift_transaction_s,
+    this.block,
+    this.friend,
+    this.userfriend,
+    this.viewers
 
   });
 }

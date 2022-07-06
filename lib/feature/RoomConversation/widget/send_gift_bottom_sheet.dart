@@ -105,7 +105,7 @@ void sendGiftBottomSheet(BuildContext ctx,RoomConversationBloc bloc,int roomId) 
                                                 child: CachedNetworkImage(
                                                   imageUrl:state.allTypeModel.data![index].img!=null?
                                                   state.allTypeModel.data![index].img!:
-                                                  "http://via.placeholder.com/200x150",
+                                                  "https://www.room.tecknick.net/WI.jpeg",
                                                   imageBuilder: (context, imageProvider) => Container(
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,

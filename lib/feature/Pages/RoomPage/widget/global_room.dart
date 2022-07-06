@@ -80,7 +80,7 @@ class _GlobalRoomPageState extends State<GlobalRoomPage>
                       width: 60.w,
                       height: 60.w,
                       child: CachedNetworkImage(
-                        imageUrl: "http://via.placeholder.com/200x150",
+                        imageUrl: "https://www.room.tecknick.net/WI.jpeg",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,

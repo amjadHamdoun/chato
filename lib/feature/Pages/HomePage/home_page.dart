@@ -357,8 +357,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                         height: 60.w,
                                         child: CachedNetworkImage(
                                           imageUrl: state.allFriendModel.
-                                          data![index].img??
-                                              "http://via.placeholder.com/200x150",
+                                          data![index].img ??
+                                              "https://www.room.tecknick.net/WI.jpeg",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,

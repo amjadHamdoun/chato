@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Preference.dart';
 import 'core/utils/show_notification.dart';
+import 'feature/RemoveAds/remove_ads.dart';
 import 'feature/splash/splash_screen.dart';
 import 'injection.dart' as di;
 import 'core/utils/theme_manager.dart';
@@ -20,8 +21,8 @@ void main() async{
   await EasyLocalization.ensureInitialized();
   await Preferences.init();
   await Firebase.initializeApp();
-  String? token = await FirebaseMessaging.instance.getToken();
-  print(token);
+
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   if (Platform.isIOS) {
     _firebaseMessaging.requestPermission(

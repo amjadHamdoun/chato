@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/injection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../core/utils/color_manager.dart';
 import '../Conversation/conversation.dart';
@@ -67,7 +69,7 @@ class _UserScreenState extends State<UserScreen> {
                           child: CachedNetworkImage(
                             imageUrl:
                             state.userModel!.data!.img??
-                            "https://media.npr.org/assets/img/2022/02/02/50-verdens-verste-menneske-oslo-pictures_wide-52fe31568d45897f5990960f1cf989fedbf2c828-s1100-c50.jpg",
+                            "https://www.room.tecknick.net/WI.jpeg",
                             imageBuilder: (context, imageProvider) =>
                                 Container(
                                   decoration: BoxDecoration(
@@ -111,14 +113,14 @@ class _UserScreenState extends State<UserScreen> {
                             child: CachedNetworkImage(
 
                               imageUrl:   state.userModel!.data!.img??
-                                  "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg",
+                                  "https://www.room.tecknick.net/WI.jpeg",
                               imageBuilder: (context, imageProvider) =>
                                   Container(
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                         image: imageProvider,
-                                        fit: BoxFit.fitWidth,
+                                        fit: BoxFit.scaleDown,
 
                                       ),
                                     ),
@@ -132,7 +134,6 @@ class _UserScreenState extends State<UserScreen> {
                         ),
                       ],
                     ),
-
 
                     //details
                     SizedBox(
@@ -186,7 +187,19 @@ class _UserScreenState extends State<UserScreen> {
                               width: 8.w,
                             ),
                             InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Clipboard.setData(ClipboardData(text:
+                                  state.userModel!.data!.id.toString()));
+                                  Fluttertoast.showToast(
+                                      msg: "Copy Done".tr(),
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: ColorManager.primaryColor,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0
+                                  );
+                                },
                                 child: SvgPicture.asset(
                                   'assets/icons/copy.svg', width: 26.w,)),
                           ],
@@ -197,14 +210,16 @@ class _UserScreenState extends State<UserScreen> {
                     ),
                     Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 6.w
+                            horizontal: 6.w,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            if(state.userModel!.data!.userfriend!=null
+                                && state.userModel!.data!.userfriend!.status=='approve')
                             Row(
                               children: [
-                                Text('6 اصدقاء',
+                                Text('اصدقاء',
                                   style: TextStyle(
                                       fontSize: 17.sp,
                                       fontWeight: FontWeight.w500,
@@ -288,7 +303,7 @@ class _UserScreenState extends State<UserScreen> {
                                     SizedBox(
                                       height: 4.h,
                                     ),
-                                    Text('28/3/2021',
+                                    Text(state.userModel!.data!.birth_date??'28/3/2021',
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w700,
@@ -328,7 +343,7 @@ class _UserScreenState extends State<UserScreen> {
                                     SizedBox(
                                       height: 4.h,
                                     ),
-                                    Text('28',
+                                    Text(state.userModel!.data!.birth_date??'25'.tr(),
                                       style: TextStyle(
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.w700,
@@ -369,7 +384,7 @@ class _UserScreenState extends State<UserScreen> {
                                     SizedBox(
                                       height: 4.h,
                                     ),
-                                    Text('ذكر',
+                                    Text(state.userModel!.data!.gender??'ذكر'.tr(),
                                       style: TextStyle(
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.w700,
@@ -395,8 +410,7 @@ class _UserScreenState extends State<UserScreen> {
                               ),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-
-                                    horizontal: 22.w
+                                    horizontal: 22.w,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -407,7 +421,7 @@ class _UserScreenState extends State<UserScreen> {
                                     SizedBox(
                                       height: 2.h,
                                     ),
-                                    Text('11.k',
+                                    Text(state.userModel!.data!.viewers.toString(),
                                       style: TextStyle(
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.w700,
@@ -473,7 +487,8 @@ class _UserScreenState extends State<UserScreen> {
                                     SizedBox(
                                       height: 5.h,
                                     ),
-                                    Text('20',
+                                    if(state.userModel!.data!.gift_transaction_r!=null)
+                                    Text(state.userModel!.data!.gift_transaction_r!.length.toString(),
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           fontWeight: FontWeight.w700,
@@ -530,7 +545,8 @@ class _UserScreenState extends State<UserScreen> {
                                     SizedBox(
                                       height: 5.h,
                                     ),
-                                    Text('20',
+                                    if(state.userModel!.data!.gift_transaction_s!=null)
+                                    Text(state.userModel!.data!.gift_transaction_s!.length.toString(),
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           fontWeight: FontWeight.w700,
@@ -605,8 +621,11 @@ class _UserScreenState extends State<UserScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SizedBox(
-                          width: 0.38.sw,
+                        if(state.userModel!.data!.userfriend==null)
+                        SizedBox(width: 22.w,),
+                        if(state.userModel!.data!.userfriend==null)
+                        Expanded(
+
                           child: ElevatedButton(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -648,8 +667,10 @@ class _UserScreenState extends State<UserScreen> {
                               }
                           ),
                         ),
-                        SizedBox(
-                          width: 0.38.sw,
+
+                        SizedBox(width: 22.w,),
+                        Expanded(
+
                           child: ElevatedButton(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -698,6 +719,7 @@ class _UserScreenState extends State<UserScreen> {
                               }
                           ),
                         ),
+                        SizedBox(width: 22.w,),
                       ],
                     ),
 

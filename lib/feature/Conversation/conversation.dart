@@ -124,15 +124,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
        }
 
 
-
        Future.delayed(const Duration(milliseconds: 300)).then((value) {
-
          scrollController.animateTo(scrollController.position.maxScrollExtent
              , duration: const Duration(milliseconds: 500),
              curve: Curves.linearToEaseOut);
        });
-
-
      });
 
     super.initState();
@@ -480,7 +476,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                         child: CachedNetworkImage(
                                           imageUrl:
                                           widget.userTwoImage??
-                                              "http://via.placeholder.com/200x150",
+                                              "https://www.room.tecknick.net/WI.jpeg",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,

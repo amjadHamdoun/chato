@@ -82,7 +82,7 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                         imageUrl:
                         state.trendRoomModel.
                         data[index].img??
-                        "http://via.placeholder.com/200x150",
+                        "https://www.room.tecknick.net/WI.jpeg",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,

@@ -531,7 +531,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                          width: 50.h,
                                                          height: 50.h,
                                                          child: CachedNetworkImage(
-                                                           imageUrl: "http://via.placeholder.com/200x150",
+                                                           imageUrl: "https://www.room.tecknick.net/WI.jpeg",
                                                            imageBuilder: (context, imageProvider) => Container(
                                                              decoration: BoxDecoration(
                                                                shape: BoxShape.circle,
@@ -689,7 +689,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                  height: 40.h,
                                                  child: CachedNetworkImage(
                                                    imageUrl:item.img??
-                                                       "http://via.placeholder.com/200x150",
+                                                       "https://www.room.tecknick.net/WI.jpeg",
                                                    imageBuilder: (context, imageProvider) => Container(
                                                      decoration: BoxDecoration(
                                                        shape: BoxShape.circle,

@@ -109,9 +109,9 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                           Global.userId==
                                               state.getConversationPrivateModel.data![index].user1!.id?
                                       state.getConversationPrivateModel.data![index].user2!.img??
-                                      "http://via.placeholder.com/200x150":
+                                      "https://www.room.tecknick.net/WI.jpeg":
                                           state.getConversationPrivateModel.data![index].user1!.img??
-                                              "http://via.placeholder.com/200x150",
+                                              "https://www.room.tecknick.net/WI.jpeg",
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
@@ -280,9 +280,9 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                           Global.userId==
                                               state.getConversationPrivateModel.data![index].user1!.id?
                                           state.getConversationPrivateModel.data![index].user2!.img??
-                                              "http://via.placeholder.com/200x150":
+                                              "https://www.room.tecknick.net/WI.jpeg":
                                           state.getConversationPrivateModel.data![index].user1!.img??
-                                              "http://via.placeholder.com/200x150",
+                                              "https://www.room.tecknick.net/WI.jpeg",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,

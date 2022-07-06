@@ -138,7 +138,7 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
                       child:
                       CachedNetworkImage(
                         imageUrl: widget.message.all_file??
-                            "http://via.placeholder.com/200x150",
+                            "https://www.room.tecknick.net/WI.jpeg",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
 

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 import '../../../../core/utils/color_manager.dart';
 import '../../../BuyFeaturedUser/buy_featured_user.dart';
@@ -9,7 +9,8 @@ import '../../../BuyFeaturedUser/buy_featured_user.dart';
 
 
   class VipPage extends StatefulWidget {
-  const VipPage({Key? key}) : super(key: key);
+    final List<ProductDetails> products;
+  const VipPage({Key? key,required this.products}) : super(key: key);
 
   @override
   _VipPageState createState() => _VipPageState();
@@ -86,7 +87,8 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
           child: Row(
 
             children: [
-
+              for(var prod in widget.products)
+                if(prod.id=='vip_2')
               Expanded(
                 child: InkWell(
                   onTap: (){
@@ -102,7 +104,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         width: 50.w,
                       ),
                       SizedBox(height: 6.h,),
-                      Text('Knight',
+                      Text(prod.description,
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontFamily: 'DIN',
@@ -125,7 +127,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                               vertical: 2.h,
                               horizontal: 28.w
                           ),
-                          child: Text('100 \$',
+                          child: Text(prod.price,
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 fontFamily: 'DIN',
@@ -142,6 +144,8 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   ),
                 ),
               ),
+              for(var prod in widget.products)
+                if(prod.id=='vip_1')
               Expanded(
                 child: InkWell(
                   onTap: (){
@@ -156,7 +160,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         width: 50.w,
                       ),
                       SizedBox(height: 6.h,),
-                      Text('Warrior',
+                      Text(prod.description,
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontFamily: 'DIN',
@@ -179,7 +183,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                               vertical: 2.h,
                               horizontal: 28.w
                           ),
-                          child: Text('50 \$',
+                          child: Text(prod.price,
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 fontFamily: 'DIN',
@@ -209,6 +213,8 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
           child: Row(
 
             children: [
+              for(var prod in widget.products)
+                if(prod.id=='vip_4')
               Expanded(
                 child: InkWell(
                   onTap: (){
@@ -223,7 +229,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         width: 50.w,
                       ),
                       SizedBox(height: 6.h,),
-                      Text('King',
+                      Text(prod.description,
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontFamily: 'DIN',
@@ -246,7 +252,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                               vertical: 2.h,
                               horizontal: 28.w
                           ),
-                          child: Text('300 \$',
+                          child: Text(prod.price,
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 fontFamily: 'DIN',
@@ -263,6 +269,8 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   ),
                 ),
               ),
+              for(var prod in widget.products)
+                if(prod.id=='vip_3')
               Expanded(
                 child: InkWell(
                   onTap: (){
@@ -277,7 +285,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                         width: 50.w,
                       ),
                       SizedBox(height: 6.h,),
-                      Text('minister',
+                      Text(prod.description,
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontFamily: 'DIN',
@@ -300,7 +308,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                               vertical: 2.h,
                               horizontal: 28.w
                           ),
-                          child: Text('200 \$',
+                          child: Text(prod.price,
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 fontFamily: 'DIN',

@@ -131,7 +131,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
             width: 50.h,
             height: 50.h,
             child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img?? "http://via.placeholder.com/200x150",
+              imageUrl:widget.message.user!.img?? "https://www.room.tecknick.net/WI.jpeg",
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,

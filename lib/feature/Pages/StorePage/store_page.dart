@@ -1,4 +1,11 @@
 
+import 'dart:async';
+import 'dart:io';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chato/feature/Pages/StorePage/bloc/store_bloc.dart';
 import 'package:chato/feature/Pages/StorePage/bloc/store_state.dart';
 import 'package:chato/feature/Pages/StorePage/widget/coins_page.dart';
@@ -6,15 +13,35 @@ import 'package:chato/feature/Pages/StorePage/widget/diamonds_page.dart';
 import 'package:chato/feature/Pages/StorePage/widget/vip_page.dart';
 import 'package:chato/injection.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import '../../../core/utils/color_manager.dart';
-import '../../../core/utils/styles_manager.dart';
 
+
+
+
+const List<String> _kProductIds = <String>[
+  '1',
+  'coins_1',
+  '2_coins',
+  'coins_3',
+  'coins_4',
+  '5_coins',
+  '6_coins',
+  '1_diamonds',
+  '2_diamonds',
+  '3_diamonds',
+  '4_diamonds',
+  '5_diamonds',
+  '6_diamonds',
+  'vip_1',
+  'vip_2',
+  'vip_3',
+  'vip_4'
+];
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({Key? key}) : super(key: key);
@@ -24,11 +51,266 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClientMixin{
+
+
+
+
+
+
   StoreBloc storeBloc=sl<StoreBloc>();
   PageController pageController=PageController(
     initialPage: 0,
      keepPage: true,
   );
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
+  List<String> _notFoundIds = <String>[];
+  List<ProductDetails> _products = <ProductDetails>[];
+  List<PurchaseDetails> _purchases = <PurchaseDetails>[];
+  bool _isAvailable = false;
+  bool _purchasePending = false;
+  bool _loading = true;
+  String? _queryProductError;
+  Map<String, PurchaseDetails> purchases = {};
+  late DateTime dateTime;
+
+  @override
+  void initState() {
+    purchases =  Map<String, PurchaseDetails>.fromEntries(
+        _purchases.map((PurchaseDetails purchase) {
+          if (purchase.pendingCompletePurchase) {
+            _inAppPurchase.completePurchase(purchase);
+          }
+          return MapEntry<String, PurchaseDetails>(purchase.productID, purchase);
+        }));
+    final Stream<List<PurchaseDetails>> purchaseUpdated =
+        _inAppPurchase.purchaseStream;
+    _subscription =
+        purchaseUpdated.listen((List<PurchaseDetails>
+        purchaseDetailsList) {
+          _listenToPurchaseUpdated(purchaseDetailsList);
+        }, onDone: () {
+          _subscription.cancel();
+        }, onError: (Object error) {
+          // handle error here.
+        });
+    initStoreInfo();
+    super.initState();
+  }
+
+  Future<void> initStoreInfo() async {
+    final bool isAvailable = await _inAppPurchase.isAvailable();
+
+    if (!isAvailable) {
+      setState(() {
+        _isAvailable = isAvailable;
+        _products = <ProductDetails>[];
+        _purchases = <PurchaseDetails>[];
+        _notFoundIds = <String>[];
+        _purchasePending = false;
+        _loading = false;
+      });
+      return;
+    }
+
+    if (Platform.isIOS) {
+      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
+      _inAppPurchase
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
+    }
+
+    final ProductDetailsResponse productDetailResponse =
+    await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
+    if (productDetailResponse.error != null) {
+      setState(() {
+        _queryProductError = productDetailResponse.error!.message;
+        _isAvailable = isAvailable;
+        _products = productDetailResponse.productDetails;
+        _purchases = <PurchaseDetails>[];
+        _notFoundIds = productDetailResponse.notFoundIDs;
+
+        _purchasePending = false;
+        _loading = false;
+      });
+      return;
+    }
+
+    if (productDetailResponse.productDetails.isEmpty) {
+      setState(() {
+        _queryProductError = null;
+        _isAvailable = isAvailable;
+        _products = productDetailResponse.productDetails;
+        _purchases = <PurchaseDetails>[];
+        _notFoundIds = productDetailResponse.notFoundIDs;
+
+        _purchasePending = false;
+        _loading = false;
+      });
+      return;
+    }
+
+
+    setState(() {
+      _isAvailable = isAvailable;
+      _products = productDetailResponse.productDetails;
+      _notFoundIds = productDetailResponse.notFoundIDs;
+
+      _purchasePending = false;
+      _loading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    if (Platform.isIOS) {
+      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
+      _inAppPurchase
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      iosPlatformAddition.setDelegate(null);
+    }
+    _subscription.cancel();
+    super.dispose();
+  }
+
+
+  void showPendingUI() {
+    setState(() {
+      _purchasePending = true;
+    });
+  }
+
+
+
+  void handleError(IAPError error) {
+    setState(() {
+      _purchasePending = false;
+    });
+  }
+
+
+  Future<void> _listenToPurchaseUpdated(
+      List<PurchaseDetails> purchaseDetailsList) async {
+
+    for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.pending) {
+        showPendingUI();
+      }
+      else {
+
+        if (purchaseDetails.status == PurchaseStatus.error)
+        {
+          AwesomeDialog(
+            context: context,
+            animType: AnimType.SCALE,
+            dialogType: DialogType.WARNING,
+            body: const Center(child: Text(
+              'حدث خطأ ما',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),),
+
+            btnOkText: 'تم',
+            btnOkColor: ColorManager.primaryColor,
+
+
+            btnOkOnPress: () {},
+
+          ).show();
+          handleError(purchaseDetails.error!);
+
+        }
+
+        if (purchaseDetails.status == PurchaseStatus.purchased ) {
+          //  var box = await Hive.openBox('subBox');
+          //  SubModel?  subModel=SubModel(id: '0',
+          //        endDate: dateTime,
+          //       sub: true);
+          //  await box.put('sub', subModel);
+          //    Global.subModel=subModel;
+          AwesomeDialog(
+            context: context,
+            animType: AnimType.SCALE,
+            dialogType: DialogType.WARNING,
+            body: const Center(child: Text(
+              'نم شراءه',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),),
+
+            btnOkText: 'تم',
+            btnOkColor: ColorManager.primaryColor,
+
+
+            btnOkOnPress: () {},
+
+          ).show();
+        }
+
+        if (purchaseDetails.pendingCompletePurchase) {
+          AwesomeDialog(
+            context: context,
+            animType: AnimType.SCALE,
+            dialogType: DialogType.WARNING,
+            body: const Center(child: Text(
+              'في انتظار اكتمال الشراء',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),),
+
+            btnOkText: 'تم',
+            btnOkColor: ColorManager.primaryColor,
+
+
+            btnOkOnPress: () {},
+
+          ).show();
+
+
+
+        }
+
+        if(purchaseDetails.status!=PurchaseStatus.canceled&&
+            purchaseDetails.status!=PurchaseStatus.error
+        ){
+
+        }
+      }
+    }
+  }
+
+  Future<void> confirmPriceChange(BuildContext context) async {
+    if (Platform.isAndroid) {
+      final InAppPurchaseAndroidPlatformAddition androidAddition =
+      _inAppPurchase
+          .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+      final BillingResultWrapper priceChangeConfirmationResult =
+      await androidAddition.launchPriceChangeConfirmationFlow(
+        sku: 'purchaseId',
+      );
+      if (priceChangeConfirmationResult.responseCode == BillingResponse.ok) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Price change accepted'),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            priceChangeConfirmationResult.debugMessage ??
+                'Price change failed with code ${priceChangeConfirmationResult.responseCode}',
+          ),
+        ));
+      }
+    }
+    if (Platform.isIOS) {
+      final InAppPurchaseStoreKitPlatformAddition iapStoreKitPlatformAddition =
+      _inAppPurchase
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      await iapStoreKitPlatformAddition.showPriceConsentIfNeeded();
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,10 +505,16 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
                       controller: pageController,
 
                       
-                      children: const [
-                        CoinsPage(),
-                        DiamondsPage(),
-                        VipPage()
+                      children:  [
+                        CoinsPage(
+                          products: _products,
+                        ),
+                        DiamondsPage(
+                          products: _products,
+                        ),
+                        VipPage(
+                          products: _products,
+                        )
                         //store
 
                       ],
@@ -249,6 +537,18 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+class ExamplePaymentQueueDelegate implements SKPaymentQueueDelegateWrapper {
+
+  @override
+  bool shouldContinueTransaction(
+      SKPaymentTransactionWrapper transaction, SKStorefrontWrapper storefront) {
+        return true;
+  }
+
+  @override
+  bool shouldShowPriceConsent() {
+    return false;
+  }
 }
