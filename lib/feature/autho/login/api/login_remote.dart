@@ -75,6 +75,7 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
         }
         return Left(Er.networkError);
       } catch (e) {
+        print(e);
         return Left(Er.error);
       }
     } else {

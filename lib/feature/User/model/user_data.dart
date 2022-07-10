@@ -1,6 +1,8 @@
 import 'package:chato/feature/User/model/user_friend.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../BuyFeaturedUser/model/vip_data_model.dart';
+
 part 'user_data.g.dart';
 
 @JsonSerializable()
@@ -18,8 +20,7 @@ class UserData {
   final List? friend;
   final List? block;
    var viewers;
-
-  var  vip_user;
+  VipDataModel?  vip_user;
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 
   factory UserData.fromJson(Map<String, dynamic> json) =>

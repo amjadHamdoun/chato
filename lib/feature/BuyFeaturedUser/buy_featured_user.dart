@@ -5,12 +5,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 import '../../../core/utils/color_manager.dart';
 import '../Pages/HomePage/widget/friendship_requests.dart';
 
 class BuyFeaturedUserScreen extends StatefulWidget {
-  const BuyFeaturedUserScreen({Key? key}) : super(key: key);
+  final ProductDetails productDetails;
+  final int id;
+  final int featuresNumber;
+  const BuyFeaturedUserScreen({Key? key,
+     required this.productDetails,
+    required this.id,
+    required this.featuresNumber
+  }) : super(key: key);
 
   @override
   _BuyFeaturedUserScreenState createState() => _BuyFeaturedUserScreenState();
@@ -19,14 +27,11 @@ class BuyFeaturedUserScreen extends StatefulWidget {
 class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
   @override
   Widget build(BuildContext context) {
-    int featuresNumber=7;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorManager.darkBackgroundColor,
         body: SizedBox(
           height: 1.sh,
-
           child: Column(
             children: [
               //Image Profile
@@ -44,7 +49,11 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                        child: Row(
                          children: [
                            Expanded(
-                             child: Text('الملك',
+                             child: Text(
+                               widget.id==1?tr('soldier'):
+                               widget.id==2?tr('knight'):
+                               widget.id==3?tr('minister'):
+                               tr('king'),
                                style: TextStyle(
                                    fontSize: 23.sp,
                                    fontFamily: 'Roboto',
@@ -58,14 +67,62 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                          ],
                        )
                    ),
-
+                   widget.id==1?
                    Container(
                      height: 180.h,
                      width: 180.h,
                      decoration: const BoxDecoration(
                        shape: BoxShape.circle,
                        image: DecorationImage(
-                         image: AssetImage('assets/images/king_featured.png'),
+                         image: AssetImage(
+                              'assets/images/soldier_featured.png',
+                         ),
+                         fit: BoxFit.cover,
+
+                       ),
+                     ),
+                   ):
+                   widget.id==2?
+                   Container(
+                     height: 180.h,
+                     width: 180.h,
+                     decoration: const BoxDecoration(
+                       shape: BoxShape.circle,
+                       image: DecorationImage(
+                         image: AssetImage(
+                           'assets/images/knight_featured.png',
+                         ),
+                         fit: BoxFit.cover,
+
+                       ),
+                     ),
+                   ):
+                   widget.id==3?
+                   Container(
+                     height: 180.h,
+                     width: 180.h,
+                     decoration: const BoxDecoration(
+                       shape: BoxShape.circle,
+                       image: DecorationImage(
+                         image: AssetImage(
+                           'assets/images/minister_featured.png',
+                         ),
+                         fit: BoxFit.cover,
+
+                       ),
+                     ),
+                   ):
+                   Container(
+                     height: 180.h,
+                     width: 180.h,
+                     decoration: const BoxDecoration(
+                       shape: BoxShape.circle,
+                       image: DecorationImage(
+                         image: AssetImage(
+
+                           'assets/images/king_featured.png',
+
+                         ),
                          fit: BoxFit.cover,
 
                        ),
@@ -80,7 +137,7 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                        child: Row(
                          mainAxisAlignment: MainAxisAlignment.center,
                          children: [
-                           Text(tr('Includes')+" "+featuresNumber.toString()+" "
+                           Text(tr('Includes')+" "+widget.featuresNumber.toString()+" "
                                +tr('features'),
                              style: TextStyle(
                                  fontSize: 19.sp,
@@ -311,7 +368,37 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                                       SizedBox(
                                         height: 4.h,
                                       ),
-                                      Text(tr('coins')+' '+'360000 ',
+                                      widget.id==1?
+                                      Text('55000'' '+tr('coins'),
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.primaryColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ):
+                                      widget.id==2?
+                                      Text('115000'' '+tr('coins'),
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.primaryColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ):
+                                      widget.id==3?
+                                      Text('235000'' '+tr('coins'),
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.primaryColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ):
+                                      Text('360000'' '+tr('coins'),
                                         style: TextStyle(
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.w700,
@@ -325,7 +412,7 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: Column(
+                                  child: widget.id!=1? Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -336,7 +423,27 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                                       SizedBox(
                                         height: 4.h,
                                       ),
-                                      Text('15'+' '+tr('special gift'),
+                                      widget.id==2?
+                                      Text('5'' '+tr('special gift'),
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.primaryColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ):
+                                      widget.id==3?
+                                      Text('10'' '+tr('special gift'),
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: ColorManager.primaryColor
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ):
+                                      Text('15'' '+tr('special gift'),
                                         style: TextStyle(
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.w700,
@@ -347,10 +454,12 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                                       ),
 
                                     ],
-                                  ),
+                                  ):
+                                  const SizedBox(),
                                 ),
                                 Expanded(
-                                  child: Column(
+                                  child:widget.id!=1&&widget.id!=2?
+                                  Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -372,7 +481,7 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                                       ).tr(),
 
                                     ],
-                                  ),
+                                  ):const SizedBox(),
                                 ),
 
 
@@ -392,7 +501,7 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Expanded(
-                                  child: Column(
+                                  child:widget.id==5? Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -414,6 +523,8 @@ class _BuyFeaturedUserScreenState extends State<BuyFeaturedUserScreen> {
                                       ).tr(),
 
                                     ],
+                                  ): SizedBox(
+                                    height: 50.w,
                                   ),
                                 ),
                                 const  Expanded(child:  SizedBox()),

@@ -14,7 +14,9 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       img: json['img'] as String?,
       birth_date: json['birth_date'] as String?,
       gender: json['gender'] as String?,
-      vip_user: json['vip_user'],
+      vip_user: json['vip_user'] == null
+          ? null
+          : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
       gift_transaction_r: json['gift_transaction_r'] as List<dynamic>?,
       gift_transaction_s: json['gift_transaction_s'] as List<dynamic>?,
       block: json['block'] as List<dynamic>?,

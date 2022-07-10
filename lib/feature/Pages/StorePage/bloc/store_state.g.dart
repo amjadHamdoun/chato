@@ -13,14 +13,30 @@ class _$StoreState extends StoreState {
   final bool? isLoading;
   @override
   final int selectedPage;
+  @override
+  final UpdateCoinsModel updateCoinsModel;
+  @override
+  final String type;
+  @override
+  final String quantity;
 
   factory _$StoreState([void Function(StoreStateBuilder)? updates]) =>
       (new StoreStateBuilder()..update(updates)).build();
 
-  _$StoreState._({this.isSuccess, this.isLoading, required this.selectedPage})
+  _$StoreState._(
+      {this.isSuccess,
+      this.isLoading,
+      required this.selectedPage,
+      required this.updateCoinsModel,
+      required this.type,
+      required this.quantity})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         selectedPage, 'StoreState', 'selectedPage');
+    BuiltValueNullFieldError.checkNotNull(
+        updateCoinsModel, 'StoreState', 'updateCoinsModel');
+    BuiltValueNullFieldError.checkNotNull(type, 'StoreState', 'type');
+    BuiltValueNullFieldError.checkNotNull(quantity, 'StoreState', 'quantity');
   }
 
   @override
@@ -36,13 +52,22 @@ class _$StoreState extends StoreState {
     return other is StoreState &&
         isSuccess == other.isSuccess &&
         isLoading == other.isLoading &&
-        selectedPage == other.selectedPage;
+        selectedPage == other.selectedPage &&
+        updateCoinsModel == other.updateCoinsModel &&
+        type == other.type &&
+        quantity == other.quantity;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-        selectedPage.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc(
+                $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                    selectedPage.hashCode),
+                updateCoinsModel.hashCode),
+            type.hashCode),
+        quantity.hashCode));
   }
 
   @override
@@ -50,7 +75,10 @@ class _$StoreState extends StoreState {
     return (newBuiltValueToStringHelper('StoreState')
           ..add('isSuccess', isSuccess)
           ..add('isLoading', isLoading)
-          ..add('selectedPage', selectedPage))
+          ..add('selectedPage', selectedPage)
+          ..add('updateCoinsModel', updateCoinsModel)
+          ..add('type', type)
+          ..add('quantity', quantity))
         .toString();
   }
 }
@@ -70,6 +98,19 @@ class StoreStateBuilder implements Builder<StoreState, StoreStateBuilder> {
   int? get selectedPage => _$this._selectedPage;
   set selectedPage(int? selectedPage) => _$this._selectedPage = selectedPage;
 
+  UpdateCoinsModel? _updateCoinsModel;
+  UpdateCoinsModel? get updateCoinsModel => _$this._updateCoinsModel;
+  set updateCoinsModel(UpdateCoinsModel? updateCoinsModel) =>
+      _$this._updateCoinsModel = updateCoinsModel;
+
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
+
+  String? _quantity;
+  String? get quantity => _$this._quantity;
+  set quantity(String? quantity) => _$this._quantity = quantity;
+
   StoreStateBuilder();
 
   StoreStateBuilder get _$this {
@@ -78,6 +119,9 @@ class StoreStateBuilder implements Builder<StoreState, StoreStateBuilder> {
       _isSuccess = $v.isSuccess;
       _isLoading = $v.isLoading;
       _selectedPage = $v.selectedPage;
+      _updateCoinsModel = $v.updateCoinsModel;
+      _type = $v.type;
+      _quantity = $v.quantity;
       _$v = null;
     }
     return this;
@@ -101,7 +145,13 @@ class StoreStateBuilder implements Builder<StoreState, StoreStateBuilder> {
             isSuccess: isSuccess,
             isLoading: isLoading,
             selectedPage: BuiltValueNullFieldError.checkNotNull(
-                selectedPage, 'StoreState', 'selectedPage'));
+                selectedPage, 'StoreState', 'selectedPage'),
+            updateCoinsModel: BuiltValueNullFieldError.checkNotNull(
+                updateCoinsModel, 'StoreState', 'updateCoinsModel'),
+            type: BuiltValueNullFieldError.checkNotNull(
+                type, 'StoreState', 'type'),
+            quantity: BuiltValueNullFieldError.checkNotNull(
+                quantity, 'StoreState', 'quantity'));
     replace(_$result);
     return _$result;
   }

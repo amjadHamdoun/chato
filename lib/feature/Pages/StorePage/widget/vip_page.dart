@@ -94,8 +94,12 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const
-                      BuyFeaturedUserScreen()),
+                      MaterialPageRoute(builder: (context) =>
+                      BuyFeaturedUserScreen(
+                        id: 2,
+                        productDetails:prod ,
+                        featuresNumber: 5,
+                      )),
                     );
                   },
                   child: Column(
@@ -151,7 +155,12 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const BuyFeaturedUserScreen()),
+                      MaterialPageRoute(builder: (context) =>
+                       BuyFeaturedUserScreen(
+                        id: 1,
+                        productDetails:prod ,
+                        featuresNumber: 4,
+                      )),
                     );
                   },
                   child: Column(
@@ -220,7 +229,12 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const BuyFeaturedUserScreen()),
+                      MaterialPageRoute(builder: (context) =>
+                       BuyFeaturedUserScreen(
+                        id: 5,
+                        productDetails:prod ,
+                        featuresNumber: 7,
+                      )),
                     );
                   },
                   child: Column(
@@ -276,7 +290,12 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const BuyFeaturedUserScreen()),
+                      MaterialPageRoute(builder: (context) =>
+                       BuyFeaturedUserScreen(
+                        id: 3,
+                        productDetails:prod ,
+                        featuresNumber: 6,
+                      )),
                     );
                   },
                   child: Column(

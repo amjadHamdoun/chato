@@ -1,10 +1,8 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chato/feature/Pages/StorePage/bloc/store_bloc.dart';
 import 'package:chato/feature/Pages/StorePage/bloc/store_state.dart';
@@ -17,6 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import '../../../core/utils/color_manager.dart';
 
@@ -53,10 +55,6 @@ class StoreScreen extends StatefulWidget {
 class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClientMixin{
 
 
-
-
-
-
   StoreBloc storeBloc=sl<StoreBloc>();
   PageController pageController=PageController(
     initialPage: 0,
@@ -64,7 +62,6 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
   );
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   late StreamSubscription<List<PurchaseDetails>> _subscription;
   List<String> _notFoundIds = <String>[];
@@ -79,6 +76,7 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
   @override
   void initState() {
+
     purchases =  Map<String, PurchaseDetails>.fromEntries(
         _purchases.map((PurchaseDetails purchase) {
           if (purchase.pendingCompletePurchase) {
@@ -230,6 +228,7 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
           //       sub: true);
           //  await box.put('sub', subModel);
           //    Global.subModel=subModel;
+          storeBloc.onUpdateCoinsEvent();
           AwesomeDialog(
             context: context,
             animType: AnimType.SCALE,
@@ -270,10 +269,20 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
         }
 
-        if(purchaseDetails.status!=PurchaseStatus.canceled&&
-            purchaseDetails.status!=PurchaseStatus.error
+        if(purchaseDetails.status!=PurchaseStatus.canceled
         ){
-
+          AwesomeDialog(
+            context: context,
+            animType: AnimType.SCALE,
+            dialogType: DialogType.WARNING,
+            body: const Center(child: Text(
+              'تم الغاء عملية الشراء',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),),
+            btnOkText: 'تم',
+            btnOkColor: ColorManager.primaryColor,
+            btnOkOnPress: () {},
+          ).show();
         }
       }
     }
@@ -318,7 +327,18 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
     return BlocConsumer<StoreBloc,StoreState>(
       bloc: storeBloc,
       listener: (context, state) {
-
+        if(state.updateCoinsModel.message!.isNotEmpty)
+        {
+          Fluttertoast.showToast(
+              msg: state.updateCoinsModel.message!,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: ColorManager.primaryColor,
+              textColor: Colors.white,
+              fontSize: 16.0.sp
+          );
+        }
       },
       builder:(context, state) {
        return Scaffold(
@@ -503,14 +523,16 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
                     child: PageView(
                       physics: const NeverScrollableScrollPhysics(),
                       controller: pageController,
-
-                      
                       children:  [
                         CoinsPage(
                           products: _products,
+                          inAppPurchase: _inAppPurchase,
+                          bloc: storeBloc,
                         ),
                         DiamondsPage(
                           products: _products,
+                          bloc: storeBloc,
+                          inAppPurchase: _inAppPurchase,
                         ),
                         VipPage(
                           products: _products,

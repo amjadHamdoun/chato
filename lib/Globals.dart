@@ -7,9 +7,13 @@ class Global{
 
  static String? userToken='';
  static int? userId=0;
+ static int? vipId=0;
+ static DateTime? endVip;
  static String? currentRoomId='0';
  static String? userImage='';
  static String? userName='';
+ static String? userCoins='0';
+ static String? userDiamond='0';
  static String? lan='ar';
  static double? tax=15;
  static bool darkMode=false;
@@ -26,5 +30,7 @@ class Global{
   autoConnect: true,
   enableLogging: true,
  );
+
+
 }
 

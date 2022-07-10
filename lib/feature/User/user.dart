@@ -632,7 +632,7 @@ class _UserScreenState extends State<UserScreen> {
                                 children: [
                                   Text(
                                     state.addFriend == true
-                                        ? "cancel order"
+                                        ? "request sent"
                                         : "add",
                                     style: TextStyle(
                                         fontSize: 16.sp,

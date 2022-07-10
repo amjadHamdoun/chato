@@ -7,16 +7,15 @@ import 'package:chato/feature/Pages/ProfilePage/bloc/prof_state.dart';
 import 'package:chato/feature/Pages/ProfilePage/widget/show_blocked_user_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import '../../../../main.dart';
-import '../../../RoomConversation/widget/music/show_audio_player_bottom_sheet.dart';
 import '../bloc/prof_bloc.dart';
 import 'change_password_bottom_sheet.dart';
-import 'show_menu_bottom_sheet_email_one.dart';
 import 'dart:io';
 
 
@@ -57,10 +56,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         children: [
                           state.img!=null?
                           Container(
-                            height: 76.w,
-                            width: 76.w,
-                            decoration:
-                             BoxDecoration(shape: BoxShape.circle,
+                            height: 86.w,
+                            width: 86.w,
+                            decoration: BoxDecoration(shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: FileImage(state.img!),
                                 fit: BoxFit.fill
@@ -68,23 +66,19 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
 
                             ),
-
-
                           ):
-                          state.profileModel!.data!.img!=null?
                           CachedNetworkImage(
                             imageUrl:
                             state.profileModel!.data!.img??
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPhbjHLqSOfjV7iIm-hqjGzYoz3MWRxE98ng&usqp=CAU",
+                                "https://www.room.tecknick.net/WI.jpeg",
                             imageBuilder: (context, imageProvider) => Container(
-                              height: 76.w,
-                              width: 76.w,
+                              height: 86.w,
+                              width: 86.w,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   image: imageProvider,
                                   fit: BoxFit.fill,
-
                                 ),
                               ),
                             ),
@@ -92,40 +86,34 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             const Center(child: CircularProgressIndicator()),
                             errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
-                          ):
-                          Container(
-                            height: 76.w,
-                            width: 76.w,
-                            decoration:
-                            const BoxDecoration(shape: BoxShape.circle,
-
-
-                            ),
-                            child:
-
-                            Image.asset(
-
-                              "assets/images/alghadab.png",
-                              fit: BoxFit.fill,
-                            ),
-
+                          ),
+                          if(Global.vipId!>0)
+                          Image.asset(
+                              Global.vipId==1?
+                              'assets/images/solider_frame.png':
+                              Global.vipId==2?
+                                  'assets/images/knight_frame.png':
+                              Global.vipId==3?
+                                  'assets/images/minister_frame.png':
+                              'assets/images/king_frame.png',
+                            fit: BoxFit.fill,
+                            height: 86.w,
+                            width: 86.w,
                           ),
                           Positioned(
-                            left: -5,
-                            bottom: -3,
+                            left: 4,
+                            bottom: 2,
                             child: InkWell(
                               onTap: () async {
                                 FilePickerResult? result = await
                                 FilePicker.platform.pickFiles(
                                   type: FileType.image,
                                 );
-
                                 if (result != null) {
                                   File file = File(result.files.single.path!);
                                   widget.bloc.onChangeImageEvent(file);
                                 }
                                 else {
-                                  // User canceled the picker
                                 }
                               },
                               child: Container(
@@ -155,7 +143,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             fontSize: 16.sp,
                             color: Global.darkMode
                                 ? ColorManager.backgroundColor
-                                : ColorManager.textColor),
+                                : ColorManager.textColor
+
+                        ),
                       ),
                       Text(
                         state.profileModel!.data!.status!,

@@ -17,3 +17,19 @@ class ChangePageEvent extends StoreEvent{
 
 }
 
+class UpdateCoinsEvent extends StoreEvent{
+
+
+}
+// ignore: must_be_immutable
+class ChangeProductEvent extends StoreEvent{
+
+  String type;
+  String quantity;
+
+  ChangeProductEvent({
+       required this.type,
+       required this.quantity
+      });
+
+}

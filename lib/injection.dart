@@ -32,6 +32,7 @@ import 'feature/Pages/RoomPage/api/get_fav_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_trend_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_user_all_room_remote.dart';
 import 'feature/Pages/RoomPage/bloc/room_bloc.dart';
+import 'feature/Pages/StorePage/api/update_coins_remote.dart';
 import 'feature/RoomConversation/api/add_remove_fav_remote.dart';
 import 'feature/RoomConversation/api/add_trend_room_remote.dart';
 import 'feature/RoomConversation/api/add_user_remote.dart';
@@ -103,6 +104,9 @@ Future<void> init() async {
   sl.registerLazySingleton<ProfanityFilter>(
           () => ProfanityFilter()
   );
+
+
+
 
   //datasource
   sl.registerLazySingleton<RegisterRemoteDataSource>(
@@ -314,12 +318,14 @@ Future<void> init() async {
         networkInfo: sl()
     ),
   );
+
   sl.registerLazySingleton<BlockUserRoomDataSource>(
         () => BlockUserRoomDataSourceImpl(
         dio: sl(),
         networkInfo: sl()
     ),
   );
+
   sl.registerLazySingleton<AddTrendDataSource>(
         () => AddTrendDataSourceImpl(
         dio: sl(),
@@ -327,6 +333,12 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<UpdateCoinsRemoteDataSource>(
+        () =>   UpdateCoinsRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
 
 
 
@@ -352,7 +364,9 @@ Future<void> init() async {
   ));
 
 
-  sl.registerLazySingleton(() => StoreBloc());
+  sl.registerLazySingleton(() => StoreBloc(
+    updateCoinsRemoteDataSource: sl()
+  ));
 
 
   sl.registerLazySingleton(() => RoomConversationBloc(

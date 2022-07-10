@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../BuyFeaturedUser/model/vip_data_model.dart';
+
 part 'login_data_model.g.dart';
 
 @JsonSerializable()
@@ -10,7 +12,9 @@ class LoginDataModel {
   String? email;
   String? token;
   String? img;
-
+  String? coins;
+  String? diamond;
+  VipDataModel?  vip_user;
 
   Map<String, dynamic> toJson() => _$LoginDataModelToJson(this);
   factory LoginDataModel.fromJson(Map<String, dynamic> json) =>
@@ -22,6 +26,9 @@ class LoginDataModel {
         required this.name,
         required this.email,
         required this.token,
-        required this.img
+        required this.img,
+        required this.coins,
+        required this.diamond,
+        this.vip_user
       });
 }

@@ -13,6 +13,11 @@ LoginDataModel _$LoginDataModelFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       token: json['token'] as String?,
       img: json['img'] as String?,
+      coins: json['coins'] as String?,
+      diamond: json['diamond'] as String?,
+      vip_user: json['vip_user'] == null
+          ? null
+          : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginDataModelToJson(LoginDataModel instance) =>
@@ -22,4 +27,7 @@ Map<String, dynamic> _$LoginDataModelToJson(LoginDataModel instance) =>
       'email': instance.email,
       'token': instance.token,
       'img': instance.img,
+      'coins': instance.coins,
+      'diamond': instance.diamond,
+      'vip_user': instance.vip_user,
     };

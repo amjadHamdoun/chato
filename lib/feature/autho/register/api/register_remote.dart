@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../../Globals.dart';
 import '../../../../core/utils/constants.dart';
@@ -69,6 +70,24 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
         print("re");
         RegisterModel registerModel=RegisterModel.fromJson(json.decode(re.data));
         print(registerModel.message);
+        if(registerModel.data!.token!=null)
+        {
+          dio.options.headers["Authorization"] =
+          "Bearer ${registerModel.data!.token}";
+          String? token = await FirebaseMessaging.instance.getToken();
+          dio.post(
+            Endpoints.createDevice,
+            data: {
+              "token": token,
+            },
+            options: Options(
+              followRedirects: false,
+              validateStatus: (status) {
+                return status! < 500;
+              },
+            ),
+          );
+        }
         return Right(RegisterModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {

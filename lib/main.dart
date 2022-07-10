@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Preference.dart';
 import 'core/utils/show_notification.dart';
-import 'feature/RemoveAds/remove_ads.dart';
 import 'feature/splash/splash_screen.dart';
 import 'injection.dart' as di;
 import 'core/utils/theme_manager.dart';

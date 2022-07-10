@@ -46,6 +46,7 @@ class AllTypeDataSourceImpl extends
             },
           ),
         );
+        print(re);
         return Right(AllTypeModel
             .fromJson(json.decode(re.data)));
       } on DioError catch (ex) {

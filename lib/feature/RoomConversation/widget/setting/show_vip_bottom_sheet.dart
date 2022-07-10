@@ -79,6 +79,7 @@ Future<String?> showVipBottomSheet(
              }
            },
            builder: (context, state) {
+
             return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             decoration:  BoxDecoration(
@@ -123,6 +124,7 @@ Future<String?> showVipBottomSheet(
                     ).tr(),
                   ): ListView.separated(
                       itemBuilder: (context, index) {
+
                         if(state.allTypeModel.data![index].id!=Global.userId) {
                           return  Padding(
                             padding:  EdgeInsets.symmetric(
@@ -131,25 +133,46 @@ Future<String?> showVipBottomSheet(
                             ),
                             child: Row(
                               children: [
-                                SizedBox(
-                                  width: 50.h,
-                                  height: 50.h,
-                                  child: CachedNetworkImage(
-                                    imageUrl:state.allTypeModel.data![index].img??
-                                        "hhttps://www.room.tecknick.net/WI.jpeg",
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.fill,
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 50.h,
+                                      height: 50.h,
+                                      child: CachedNetworkImage(
+                                        imageUrl:state.allTypeModel.data![index].img??
+                                            "https://www.room.tecknick.net/WI.jpeg",
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
 
+                                            ),
+                                          ),
                                         ),
+                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
                                       ),
                                     ),
-                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  ),
+                                    if(Global.vipId!>5)
+                                    SizedBox(
+                                      width: 75.h,
+                                      height: 75.h,
+                                      child:Image.asset(
+                                          Global.vipId==1?
+                                          'assets/images/solider_frame.png':
+                                          Global.vipId==2?
+                                          'assets/images/knight_frame.png':
+                                          Global.vipId==3?
+                                          'assets/images/minister_frame.png':
+                                          'assets/images/king_frame.png',
+                                      fit: BoxFit.fill,
+                                      ),
+                                    ),
+
+                                  ],
                                 ),
                                 SizedBox(width: 6.w,),
                                 Expanded(

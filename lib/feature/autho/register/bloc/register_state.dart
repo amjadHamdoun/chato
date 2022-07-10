@@ -38,7 +38,9 @@ abstract class RegisterState implements Built<RegisterState,
             name: '',
             id: 0,
             token: '',
-            img: ''
+            img: '',
+            coins: '0',
+            diamond: '0'
           ),
           message: '',
           error_code: 0,

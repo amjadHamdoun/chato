@@ -10,7 +10,8 @@ class RegisterDataModel {
   String? email;
   String? token;
   String? img;
-
+  String? coins;
+  String? diamond;
 
   Map<String, dynamic> toJson() => _$RegisterDataModelToJson(this);
   factory RegisterDataModel.fromJson(Map<String, dynamic> json) =>
@@ -22,6 +23,8 @@ class RegisterDataModel {
         required this.name,
         required this.email,
         required this.img,
-        required this.token
+        required this.token,
+        required this.diamond,
+        required this.coins
       });
 }

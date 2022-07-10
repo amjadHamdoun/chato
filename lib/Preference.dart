@@ -11,6 +11,11 @@ class Preferences {
   static const String KEY_UserImage = 'key_UserImage';
   static const String KEY_Lan = 'KEY_Lan';
   static const String KEY_DarkMode = 'KEY_DarkMode';
+  static const String KEY_Diamond = 'KEY_Diamond';
+  static const String KEY_Coins = 'KEY_Coins';
+  static const String KEY_Vip_Id = 'KEY_Vip_Id';
+  static const String KEY_Vip_Date = 'KEY_Vip_Date';
+
 
 
   static init() async {
@@ -62,6 +67,47 @@ class Preferences {
     }
   }
 
+  static void saveVipDate(DateTime dateTime) async {
+    String timeStamp = dateTime.toIso8601String();
+    preferences!.setString(KEY_Vip_Date, timeStamp);
+  }
+
+  static DateTime? getVipDate() {
+
+    DateTime? dateTime =DateTime.parse(preferences!.getString(KEY_Vip_Date)??'2020-04-17T11:59:46.405') ;
+      return dateTime;
+  }
+
+  static void saveUserDiamond(String diamond) async {
+    preferences!.setString(KEY_Diamond, diamond);
+  }
+
+  static String? getUserDiamond() {
+    String? diamond = preferences!.getString(KEY_Diamond);
+    if(diamond==null)
+    {
+      return '0';
+    }
+    else {
+      return diamond;
+    }
+  }
+
+  static void saveUserCoins(String diamond) async {
+    preferences!.setString(KEY_Coins, diamond);
+  }
+
+  static String? getUserCoins() {
+    String? coins = preferences!.getString(KEY_Coins);
+    if(coins==null)
+    {
+      return '0';
+    }
+    else {
+      return coins;
+    }
+  }
+
   static void saveUserId(int userId) async {
     preferences!.setInt(KEY_UserId, userId);
   }
@@ -77,6 +123,21 @@ class Preferences {
     }
   }
 
+  static void saveUserVipId(int userId) async {
+    preferences!.setInt(KEY_Vip_Id, userId);
+  }
+
+  static int? getUserVipId() {
+    int? userVipId = preferences!.getInt(KEY_Vip_Id);
+    if(userVipId==null)
+    {
+      return 0;
+    }
+    else {
+      return userVipId;
+    }
+  }
+
   static void saveUserImage(String image) async {
     preferences!.setString(KEY_UserImage, image);
   }
@@ -85,7 +146,7 @@ class Preferences {
     String? userImage = preferences!.getString(KEY_UserImage);
     if(userImage==null)
     {
-      return '';
+      return 'https://www.room.tecknick.net/WI.jpeg';
     }
     else {
       return userImage;

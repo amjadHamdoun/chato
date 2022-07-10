@@ -45,15 +45,11 @@ class Endpoints {
   static const blockUserRoom = '/room/block-user-room';
   static const addTrend = '/room/add-room-trend';
   static const updateCoins = '/update_coins';
-
-
+  static const vipAccountsTransactions = '/vipaccounts_transactions';
 
 }
 
-
 class Er {
-
   static String error = tr("Something went wrong");
   static String networkError = tr("Check your internet connection");
-
 }

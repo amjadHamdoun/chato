@@ -29,7 +29,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
                 name: '',
                 id: 0,
                 token: '',
-                img: ''
+                img: '',
+              coins: '0',
+              diamond: '0'
             ),
             message: '',
             error_code: 0,
@@ -65,6 +67,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
                  Global.userId=r.data!.id!;
                  Global.userName=r.data!.name!;
                  Global.userImage=r.data!.img??'';
+                 Global.userDiamond=r.data!.diamond??'0';
+                 Global.userCoins=r.data!.coins??'0';
+                 Preferences.saveUserDiamond(r.data!.diamond??'0');
+                 Preferences.saveUserCoins(r.data!.coins??'0');
                  Preferences.saveUserToken(r.data!.token!);
                  Preferences.saveUserId(r.data!.id!);
                  Preferences.saveUserImage(r.data!.img??'');
@@ -96,7 +102,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
                 name: '',
                 id: 0,
                 token: '',
-                img: ''
+                img: '',
+              diamond: '0',
+              coins: '0'
             ),
             message: '',
             error_code: 0,

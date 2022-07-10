@@ -29,8 +29,25 @@ class _SplashScreenState extends State<SplashScreen> {
       Global.userToken= Preferences.getUserToken();
       Global.userId=Preferences.getUserId();
       Global.userImage=Preferences.getUserImage();
+      if(Global.userImage!.isEmpty)
+        {
+          Global.userImage='https://www.room.tecknick.net/WI.jpeg';
+        }
       Global.userName=Preferences.getUserName();
+      Global.userDiamond=Preferences.getUserDiamond();
+      Global.userCoins=Preferences.getUserCoins();
+      Global.endVip=Preferences.getVipDate();
+      Global.vipId=Preferences.getUserVipId();
 
+        if(Global.endVip!.compareTo(DateTime.now())==-1){
+          Global.vipId=0;
+        }
+
+      print("Global.vipId");
+
+      print(Global.vipId);
+
+      print("Global.vipId");
 
       if(Global.userToken!.isNotEmpty)
       {

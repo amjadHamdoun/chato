@@ -23,7 +23,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ..isLoading = true
         ..loginModel = LoginModel(
             data: LoginDataModel(email: '', name: '',
-                id: 0, token: '',img: ''),
+                id: 0, token: '',img: '',
+            coins: '0',diamond: '0'
+            ),
             message: '',
             error_code: 0,
             status: false)));
@@ -48,10 +50,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             Global.userToken=r.data!.token!;
             Global.userId=r.data!.id!;
             Global.userName=r.data!.name!;
-            Global.userImage=r.data!.img??'';
+            Global.userImage=r.data!.img??'https://www.room.tecknick.net/WI.jpeg';
+            Global.userDiamond=r.data!.diamond??'0';
+            Global.userCoins=r.data!.coins??'0';
+            if(r.data!.vip_user!=null)
+              {
+                          Global.vipId=int.parse(r.data!.vip_user!.vip_id);
+                          Global.endVip=r.data!.vip_user!.end_date;
+
+                          Preferences.saveVipDate(r.data!.vip_user!.end_date!);
+                          Preferences.saveUserVipId(int.parse(r.data!.vip_user!.vip_id!));
+              }
+            Preferences.saveUserDiamond(r.data!.diamond??'0');
+            Preferences.saveUserCoins(r.data!.coins??'0');
             Preferences.saveUserToken(r.data!.token!);
             Preferences.saveUserId(r.data!.id!);
-            Preferences.saveUserImage(r.data!.img??'');
+            Preferences.saveUserImage(r.data!.img??'https://www.room.tecknick.net/WI.jpeg');
             Preferences.saveUserName(r.data!.name!);
           }
         }

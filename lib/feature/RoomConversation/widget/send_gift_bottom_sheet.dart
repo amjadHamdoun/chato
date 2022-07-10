@@ -355,7 +355,7 @@ void sendGiftBottomSheet(BuildContext ctx,RoomConversationBloc bloc,int roomId) 
                                       SvgPicture.asset('assets/icons/diamonds.svg',
                                           width: 14.w),
                                       const SizedBox(width: 3,),
-                                      Text('1500',
+                                      Text(Global.userDiamond!,
                                         style: TextStyle(
                                           fontSize: 15.sp,
                                           fontFamily: 'DIN',
@@ -382,60 +382,7 @@ void sendGiftBottomSheet(BuildContext ctx,RoomConversationBloc bloc,int roomId) 
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                                       children: [
-                                        Padding(
-                                          padding:  EdgeInsets.symmetric(
-                                              horizontal: 7.w
-                                          ),
-                                          child: SizedBox(
-                                            width: 30.w,
-                                            height: 30.h,
-                                            child: DropdownButton(
-                                              isExpanded: true,
-                                              dropdownColor: ColorManager.darkBackgroundColor,
-                                              underline: const SizedBox(),
 
-
-                                              value: '1',
-
-
-                                              // Down Arrow Icon
-                                              icon:   Icon(Icons.arrow_drop_down,
-                                                size: 22.w,
-                                                color: ColorManager.backgroundColor,
-                                              ),
-
-                                              // Array list of items
-                                              items: ['1','2','3','4'].map((String items) {
-                                                return DropdownMenuItem(
-
-                                                  value: items,
-                                                  child: Row(
-
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text(items
-                                                        , style: TextStyle(
-                                                            fontSize: 12.sp,
-                                                            color: ColorManager.backgroundColor,
-
-                                                            fontWeight: FontWeight.w700
-                                                        ),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-
-
-                                                    ],
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              // After selecting the desired option,it will
-                                              // change button value to selected value
-                                              onChanged: (newValue) {
-
-                                              },
-                                            ),
-                                          ),
-                                        ),
                                         GestureDetector(
                                           onTap: (){
                                               if(selected>-1&& giftId>-1)
@@ -456,13 +403,14 @@ void sendGiftBottomSheet(BuildContext ctx,RoomConversationBloc bloc,int roomId) 
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(25.w),
-                                                color:ColorManager.primaryColor
+                                                borderRadius: BorderRadius.circular(12.w,
+                                                ),
+                                                color:ColorManager.primaryColor,
                                             ),
 
                                             child: Padding(
                                               padding:  EdgeInsets.symmetric(
-                                                  vertical: 7.h,
+                                                  vertical: 8.h,
                                                   horizontal: 20.w
 
                                               ),
