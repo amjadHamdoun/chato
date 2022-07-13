@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
+import '../../../../../Globals.dart';
 import '../../../../../core/utils/color_manager.dart';
 import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
@@ -318,25 +319,47 @@ class _MessageMusicSideTwoState extends State<MessageMusicSideTwo> {
                   UserScreen(id: widget.message.user!.id!,)),
             );
           },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "https://www.room.tecknick.net/WI.jpeg",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                width: 50.h,
+                height: 50.h,
+                child: CachedNetworkImage(
+                  imageUrl:widget.message.user!.img??
+                      "https://www.room.tecknick.net/WI.jpeg",
+                  imageBuilder: (context, imageProvider) =>
+                      Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
+                  placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) =>
+                  const Icon(Icons.error),
                 ),
               ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
+              if(false)
+                SizedBox(
+                  width:Global.vipId==1?64.h: 75.h,
+                  height: Global.vipId==1?64.h: 75.h,
+                  child:Image.asset(
+                    Global.vipId==1?
+                    'assets/images/solider_frame.png':
+                    Global.vipId==2?
+                    'assets/images/knight_frame.png':
+                    Global.vipId==3?
+                    'assets/images/minister_frame.png':
+                    'assets/images/king_frame.png',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+            ],
           ),
         ),
       ],

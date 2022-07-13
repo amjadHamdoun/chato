@@ -3,22 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
+import '../../../../Globals.dart';
 import '../../../../core/utils/color_manager.dart';
 import '../../../BuyFeaturedUser/buy_featured_user.dart';
+import '../bloc/store_bloc.dart';
 
 
 
   class VipPage extends StatefulWidget {
     final List<ProductDetails> products;
-  const VipPage({Key? key,required this.products}) : super(key: key);
+    final InAppPurchase inAppPurchase;
+    final StoreBloc bloc;
+  const VipPage({Key? key,
+    required this.products,
+    required this.inAppPurchase,
+    required this.bloc
+
+  }) : super(key: key);
 
   @override
   _VipPageState createState() => _VipPageState();
 }
 
 class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
-  @override
+
+    int daysLeft=0;
+
+    @override
+  void initState() {
+      if(Global.endVip!.compareTo(DateTime.now())!=-1){
+
+        Duration duration=Global.endVip!.difference(DateTime.now());
+        print('*');
+        daysLeft=duration.inDays;
+        print('*');
+      }
+    super.initState();
+  }
+
+
+
+    @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
@@ -33,7 +60,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Column(
+                child:daysLeft>0? Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
@@ -52,7 +79,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                     ),
                     Row(
                       children: [
-                        Text('120'+tr('days left'),
+                        Text(daysLeft.toString()+tr('days left'),
                           style: TextStyle(
                               fontSize: 14.sp,
                               fontFamily: 'DIN',
@@ -65,7 +92,7 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                       ],
                     ),
                   ],
-                ),
+                ):const SizedBox(),
               ),
               SizedBox(
                 width: 80.h,
@@ -97,8 +124,10 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                       MaterialPageRoute(builder: (context) =>
                       BuyFeaturedUserScreen(
                         id: 2,
-                        productDetails:prod ,
+                        prod:prod ,
                         featuresNumber: 5,
+                        inAppPurchase: widget.inAppPurchase,
+                        storeBloc: widget.bloc,
                       )),
                     );
                   },
@@ -158,8 +187,10 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                       MaterialPageRoute(builder: (context) =>
                        BuyFeaturedUserScreen(
                         id: 1,
-                        productDetails:prod ,
+                         prod:prod ,
                         featuresNumber: 4,
+                         inAppPurchase: widget.inAppPurchase,
+                         storeBloc: widget.bloc,
                       )),
                     );
                   },
@@ -232,8 +263,10 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                       MaterialPageRoute(builder: (context) =>
                        BuyFeaturedUserScreen(
                         id: 5,
-                        productDetails:prod ,
+                         prod:prod ,
                         featuresNumber: 7,
+                         inAppPurchase: widget.inAppPurchase,
+                         storeBloc: widget.bloc,
                       )),
                     );
                   },
@@ -293,8 +326,10 @@ class _VipPageState extends State<VipPage> with AutomaticKeepAliveClientMixin{
                       MaterialPageRoute(builder: (context) =>
                        BuyFeaturedUserScreen(
                         id: 3,
-                        productDetails:prod ,
+                         prod:prod ,
                         featuresNumber: 6,
+                         inAppPurchase: widget.inAppPurchase,
+                         storeBloc: widget.bloc,
                       )),
                     );
                   },

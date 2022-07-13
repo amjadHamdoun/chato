@@ -33,3 +33,16 @@ class ChangeProductEvent extends StoreEvent{
       });
 
 }
+
+// ignore: must_be_immutable
+class VipAccountsTransactionsEvent extends StoreEvent{
+
+  int vipId;
+
+
+  VipAccountsTransactionsEvent({
+    required this.vipId,
+  });
+
+}
+

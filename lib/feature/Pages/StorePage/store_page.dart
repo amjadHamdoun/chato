@@ -221,14 +221,28 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
         }
 
-        if (purchaseDetails.status == PurchaseStatus.purchased ) {
-          //  var box = await Hive.openBox('subBox');
-          //  SubModel?  subModel=SubModel(id: '0',
-          //        endDate: dateTime,
-          //       sub: true);
-          //  await box.put('sub', subModel);
-          //    Global.subModel=subModel;
-          storeBloc.onUpdateCoinsEvent();
+        if(purchaseDetails.status == PurchaseStatus.purchased)
+        {
+          if(purchaseDetails.productID=='vip_1')
+            {
+              storeBloc.onVipAccountsTransactionsEvent(vipId: 1);
+            }
+          else if(purchaseDetails.productID=='vip_2')
+          {
+            storeBloc.onVipAccountsTransactionsEvent(vipId: 2);
+          }
+          else if(purchaseDetails.productID=='vip_3')
+          {
+            storeBloc.onVipAccountsTransactionsEvent(vipId: 3);
+          }
+          else if(purchaseDetails.productID=='vip_4')
+          {
+            storeBloc.onVipAccountsTransactionsEvent(vipId: 5);
+          }
+          else{
+            storeBloc.onUpdateCoinsEvent();
+          }
+
           AwesomeDialog(
             context: context,
             animType: AnimType.SCALE,
@@ -247,7 +261,8 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
           ).show();
         }
 
-        if (purchaseDetails.pendingCompletePurchase) {
+        if (purchaseDetails.pendingCompletePurchase)
+        {
           AwesomeDialog(
             context: context,
             animType: AnimType.SCALE,
@@ -269,8 +284,8 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
         }
 
-        if(purchaseDetails.status!=PurchaseStatus.canceled
-        ){
+        if(purchaseDetails.status==PurchaseStatus.canceled)
+        {
           AwesomeDialog(
             context: context,
             animType: AnimType.SCALE,
@@ -375,8 +390,6 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
                             ),
                           ).tr(),),
-
-
 
 
                         ],
@@ -536,6 +549,8 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
                         ),
                         VipPage(
                           products: _products,
+                          bloc: storeBloc,
+                          inAppPurchase: _inAppPurchase,
                         )
                         //store
 

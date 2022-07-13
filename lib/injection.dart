@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'core/utils/constants.dart';
+import 'feature/BuyFeaturedUser/api/vip_accounts_transactions_remote.dart';
 import 'feature/Conversation/api/block_user_remote.dart';
 import 'feature/Conversation/api/get_conversation_old_message_remote.dart';
 import 'feature/Conversation/api/private_send_message_remote.dart';
@@ -340,6 +341,16 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<VipAccountsTransactionsRemoteDataSource>(
+        () =>   VipAccountsTransactionsRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
+
+
+
 
 
 
@@ -365,7 +376,8 @@ Future<void> init() async {
 
 
   sl.registerLazySingleton(() => StoreBloc(
-    updateCoinsRemoteDataSource: sl()
+    updateCoinsRemoteDataSource: sl(),
+    vipAccountsTransactionsRemoteDataSource: sl()
   ));
 
 

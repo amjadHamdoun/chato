@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../Globals.dart';
 import '../../../../../core/utils/color_manager.dart';
 import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
@@ -63,30 +64,45 @@ class _MessageMapSideOneState extends State<MessageMapSideOne> {
 
 
       children: [
-        GestureDetector(
-          onTap: (){
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              width: 50.h,
+              height: 50.h,
+              child: CachedNetworkImage(
+                imageUrl:widget.message.user!.img??
+                    "https://www.room.tecknick.net/WI.jpeg",
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.fill,
 
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "https://www.room.tecknick.net/WI.jpeg",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-
+                    ),
                   ),
                 ),
+                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
-          ),
+            if(Global.vipId!>0)
+              SizedBox(
+                width:Global.vipId==1?64.h: 75.h,
+                height: Global.vipId==1?64.h: 75.h,
+                child:Image.asset(
+                  Global.vipId==1?
+                  'assets/images/solider_frame.png':
+                  Global.vipId==2?
+                  'assets/images/knight_frame.png':
+                  Global.vipId==3?
+                  'assets/images/minister_frame.png':
+                  'assets/images/king_frame.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+          ],
         ),
         SizedBox(
           width: 6.w,

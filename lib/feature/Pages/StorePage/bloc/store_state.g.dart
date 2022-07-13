@@ -19,6 +19,8 @@ class _$StoreState extends StoreState {
   final String type;
   @override
   final String quantity;
+  @override
+  final VipModel vipModel;
 
   factory _$StoreState([void Function(StoreStateBuilder)? updates]) =>
       (new StoreStateBuilder()..update(updates)).build();
@@ -29,7 +31,8 @@ class _$StoreState extends StoreState {
       required this.selectedPage,
       required this.updateCoinsModel,
       required this.type,
-      required this.quantity})
+      required this.quantity,
+      required this.vipModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         selectedPage, 'StoreState', 'selectedPage');
@@ -37,6 +40,7 @@ class _$StoreState extends StoreState {
         updateCoinsModel, 'StoreState', 'updateCoinsModel');
     BuiltValueNullFieldError.checkNotNull(type, 'StoreState', 'type');
     BuiltValueNullFieldError.checkNotNull(quantity, 'StoreState', 'quantity');
+    BuiltValueNullFieldError.checkNotNull(vipModel, 'StoreState', 'vipModel');
   }
 
   @override
@@ -55,7 +59,8 @@ class _$StoreState extends StoreState {
         selectedPage == other.selectedPage &&
         updateCoinsModel == other.updateCoinsModel &&
         type == other.type &&
-        quantity == other.quantity;
+        quantity == other.quantity &&
+        vipModel == other.vipModel;
   }
 
   @override
@@ -63,11 +68,13 @@ class _$StoreState extends StoreState {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
-                    selectedPage.hashCode),
-                updateCoinsModel.hashCode),
-            type.hashCode),
-        quantity.hashCode));
+                $jc(
+                    $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                        selectedPage.hashCode),
+                    updateCoinsModel.hashCode),
+                type.hashCode),
+            quantity.hashCode),
+        vipModel.hashCode));
   }
 
   @override
@@ -78,7 +85,8 @@ class _$StoreState extends StoreState {
           ..add('selectedPage', selectedPage)
           ..add('updateCoinsModel', updateCoinsModel)
           ..add('type', type)
-          ..add('quantity', quantity))
+          ..add('quantity', quantity)
+          ..add('vipModel', vipModel))
         .toString();
   }
 }
@@ -111,6 +119,10 @@ class StoreStateBuilder implements Builder<StoreState, StoreStateBuilder> {
   String? get quantity => _$this._quantity;
   set quantity(String? quantity) => _$this._quantity = quantity;
 
+  VipModel? _vipModel;
+  VipModel? get vipModel => _$this._vipModel;
+  set vipModel(VipModel? vipModel) => _$this._vipModel = vipModel;
+
   StoreStateBuilder();
 
   StoreStateBuilder get _$this {
@@ -122,6 +134,7 @@ class StoreStateBuilder implements Builder<StoreState, StoreStateBuilder> {
       _updateCoinsModel = $v.updateCoinsModel;
       _type = $v.type;
       _quantity = $v.quantity;
+      _vipModel = $v.vipModel;
       _$v = null;
     }
     return this;
@@ -151,7 +164,9 @@ class StoreStateBuilder implements Builder<StoreState, StoreStateBuilder> {
             type: BuiltValueNullFieldError.checkNotNull(
                 type, 'StoreState', 'type'),
             quantity: BuiltValueNullFieldError.checkNotNull(
-                quantity, 'StoreState', 'quantity'));
+                quantity, 'StoreState', 'quantity'),
+            vipModel: BuiltValueNullFieldError.checkNotNull(
+                vipModel, 'StoreState', 'vipModel'));
     replace(_$result);
     return _$result;
   }

@@ -156,10 +156,10 @@ Future<String?> showVipBottomSheet(
                                         errorWidget: (context, url, error) => const Icon(Icons.error),
                                       ),
                                     ),
-                                    if(Global.vipId!>5)
+                                    if(false)
                                     SizedBox(
-                                      width: 75.h,
-                                      height: 75.h,
+                                      width:Global.vipId==1?64.h: 75.h,
+                                      height: Global.vipId==1?64.h: 75.h,
                                       child:Image.asset(
                                           Global.vipId==1?
                                           'assets/images/solider_frame.png':

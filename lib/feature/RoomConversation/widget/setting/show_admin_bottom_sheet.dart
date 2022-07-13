@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../Globals.dart';
 import '../../bloc/room_conversation_bloc.dart';
 import '../../bloc/room_conversation_state.dart';
 
@@ -76,24 +77,44 @@ Future<String?> showAdminBottomSheet(BuildContext ctx,
                             ),
                             child: Row(
                               children: [
-                                SizedBox(
-                                  width: 50.h,
-                                  height: 50.h,
-                                  child: CachedNetworkImage(
-                                    imageUrl:state.allTypeAdmin.data![index].img?? "https://www.room.tecknick.net/WI.jpeg",
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.fill,
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 50.h,
+                                      height: 50.h,
+                                      child: CachedNetworkImage(
+                                        imageUrl:state.allTypeAdmin.data![index].img?? "https://www.room.tecknick.net/WI.jpeg",
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
 
+                                            ),
+                                          ),
                                         ),
+                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
                                       ),
                                     ),
-                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  ),
+                                    if(false)
+                                      SizedBox(
+                                        width:Global.vipId==1?64.h: 75.h,
+                                        height: Global.vipId==1?64.h: 75.h,
+                                        child:Image.asset(
+                                          Global.vipId==1?
+                                          'assets/images/solider_frame.png':
+                                          Global.vipId==2?
+                                          'assets/images/knight_frame.png':
+                                          Global.vipId==3?
+                                          'assets/images/minister_frame.png':
+                                          'assets/images/king_frame.png',
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                                 SizedBox(width: 6.w,),
                                 Expanded(

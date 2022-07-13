@@ -9,7 +9,7 @@ class VipModel {
   bool? status;
   int? error_code;
   String? message;
-  VipDataModel data;
+  VipDataModel? data;
 
 
   Map<String, dynamic> toJson() => _$VipModelToJson(this);

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../../Globals.dart';
 import '../../../../../core/utils/color_manager.dart';
 import '../../../../../injection.dart';
 import '../../../../User/user.dart';
@@ -111,30 +112,45 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
 
 
       children: [
-        GestureDetector(
-          onTap: (){
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              width: 50.h,
+              height: 50.h,
+              child: CachedNetworkImage(
+                imageUrl:widget.message.user!.img??
+                    "https://i.ibb.co/Dwh8sx7/logo.png",
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.fill,
 
-          },
-          child: SizedBox(
-            width: 50.h,
-            height: 50.h,
-            child: CachedNetworkImage(
-              imageUrl:widget.message.user!.img??
-                  "https://i.ibb.co/Dwh8sx7/logo.png",
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fill,
-
+                    ),
                   ),
                 ),
+                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
-          ),
+            if(Global.vipId!>0)
+              SizedBox(
+                width:Global.vipId==1?64.h: 75.h,
+                height: Global.vipId==1?64.h: 75.h,
+                child:Image.asset(
+                  Global.vipId==1?
+                  'assets/images/solider_frame.png':
+                  Global.vipId==2?
+                  'assets/images/knight_frame.png':
+                  Global.vipId==3?
+                  'assets/images/minister_frame.png':
+                  'assets/images/king_frame.png',
+                  fit: BoxFit.fill,
+                ),
+              ),
+          ],
         ),
         SizedBox(
           width: 6.w,

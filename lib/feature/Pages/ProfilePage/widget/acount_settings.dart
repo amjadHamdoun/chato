@@ -53,6 +53,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       ),
                       Stack(
                         clipBehavior: Clip.none,
+                        alignment: Alignment.center,
                         children: [
                           state.img!=null?
                           Container(
@@ -97,12 +98,12 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   'assets/images/minister_frame.png':
                               'assets/images/king_frame.png',
                             fit: BoxFit.fill,
-                            height: 86.w,
-                            width: 86.w,
+                            height: Global.vipId==1?106.w: 116.w,
+                            width: Global.vipId==1?106.w: 116.w,
                           ),
                           Positioned(
-                            left: 4,
-                            bottom: 2,
+                            left:Global.vipId!>0? 8:4,
+                            bottom:Global.vipId!>0?8:2,
                             child: InkWell(
                               onTap: () async {
                                 FilePickerResult? result = await

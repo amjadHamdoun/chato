@@ -684,26 +684,47 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                padding:  EdgeInsets.symmetric(
                                                    horizontal: 2.w
                                                ),
-                                               child: SizedBox(
-                                                 width: 40.h,
-                                                 height: 40.h,
-                                                 child: CachedNetworkImage(
-                                                   imageUrl:item.img??
-                                                       "https://www.room.tecknick.net/WI.jpeg",
-                                                   imageBuilder: (context, imageProvider) => Container(
-                                                     decoration: BoxDecoration(
-                                                       shape: BoxShape.circle,
-                                                       image: DecorationImage(
-                                                         image: imageProvider,
+                                               child: Stack(
+                                                 alignment: Alignment.center,
+                                                 children: [
+
+                                                   SizedBox(
+                                                     width: 40.h,
+                                                     height: 40.h,
+                                                     child: CachedNetworkImage(
+                                                       imageUrl:item.img??
+                                                           "https://www.room.tecknick.net/WI.jpeg",
+                                                       imageBuilder: (context, imageProvider) => Container(
+                                                         decoration: BoxDecoration(
+                                                           shape: BoxShape.circle,
+                                                           image: DecorationImage(
+                                                             image: imageProvider,
+                                                             fit: BoxFit.fill,
+                                                           ),
+                                                         ),
+                                                       ),
+                                                       placeholder: (context, url) =>
+                                                       const Center(child: CircularProgressIndicator()),
+                                                       errorWidget: (context, url, error) =>
+                                                       const Icon(Icons.error),
+                                                     ),
+                                                   ),
+                                                   if(false)
+                                                     SizedBox(
+                                                       width: 65.h,
+                                                       height: 65.h,
+                                                       child:Image.asset(
+                                                         Global.vipId==1?
+                                                         'assets/images/solider_frame.png':
+                                                         Global.vipId==2?
+                                                         'assets/images/knight_frame.png':
+                                                         Global.vipId==3?
+                                                         'assets/images/minister_frame.png':
+                                                         'assets/images/king_frame.png',
                                                          fit: BoxFit.fill,
                                                        ),
                                                      ),
-                                                   ),
-                                                   placeholder: (context, url) =>
-                                                   const Center(child: CircularProgressIndicator()),
-                                                   errorWidget: (context, url, error) =>
-                                                   const Icon(Icons.error),
-                                                 ),
+                                                 ],
                                                ),
                                              ),
 
