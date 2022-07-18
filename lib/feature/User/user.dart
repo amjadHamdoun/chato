@@ -645,9 +645,9 @@ class _UserScreenState extends State<UserScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        if(state.userModel!.data!.userfrien==null)
+                        if(state.userModel!.data!.userfrien==null&&state.userModel!.data!.userfriend==null)
                         SizedBox(width: 22.w,),
-                        if(state.userModel!.data!.userfrien==null)
+                        if(state.userModel!.data!.userfrien==null&&state.userModel!.data!.userfriend==null)
                         Expanded(
 
                           child: ElevatedButton(

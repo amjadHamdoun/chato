@@ -49,19 +49,25 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
           {
             dio.options.headers["Authorization"] =
             "Bearer ${loginModel.data!.token}";
-            String? token = await FirebaseMessaging.instance.getToken();
-            dio.post(
-              Endpoints.createDevice,
-              data: {
-                "token": token,
-              },
-              options: Options(
-                followRedirects: false,
-                validateStatus: (status) {
-                  return status! < 500;
+            try{
+              String? token = await FirebaseMessaging.instance.getToken();
+              dio.post(
+                Endpoints.createDevice,
+                data: {
+                  "token": token,
                 },
-              ),
-            );
+                options: Options(
+                  followRedirects: false,
+                  validateStatus: (status) {
+                    return status! < 500;
+                  },
+                ),
+              );
+            }
+            catch(e){
+
+            }
+
           }
         return Right(LoginModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {

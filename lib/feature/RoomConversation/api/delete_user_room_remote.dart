@@ -43,8 +43,9 @@ DeleteUserRoomDataSource {
         dio.options.headers["Authorization"] ="Bearer ${Global.userToken}";
         final re = await dio.post
           (
-          Endpoints.deleteUserRoom,
+          userId==0?Endpoints.userDeleteRoom:Endpoints.deleteUserRoom,
           data: {
+            if(userId>0)
             'remove_user_id':userId,
             'room_id':roomId,
           },

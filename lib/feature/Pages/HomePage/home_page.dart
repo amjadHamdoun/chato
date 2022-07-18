@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/utils/color_manager.dart';
+import '../../Conversation/conversation.dart';
 import '../../User/user.dart';
 import 'widget/friendship_requests.dart';
 
@@ -165,217 +166,167 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                   SizedBox(
                     height: 10.h,
                   ),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(
-                        horizontal: 6.w
-                    ),
-                    child: SizedBox(
-                      height: 0.13.sh,
-
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount:state.allFriendModel.data!=null?
-                        state.allFriendModel.data!.length+1:1,
-                        itemBuilder: (context, index){
-                          if(index==0) {
-                            return GestureDetector(
-                              onTap: (){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) =>
-                                      SearchFriendsScreen(bloc: widget.bloc,)),
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  Stack(
-                                    children: [
-                                        Container(
-                                        width: 57.w,
-                                        height: 57.w,
-                                        decoration: const BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                colors: [
-                                                  ColorManager.primaryColor,
-                                                  ColorManager.primaryColorLight,
-                                                ]
-                                            ),
-                                            shape: BoxShape.circle
-
-                                        ),
-                                        child: Icon(Icons.add,
-                                          size: 25.w,
-                                          color:    ColorManager.lightGreyShade200,
-                                        ),
-                                      ),
+                if(state.allFriendModel.data!=null)
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
 
 
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 75.w,
-                                    child: Text('new addition',
-                                      style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontFamily: 'DIN',
-                                          fontWeight: FontWeight.w700,
-                                          color: Theme.of(context).disabledColor
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                    ).tr(),
-                                  )
-                                ],
-                              ),
-                            );
-                          } else {
-                            return Column(
+
+                    child:    SizedBox(
+                      width: state.allFriendModel.data!.length<4?
+                      1.sw:null,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>
+                                    SearchFriendsScreen(bloc: widget.bloc,)),
+                              );
+                            },
+                            child: Column(
                               children: [
-                                state.allFriendModel.
-                                data![index-1].img!=null?
-                                GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder:
-                                        (context) => UserScreen(
-                                          id: state.allFriendModel.
-                                          data![index-1].id!,),
-                                        ));
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 57.w,
-                                        height: 57.w,
-                                        child: CachedNetworkImage(
-                                          imageUrl:state.allFriendModel.
-                                          data![index-1].img!,
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.fill,
-
-                                              ),
-                                            ),
+                                Stack(
+                                  children: [
+                                    Container(
+                                      width: 0.09.sh,
+                                      height:  0.09.sh,
+                                      decoration: const BoxDecoration(
+                                          gradient: LinearGradient(
+                                              begin: Alignment.topRight,
+                                              end: Alignment.bottomLeft,
+                                              colors: [
+                                                ColorManager.primaryColor,
+                                                ColorManager.primaryColorLight,
+                                              ]
                                           ),
-                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        ),
+                                          shape: BoxShape.circle
+
                                       ),
-
-                                      if(state.allFriendModel.
-                                      data![index-1].vip_user!=null)
-                                        Image.asset(
-                                          state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='1'?
-                                          'assets/images/solider_frame.png':
-                                          state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='2'?
-                                          'assets/images/knight_frame.png':
-                                          state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='3'?
-                                          'assets/images/minister_frame.png':
-                                          'assets/images/king_frame.png',
-                                          fit: BoxFit.fill,
-                                          height: state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
-                                          width: state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
-                                        ),
-
-                                    ],
-                                  ),
-                                ):
-                                GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder:
-                                            (context) => UserScreen(
-                                          id: state.allFriendModel.
-                                          data![index-1].id!,),
-                                        ));
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 57.w,
-                                        height: 57.w,
-                                        child:  Container(
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-
-                                              image: AssetImage(
-                                                'assets/icons/logo.png',
-                                              ),
-                                              fit: BoxFit.fill,
-
-
-
-                                            ),
-
-                                          ),
-
-                                        ),
+                                      child: Icon(Icons.add,
+                                        size: 25.w,
+                                        color:    ColorManager.lightGreyShade200,
                                       ),
-                                      if(state.allFriendModel.
-                                      data![index-1].vip_user!=null)
-                                        Image.asset(
-                                          state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='1'?
-                                          'assets/images/solider_frame.png':
-                                          state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='2'?
-                                          'assets/images/knight_frame.png':
-                                          state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='3'?
-                                          'assets/images/minister_frame.png':
-                                          'assets/images/king_frame.png',
-                                          fit: BoxFit.fill,
-                                          height: state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
-                                          width: state.allFriendModel.
-                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
-                                        ),
-                                    ],
-                                  ),
+                                    ),
+
+
+                                  ],
                                 ),
                                 SizedBox(
-                                  height: 3.h,
-                                ),
-                                SizedBox(
-                                  width: 70.w,
-                                  child: Text(state.allFriendModel.data![index-1].name!,
+                                  width: 75.w,
+                                  child: Text('new addition',
                                     style: TextStyle(
                                         fontSize: 14.sp,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'DIN',
+                                        fontWeight: FontWeight.w700,
                                         color: Theme.of(context).disabledColor
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
-                                  ),
+                                  ).tr(),
                                 )
                               ],
-                            );
-                          }
-
-                        },
-                        separatorBuilder:(context, i){
-                          return const SizedBox(
+                            ),
+                          ),
 
 
+                          if(state.allFriendModel.data!=null)
+                            for(int index=0;index<state.allFriendModel.data!.length;index=index+1)
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 6.w,
+                                  ),
+                                  Column(
+                                    children: [
+                                      state.allFriendModel.
+                                      data![index].img!=null?
+                                      GestureDetector(
+                                        onTap: (){
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder:
+                                                  (context) => UserScreen(
+                                                id: state.allFriendModel.
+                                                data![index].id!,),
+                                              ));
+                                        },
+                                        child: SizedBox(
+                                          width: 0.09.sh,
+                                          height:  0.09.sh,
+                                          child: CachedNetworkImage(
+                                            imageUrl:state.allFriendModel.
+                                            data![index].img!,
+                                            imageBuilder: (context, imageProvider) => Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.fill,
 
-                          );
+                                                ),
+                                              ),
+                                            ),
+                                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                                          ),
+                                        ),
+                                      ):
+                                      GestureDetector(
+                                        onTap: (){
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder:
+                                                  (context) => UserScreen(
+                                                id: state.allFriendModel.
+                                                data![index].id!,),
+                                              ));
+                                        },
+                                        child: SizedBox(
+                                          width: 0.09.sh,
+                                          height:  0.09.sh,
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                  'assets/icons/logo.png',
+                                                ),
+                                                fit: BoxFit.fill,
 
-                        },
+
+
+                                              ),
+
+                                            ),
+
+                                          ),
+                                        ),
+                                      ),
+
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      SizedBox(
+                                        width: 70.w,
+                                        child: Text(state.allFriendModel.data![index].name!,
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontFamily: 'Roboto',
+                                              fontWeight: FontWeight.w500,
+                                              color: Theme.of(context).disabledColor
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                        ],
                       ),
                     ),
                   ),
@@ -397,7 +348,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       },
                       child: ListView.separated(
 
-                        physics: const BouncingScrollPhysics(),
+                        physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics()
+                        ),
                         itemCount: state.allFriendModel.data!.length,
                         itemBuilder: (context, index){
 
@@ -406,22 +359,31 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                 horizontal: 12.w
                             ),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 GestureDetector(
                                   onTap: (){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) =>
-                                          UserScreen(
-                                            id: state.allFriendModel.data![index].id!,)),
+
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) =>
+                                            ConversationScreen(
+                                              userTwoId:state.allFriendModel.data![index].id! ,
+                                              userTwoName: state.allFriendModel.data![index].name,
+                                              userTwoImage: state.allFriendModel.data![index].img,
+                                              conversationId: '-1',
+
+
+                                            ) ,)
                                     );
                                   },
                                   child: Stack(
                                     alignment: Alignment.center,
                                     children: [
                                       SizedBox(
-                                        width: 60.w,
-                                        height: 60.w,
+                                        width:state.allFriendModel.
+                                        data![index].vip_user==null?70.w: 60.w,
+                                        height: state.allFriendModel.
+                                        data![index].vip_user==null?70.w: 60.w,
                                         child: CachedNetworkImage(
                                           imageUrl: state.allFriendModel.
                                           data![index].img ??
@@ -444,7 +406,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                       data![index].vip_user!=null)
                                         Image.asset(
                                           state.allFriendModel.
-                                          data![index].vip_user!.vip_id=='1'?
+                                          data![index].vip_user!.vip_id=="1"?
                                           'assets/images/solider_frame.png':
                                           state.allFriendModel.
                                           data![index].vip_user!.vip_id=='2'?
@@ -455,9 +417,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                           'assets/images/king_frame.png',
                                           fit: BoxFit.fill,
                                           height: state.allFriendModel.
-                                          data![index].vip_user!.vip_id=='1'?82.h: 95.h,
+                                          data![index].vip_user!.vip_id=="1"?75.w: 85.w,
                                           width: state.allFriendModel.
-                                          data![index].vip_user!.vip_id=='1'?82.h: 95.h,
+                                          data![index].vip_user!.vip_id=="1"?75.w: 85.w,
                                         ),
                                       if(Localizations.localeOf(context)==const Locale('ar','AR'))
                                         Positioned(

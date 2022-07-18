@@ -42,6 +42,7 @@ class Endpoints {
   static const getGiftRoom = '/room/git-gift-room';
   static const sendGiftRoom = '/room/send-gift-room';
   static const deleteUserRoom = '/room/delete-user-room';
+  static const userDeleteRoom = '/room/user-delete-room';
   static const blockUserRoom = '/room/block-user-room';
   static const addTrend = '/room/add-room-trend';
   static const updateCoins = '/update_coins';

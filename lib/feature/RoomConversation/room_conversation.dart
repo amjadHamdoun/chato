@@ -1600,7 +1600,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                         GestureDetector(
                                           onTap: () {
                                             bloc.onDeleteUserEvent(
-                                                Global.userId!, widget.roomId);
+                                                0, widget.roomId);
                                             bloc.onWantToExitEvent(false);
                                             Global.pusher!.unsubscribe(
                                                 "chat.${widget.roomId}");
