@@ -14,7 +14,14 @@ class GetUserDetailsEvent extends UserEvents {
  int id;
  GetUserDetailsEvent({required this.id});
 }
+// ignore: must_be_immutable
+class ChangeStatusEvent extends UserEvents {
+  bool status;
+  ChangeStatusEvent({required this.status});
+}
 
+// ignore: must_be_immutable
 class AddFriendEvent extends UserEvents{
-
+   int id;
+   AddFriendEvent({required this.id});
 }

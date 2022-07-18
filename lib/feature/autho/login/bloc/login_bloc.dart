@@ -60,7 +60,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
                           Preferences.saveVipDate(r.data!.vip_user!.end_date!);
                           Preferences.saveUserVipId(int.parse(r.data!.vip_user!.vip_id!));
+
               }
+            else{
+              Global.vipId=0;
+              Global.endVip=DateTime.now();
+              Preferences.saveVipDate(DateTime.now());
+              Preferences.saveUserVipId(Global.vipId!);
+            }
+
             Preferences.saveUserDiamond(r.data!.diamond??'0');
             Preferences.saveUserCoins(r.data!.coins??'0');
             Preferences.saveUserToken(r.data!.token!);

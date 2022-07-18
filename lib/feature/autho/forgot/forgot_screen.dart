@@ -4,6 +4,7 @@ import 'package:chato/core/utils/font_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/core/utils/svg_manager.dart';
 import 'package:chato/feature/autho/forgot/bloc/forget_state.dart';
+import 'package:chato/feature/autho/login/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,12 +79,28 @@ class _ForgotScreenState extends State<ForgotScreen> {
           },
           builder:(context, state) {
             return Scaffold(
+
               body: Container(
                 padding: EdgeInsets.symmetric( horizontal: 20.w),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(height: 50.h,),
+                      SizedBox(height: 35.h,),
+                      Row(
+                        children: [
+                          IconButton(onPressed: (){
+                         //   Navigator.pop(context);
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                            (context) => const LoginScreen(),
+                           ));
+                          },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                             size: 19.w,
+
+                            ))],
+                      ),
+                      SizedBox(height: 35.h,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -138,7 +155,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 70.h,
+                        height: 45.h,
                       ),
                       SizedBox(
                           height: 45.h,

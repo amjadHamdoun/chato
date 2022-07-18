@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../BuyFeaturedUser/model/vip_data_model.dart';
+
 part 'all_friend_data_model.g.dart';
 
 @JsonSerializable()
@@ -9,7 +11,7 @@ class AllFriendDataModel {
   int? id;
   String? name;
   String? status;
-
+  VipDataModel?  vip_user;
 
 
   Map<String, dynamic> toJson() => _$AllFriendDataModelToJson(this);
@@ -22,6 +24,7 @@ class AllFriendDataModel {
         required this.id,
         required this.name,
         required this.status,
+        required this.vip_user
 
       });
 }

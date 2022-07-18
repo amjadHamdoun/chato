@@ -12,6 +12,9 @@ AllFriendDataModel _$AllFriendDataModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       name: json['name'] as String?,
       status: json['status'] as String?,
+      vip_user: json['vip_user'] == null
+          ? null
+          : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AllFriendDataModelToJson(AllFriendDataModel instance) =>
@@ -20,4 +23,5 @@ Map<String, dynamic> _$AllFriendDataModelToJson(AllFriendDataModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,
+      'vip_user': instance.vip_user,
     };

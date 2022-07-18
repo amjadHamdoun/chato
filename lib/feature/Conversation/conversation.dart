@@ -454,84 +454,80 @@ class _ConversationScreenState extends State<ConversationScreen> {
                             child: Padding(
                               padding:  EdgeInsets.symmetric(
                                   horizontal: 15.w,
-                                  vertical: 12.h
+                                  vertical: 6.h
                               ),
-                              child: Column(
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: (){
-                                          Navigator.pop(context);
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_back_ios,
-                                          size: 20.w,
-                                          color: ColorManager.backgroundColor,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 50.h,
-                                        height: 50.h,
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                          widget.userTwoImage??
-                                              "https://www.room.tecknick.net/WI.jpeg",
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.fill,
-
-                                              ),
-                                            ),
-                                          ),
-                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        ),
-                                      ),
-                                      SizedBox(width: 6.w,),
-                                      Expanded(child:
-                                      Text( widget.userTwoName??'',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 17.sp,
-                                            color: ColorManager.backgroundColor,
-                                            fontFamily: 'Roboto'
-                                        ),
-                                      ),),
-                                      SizedBox(width: 15.w,),
-                                      InkWell(
-                                        onTap: (){
-
-                                        },
-                                        child: SvgPicture.asset('assets/icons/phone.svg',
-                                          width: 19.w,
-                                        ),
-                                      ),
-                                      SizedBox(width: 25.w,),
-                                      InkWell(
-                                        onTap: (){
-                                          showMenuBottomSheet(
-                                            ctx: context,
-                                            userTwoId: widget.userTwoId!,
-                                            bloc: bloc
-                                          );
-                                        },
-                                        child: SvgPicture.asset(
-                                          'assets/icons/menu.svg',
-                                          width: 4.5.w,
-                                        ),
-                                      ),
-
-
-
-                                    ],
+                                  InkWell(
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.arrow_back_ios,
+                                      size: 20.w,
+                                      color: ColorManager.backgroundColor,
+                                    ),
                                   ),
                                   SizedBox(
-                                    height: 5.h,
+                                    width: 50.h,
+                                    height: 50.h,
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                      widget.userTwoImage??
+                                          "https://www.room.tecknick.net/WI.jpeg",
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.fill,
+
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                                    ),
                                   ),
+                                  SizedBox(width: 6.w,),
+                                  Expanded(child:
+                                  Text( widget.userTwoName??'',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 17.sp,
+                                        color: ColorManager.backgroundColor,
+                                        fontFamily: 'Roboto'
+                                    ),
+                                  ),),
+                                  SizedBox(width: 15.w,),
+                                  IconButton(
+
+                                    onPressed: (){
+
+                                    },
+                                    icon: SvgPicture.asset('assets/icons/phone.svg',
+                                      width: 19.w,
+                                    ),
+                                  ),
+
+                                  IconButton(
+                                    onPressed: (){
+                                      showMenuBottomSheet(
+                                          ctx: context,
+                                          userTwoId: widget.userTwoId!,
+                                          bloc: bloc
+                                      );
+                                    },
+                                    icon: SvgPicture.asset(
+                                      'assets/icons/menu.svg',
+                                      width: 4.5.w,
+                                    ),
+                                  ),
+
+
+
 
                                 ],
                               ),

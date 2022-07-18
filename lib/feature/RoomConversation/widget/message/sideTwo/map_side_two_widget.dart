@@ -165,16 +165,16 @@ class _MessageMapSideTwoState extends State<MessageMapSideTwo> {
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
-              if(false)
+              if(widget.message.user!.vip_user!=null)
                 SizedBox(
-                  width:Global.vipId==1?64.h: 75.h,
-                  height: Global.vipId==1?64.h: 75.h,
+                  width:widget.message.user!.vip_user!.vip_id=="1"?64.h: 75.h,
+                  height: widget.message.user!.vip_user!.vip_id=="1"?64.h: 75.h,
                   child:Image.asset(
-                    Global.vipId==1?
+                    widget.message.user!.vip_user!.vip_id=="1"?
                     'assets/images/solider_frame.png':
-                    Global.vipId==2?
+                    widget.message.user!.vip_user!.vip_id=="2"?
                     'assets/images/knight_frame.png':
-                    Global.vipId==3?
+                    widget.message.user!.vip_user!.vip_id=="3"?
                     'assets/images/minister_frame.png':
                     'assets/images/king_frame.png',
                     fit: BoxFit.fill,

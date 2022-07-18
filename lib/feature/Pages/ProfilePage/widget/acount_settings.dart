@@ -18,6 +18,8 @@ import '../bloc/prof_bloc.dart';
 import 'change_password_bottom_sheet.dart';
 import 'dart:io';
 
+import 'crop_page.dart';
+
 
 
 class AccountSettingsScreen extends StatefulWidget {
@@ -105,17 +107,25 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             left:Global.vipId!>0? 8:4,
                             bottom:Global.vipId!>0?8:2,
                             child: InkWell(
-                              onTap: () async {
-                                FilePickerResult? result = await
-                                FilePicker.platform.pickFiles(
-                                  type: FileType.image,
-                                );
-                                if (result != null) {
-                                  File file = File(result.files.single.path!);
-                                  widget.bloc.onChangeImageEvent(file);
-                                }
-                                else {
-                                }
+                              onTap: ()  async{
+                               await Navigator.push(context, MaterialPageRoute(builder:
+                                (context) => const CropPage(title: 'Select Image',),
+                                )).then((value) {
+                                 print('aasdf000');
+                                  if(value!=null)
+                                    {
+                                      print('aasdf000');
+
+                                           File file = File(value.path!);
+                                            widget.bloc.onChangeImageEvent(file);
+
+                                    }
+                                });
+                             //   FilePickerResult? result = await
+                             //   FilePicker.platform.pickFiles(
+                             //     type: FileType.image,
+                             //   );
+
                               },
                               child: Container(
                                 decoration: const BoxDecoration(
@@ -145,7 +155,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             color: Global.darkMode
                                 ? ColorManager.backgroundColor
                                 : ColorManager.textColor
-
                         ),
                       ),
                       Text(
@@ -317,7 +326,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                               width: 8.w,
                             ),
                             Text(
-                              state.profileModel!.data!.email!,
+                              state.profileModel!.data!.email!.substring(0,4)+'********.com',
                               style: getRegularStyle(
                                   fontSize: 14.sp,
                                   color: Global.darkMode

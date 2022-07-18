@@ -76,7 +76,8 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
   @override
   void initState() {
-
+   // storeBloc.onChangeProductEvent('diamond','1500');
+   // storeBloc.onUpdateCoinsEvent();
     purchases =  Map<String, PurchaseDetails>.fromEntries(
         _purchases.map((PurchaseDetails purchase) {
           if (purchase.pendingCompletePurchase) {
@@ -86,14 +87,13 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
         }));
     final Stream<List<PurchaseDetails>> purchaseUpdated =
         _inAppPurchase.purchaseStream;
-    _subscription =
-        purchaseUpdated.listen((List<PurchaseDetails>
+    _subscription = purchaseUpdated.listen((List<PurchaseDetails>
         purchaseDetailsList) {
           _listenToPurchaseUpdated(purchaseDetailsList);
         }, onDone: () {
           _subscription.cancel();
         }, onError: (Object error) {
-          // handle error here.
+
         });
     initStoreInfo();
     super.initState();
@@ -174,21 +174,17 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
     super.dispose();
   }
 
-
   void showPendingUI() {
     setState(() {
       _purchasePending = true;
     });
   }
 
-
-
   void handleError(IAPError error) {
     setState(() {
       _purchasePending = false;
     });
   }
-
 
   Future<void> _listenToPurchaseUpdated(
       List<PurchaseDetails> purchaseDetailsList) async {
@@ -261,7 +257,7 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
           ).show();
         }
 
-        if (purchaseDetails.pendingCompletePurchase)
+       else if (purchaseDetails.pendingCompletePurchase)
         {
           AwesomeDialog(
             context: context,
@@ -284,7 +280,7 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
         }
 
-        if(purchaseDetails.status==PurchaseStatus.canceled)
+       else if(purchaseDetails.status==PurchaseStatus.canceled)
         {
           AwesomeDialog(
             context: context,
@@ -379,15 +375,11 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
                           ),
                           SizedBox(width: 12.w,),
                           Expanded(child:
-                          Text('Store',
+                           Text('Store',
                             style: TextStyle(
                                 color: ColorManager.primaryColor,
-
-
                                 fontWeight: FontWeight.w700,
-                                fontSize: 19.sp
-
-
+                                fontSize: 19.sp,
                             ),
                           ).tr(),),
 
@@ -537,27 +529,28 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
                       physics: const NeverScrollableScrollPhysics(),
                       controller: pageController,
                       children:  [
+
                         CoinsPage(
                           products: _products,
                           inAppPurchase: _inAppPurchase,
                           bloc: storeBloc,
                         ),
+
                         DiamondsPage(
                           products: _products,
                           bloc: storeBloc,
                           inAppPurchase: _inAppPurchase,
                         ),
+
                         VipPage(
                           products: _products,
                           bloc: storeBloc,
                           inAppPurchase: _inAppPurchase,
-                        )
-                        //store
+                        ),
 
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: 95.h,
                   ),
@@ -580,12 +573,14 @@ class ExamplePaymentQueueDelegate implements SKPaymentQueueDelegateWrapper {
 
   @override
   bool shouldContinueTransaction(
-      SKPaymentTransactionWrapper transaction, SKStorefrontWrapper storefront) {
-        return true;
+      SKPaymentTransactionWrapper transaction, SKStorefrontWrapper storefront)
+  {
+    return true;
   }
 
   @override
   bool shouldShowPriceConsent() {
     return false;
   }
+
 }

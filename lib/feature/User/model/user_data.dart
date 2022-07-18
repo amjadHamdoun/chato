@@ -17,6 +17,7 @@ class UserData {
   final List?  gift_transaction_s;
   final List?  gift_transaction_r;
   final UserFriend? userfriend;
+  final UserFriend? userfrien;
   final List? friend;
   final List? block;
    var viewers;
@@ -40,6 +41,7 @@ class UserData {
     this.block,
     this.friend,
     this.userfriend,
+    this.userfrien,
     this.viewers
 
   });

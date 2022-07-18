@@ -21,6 +21,7 @@ class ConversationOldMessageDataModel {
   String? created_at;
   String? updated_at;
   UserData? user;
+
  String? type;  ///pusher type
   Map<String, dynamic> toJson() => _$ConversationOldMessageDataModelToJson(this);
   factory ConversationOldMessageDataModel.fromJson(Map<String, dynamic> json) =>

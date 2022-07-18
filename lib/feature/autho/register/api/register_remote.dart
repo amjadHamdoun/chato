@@ -70,7 +70,7 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
         print("re");
         RegisterModel registerModel=RegisterModel.fromJson(json.decode(re.data));
         print(registerModel.message);
-        if(registerModel.data!.token!=null)
+        if(registerModel.data!=null)
         {
           dio.options.headers["Authorization"] =
           "Bearer ${registerModel.data!.token}";

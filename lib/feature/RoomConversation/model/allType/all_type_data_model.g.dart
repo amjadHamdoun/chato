@@ -15,6 +15,9 @@ AllTypeDataModel _$AllTypeDataModelFromJson(Map<String, dynamic> json) =>
       img: json['img'] as String?,
       birth_date: json['birth_date'] as String?,
       gender: json['gender'] as String?,
+      vip_user: json['vip_user'] == null
+          ? null
+          : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AllTypeDataModelToJson(AllTypeDataModel instance) =>
@@ -26,4 +29,5 @@ Map<String, dynamic> _$AllTypeDataModelToJson(AllTypeDataModel instance) =>
       'birth_date': instance.birth_date,
       'gender': instance.gender,
       'token': instance.token,
+      'vip_user': instance.vip_user,
     };

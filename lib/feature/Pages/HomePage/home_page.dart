@@ -9,11 +9,9 @@ import 'package:chato/feature/autho/login/login_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../../core/utils/color_manager.dart';
 import '../../User/user.dart';
 import 'widget/friendship_requests.dart';
@@ -94,11 +92,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               Text('Friends',
                                 style: TextStyle(
                                     color: ColorManager.primaryColor,
-
-
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 19.sp
-
+                                    fontSize: 19.sp ,
 
                                 ),
                               ).tr(),),
@@ -138,9 +133,6 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                           style: getMediumStyle(
                                             color: ColorManager.backgroundColor,
                                             fontSize: 15.sp,
-
-
-
                                           ),
                                         )
                                       ],
@@ -197,25 +189,31 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               },
                               child: Column(
                                 children: [
-                                  Container(
-                                    width: 57.w,
-                                    height: 57.w,
-                                    decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.bottomLeft,
-                                            colors: [
-                                              ColorManager.primaryColor,
-                                              ColorManager.primaryColorLight,
-                                            ]
-                                        ),
-                                        shape: BoxShape.circle
+                                  Stack(
+                                    children: [
+                                        Container(
+                                        width: 57.w,
+                                        height: 57.w,
+                                        decoration: const BoxDecoration(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topRight,
+                                                end: Alignment.bottomLeft,
+                                                colors: [
+                                                  ColorManager.primaryColor,
+                                                  ColorManager.primaryColorLight,
+                                                ]
+                                            ),
+                                            shape: BoxShape.circle
 
-                                    ),
-                                    child: Icon(Icons.add,
-                                      size: 25.w,
-                                      color:    ColorManager.lightGreyShade200,
-                                    ),
+                                        ),
+                                        child: Icon(Icons.add,
+                                          size: 25.w,
+                                          color:    ColorManager.lightGreyShade200,
+                                        ),
+                                      ),
+
+
+                                    ],
                                   ),
                                   SizedBox(
                                     width: 75.w,
@@ -238,46 +236,115 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               children: [
                                 state.allFriendModel.
                                 data![index-1].img!=null?
-                                SizedBox(
-                                  width: 57.w,
-                                  height: 57.w,
-                                  child: CachedNetworkImage(
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder:
+                                        (context) => UserScreen(
+                                          id: state.allFriendModel.
+                                          data![index-1].id!,),
+                                        ));
+                                  },
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 57.w,
+                                        height: 57.w,
+                                        child: CachedNetworkImage(
+                                          imageUrl:state.allFriendModel.
+                                          data![index-1].img!,
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill,
 
-                                    imageUrl:state.allFriendModel.
-                                    data![index-1].img!,
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.fill,
-
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
                                         ),
                                       ),
-                                    ),
-                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
+
+                                      if(state.allFriendModel.
+                                      data![index-1].vip_user!=null)
+                                        Image.asset(
+                                          state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='1'?
+                                          'assets/images/solider_frame.png':
+                                          state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='2'?
+                                          'assets/images/knight_frame.png':
+                                          state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='3'?
+                                          'assets/images/minister_frame.png':
+                                          'assets/images/king_frame.png',
+                                          fit: BoxFit.fill,
+                                          height: state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
+                                          width: state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
+                                        ),
+
+                                    ],
                                   ),
                                 ):
-                                SizedBox(
-                                  width: 57.w,
-                                  height: 57.w,
-                                  child:  Container(
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder:
+                                            (context) => UserScreen(
+                                          id: state.allFriendModel.
+                                          data![index-1].id!,),
+                                        ));
+                                  },
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 57.w,
+                                        height: 57.w,
+                                        child:  Container(
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
 
-                                        image: AssetImage(
-                                          'assets/icons/logo.png',
+                                              image: AssetImage(
+                                                'assets/icons/logo.png',
+                                              ),
+                                              fit: BoxFit.fill,
+
+
+
+                                            ),
+
+                                          ),
+
                                         ),
-                                        fit: BoxFit.fill,
-
-
-
                                       ),
-
-                                    ),
-
+                                      if(state.allFriendModel.
+                                      data![index-1].vip_user!=null)
+                                        Image.asset(
+                                          state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='1'?
+                                          'assets/images/solider_frame.png':
+                                          state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='2'?
+                                          'assets/images/knight_frame.png':
+                                          state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='3'?
+                                          'assets/images/minister_frame.png':
+                                          'assets/images/king_frame.png',
+                                          fit: BoxFit.fill,
+                                          height: state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
+                                          width: state.allFriendModel.
+                                          data![index-1].vip_user!.vip_id=='1'?82.h: 95.h,
+                                        ),
+                                    ],
                                   ),
                                 ),
                                 SizedBox(
@@ -318,7 +385,6 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
                   //المحادثات
                   Expanded(
-
                     child:
                         state.isLoadingGetAllFriend!?const Center(
                           child: CircularProgressIndicator(),
@@ -341,18 +407,19 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                             ),
                             child: Row(
                               children: [
-                                Stack(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: (){
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) =>
-                                              UserScreen(id: state.allFriendModel.
-                                              data![index].id!,)),
-                                        );
-                                      },
-                                      child: SizedBox(
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          UserScreen(
+                                            id: state.allFriendModel.data![index].id!,)),
+                                    );
+                                  },
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SizedBox(
                                         width: 60.w,
                                         height: 60.w,
                                         child: CachedNetworkImage(
@@ -373,40 +440,59 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                           errorWidget: (context, url, error) => const Icon(Icons.error),
                                         ),
                                       ),
-                                    ),
-                                    if(Localizations.localeOf(context)==const Locale('ar','AR'))
-                                      Positioned(
-                                        top: 5.h,
-
-                                        left: 2.w,
-                                        child: Container(
-
-
-                                          width: 12.w,
-                                          height: 12.w,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0xff00EA11),
-                                            shape: BoxShape.circle,
-                                          ),
+                                      if(state.allFriendModel.
+                                      data![index].vip_user!=null)
+                                        Image.asset(
+                                          state.allFriendModel.
+                                          data![index].vip_user!.vip_id=='1'?
+                                          'assets/images/solider_frame.png':
+                                          state.allFriendModel.
+                                          data![index].vip_user!.vip_id=='2'?
+                                          'assets/images/knight_frame.png':
+                                          state.allFriendModel.
+                                          data![index].vip_user!.vip_id=='3'?
+                                          'assets/images/minister_frame.png':
+                                          'assets/images/king_frame.png',
+                                          fit: BoxFit.fill,
+                                          height: state.allFriendModel.
+                                          data![index].vip_user!.vip_id=='1'?82.h: 95.h,
+                                          width: state.allFriendModel.
+                                          data![index].vip_user!.vip_id=='1'?82.h: 95.h,
                                         ),
-                                      )
-                                    else
-                                      Positioned(
-                                        top: 5.h,
+                                      if(Localizations.localeOf(context)==const Locale('ar','AR'))
+                                        Positioned(
+                                          top: 5.h,
 
-                                        right: 2.w,
-                                        child: Container(
+                                          left: 2.w,
+                                          child: Container(
 
 
-                                          width: 12.w,
-                                          height: 12.w,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0xff00EA11),
-                                            shape: BoxShape.circle,
+                                            width: 12.w,
+                                            height: 12.w,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xff00EA11),
+                                              shape: BoxShape.circle,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                  ],
+                                        )
+                                      else
+                                        Positioned(
+                                          top: 5.h,
+
+                                          right: 2.w,
+                                          child: Container(
+
+
+                                            width: 12.w,
+                                            height: 12.w,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xff00EA11),
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(width: 4.w,),
                                 Expanded(

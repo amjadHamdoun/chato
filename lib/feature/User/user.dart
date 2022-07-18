@@ -27,6 +27,7 @@ class _UserScreenState extends State<UserScreen> {
   @override
   void initState() {
     super.initState();
+    bloc.onChangeStatusEvent(false);
     bloc.onGetDetailsUserEvent(widget.id);
   }
 
@@ -70,6 +71,7 @@ class _UserScreenState extends State<UserScreen> {
                             imageUrl:
                             state.userModel!.data!.img??
                             "https://www.room.tecknick.net/WI.jpeg",
+
                             imageBuilder: (context, imageProvider) =>
                                 Container(
                                   decoration: BoxDecoration(
@@ -92,6 +94,9 @@ class _UserScreenState extends State<UserScreen> {
 
                         ),
                         if(state.userModel!.data!.vip_user!=null)
+                          if(state.userModel!.data!.vip_user!.vip_id!='1'&&
+                          state.userModel!.data!.vip_user!.vip_id!='2'
+                          )
                         Positioned(
                           bottom: -25,
                           child: Row(
@@ -107,29 +112,48 @@ class _UserScreenState extends State<UserScreen> {
                           bottom: -8.h,
 
                           width: 1.sw,
-                          child: SizedBox(
-                            width: 90.h,
-                            height: 90.h,
-                            child: CachedNetworkImage(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SizedBox(
+                                width: 90.h,
+                                height: 90.h,
+                                child: CachedNetworkImage(
 
-                              imageUrl:   state.userModel!.data!.img??
-                                  "https://www.room.tecknick.net/WI.jpeg",
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.scaleDown,
+                                  imageUrl:   state.userModel!.data!.img??
+                                      "https://www.room.tecknick.net/WI.jpeg",
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.fill,
 
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                              placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                            ),
+                                  placeholder: (context, url) =>
+                                  const Center(child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                                ),
+                              ),
+                              if(state.userModel!.data!.vip_user!=null)
+                              Image.asset(
+                                state.userModel!.data!.vip_user!.vip_id=='1'?
+                                'assets/images/solider_frame.png':
+                                state.userModel!.data!.vip_user!.vip_id=='2'?
+                                'assets/images/knight_frame.png':
+                                state.userModel!.data!.vip_user!.vip_id=='3'?
+                                'assets/images/minister_frame.png':
+                                'assets/images/king_frame.png',
+                                fit: BoxFit.fill,
+                                height: state.userModel!.data!.vip_user!.vip_id=='1'?116.h: 126.h,
+                                width: state.userModel!.data!.vip_user!.vip_id=='1'?116.h: 126.h,
+                              ),
+
+                            ],
                           ),
                         ),
                       ],
@@ -621,9 +645,9 @@ class _UserScreenState extends State<UserScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        if(state.userModel!.data!.userfriend==null)
+                        if(state.userModel!.data!.userfrien==null)
                         SizedBox(width: 22.w,),
-                        if(state.userModel!.data!.userfriend==null)
+                        if(state.userModel!.data!.userfrien==null)
                         Expanded(
 
                           child: ElevatedButton(
@@ -663,7 +687,9 @@ class _UserScreenState extends State<UserScreen> {
                                       ))
                               ),
                               onPressed: () {
-                                bloc.onAddFriendEvent();
+                                bloc.onAddFriendEvent(
+                                  widget.id
+                                );
                               }
                           ),
                         ),

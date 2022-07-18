@@ -74,7 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               dialogType: DialogType.ERROR,
               animType: AnimType.BOTTOMSLIDE,
               title: tr('register error'),
-              desc: state.registerModel!.message,
+              desc:tr(state.registerModel!.message!) ,
               btnCancelText: tr('ok'),
               btnCancelOnPress: () {},
             ).show();

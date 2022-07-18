@@ -56,10 +56,13 @@ import 'store_state.dart';
           {
             Global.userCoins=(double.parse(Global.userCoins!)+
                 double.parse(state.quantity)).toString();
+            Preferences.saveUserCoins(Global.userCoins??'0');
           }
         else{
-          Global.userCoins=(double.parse(Global.userDiamond!)+
+          Global.userDiamond=(double.parse(Global.userDiamond!)+
               double.parse(state.quantity)).toString();
+          Preferences.saveUserDiamond(Global.userDiamond??'0');
+
         }
         emit(state.rebuild((b) => b
           ..isSuccess = true

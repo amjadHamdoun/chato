@@ -99,16 +99,21 @@ Future<String?> showOwnersBottomSheet(BuildContext ctx
                                       ),
                                     ),
 
-                                    if(false)
+                                    if(state.allTypeOwner.data![index].vip_user!=null)
                                       SizedBox(
-                                        width:Global.vipId==1?64.h: 75.h,
-                                        height: Global.vipId==1?64.h: 75.h,
+                                        width:state.allTypeOwner.data![index].vip_user!.vip_id
+                                            =="1"?64.h: 75.h,
+                                        height: state.allTypeOwner.data![index].vip_user!.vip_id
+                                            =="1"?64.h: 75.h,
                                         child:Image.asset(
-                                          Global.vipId==1?
+                                          state.allTypeOwner.data![index].vip_user!.vip_id
+                                              =="1"?
                                           'assets/images/solider_frame.png':
-                                          Global.vipId==2?
+                                          state.allTypeOwner.data![index].vip_user!.vip_id
+                                              =="2"?
                                           'assets/images/knight_frame.png':
-                                          Global.vipId==3?
+                                          state.allTypeOwner.data![index].vip_user!.vip_id
+                                              =="3"?
                                           'assets/images/minister_frame.png':
                                           'assets/images/king_frame.png',
                                           fit: BoxFit.fill,

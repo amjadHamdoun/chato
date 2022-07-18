@@ -41,6 +41,7 @@ class _PagesScreenState extends State<PagesScreen> {
 
    @override
   void initState() {
+
      pageController=PageController(initialPage: widget.pageNumber);
      Global.pusher!.connect();
 

@@ -17,6 +17,12 @@ class UserBloc extends Bloc<UserEvents, UserState> {
     required this.userRemoteDataSource,
     required this.addFriendRemoteDataSource
   }) : super(UserState.initial()) {
+
+    on<ChangeStatusEvent>((event, emit) =>
+        emit(state.rebuild((b) => b
+          ..addFriend=false
+        )
+        ));
     on<GetUserDetailsEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..isSuccess = false
@@ -66,7 +72,9 @@ class UserBloc extends Bloc<UserEvents, UserState> {
             message: '',
             error_code: 0,
             status: false)));
-      final result = await addFriendRemoteDataSource.addFriend();
+      final result = await addFriendRemoteDataSource.addFriend(
+        id: event.id
+      );
       print("result");
       print(result);
       print("result");
@@ -94,7 +102,11 @@ class UserBloc extends Bloc<UserEvents, UserState> {
     add(GetUserDetailsEvent(id: id));
   }
 
-  void onAddFriendEvent() {
-    add(AddFriendEvent());
+  void onAddFriendEvent(int id) {
+    add(AddFriendEvent(id: id));
   }
+  void onChangeStatusEvent(bool status) {
+    add(ChangeStatusEvent(status: status));
+  }
+
 }

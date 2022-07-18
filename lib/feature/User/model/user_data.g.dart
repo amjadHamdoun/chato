@@ -24,6 +24,9 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       userfriend: json['userfriend'] == null
           ? null
           : UserFriend.fromJson(json['userfriend'] as Map<String, dynamic>),
+      userfrien: json['userfrien'] == null
+          ? null
+          : UserFriend.fromJson(json['userfrien'] as Map<String, dynamic>),
       viewers: json['viewers'],
     );
 
@@ -38,6 +41,7 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'gift_transaction_s': instance.gift_transaction_s,
       'gift_transaction_r': instance.gift_transaction_r,
       'userfriend': instance.userfriend,
+      'userfrien': instance.userfrien,
       'friend': instance.friend,
       'block': instance.block,
       'viewers': instance.viewers,

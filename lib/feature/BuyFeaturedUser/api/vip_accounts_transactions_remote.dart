@@ -32,7 +32,8 @@ class VipAccountsTransactionsRemoteDataSourceImpl extends VipAccountsTransaction
    }) async {
     if (await networkInfo.hasConnection) {
       try {
-        dio.options.headers["Authorization"] = "Bearer ${Global.userToken}";
+        dio.options.headers["Authorization"] =
+        "Bearer ${Global.userToken}";
         final re = await dio.post
           (
           Endpoints.vipAccountsTransactions,
