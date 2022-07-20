@@ -78,9 +78,17 @@ class RoomConversationBloc
         emit(state.rebuild((b) => b..isRecord =
             event.isRecord)));
 
-    on<ChangeGiftEvent>((event, emit) =>
-        emit(state.rebuild((b) => b..senGiftType =
-            event.type)));
+
+    on<ChangeGiftEvent>((event, emit) {
+      emit(state.rebuild((b) =>
+      b..senGiftType =
+          event.type
+
+
+      ));
+
+    });
+
 
 
     on<WantToExitEvent>((event, emit) =>

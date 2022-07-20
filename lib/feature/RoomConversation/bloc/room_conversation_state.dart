@@ -68,6 +68,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   List<GetGiftDataModel> get featured;
   List<GetGiftDataModel> get rich;
 
+
   RoomConversationState._();
 
   factory RoomConversationState([void Function(RoomConversationStateBuilder) updates]) = _$RoomConversationState;
@@ -90,6 +91,7 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
       ..vip=[]
       ..featured=[]
       ..rich=[]
+
       ..showRocket=false
       ..showRocketUserName=''
       ..isLoadingGetBackgroundImage=false
