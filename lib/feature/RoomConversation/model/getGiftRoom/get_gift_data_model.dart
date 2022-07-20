@@ -11,7 +11,7 @@ class GetGiftDataModel {
   String? img;
   String? type;
   String? price;
-
+  String? category;
 
   Map<String, dynamic> toJson() => _$GetGiftDataModelToJson(this);
   factory GetGiftDataModel.fromJson(Map<String, dynamic> json) =>
@@ -24,6 +24,6 @@ class GetGiftDataModel {
         required this.img,
         required this.type,
         required this.price,
-
+        required this.category
       });
 }

@@ -27,6 +27,7 @@ import '../model/backgroundImageRoom/background_image_data_model.dart';
 import '../model/conversationMessage/conversation_old_message_data_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
 import '../model/deleteUserRoom/delete_user_model.dart';
+import '../model/getGiftRoom/get_gift_data_model.dart';
 import 'room_conversation_event.dart';
 import 'room_conversation_state.dart';
 
@@ -457,15 +458,45 @@ class RoomConversationBloc
           ..error = ''));
       }, (r) async {
         print('r');
+        List<GetGiftDataModel>  gifts=[];
+        List<GetGiftDataModel>  flags=[];
+        List<GetGiftDataModel>  vip=[];
+        List<GetGiftDataModel>  featured=[];
+        List<GetGiftDataModel>  rich=[];
 
-
-
+          for(var gif in r.data!)
+            {
+              if(gif.category=='gifts')
+                {
+                  gifts.add(gif);
+                }
+              else if(gif.category=='Flags')
+              {
+                flags.add(gif);
+              }
+              else if(gif.category=='Vip')
+              {
+                vip.add(gif);
+              }
+              else if(gif.category=='Featured')
+              {
+                featured.add(gif);
+              }
+              else if(gif.category=='rich')
+              {
+                rich.add(gif);
+              }
+            }
         emit(state.rebuild((b) => b
           ..error=''
           ..isSuccessGetGift=true
           ..isLoadingGetGift=false
           ..getGiftModel=r
-
+            ..rich=rich
+            ..featured=featured
+            ..gifts=gifts
+            ..flags=flags
+            ..vip=vip
         ));
 
 

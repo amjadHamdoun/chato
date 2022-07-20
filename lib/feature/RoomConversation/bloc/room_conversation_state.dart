@@ -8,6 +8,7 @@ import '../model/backgroundImageRoom/background_image_model.dart';
 import '../model/changePermeationUser/change_permeation_user_model.dart';
 import '../model/conversationMessage/conversation_old_message_model.dart';
 import '../model/deleteUserRoom/delete_user_model.dart';
+import '../model/getGiftRoom/get_gift_data_model.dart';
 import '../model/getGiftRoom/get_gift_model.dart';
 import '../model/sendGiftRoom/send_gift_model.dart';
 import '../model/sendMessage/send_message_data_model.dart';
@@ -61,7 +62,11 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
   DeleteUserModel get deleteUserModel;
   BlockUserModel get blockUserModel;
   AddTrendModel get addTrendModel;
-
+  List<GetGiftDataModel> get gifts;
+  List<GetGiftDataModel> get flags;
+  List<GetGiftDataModel> get vip;
+  List<GetGiftDataModel> get featured;
+  List<GetGiftDataModel> get rich;
 
   RoomConversationState._();
 
@@ -80,6 +85,11 @@ abstract class RoomConversationState implements Built<RoomConversationState, Roo
       ..isSuccessAllType = false
       ..isLoadingChangePer=false
       ..isSuccessChangePer=false
+      ..gifts=[]
+      ..flags=[]
+      ..vip=[]
+      ..featured=[]
+      ..rich=[]
       ..showRocket=false
       ..showRocketUserName=''
       ..isLoadingGetBackgroundImage=false

@@ -13,6 +13,7 @@ GetGiftDataModel _$GetGiftDataModelFromJson(Map<String, dynamic> json) =>
       img: json['img'] as String?,
       type: json['type'] as String?,
       price: json['price'] as String?,
+      category: json['category'] as String?,
     );
 
 Map<String, dynamic> _$GetGiftDataModelToJson(GetGiftDataModel instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$GetGiftDataModelToJson(GetGiftDataModel instance) =>
       'img': instance.img,
       'type': instance.type,
       'price': instance.price,
+      'category': instance.category,
     };

@@ -73,6 +73,16 @@ class _$RoomConversationState extends RoomConversationState {
   final BlockUserModel blockUserModel;
   @override
   final AddTrendModel addTrendModel;
+  @override
+  final List<GetGiftDataModel> gifts;
+  @override
+  final List<GetGiftDataModel> flags;
+  @override
+  final List<GetGiftDataModel> vip;
+  @override
+  final List<GetGiftDataModel> featured;
+  @override
+  final List<GetGiftDataModel> rich;
 
   factory _$RoomConversationState(
           [void Function(RoomConversationStateBuilder)? updates]) =>
@@ -111,7 +121,12 @@ class _$RoomConversationState extends RoomConversationState {
       required this.sendGiftModel,
       required this.deleteUserModel,
       required this.blockUserModel,
-      required this.addTrendModel})
+      required this.addTrendModel,
+      required this.gifts,
+      required this.flags,
+      required this.vip,
+      required this.featured,
+      required this.rich})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'RoomConversationState', 'showEmoji');
@@ -161,6 +176,15 @@ class _$RoomConversationState extends RoomConversationState {
         blockUserModel, 'RoomConversationState', 'blockUserModel');
     BuiltValueNullFieldError.checkNotNull(
         addTrendModel, 'RoomConversationState', 'addTrendModel');
+    BuiltValueNullFieldError.checkNotNull(
+        gifts, 'RoomConversationState', 'gifts');
+    BuiltValueNullFieldError.checkNotNull(
+        flags, 'RoomConversationState', 'flags');
+    BuiltValueNullFieldError.checkNotNull(vip, 'RoomConversationState', 'vip');
+    BuiltValueNullFieldError.checkNotNull(
+        featured, 'RoomConversationState', 'featured');
+    BuiltValueNullFieldError.checkNotNull(
+        rich, 'RoomConversationState', 'rich');
   }
 
   @override
@@ -208,7 +232,12 @@ class _$RoomConversationState extends RoomConversationState {
         sendGiftModel == other.sendGiftModel &&
         deleteUserModel == other.deleteUserModel &&
         blockUserModel == other.blockUserModel &&
-        addTrendModel == other.addTrendModel;
+        addTrendModel == other.addTrendModel &&
+        gifts == other.gifts &&
+        flags == other.flags &&
+        vip == other.vip &&
+        featured == other.featured &&
+        rich == other.rich;
   }
 
   @override
@@ -231,26 +260,26 @@ class _$RoomConversationState extends RoomConversationState {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode), isLoadingGetBackgroundImage.hashCode), isSuccessAllType.hashCode), isLoadingAllType.hashCode), isSuccessGetGift.hashCode), isLoadingGetGift.hashCode), isSuccessChangePer.hashCode), isLoadingChangePer.hashCode), showEmoji.hashCode), showRocket.hashCode), showRocketUserName.hashCode), isRecord.hashCode), smileOrSticker.hashCode),
-                                                                                senGiftType.hashCode),
-                                                                            smile.hashCode),
-                                                                        error.hashCode),
-                                                                    conversationOldMessageModel.hashCode),
-                                                                allTypeUser.hashCode),
-                                                            allTypeModel.hashCode),
-                                                        allTypeOwner.hashCode),
-                                                    allTypeAdmin.hashCode),
-                                                sendMessageModel.hashCode),
-                                            recordTime.hashCode),
-                                        changePermeationModel.hashCode),
-                                    wantToExit.hashCode),
-                                backgroundImageModel.hashCode),
-                            primaryBackground.hashCode),
-                        getGiftModel.hashCode),
-                    sendGiftModel.hashCode),
-                deleteUserModel.hashCode),
-            blockUserModel.hashCode),
-        addTrendModel.hashCode));
+                                                                            $jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode), isLoadingGetBackgroundImage.hashCode), isSuccessAllType.hashCode), isLoadingAllType.hashCode), isSuccessGetGift.hashCode), isLoadingGetGift.hashCode), isSuccessChangePer.hashCode), isLoadingChangePer.hashCode), showEmoji.hashCode), showRocket.hashCode), showRocketUserName.hashCode), isRecord.hashCode), smileOrSticker.hashCode), senGiftType.hashCode), smile.hashCode), error.hashCode), conversationOldMessageModel.hashCode), allTypeUser.hashCode),
+                                                                                allTypeModel.hashCode),
+                                                                            allTypeOwner.hashCode),
+                                                                        allTypeAdmin.hashCode),
+                                                                    sendMessageModel.hashCode),
+                                                                recordTime.hashCode),
+                                                            changePermeationModel.hashCode),
+                                                        wantToExit.hashCode),
+                                                    backgroundImageModel.hashCode),
+                                                primaryBackground.hashCode),
+                                            getGiftModel.hashCode),
+                                        sendGiftModel.hashCode),
+                                    deleteUserModel.hashCode),
+                                blockUserModel.hashCode),
+                            addTrendModel.hashCode),
+                        gifts.hashCode),
+                    flags.hashCode),
+                vip.hashCode),
+            featured.hashCode),
+        rich.hashCode));
   }
 
   @override
@@ -288,7 +317,12 @@ class _$RoomConversationState extends RoomConversationState {
           ..add('sendGiftModel', sendGiftModel)
           ..add('deleteUserModel', deleteUserModel)
           ..add('blockUserModel', blockUserModel)
-          ..add('addTrendModel', addTrendModel))
+          ..add('addTrendModel', addTrendModel)
+          ..add('gifts', gifts)
+          ..add('flags', flags)
+          ..add('vip', vip)
+          ..add('featured', featured)
+          ..add('rich', rich))
         .toString();
   }
 }
@@ -456,6 +490,26 @@ class RoomConversationStateBuilder
   set addTrendModel(AddTrendModel? addTrendModel) =>
       _$this._addTrendModel = addTrendModel;
 
+  List<GetGiftDataModel>? _gifts;
+  List<GetGiftDataModel>? get gifts => _$this._gifts;
+  set gifts(List<GetGiftDataModel>? gifts) => _$this._gifts = gifts;
+
+  List<GetGiftDataModel>? _flags;
+  List<GetGiftDataModel>? get flags => _$this._flags;
+  set flags(List<GetGiftDataModel>? flags) => _$this._flags = flags;
+
+  List<GetGiftDataModel>? _vip;
+  List<GetGiftDataModel>? get vip => _$this._vip;
+  set vip(List<GetGiftDataModel>? vip) => _$this._vip = vip;
+
+  List<GetGiftDataModel>? _featured;
+  List<GetGiftDataModel>? get featured => _$this._featured;
+  set featured(List<GetGiftDataModel>? featured) => _$this._featured = featured;
+
+  List<GetGiftDataModel>? _rich;
+  List<GetGiftDataModel>? get rich => _$this._rich;
+  set rich(List<GetGiftDataModel>? rich) => _$this._rich = rich;
+
   RoomConversationStateBuilder();
 
   RoomConversationStateBuilder get _$this {
@@ -494,6 +548,11 @@ class RoomConversationStateBuilder
       _deleteUserModel = $v.deleteUserModel;
       _blockUserModel = $v.blockUserModel;
       _addTrendModel = $v.addTrendModel;
+      _gifts = $v.gifts;
+      _flags = $v.flags;
+      _vip = $v.vip;
+      _featured = $v.featured;
+      _rich = $v.rich;
       _$v = null;
     }
     return this;
@@ -537,8 +596,7 @@ class RoomConversationStateBuilder
                 senGiftType, 'RoomConversationState', 'senGiftType'),
             smile: BuiltValueNullFieldError.checkNotNull(
                 smile, 'RoomConversationState', 'smile'),
-            error:
-                BuiltValueNullFieldError.checkNotNull(error, 'RoomConversationState', 'error'),
+            error: BuiltValueNullFieldError.checkNotNull(error, 'RoomConversationState', 'error'),
             conversationOldMessageModel: BuiltValueNullFieldError.checkNotNull(conversationOldMessageModel, 'RoomConversationState', 'conversationOldMessageModel'),
             allTypeUser: BuiltValueNullFieldError.checkNotNull(allTypeUser, 'RoomConversationState', 'allTypeUser'),
             allTypeModel: BuiltValueNullFieldError.checkNotNull(allTypeModel, 'RoomConversationState', 'allTypeModel'),
@@ -554,7 +612,12 @@ class RoomConversationStateBuilder
             sendGiftModel: BuiltValueNullFieldError.checkNotNull(sendGiftModel, 'RoomConversationState', 'sendGiftModel'),
             deleteUserModel: BuiltValueNullFieldError.checkNotNull(deleteUserModel, 'RoomConversationState', 'deleteUserModel'),
             blockUserModel: BuiltValueNullFieldError.checkNotNull(blockUserModel, 'RoomConversationState', 'blockUserModel'),
-            addTrendModel: BuiltValueNullFieldError.checkNotNull(addTrendModel, 'RoomConversationState', 'addTrendModel'));
+            addTrendModel: BuiltValueNullFieldError.checkNotNull(addTrendModel, 'RoomConversationState', 'addTrendModel'),
+            gifts: BuiltValueNullFieldError.checkNotNull(gifts, 'RoomConversationState', 'gifts'),
+            flags: BuiltValueNullFieldError.checkNotNull(flags, 'RoomConversationState', 'flags'),
+            vip: BuiltValueNullFieldError.checkNotNull(vip, 'RoomConversationState', 'vip'),
+            featured: BuiltValueNullFieldError.checkNotNull(featured, 'RoomConversationState', 'featured'),
+            rich: BuiltValueNullFieldError.checkNotNull(rich, 'RoomConversationState', 'rich'));
     replace(_$result);
     return _$result;
   }

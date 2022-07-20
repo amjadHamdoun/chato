@@ -837,11 +837,9 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                 vertical: 20.5.h,
                                                 horizontal: 20.5.h),
                                             child: SvgPicture.asset(
-
                                               'assets/icons/plus.svg',
                                               width: 22.w,
                                               height: 22.w,
-
                                               color: ColorManager.backgroundColor,
                                             ),
                                           ),
