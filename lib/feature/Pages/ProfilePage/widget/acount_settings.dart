@@ -5,9 +5,9 @@ import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/core/utils/styles_manager.dart';
 import 'package:chato/feature/Pages/ProfilePage/bloc/prof_state.dart';
 import 'package:chato/feature/Pages/ProfilePage/widget/show_blocked_user_bottom_sheet.dart';
+import 'package:chato/feature/Pages/ProfilePage/widget/show_gender_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +34,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   bool hideState = false;
   bool lockState = false;
   TextEditingController pinCode = TextEditingController();
-
+  final formatDate =  DateFormat('yyyy-MM-dd hh:mm');
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfBloc,ProfState>(
@@ -117,7 +117,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                       print('aasdf000');
 
                                            File file = File(value.path!);
-                                            widget.bloc.onChangeImageEvent(file);
+                                            widget.bloc.onUpdateUserInfoEvent
+                                              (image: file);
 
                                     }
                                 });
@@ -193,113 +194,118 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           )
                         ],
                       ),
-                      Divider(height: 20.h, thickness: 1,
-                          color: ColorManager.hintText),
-                      Row(
+                      if(false)
+                      Column(
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: ColorManager.backGroundIcon,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: SvgPicture.asset(
-                              "assets/icons/4_lock.svg",
-                              height: 25.h,
-                              width: 25.w,
-                            ),
-                            height: 40.h,
-                            width: 40.w,
+                          Divider(height: 20.h, thickness: 1, color: ColorManager.hintText),
+                          Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.backGroundIcon,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: SvgPicture.asset(
+                                  "assets/icons/4_lock.svg",
+                                  height: 25.h,
+                                  width: 25.w,
+                                ),
+                                height: 40.h,
+                                width: 40.w,
+                              ),
+                              SizedBox(
+                                width: 8.w,
+                              ),
+                              Text(
+                                "special lock".tr(),
+                                style: getRegularStyle(
+                                    fontSize: 14.sp,
+                                    color: Global.darkMode
+                                        ? ColorManager.backGroundIcon
+                                        : ColorManager.textColor),
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(
+                                        width: 1,
+                                        color: Global.darkMode
+                                            ? ColorManager.hintText
+                                            : ColorManager.textColor)),
+                                child: FlutterSwitch(
+                                    toggleColor: ColorManager.primaryColor,
+                                    activeColor: ColorManager.backgroundColor,
+                                    inactiveColor: ColorManager.backgroundColor,
+                                    height: 20.h,
+                                    width: 50.w,
+                                    toggleSize: 20.h,
+                                    padding: 0,
+                                    value: lockState,
+                                    onToggle: (val) {
+                                      setState(() {
+                                        lockState = val;
+                                      });
+                                    }),
+                              )
+                            ],
                           ),
                           SizedBox(
-                            width: 8.w,
+                            height: 10.h,
                           ),
-                          Text(
-                            "special lock".tr(),
-                            style: getRegularStyle(
-                                fontSize: 14.sp,
-                                color: Global.darkMode
-                                    ? ColorManager.backGroundIcon
-                                    : ColorManager.textColor),
-                          ),
-                          const Expanded(child: SizedBox()),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                    width: 1,
+                          Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.backGroundIcon,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: SvgPicture.asset(
+                                  "assets/icons/6_hideAccount.svg",
+                                  height: 25.h,
+                                  width: 25.w,
+                                ),
+                                height: 40.h,
+                                width: 40.w,
+                              ),
+                              SizedBox(
+                                width: 8.w,
+                              ),
+                              Text(
+                                "hide account".tr(),
+                                style: getRegularStyle(
+                                    fontSize: 14.sp,
                                     color: Global.darkMode
-                                        ? ColorManager.hintText
-                                        : ColorManager.textColor)),
-                            child: FlutterSwitch(
-                                toggleColor: ColorManager.primaryColor,
-                                activeColor: ColorManager.backgroundColor,
-                                inactiveColor: ColorManager.backgroundColor,
-                                height: 20.h,
-                                width: 50.w,
-                                toggleSize: 20.h,
-                                padding: 0,
-                                value: lockState,
-                                onToggle: (val) {
-                                  setState(() {
-                                    lockState = val;
-                                  });
-                                }),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: ColorManager.backGroundIcon,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: SvgPicture.asset(
-                              "assets/icons/6_hideAccount.svg",
-                              height: 25.h,
-                              width: 25.w,
-                            ),
-                            height: 40.h,
-                            width: 40.w,
+                                        ? ColorManager.backGroundIcon
+                                        : ColorManager.textColor),
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(
+                                        width: 1,
+                                        color: Global.darkMode
+                                            ? ColorManager.hintText
+                                            : ColorManager.textColor)),
+                                child: FlutterSwitch(
+                                    toggleColor: ColorManager.primaryColor,
+                                    activeColor: ColorManager.backgroundColor,
+                                    inactiveColor: ColorManager.backgroundColor,
+                                    height: 20.h,
+                                    width: 50.w,
+                                    toggleSize: 20.h,
+                                    padding: 0,
+                                    value: hideState,
+                                    onToggle: (val) {
+                                      setState(() {
+                                        hideState = val;
+                                      });
+                                    }),
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Text(
-                            "hide account".tr(),
-                            style: getRegularStyle(
-                                fontSize: 14.sp,
-                                color: Global.darkMode
-                                    ? ColorManager.backGroundIcon
-                                    : ColorManager.textColor),
-                          ),
-                          const Expanded(child: SizedBox()),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                    width: 1,
-                                    color: Global.darkMode
-                                        ? ColorManager.hintText
-                                        : ColorManager.textColor)),
-                            child: FlutterSwitch(
-                                toggleColor: ColorManager.primaryColor,
-                                activeColor: ColorManager.backgroundColor,
-                                inactiveColor: ColorManager.backgroundColor,
-                                height: 20.h,
-                                width: 50.w,
-                                toggleSize: 20.h,
-                                padding: 0,
-                                value: hideState,
-                                onToggle: (val) {
-                                  setState(() {
-                                    hideState = val;
-                                  });
-                                }),
-                          )
+                          Divider(height: 20.h, thickness: 1, color: ColorManager.hintText),
                         ],
                       ),
                       Divider(height: 20.h, thickness: 1, color: ColorManager.hintText),
@@ -325,6 +331,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             SizedBox(
                               width: 8.w,
                             ),
+                            if(
+                            state.profileModel!.data!=null&&state.profileModel!.data!.email!.length>4
+                            )
                             Text(
                               state.profileModel!.data!.email!.substring(0,4)+'********.com',
                               style: getRegularStyle(
@@ -339,9 +348,24 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
+
                       InkWell(
                         onTap: (){
-                          //showAudioPlayerBottomSheet(context,false);
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(1970, 3, 5),
+                              maxTime: DateTime.now(), onChanged: (date) {
+                                print('change $date');
+
+                              }, onConfirm: (date) {
+                                 String datetime=formatDate.format(date);
+                                 widget.bloc.onUpdateUserInfoEvent(
+                                   birthDate: datetime
+                                 );
+                                print('confirm $date');
+                              }, currentTime: DateTime.now(), locale:
+                                  Global.lan=='ar'?
+                              LocaleType.ar:LocaleType.en);
                         },
                         child: Row(
                           children: [
@@ -410,38 +434,47 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: ColorManager.backGroundIcon,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: SvgPicture.asset(
-                              "assets/icons/7_gender.svg",
-                              height: 25.h,
-                              width: 25.w,
+
+                      InkWell(
+                        onTap: (){
+                          showMenuBottomSheetGender(context,
+                              widget.bloc);
+
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.backGroundIcon,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: SvgPicture.asset(
+                                "assets/icons/7_gender.svg",
+                                height: 25.h,
+                                width: 25.w,
+                              ),
+                              height: 40.h,
+                              width: 40.w,
                             ),
-                            height: 40.h,
-                            width: 40.w,
-                          ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Text(
-                            state.profileModel!.data!.gender??
-                                'undefined'.tr(),
-                            style: getRegularStyle(
-                                fontSize: 14.sp,
-                                color: Global.darkMode
-                                    ? ColorManager.backGroundIcon
-                                    : ColorManager.textColor),
-                          )
-                        ],
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Text(
+                              state.profileModel!.data!.gender??
+                                  'undefined'.tr(),
+                              style: getRegularStyle(
+                                  fontSize: 14.sp,
+                                  color: Global.darkMode
+                                      ? ColorManager.backGroundIcon
+                                      : ColorManager.textColor),
+                            )
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 10.h,
                       ),
+                      Divider(height: 20.h, thickness: 1, color: ColorManager.hintText),
                       InkWell(
                         onTap: (){
                           showBottomSheetPassword(

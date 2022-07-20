@@ -13,7 +13,8 @@ abstract class UpdateUserInfoDataSource {
   Future<Either<String, UpdateUserInfoModel>>
   updateUser({String? name,String? gender,
     int? country_id,
-    File? img
+    File? img,
+    String? birth_date
   });
 }
 
@@ -29,7 +30,8 @@ UpdateUserInfoDataSource {
   Future<Either<String, UpdateUserInfoModel>>
   updateUser({String? name,String? gender,
     int? country_id,
-    File? img
+    File? img,
+    String? birth_date
   }) async {
     if (await networkInfo.hasConnection) {
       try {
@@ -50,6 +52,8 @@ UpdateUserInfoDataSource {
              'country_id':country_id,
            if(gender!=null)
              "gender":gender,
+           if(birth_date!=null)
+           "birth_date":birth_date
          });
         final re = await dio.post(
           Endpoints.updateUserInfo,

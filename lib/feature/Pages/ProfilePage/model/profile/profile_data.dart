@@ -11,7 +11,7 @@ class ProfileData {
   final String? email;
   final String? img;
   final String? birth_date;
-  final String? gender;
+   String? gender;
   final String? token;
   final String? status;
  final CountryModel? country;

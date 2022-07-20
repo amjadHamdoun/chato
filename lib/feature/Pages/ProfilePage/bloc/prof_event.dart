@@ -38,12 +38,22 @@ class UnBlockedUserEvent extends ProfEvent{
   });
 }
 
-class ChangeImageEvent extends ProfEvent{
- File image;
- ChangeImageEvent({
-   required this.image
+class UpdateUserInfoEvent extends ProfEvent{
+ File? image;
+ String? gender;
+ String? name;
+ String? birthDate;
+ int? country_id;
+ UpdateUserInfoEvent({
+   required this.image,
+   required this.gender,
+   required this.name,
+   required this.country_id,
+   required this.birthDate
 });
 }
+
+
 
 class ChangePasswordEvent extends ProfEvent{
   String oldPassword;

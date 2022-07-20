@@ -361,6 +361,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 15.h),
+                                if(false)
                                 Row(
                                   children: [
                                     Container(

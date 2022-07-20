@@ -134,18 +134,20 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
 
     });
 
-
-
-
-
-    on<ChangeImageEvent>((event, emit) async {
+    on<UpdateUserInfoEvent>((event, emit) async {
       emit(state.rebuild((b) => b
+        ..isSuccess = false
+        ..isLoading = true
        ..img=event.image
       ));
 
       final result = await
       updateUserInfoDataSource.updateUser(
-        img: event.image
+        img: event.image,
+        name: event.name,
+        country_id: event.country_id,
+        gender: event.gender,
+        birth_date: event.birthDate
       );
 
       print("result");
@@ -155,19 +157,25 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       return result.fold((l) async {
         print('l');
         emit(state.rebuild((b) => b
-
+          ..isSuccess = false
+          ..isLoading = false
           ..error = l));
       }, (r) async {
         print('r');
 
         emit(state.rebuild((b) => b
-          ..error=''));
+          ..error=''
+          ..isSuccess = true
+          ..profileModel!.data!.gender=event.gender??
+              state.profileModel!.data!.gender
+          ..isLoading = false
+        ));
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isSuccess = false
+          ..isLoading = false
+        ));
       });
-
-
-
-
-
 
     });
 
@@ -209,12 +217,6 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
             ..blockedUserModel=r
         ));
       });
-
-
-
-
-
-
     });
 
     on<ChangePasswordEvent>((event, emit) async {
@@ -343,8 +345,19 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
     add(LogoutEvent());
   }
 
-  void onChangeImageEvent(File image) {
-    add(ChangeImageEvent(image: image));
+  void onUpdateUserInfoEvent({
+    File? image, String? gender,
+    String? name,
+    String? birthDate,
+    int? countryId
+   }) {
+    add(UpdateUserInfoEvent(image: image,
+      gender: gender,
+      name: name,
+      country_id: countryId,
+      birthDate: birthDate
+
+    ));
   }
 
   void onGetProfileDetailsEvent() {
@@ -376,6 +389,11 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
   void onResetParamEvent(){
     add(ResetParamEvent());
   }
+
+
+
+
+
   void onSendCoinsEvent(  String type,
       String numberOfCoinsOrDiamond,
       String userReceivedId,

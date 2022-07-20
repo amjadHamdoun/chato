@@ -78,7 +78,8 @@ dependencies:
   in_app_purchase_storekit: ^0.3.1
   dotted_border: ^2.0.0+2
   image_cropper: ^2.0.3
-
+  gender_picker: ^1.1.0
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:
