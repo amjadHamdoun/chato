@@ -22,6 +22,7 @@ import 'feature/Pages/HomePage/api/friendship_requests_remote.dart';
 import 'feature/Pages/HomePage/api/search-friend_remote.dart';
 import 'feature/Pages/HomePage/bloc/home_bloc.dart';
 import 'feature/Pages/ProfilePage/api/blocked_user_remote.dart';
+import 'feature/Pages/ProfilePage/api/country_remote.dart';
 import 'feature/Pages/ProfilePage/api/reset_remote.dart';
 import 'feature/Pages/ProfilePage/api/send_coins_remote.dart';
 import 'feature/Pages/ProfilePage/api/unblocked_user_remote.dart';
@@ -348,6 +349,13 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<CountryRemoteDataSource>(
+        () =>   CountryRemoteDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
 
 
 
@@ -413,7 +421,8 @@ Future<void> init() async {
       blockedUserRemoteDataSource: sl(),
     unBlockedUserRemoteDataSource: sl(),
     resetPasswordRemoteDataSource: sl(),
-      sendCoinsRemoteDataSource: sl()
+      sendCoinsRemoteDataSource: sl(),
+    countryRemoteDataSource: sl()
   ));
 
 

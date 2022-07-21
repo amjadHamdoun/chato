@@ -9,11 +9,13 @@ import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_m
 import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/resetPassword/reset_model.dart';
 import '../api/blocked_user_remote.dart';
+import '../api/country_remote.dart';
 import '../api/logout_remote.dart';
 import '../api/reset_remote.dart';
 import '../api/send_coins_remote.dart';
 import '../api/unblocked_user_remote.dart';
 import '../api/update_user_info_remote.dart';
+import '../model/country/country_model.dart';
 import '../model/profile/profile_model.dart';
 import '../model/sendCoins/send_coins_model.dart';
 import 'prof_event.dart';
@@ -28,6 +30,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
   UnBlockedUserRemoteDataSource unBlockedUserRemoteDataSource;
   ResetPasswordRemoteDataSource resetPasswordRemoteDataSource;
   SendCoinsRemoteDataSource sendCoinsRemoteDataSource;
+  CountryRemoteDataSource countryRemoteDataSource;
+
   ProfBloc(
       {required this.profileDetailsRemoteDataSource,
       required this.logoutRemoteDataSource,
@@ -36,7 +40,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
         required this.blockedUserRemoteDataSource,
         required this.unBlockedUserRemoteDataSource,
         required this.resetPasswordRemoteDataSource,
-        required this.sendCoinsRemoteDataSource
+        required this.sendCoinsRemoteDataSource,
+        required this.countryRemoteDataSource
       })
       : super(ProfState.initial()) {
     on<LogoutEvent>((event, emit) async {
@@ -196,11 +201,6 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       blockedUserRemoteDataSource.getBlockedUser(
 
       );
-
-      print("result");
-      print(result);
-      print("result");
-
       return result.fold((l) async {
         print('l');
         emit(state.rebuild((b) => b
@@ -215,6 +215,41 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
           ..isLoading=false
           ..isSuccess=true
             ..blockedUserModel=r
+        ));
+      });
+    });
+
+
+    on<GetCountriesUserEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..isLoading=true
+        ..isSuccess=false
+        ..error=''
+        ..countryModel=CountryModel(
+            data: [],
+            error_code: 0,
+            message: '',
+            status: false)
+      ));
+
+      final result = await
+      countryRemoteDataSource.getCountries(
+
+      );
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isLoading=false
+          ..isSuccess=false
+          ..error = l));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isLoading=false
+          ..isSuccess=true
+          ..countryModel=r
         ));
       });
     });
@@ -390,7 +425,9 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
     add(ResetParamEvent());
   }
 
-
+  void onGetCountriesUserEvent(){
+    add(GetCountriesUserEvent());
+  }
 
 
 

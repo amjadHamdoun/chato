@@ -5,6 +5,7 @@ import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_m
 import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
 
 import '../model/blockedUser/blocked_user_model.dart';
+import '../model/country/country_model.dart';
 import '../model/profile/profile_model.dart';
 import '../model/resetPassword/reset_model.dart';
 import '../model/sendCoins/send_coins_model.dart';
@@ -43,6 +44,8 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
 
   SendCoinsModel get sendCoinsModel;
 
+  CountryModel get countryModel;
+
   ProfState._();
 
   factory ProfState([void Function(ProfStateBuilder) updates]) = _$ProfState;
@@ -58,6 +61,9 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
       ..isSuccessSendCoins=false
       ..isLoadingSendCoins=false
       ..error = ""
+      ..countryModel=CountryModel(message: '',
+         status: false,data:[] ,error_code: 0
+      )
       ..img=null
       ..blockedUserModel=BlockedUserModel(
         data: [],

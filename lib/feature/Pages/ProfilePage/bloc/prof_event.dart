@@ -30,6 +30,10 @@ class GetBlockedUserEvent extends ProfEvent{
 
 }
 
+class GetCountriesUserEvent extends ProfEvent{
+
+}
+
 class UnBlockedUserEvent extends ProfEvent{
 
   int blockedId;

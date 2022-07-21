@@ -37,6 +37,8 @@ class _$ProfState extends ProfState {
   final ResetModel resetModel;
   @override
   final SendCoinsModel sendCoinsModel;
+  @override
+  final CountryModel countryModel;
 
   factory _$ProfState([void Function(ProfStateBuilder)? updates]) =>
       (new ProfStateBuilder()..update(updates)).build();
@@ -56,12 +58,15 @@ class _$ProfState extends ProfState {
       this.countFriendModel,
       this.blockedUserModel,
       required this.resetModel,
-      required this.sendCoinsModel})
+      required this.sendCoinsModel,
+      required this.countryModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resetModel, 'ProfState', 'resetModel');
     BuiltValueNullFieldError.checkNotNull(
         sendCoinsModel, 'ProfState', 'sendCoinsModel');
+    BuiltValueNullFieldError.checkNotNull(
+        countryModel, 'ProfState', 'countryModel');
   }
 
   @override
@@ -89,7 +94,8 @@ class _$ProfState extends ProfState {
         countFriendModel == other.countFriendModel &&
         blockedUserModel == other.blockedUserModel &&
         resetModel == other.resetModel &&
-        sendCoinsModel == other.sendCoinsModel;
+        sendCoinsModel == other.sendCoinsModel &&
+        countryModel == other.countryModel;
   }
 
   @override
@@ -109,24 +115,29 @@ class _$ProfState extends ProfState {
                                                     $jc(
                                                         $jc(
                                                             $jc(
-                                                                0,
-                                                                isSuccess
+                                                                $jc(
+                                                                    0,
+                                                                    isSuccess
+                                                                        .hashCode),
+                                                                isLoading
                                                                     .hashCode),
-                                                            isLoading.hashCode),
-                                                        isSuccessLogout
+                                                            isSuccessLogout
+                                                                .hashCode),
+                                                        isLoadingLogout
                                                             .hashCode),
-                                                    isLoadingLogout.hashCode),
-                                                isSuccessSendCoins.hashCode),
-                                            isLoadingSendCoins.hashCode),
-                                        isSuccessChange.hashCode),
-                                    isLoadingChange.hashCode),
-                                error.hashCode),
-                            img.hashCode),
-                        profileModel.hashCode),
-                    countFriendModel.hashCode),
-                blockedUserModel.hashCode),
-            resetModel.hashCode),
-        sendCoinsModel.hashCode));
+                                                    isSuccessSendCoins
+                                                        .hashCode),
+                                                isLoadingSendCoins.hashCode),
+                                            isSuccessChange.hashCode),
+                                        isLoadingChange.hashCode),
+                                    error.hashCode),
+                                img.hashCode),
+                            profileModel.hashCode),
+                        countFriendModel.hashCode),
+                    blockedUserModel.hashCode),
+                resetModel.hashCode),
+            sendCoinsModel.hashCode),
+        countryModel.hashCode));
   }
 
   @override
@@ -146,7 +157,8 @@ class _$ProfState extends ProfState {
           ..add('countFriendModel', countFriendModel)
           ..add('blockedUserModel', blockedUserModel)
           ..add('resetModel', resetModel)
-          ..add('sendCoinsModel', sendCoinsModel))
+          ..add('sendCoinsModel', sendCoinsModel)
+          ..add('countryModel', countryModel))
         .toString();
   }
 }
@@ -224,6 +236,11 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   set sendCoinsModel(SendCoinsModel? sendCoinsModel) =>
       _$this._sendCoinsModel = sendCoinsModel;
 
+  CountryModel? _countryModel;
+  CountryModel? get countryModel => _$this._countryModel;
+  set countryModel(CountryModel? countryModel) =>
+      _$this._countryModel = countryModel;
+
   ProfStateBuilder();
 
   ProfStateBuilder get _$this {
@@ -244,6 +261,7 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _blockedUserModel = $v.blockedUserModel;
       _resetModel = $v.resetModel;
       _sendCoinsModel = $v.sendCoinsModel;
+      _countryModel = $v.countryModel;
       _$v = null;
     }
     return this;
@@ -280,7 +298,9 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             resetModel: BuiltValueNullFieldError.checkNotNull(
                 resetModel, 'ProfState', 'resetModel'),
             sendCoinsModel: BuiltValueNullFieldError.checkNotNull(
-                sendCoinsModel, 'ProfState', 'sendCoinsModel'));
+                sendCoinsModel, 'ProfState', 'sendCoinsModel'),
+            countryModel: BuiltValueNullFieldError.checkNotNull(
+                countryModel, 'ProfState', 'countryModel'));
     replace(_$result);
     return _$result;
   }

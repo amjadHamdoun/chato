@@ -47,7 +47,7 @@ class Endpoints {
   static const addTrend = '/room/add-room-trend';
   static const updateCoins = '/update_coins';
   static const vipAccountsTransactions = '/vipaccounts_transactions';
-
+  static const getCountries = '/countries';
 }
 
 class Er {
