@@ -111,6 +111,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
          {
 
            bloc.onGetConversationIdEvent(args!.userTwoId!);
+           channelChat =
+               Global.pusher!.subscribe("chat.privet.${args!.conversationId??''}");
            conIdNotFound=true;
          }
          else{

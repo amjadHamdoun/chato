@@ -105,86 +105,12 @@ class _CoinsPageState extends State<CoinsPage>
                 crossAxisSpacing: 1,
                 physics: const BouncingScrollPhysics(),
 
-                itemCount: 7,
+                itemCount: 6,
                 itemBuilder: (BuildContext ctx, index) {
                   for(var prod in widget.products)
                     {
-                      print(prod.id);
-                      if(prod.id=='1'&&index==0) {
-                        return InkWell(
-                          onTap: () async{
-                            widget.bloc.onChangeProductEvent(
-                                'coins',
-                                '50');
 
-                            late PurchaseParam purchaseParam;
-
-                            if (Platform.isAndroid) {
-                              purchaseParam = GooglePlayPurchaseParam(
-                                  productDetails: prod,
-                                  applicationUserName: null,
-                                  changeSubscriptionParam: null);
-
-                            }
-                            else {
-                              purchaseParam = PurchaseParam(
-                                productDetails: prod,
-                                applicationUserName: null,
-                              );
-                            }
-                            if (Platform.isAndroid) {
-
-                              await widget.inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-                            } else if (Platform.isIOS) {
-                              await widget.inAppPurchase.buyConsumable(purchaseParam: purchaseParam);
-                            }
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset('assets/icons/coins.svg'),
-                              SizedBox(height: 6.h,),
-                              Text(prod.description,
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontFamily: 'DIN',
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme.of(context).primaryColorDark
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.start,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.w),
-                                  border: Border.all(
-                                      color: Theme.of(context).cursorColor
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding:  EdgeInsets.symmetric(
-                                      vertical: 2.h,
-                                      horizontal: 28.w
-                                  ),
-                                  child: Text(prod.price,
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontFamily: 'DIN',
-                                        fontWeight: FontWeight.w700,
-                                        color: Theme.of(context).hintColor
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 6.h,),
-                            ],
-                          ),
-                        );
-                      }
-                      if(prod.id=='coins_1'&&index==1) {
+                      if(prod.id=='coins_1'&&index==0) {
 
                         return InkWell(
                           onTap: ()async{
@@ -258,7 +184,7 @@ class _CoinsPageState extends State<CoinsPage>
                       ),
                         );
                       }
-                      if(prod.id=='2_coins'&&index==2) {
+                      if(prod.id=='2_coins'&&index==1) {
                         return InkWell(
                           onTap: ()async{
                             widget.bloc.onChangeProductEvent('coins',
@@ -336,7 +262,7 @@ class _CoinsPageState extends State<CoinsPage>
                           ),
                         );
                       }
-                      if(prod.id=='coins_3'&&index==3) {
+                      if(prod.id=='coins_3'&&index==2) {
                         return InkWell(
                           onTap: ()async{
                             widget.bloc.onChangeProductEvent('coins',
@@ -414,7 +340,7 @@ class _CoinsPageState extends State<CoinsPage>
                           ),
                         );
                       }
-                      if(prod.id=='coins_4'&&index==4) {
+                      if(prod.id=='coins_4'&&index==3) {
                         return InkWell(
                           onTap: () async {
                             widget.bloc.onChangeProductEvent('coins',
@@ -492,7 +418,7 @@ class _CoinsPageState extends State<CoinsPage>
                           ),
                         );
                       }
-                      if(prod.id=='5_coins'&&index==5) {
+                      if(prod.id=='5_coins'&&index==4) {
                         return InkWell(
                           onTap: () async {
                             widget.bloc.onChangeProductEvent('coins',
@@ -570,7 +496,7 @@ class _CoinsPageState extends State<CoinsPage>
                           ),
                         );
                       }
-                      if(prod.id=='6_coins'&&index==6) {
+                      if(prod.id=='6_coins'&&index==5) {
                         return InkWell(
                           onTap: () async {
                             widget.bloc.onChangeProductEvent('coins',
