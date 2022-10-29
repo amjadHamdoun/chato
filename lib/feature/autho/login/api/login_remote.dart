@@ -40,9 +40,7 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
             },
           ),
         );
-        print("re");
-        print(re);
-        print("re");
+
         LoginModel loginModel = LoginModel.fromJson(json.decode(re.data));
         print(loginModel.message);
         if(loginModel.data!=null)
@@ -64,9 +62,7 @@ class LoginRemoteDataSourceImpl extends LoginRemoteDataSource {
                 ),
               );
             }
-            catch(e){
-
-            }
+            catch(e){}
 
           }
         return Right(LoginModel.fromJson(json.decode(re.data)));

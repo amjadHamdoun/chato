@@ -70,11 +70,7 @@ class RegisterAmazingAccountRemoteDataSourceImpl
 
 
         );
-        print("re");
-        print(re);
-        print("re");
-        RegisterModel registerModel=RegisterModel.fromJson(json.decode(re.data));
-        print(registerModel.message);
+
         return Right(RegisterModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {

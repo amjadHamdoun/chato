@@ -74,7 +74,12 @@ class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource {
         {
           dio.options.headers["Authorization"] =
           "Bearer ${registerModel.data!.token}";
-          String? token = await FirebaseMessaging.instance.getToken();
+          String? token ='' ;
+          try{
+            token= await FirebaseMessaging.instance.getToken();
+          }
+          catch(e){}
+
           dio.post(
             Endpoints.createDevice,
             data: {

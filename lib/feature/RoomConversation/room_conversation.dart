@@ -1625,7 +1625,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                       Future.delayed(
                                                               const Duration(
                                                                   milliseconds:
-                                                                      1500))
+                                                                      200))
                                                           .then((value) {
                                                         scrollController.animateTo(
                                                             scrollController
@@ -1635,8 +1635,8 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                 .linearToEaseOut,
                                                             duration:
                                                                 const Duration(
-                                                                    seconds:
-                                                                        1));
+                                                                    microseconds:
+                                                                        500));
                                                       });
                                                     },
                                                     icon: Icon(
