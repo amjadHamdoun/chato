@@ -24,7 +24,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if(message.data['screen']=='privet_message')
   {
     //UserData? user=UserData.fromJson(json.decode(message.data['user_send']));
-    Global.navigatorKey!.currentState!.pushNamed('/conversationScreen',
+    Global.navigatorKey.currentState!.pushNamed('/conversationScreen',
       arguments: ConversationArguments(
           conversationId: message.data['screen_id'],
           userTwoImage: null,
