@@ -16,6 +16,7 @@ AllFriendDataModel _$AllFriendDataModelFromJson(Map<String, dynamic> json) =>
           ? null
           : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
       online: json['online'] as String?,
+      last_seen: json['last_seen'] as String?,
     );
 
 Map<String, dynamic> _$AllFriendDataModelToJson(AllFriendDataModel instance) =>
@@ -25,5 +26,6 @@ Map<String, dynamic> _$AllFriendDataModelToJson(AllFriendDataModel instance) =>
       'name': instance.name,
       'status': instance.status,
       'online': instance.online,
+      'last_seen': instance.last_seen,
       'vip_user': instance.vip_user,
     };

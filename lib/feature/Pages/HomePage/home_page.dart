@@ -409,13 +409,11 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                             widget.bloc.onGetStatusEvent();
                           },
                           child: ListView.separated(
-
                             physics: const AlwaysScrollableScrollPhysics(
                               parent: BouncingScrollPhysics()
                             ),
                             itemCount: state.allFriendModel.data!.length,
                             itemBuilder: (context, index){
-
                               return Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 12.w
@@ -528,8 +526,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                           Row(
                                             children: [
                                               Expanded(
-                                                child: Text(state.allFriendModel.data![index]
-                                                    .name!,
+                                                child: Text(state.allFriendModel.data![index].name!,
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       fontFamily: 'Roboto',
@@ -546,6 +543,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                             children: [
                                               Expanded(
                                                 child: Text(state.allFriendModel.
+                                                data![index].online !='1' ?state.allFriendModel.
+                                                data![index].last_seen!:state.allFriendModel.
                                                 data![index].status!,
                                                   style: TextStyle(
                                                       fontSize: 14.sp,

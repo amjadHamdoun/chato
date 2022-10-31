@@ -31,7 +31,7 @@ class UserData {
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
 
-  UserData( {
+  UserData({
      this.token,
      this.name,
      this.email,

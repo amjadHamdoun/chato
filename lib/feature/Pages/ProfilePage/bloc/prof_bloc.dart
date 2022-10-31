@@ -88,7 +88,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
               type: '',
               personal_status: '',
               coins: '0',
-              diamond:'0'
+              diamond:'0',
+              private_lock: '0'
             ),
             message: '',
             error_code: 0,
@@ -177,7 +178,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
         gender: event.gender,
         birth_date: event.birthDate,
         personalStatus: event.personalStatus,
-        online: event.online
+        online: event.online,
+          private_lock: event.private_lock
       );
 
       return result.fold((l) async {
@@ -410,6 +412,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
     String? birthDate,
     String? personalStatus,
     String?  online,
+    String? private_lock,
     CountryDataModel? country
    }) {
     add(UpdateUserInfoEvent(image: image,
@@ -418,7 +421,7 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       country: country,
       birthDate: birthDate,
       personalStatus: personalStatus,
-      online: online
+      online: online, private_lock: private_lock
 
     ));
   }
