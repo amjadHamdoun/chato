@@ -12,6 +12,7 @@ class AllFriendDataModel {
   String? name;
   String? status;
   String?  online;
+  String? last_seen;
   VipDataModel?  vip_user;
 
 
@@ -26,7 +27,8 @@ class AllFriendDataModel {
         required this.name,
         required this.status,
         required this.vip_user,
-        required this.online
+        required this.online,
+        required this.last_seen
 
       });
 }

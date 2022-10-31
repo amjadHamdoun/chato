@@ -5,6 +5,7 @@ class Endpoints {
   static const register = 'auth/register';
   static const registerAmazingAccount = 'auth/register_account_arabic';
   static const login = 'auth/login';
+  static const report = 'report';
   static const createDevice = 'create_device';
   static const friendShipRequests = 'friendship-requests';
   static const searchFriend = 'search-friend';

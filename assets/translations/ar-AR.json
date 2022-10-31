@@ -222,7 +222,9 @@
   "Save": "حفظ",
   "Blocked": "محظورين",
   "No Users": "لا يوجد مستخدمين",
-  "please select the gift and the person Who do you want to send a gift to him?":
-          "يرجى تحديد الهدية والشخص المرسل له"
-
+  "please select the gift and the person Who do you want to send a gift to him?": "يرجى تحديد الهدية والشخص المرسل له",
+  "report": "ابلاغ",
+  "Incident Report": "ابلاغ عن مشكلة",
+  "send": "ارسال",
+  "describe incident(eg ,who,what,when,where)": "صف المشكلة (وصف,من,ماذا,متى,اين)"
 }

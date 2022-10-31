@@ -1,3 +1,4 @@
+import 'package:chato/feature/Conversation/api/report_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/count_friend_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/logout_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
@@ -322,6 +323,13 @@ Future<void> init() async {
         networkInfo: sl()
     ),
   );
+  sl.registerLazySingleton<ReportDataSource>(
+        () => ReportDataSourceImpl(
+        dio: sl(),
+        networkInfo: sl()
+    ),
+  );
+
 
   sl.registerLazySingleton<DeleteUserRoomDataSource>(
         () => DeleteUserRoomDataSourceImpl(
@@ -441,7 +449,7 @@ Future<void> init() async {
      privateOldMessageDataSource: sl(),
     sendMessageDataSource: sl(),
     blockUserRemoteDataSource: sl(),
-    getConversationIdDataSource: sl()
+    getConversationIdDataSource: sl(), reportDataSource: sl()
 
   ));
 

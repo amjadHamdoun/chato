@@ -2,6 +2,7 @@
 
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
+import 'package:chato/feature/Conversation/widget/report_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +55,7 @@ void showMenuBottomSheet({
           return  Container(
 
             width: 1.sw,
-            height: 300.h,
+            height: 400.h,
 
             alignment: Alignment.center,
             child:state.isLoadingBloc!?
@@ -120,6 +121,36 @@ void showMenuBottomSheet({
                       ),
                       onPressed: () {
                         bloc.onBlockUserEvent(userTwoId);
+                      }
+                  ),
+                ),
+                SizedBox(height: 20.h,),
+                SizedBox(
+                  width: 0.5.sw,
+                  child: ElevatedButton(
+                      child: Text(
+                          "report",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: ColorManager.primaryColor
+                          )
+                      ).tr(),
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(ColorManager.primaryColor),
+                          backgroundColor: MaterialStateProperty.all<Color>(ColorManager.backgroundColor),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  side: const BorderSide(color: ColorManager.primaryColor)
+                              )
+                          ),
+                          padding:MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(
+                              vertical: 15.h
+                          ))
+                      ),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder:
+                            (context) =>  ReportScreen(bloc: bloc,)));
                       }
                   ),
                 ),

@@ -33,6 +33,12 @@ class _$ConversationState extends ConversationState {
   final String blocUser;
   @override
   final GetConversationIdModel getConversationIdModel;
+  @override
+  final bool? isReportSuccess;
+  @override
+  final bool? isReportLoading;
+  @override
+  final ReportModel reportModel;
 
   factory _$ConversationState(
           [void Function(ConversationStateBuilder)? updates]) =>
@@ -51,7 +57,10 @@ class _$ConversationState extends ConversationState {
       required this.smile,
       required this.recordTime,
       required this.blocUser,
-      required this.getConversationIdModel})
+      required this.getConversationIdModel,
+      this.isReportSuccess,
+      this.isReportLoading,
+      required this.reportModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         showEmoji, 'ConversationState', 'showEmoji');
@@ -69,6 +78,8 @@ class _$ConversationState extends ConversationState {
         blocUser, 'ConversationState', 'blocUser');
     BuiltValueNullFieldError.checkNotNull(
         getConversationIdModel, 'ConversationState', 'getConversationIdModel');
+    BuiltValueNullFieldError.checkNotNull(
+        reportModel, 'ConversationState', 'reportModel');
   }
 
   @override
@@ -95,7 +106,10 @@ class _$ConversationState extends ConversationState {
         smile == other.smile &&
         recordTime == other.recordTime &&
         blocUser == other.blocUser &&
-        getConversationIdModel == other.getConversationIdModel;
+        getConversationIdModel == other.getConversationIdModel &&
+        isReportSuccess == other.isReportSuccess &&
+        isReportLoading == other.isReportLoading &&
+        reportModel == other.reportModel;
   }
 
   @override
@@ -111,19 +125,31 @@ class _$ConversationState extends ConversationState {
                                     $jc(
                                         $jc(
                                             $jc(
-                                                $jc($jc(0, isSuccess.hashCode),
-                                                    isLoading.hashCode),
-                                                isSuccessBloc.hashCode),
-                                            isLoadingBloc.hashCode),
-                                        showEmoji.hashCode),
-                                    isRecord.hashCode),
-                                privateOldMessageModel.hashCode),
-                            error.hashCode),
-                        sendMessageModel.hashCode),
-                    smile.hashCode),
-                recordTime.hashCode),
-            blocUser.hashCode),
-        getConversationIdModel.hashCode));
+                                                $jc(
+                                                    $jc(
+                                                        $jc(
+                                                            $jc(
+                                                                $jc(
+                                                                    0,
+                                                                    isSuccess
+                                                                        .hashCode),
+                                                                isLoading
+                                                                    .hashCode),
+                                                            isSuccessBloc
+                                                                .hashCode),
+                                                        isLoadingBloc.hashCode),
+                                                    showEmoji.hashCode),
+                                                isRecord.hashCode),
+                                            privateOldMessageModel.hashCode),
+                                        error.hashCode),
+                                    sendMessageModel.hashCode),
+                                smile.hashCode),
+                            recordTime.hashCode),
+                        blocUser.hashCode),
+                    getConversationIdModel.hashCode),
+                isReportSuccess.hashCode),
+            isReportLoading.hashCode),
+        reportModel.hashCode));
   }
 
   @override
@@ -141,7 +167,10 @@ class _$ConversationState extends ConversationState {
           ..add('smile', smile)
           ..add('recordTime', recordTime)
           ..add('blocUser', blocUser)
-          ..add('getConversationIdModel', getConversationIdModel))
+          ..add('getConversationIdModel', getConversationIdModel)
+          ..add('isReportSuccess', isReportSuccess)
+          ..add('isReportLoading', isReportLoading)
+          ..add('reportModel', reportModel))
         .toString();
   }
 }
@@ -209,6 +238,21 @@ class ConversationStateBuilder
   set getConversationIdModel(GetConversationIdModel? getConversationIdModel) =>
       _$this._getConversationIdModel = getConversationIdModel;
 
+  bool? _isReportSuccess;
+  bool? get isReportSuccess => _$this._isReportSuccess;
+  set isReportSuccess(bool? isReportSuccess) =>
+      _$this._isReportSuccess = isReportSuccess;
+
+  bool? _isReportLoading;
+  bool? get isReportLoading => _$this._isReportLoading;
+  set isReportLoading(bool? isReportLoading) =>
+      _$this._isReportLoading = isReportLoading;
+
+  ReportModel? _reportModel;
+  ReportModel? get reportModel => _$this._reportModel;
+  set reportModel(ReportModel? reportModel) =>
+      _$this._reportModel = reportModel;
+
   ConversationStateBuilder();
 
   ConversationStateBuilder get _$this {
@@ -227,6 +271,9 @@ class ConversationStateBuilder
       _recordTime = $v.recordTime;
       _blocUser = $v.blocUser;
       _getConversationIdModel = $v.getConversationIdModel;
+      _isReportSuccess = $v.isReportSuccess;
+      _isReportLoading = $v.isReportLoading;
+      _reportModel = $v.reportModel;
       _$v = null;
     }
     return this;
@@ -267,7 +314,10 @@ class ConversationStateBuilder
                 recordTime, 'ConversationState', 'recordTime'),
             blocUser: BuiltValueNullFieldError.checkNotNull(
                 blocUser, 'ConversationState', 'blocUser'),
-            getConversationIdModel: BuiltValueNullFieldError.checkNotNull(getConversationIdModel, 'ConversationState', 'getConversationIdModel'));
+            getConversationIdModel: BuiltValueNullFieldError.checkNotNull(getConversationIdModel, 'ConversationState', 'getConversationIdModel'),
+            isReportSuccess: isReportSuccess,
+            isReportLoading: isReportLoading,
+            reportModel: BuiltValueNullFieldError.checkNotNull(reportModel, 'ConversationState', 'reportModel'));
     replace(_$result);
     return _$result;
   }

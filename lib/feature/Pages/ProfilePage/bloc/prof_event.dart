@@ -59,6 +59,7 @@ class UpdateUserInfoEvent extends ProfEvent{
  String? personalStatus;
  String? birthDate;
  String?  online;
+ String? private_lock;
  CountryDataModel? country;
  UpdateUserInfoEvent({
    required this.image,
@@ -67,7 +68,8 @@ class UpdateUserInfoEvent extends ProfEvent{
    required this.country,
    required this.birthDate,
    required this.personalStatus,
-   required this.online
+   required this.online,
+   required this.private_lock
 });
 }
 
