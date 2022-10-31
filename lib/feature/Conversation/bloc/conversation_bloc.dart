@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:chato/feature/Conversation/api/report_remote.dart';
 import 'package:chato/feature/Conversation/model/get_conversation_id_model.dart';
+import 'package:chato/feature/Conversation/model/report_model.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import '../../../Globals.dart';
 import '../../../core/utils/int_to_time.dart';
@@ -22,12 +24,14 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   PrivateSendMessageDataSource sendMessageDataSource;
   BlockUserRemoteDataSource blockUserRemoteDataSource;
   GetConversationIdDataSource getConversationIdDataSource;
+  ReportDataSource reportDataSource;
   ConversationBloc({
     required this.privateOldMessageDataSource,
     required this.sendMessageDataSource,
     required this.blockUserRemoteDataSource,
-    required this.getConversationIdDataSource
-     }) : super(ConversationState.initial())
+    required this.getConversationIdDataSource,
+    required this.reportDataSource
+  }) : super(ConversationState.initial())
   {
     on<ShowEmojiEvent>((event, emit) =>
         emit(state.rebuild((b) => b
@@ -293,7 +297,39 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
       });
     });
+    on<ReportEvent>((event, emit)
+    async {
+      emit(
+          state.rebuild((b) => b
+            ..isReportLoading=true
+            ..isReportSuccess=false
+            ..reportModel=ReportModel(status: false,error_code: 0,data: ''
+              )
+          ));
 
+      final result=await
+      reportDataSource.report(id: event.userId, des: event.desc, photo: event.photo!);
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..isReportLoading=false
+          ..isReportSuccess=false
+          ..error = l
+        ));
+        emit(state.rebuild((b) => b
+          ..error=''
+        ));
+      }, (r) async {
+        print('r');
+        emit(state.rebuild((b) => b
+          ..isReportLoading=false
+          ..isReportSuccess=true
+          ..error = ''
+          ..reportModel=r
+        ));
+      });
+    });
 
 
   }
@@ -329,5 +365,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       int userId) {
     add(GetConversationIdEvent(userId:userId ));
   }
+
+  void onReportEvent({required String des,required int id,
+   required String photo}) {
+    print(id);
+    add(ReportEvent( desc: des, photo: photo, userId: id));
+  }
+
 
 }

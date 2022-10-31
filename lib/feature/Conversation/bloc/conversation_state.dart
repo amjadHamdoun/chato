@@ -1,5 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:chato/feature/Conversation/model/get_conversation_id_model.dart';
+import 'package:chato/feature/Conversation/model/report_model.dart';
 import '../../RoomConversation/model/sendMessage/send_message_data_model.dart';
 import '../../RoomConversation/model/sendMessage/send_message_model.dart';
 import '../model/private_old_message_model.dart';
@@ -23,6 +24,11 @@ abstract class ConversationState implements
   String get recordTime;
   String get blocUser;
   GetConversationIdModel get getConversationIdModel;
+  bool? get isReportSuccess;
+  bool? get isReportLoading;
+  ReportModel get reportModel;
+
+
 
   ConversationState._();
 
@@ -32,7 +38,6 @@ abstract class ConversationState implements
     return ConversationState((b) => b
       ..isLoading = false
       ..isSuccess = false
-
       ..isLoadingBloc = false
       ..isSuccessBloc = false
       ..showEmoji=false
@@ -63,6 +68,11 @@ abstract class ConversationState implements
             next_page_url: null
             )
         ..error=''
+        ..isReportLoading=false
+        ..isReportSuccess=false
+        ..reportModel=ReportModel(error_code: 0, data: '', status: false)
+
+
 
     );
   }

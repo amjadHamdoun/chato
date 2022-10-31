@@ -84,5 +84,16 @@ class ChangeRecordTimerEvent extends ConversationEvent
     required this.count,
   });
 }
-
+class ReportEvent extends ConversationEvent{
+  int userId;
+  String desc;
+  String? photo;
+  ReportEvent(
+  {
+    required this.userId,
+    required this.photo,
+    required this.desc
+}
+      );
+}
 
