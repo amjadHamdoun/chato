@@ -88,11 +88,13 @@ class ReportEvent extends ConversationEvent{
   int userId;
   String desc;
   String? photo;
+  String? type;
   ReportEvent(
   {
     required this.userId,
     required this.photo,
-    required this.desc
+    required this.desc,
+    required this.type
 }
       );
 }

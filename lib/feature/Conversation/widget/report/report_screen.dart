@@ -78,7 +78,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 5.w),
-                    height: 50.h,
+                    height: 40.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -154,7 +154,7 @@ class _ReportScreenState extends State<ReportScreen> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(
                     top: 5.h, bottom: 10.h, right: 5, left: 5),
-                hintText: "room or user id".tr(),
+                hintText: "enter id".tr(),
                 hintStyle: TextStyle(
                   color: ColorManager.hintText,
                   fontSize: 16.sp,
@@ -253,7 +253,8 @@ class _ReportScreenState extends State<ReportScreen> {
                     // you'd often call a server or save the information in a database.
                     bloc.onReportEvent(des: descriptionController.text,
                         id: int.parse('${nameController.text}'),
-                        photo: photo!.path);
+                        photo: photo!.path,
+                    type:widget.type);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

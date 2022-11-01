@@ -135,4 +135,15 @@ class UserBloc extends Bloc<UserEvents, UserState> {
     add(ChangeStatusEvent(status: status));
   }
 
+  String myFormatDate(String date) {
+    DateTime _date = DateTime.parse(date);
+    if (DateTime.now().day != _date.day) {
+      final formatDate = DateFormat('yyyy-MM-dd  hh:mm a', 'en');
+      return formatDate.format(_date).toString();
+    } else {
+      final formatDate = DateFormat('hh:mm a', 'en');
+      return formatDate.format(_date).toString();
+    }
+  }
+
 }

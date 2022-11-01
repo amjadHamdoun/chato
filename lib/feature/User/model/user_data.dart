@@ -14,7 +14,7 @@ class UserData {
   final String? email;
   final String? img;
   final String? status;
-
+  final String? last_seen;
   final String? personal_status;
   final String? birth_date;
   final String? gender;
@@ -31,7 +31,7 @@ class UserData {
   factory UserData.fromJson(Map<String, dynamic> json) =>
       _$UserDataFromJson(json);
 
-  UserData({
+  UserData( {
      this.token,
      this.name,
      this.email,
@@ -47,7 +47,7 @@ class UserData {
     this.status,
     this.viewers,
     this.country,
-    this.personal_status
-
+    this.personal_status,
+    this.last_seen,
   });
 }

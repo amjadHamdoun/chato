@@ -308,7 +308,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
           ));
 
       final result=await
-      reportDataSource.report(id: event.userId, des: event.desc, photo: event.photo!);
+      reportDataSource.report(id: event.userId, des: event.desc, photo: event.photo!,type: event.type!);
 
       return result.fold((l) async {
         print('l');
@@ -367,9 +367,9 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   }
 
   void onReportEvent({required String des,required int id,
-   required String photo}) {
+   required String photo,required String type}) {
     print(id);
-    add(ReportEvent( desc: des, photo: photo, userId: id));
+    add(ReportEvent( desc: des, photo: photo, userId: id,type: type));
   }
 
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chato/core/utils/font_manager.dart';
 import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
 import 'package:chato/feature/Conversation/widget/show_media_bottom_sheet.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -539,13 +540,25 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                   ),
                                   SizedBox(width: 6.w,),
                                   Expanded(child:
-                                  Text( args!.userTwoName??'',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 17.sp,
-                                        color: ColorManager.backgroundColor,
-                                        fontFamily: 'Roboto'
-                                    ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height: 4.h,),
+                                      Text( args!.userTwoName??'',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 17.sp,
+                                            color: ColorManager.backgroundColor,
+                                            fontFamily: 'Roboto'
+                                        ),
+                                      ),
+                                      SizedBox(height: 2.h,),
+                                      Text(args!.lastSeen??'',style: TextStyle(
+                                        color: ColorManager.lightGreyShade200,
+                                        fontSize: FontSize.s14
+                                      ),)
+                                    ],
                                   ),),
                                   SizedBox(width: 15.w,),
 

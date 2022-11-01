@@ -83,7 +83,8 @@ abstract class ProfState implements Built<ProfState, ProfStateBuilder> {
              type: '',
           personal_status: '',
           diamond: '0',
-          coins: '0', private_lock: '0'
+          coins: '0', private_lock: '0',
+          last_seen: ''
 
         ),
         message: '',
