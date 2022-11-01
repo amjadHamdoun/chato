@@ -13,7 +13,8 @@ abstract class ReportDataSource {
   report({
   required int id,
     required String des,
-    required String photo
+    required String photo,
+    required String type
   });
 }
 
@@ -32,7 +33,8 @@ ReportDataSource {
   report({
     required int id,
     required String des,
-    required String photo
+    required String photo,
+    required String type
   }) async {
     if (await networkInfo.hasConnection) {
       try {
@@ -44,6 +46,7 @@ ReportDataSource {
             'user2_id':id,
             'note':des,
             'photo':photo,
+            'type':type
           },
           options: Options(
             followRedirects: false,

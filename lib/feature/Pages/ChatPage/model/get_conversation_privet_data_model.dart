@@ -15,6 +15,7 @@ part 'get_conversation_privet_data_model.g.dart';
   UserData? user2;
   UserData? user1;
 
+
   Map<String, dynamic> toJson() =>
       _$GetConversationPrivateDataModelToJson(this);
   factory GetConversationPrivateDataModel.fromJson(Map<String, dynamic> json) =>
@@ -28,6 +29,6 @@ part 'get_conversation_privet_data_model.g.dart';
         required this.created_at,
         required this.updated_at,
         required this.user2,
-        required this.user1
+        required this.user1,
       });
 }

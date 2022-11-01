@@ -227,5 +227,7 @@
   "Incident Report": "ابلاغ عن مشكلة",
   "send": "ارسال",
   "describe incident(eg ,who,what,when,where)": "وصف المشكلة (وصف,من,ماذا,متى,اين)",
-  "Report": "ابلاغ"
+  "Report": "ابلاغ",
+  "upload Image": "اختر صورة",
+  "enter id": "ادخل الرقم المميز"
 }

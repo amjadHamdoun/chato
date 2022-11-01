@@ -672,9 +672,8 @@ class _UserScreenState extends State<UserScreen> {
                         SizedBox(width: 22.w,),
                         if(state.userModel!.data!.user!.status==null||
                             state.userModel!.data!.user!.status!.isEmpty)
-                          if(state.addFriend==false)
+                          if(state.addFriend==true)
                         Expanded(
-
                           child: ElevatedButton(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -720,8 +719,8 @@ class _UserScreenState extends State<UserScreen> {
                         ),
 
                         SizedBox(width: 22.w,),
+                        if (state.addFriend==false)
                         Expanded(
-
                           child: ElevatedButton(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -766,10 +765,9 @@ class _UserScreenState extends State<UserScreen> {
                                     )
                                 );
 
-                              }
-                          ),
-                        ),
-                        SizedBox(width: 22.w,),
+                                }
+                            ),
+                          ), SizedBox(width: 22.w,),
                       ],
                     ),
 

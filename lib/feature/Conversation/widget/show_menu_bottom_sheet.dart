@@ -150,7 +150,7 @@ void showMenuBottomSheet({
                       ),
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder:
-                            (context) =>  ReportScreen(type: 'user',)));
+                            (context) => ReportScreen(type: 'User')));
                       }
                   ),
                 ),

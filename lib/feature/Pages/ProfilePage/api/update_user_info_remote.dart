@@ -18,7 +18,8 @@ abstract class UpdateUserInfoDataSource {
     File? img,
     String? birth_date,
     String? online,
-    String? private_lock
+    String? private_lock,
+    String? last_seen
   });
 }
 
@@ -38,7 +39,9 @@ UpdateUserInfoDataSource {
     String? birth_date,
     String? personalStatus,
     String? online,
-    String? private_lock
+    String? private_lock,
+    String? last_seen
+
   }) async {
     if (await networkInfo.hasConnection) {
       try {
@@ -66,7 +69,9 @@ UpdateUserInfoDataSource {
            if(online!=null)
              "online":online,
            if(private_lock!=null)
-             "private_lock":private_lock
+             "private_lock":private_lock,
+           if(last_seen!=null)
+             "last_seen":last_seen
          });
         final re = await dio.post(
           Endpoints.updateUserInfo,

@@ -21,7 +21,6 @@ import 'package:status_view/status_view.dart';
 import 'package:story_maker/story_maker.dart';
 import '../../../core/utils/color_manager.dart';
 import '../../Conversation/conversation.dart';
-import '../../User/user.dart';
 import 'widget/friendship_requests.dart';
 
 class HomeScreen extends StatefulWidget {

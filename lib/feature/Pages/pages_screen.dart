@@ -94,13 +94,15 @@ class _PagesScreenState extends State<PagesScreen> with WidgetsBindingObserver{
       case AppLifecycleState.resumed:
         print("AppLifecycleState.resumed");
         profBloc.onUpdateUserInfoEvent(
-          online: "1"
+          online: "1",
+          last_seen:  DateTime.now().toString()
         );
         profBloc.onGetProfileDetailsEvent();
         break;
       case AppLifecycleState.paused:
         profBloc.onUpdateUserInfoEvent(
-            online: "0"
+            online: "0",
+            last_seen: DateTime.now().toString()
         );
         break;
 

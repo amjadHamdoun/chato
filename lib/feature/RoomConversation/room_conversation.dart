@@ -1898,7 +1898,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                           GestureDetector(
                                             onTap: () {
                                               Navigator.push(context, MaterialPageRoute(
-                                                  builder:(context) => ReportScreen(type: 'room',) , ));
+                                                  builder:(context) => ReportScreen(type: 'Room',) , ));
                                             },
                                             child: Column(
                                               crossAxisAlignment:

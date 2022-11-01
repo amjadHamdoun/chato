@@ -27,6 +27,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
           ? null
           : CountryDataModel.fromJson(json['country'] as Map<String, dynamic>),
       personal_status: json['personal_status'] as String?,
+      last_seen: json['last_seen'] as String?,
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
@@ -35,6 +36,7 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'email': instance.email,
       'img': instance.img,
       'status': instance.status,
+      'last_seen': instance.last_seen,
       'personal_status': instance.personal_status,
       'birth_date': instance.birth_date,
       'gender': instance.gender,

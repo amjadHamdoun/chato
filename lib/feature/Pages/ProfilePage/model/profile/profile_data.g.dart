@@ -23,6 +23,7 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       coins: json['coins'] as String?,
       diamond: json['diamond'] as String?,
       private_lock: json['private_lock'] as String?,
+      last_seen: json['last_seen'] as String?,
     );
 
 Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
@@ -40,5 +41,6 @@ Map<String, dynamic> _$ProfileDataToJson(ProfileData instance) =>
       'status': instance.status,
       'personal_status': instance.personal_status,
       'private_lock': instance.private_lock,
+      'last_seen': instance.last_seen,
       'country': instance.country,
     };
