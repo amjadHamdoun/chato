@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:chato/Globals.dart';
 import 'package:chato/feature/Pages/HomePage/api/add_status_remote.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../api/all_friend_remote.dart';
 import '../api/change-requests-friend_remote.dart';
 import '../api/friendship_requests_remote.dart';
@@ -352,6 +353,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void onGetStatusEvent( ) {
     add(GetStatusEvent( ));
   }
+  String myFormatDate(String date){
+    DateTime _date=DateTime.parse(date);
+    if (DateTime.now().day != _date.day) {
+      final formatDate =  DateFormat('yyyy-MM-dd  kk:mm', 'en'
+      );
+      return formatDate.format(_date).toString();
+    }  else{
+      final formatDate =  DateFormat('kk:mm', 'en'
+      );
+      return  formatDate.format(_date).toString();
 
-
+    }
+  }
 }

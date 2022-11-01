@@ -265,7 +265,7 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                     state.getConversationPrivateModel.data![ index].
                                     user2!.id:
                                     state.getConversationPrivateModel.data![ index].
-                                    user1!.id,
+                                    user1!.id, lastSeen: '',
                                   )
                               );
 

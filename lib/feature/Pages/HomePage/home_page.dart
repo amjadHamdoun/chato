@@ -35,6 +35,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin{
   File? image;
 
+
+
   @override
   void initState() {
     widget.bloc.onGetStatusEvent();
@@ -429,7 +431,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                               userTwoId:state.allFriendModel.data![index].id! ,
                                               userTwoName: state.allFriendModel.data![index].name,
                                               userTwoImage: state.allFriendModel.data![index].img,
-                                              conversationId: '-1',
+                                              conversationId: '-1', lastSeen: widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!),
                                             )
                                         );
 
@@ -503,8 +505,6 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                                    top: 5.h,
                                                    right: 2.w,
                                                    child: Container(
-
-
                                                      width: 12.w,
                                                      height: 12.w,
                                                      decoration: const BoxDecoration(
@@ -519,14 +519,15 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                     ),
                                     SizedBox(width: 4.w,),
                                     Expanded(
-                                      flex: 3,
-
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(state.allFriendModel.data![index].name!,
+                                      flex: 4,
+                                      child: SizedBox(
+                                        height: 60.h,
+                                        child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(state.allFriendModel.data![index].name!,
                                                   style: TextStyle(
                                                       fontSize: 15.sp,
                                                       fontFamily: 'Roboto',
@@ -536,15 +537,13 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                                   overflow: TextOverflow.ellipsis,
                                                   textAlign: TextAlign.start,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(state.allFriendModel.
-                                                data![index].online !='1' ?state.allFriendModel.
-                                                data![index].last_seen!:state.allFriendModel.
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Row(
+                                              children: [
+                                                Text(state.allFriendModel.
+                                                data![index].online !='1' ?widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!):state.allFriendModel.
                                                 data![index].status!,
                                                   style: TextStyle(
                                                       fontSize: 14.sp,
@@ -555,10 +554,10 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                                   overflow: TextOverflow.ellipsis,
                                                   textAlign: TextAlign.start,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     SizedBox(width: 4.w,),

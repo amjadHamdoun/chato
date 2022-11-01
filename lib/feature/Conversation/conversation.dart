@@ -42,6 +42,7 @@ class ConversationArguments {
    String? userTwoName;
    int? userTwoId;
   final String? user;
+  String? lastSeen;
 
 
   ConversationArguments(  {
@@ -49,7 +50,8 @@ class ConversationArguments {
     required this.userTwoImage,
     required this.userTwoName,
     required this.userTwoId,
-    required this.user
+    required this.user,
+    required this.lastSeen
   });
 }
 

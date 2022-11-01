@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/Globals.dart';
+import 'package:chato/feature/Conversation/widget/report/report_screen.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/file_chat_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/image_side_one_widget.dart';
 import 'package:chato/feature/RoomConversation/widget/message/sideOne/map_side_one_widget.dart';
@@ -1897,7 +1898,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                           GestureDetector(
                                             onTap: () {
                                               Navigator.push(context, MaterialPageRoute(
-                                                  builder:(context) =>  , ));
+                                                  builder:(context) => ReportScreen(type: 'room',) , ));
                                             },
                                             child: Column(
                                               crossAxisAlignment:

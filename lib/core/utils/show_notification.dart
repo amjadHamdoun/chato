@@ -77,7 +77,7 @@ Future<void> showNotification(
                 conversationId: conversationId!,
                 userTwoImage:user!.img! ,
                 user: null,
-                userTwoName: user.name!, userTwoId: user.id),
+                userTwoName: user.name!, userTwoId: user.id, lastSeen: ''),
             );
           }
        print("*****");

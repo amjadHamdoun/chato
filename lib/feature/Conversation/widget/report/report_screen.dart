@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
+import 'package:chato/injection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,21 +11,21 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../Globals.dart';
-import '../../../core/utils/font_manager.dart';
-import '../../../core/utils/styles_manager.dart';
-import '../bloc/conversation_bloc.dart';
+import '../../../../Globals.dart';
+import '../../../../core/utils/font_manager.dart';
+import '../../../../core/utils/styles_manager.dart';
+import '../../bloc/conversation_bloc.dart';
 
 class ReportScreen extends StatefulWidget {
-  const ReportScreen({Key? key, required this.bloc}) : super(key: key);
-  final ConversationBloc bloc;
+   ReportScreen({Key? key, required this.type}) : super(key: key);
+  String type;
 
   @override
   State<ReportScreen> createState() => _ReportScreenState();
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-
+  ConversationBloc bloc=sl<ConversationBloc>();
   final ImagePicker _picker = ImagePicker();
   late final XFile? photo;
   final _formKey = GlobalKey<FormState>();
@@ -35,7 +36,7 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ConversationBloc, ConversationState>(
-      bloc: widget.bloc,
+      bloc:bloc,
       listener: (context, state) {
         if (state.isReportSuccess!) {
           Fluttertoast.showToast(
@@ -250,7 +251,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   if (_formKey.currentState!.validate() && photo != null) {
                     // If the form is valid, display a snackbar. In the real world,
                     // you'd often call a server or save the information in a database.
-                    widget.bloc.onReportEvent(des: descriptionController.text,
+                    bloc.onReportEvent(des: descriptionController.text,
                         id: int.parse('${nameController.text}'),
                         photo: photo!.path);
                   } else {

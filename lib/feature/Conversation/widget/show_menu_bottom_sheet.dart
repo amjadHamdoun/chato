@@ -2,7 +2,7 @@
 
 import 'package:chato/core/utils/color_manager.dart';
 import 'package:chato/feature/Conversation/bloc/conversation_state.dart';
-import 'package:chato/feature/Conversation/widget/report_screen.dart';
+import 'package:chato/feature/Conversation/widget/report/report_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,7 +150,7 @@ void showMenuBottomSheet({
                       ),
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder:
-                            (context) =>  ReportScreen(bloc: bloc,)));
+                            (context) =>  ReportScreen(type: 'user',)));
                       }
                   ),
                 ),

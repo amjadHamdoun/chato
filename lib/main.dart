@@ -29,7 +29,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
           conversationId: message.data['screen_id'],
           userTwoImage: null,
           userTwoName:null, userTwoId: 2,
-        user: message.data['user_send']
+        user: message.data['user_send'], lastSeen: ''
 
       ),
     );
@@ -99,7 +99,7 @@ void main() async{
             conversationId: message.data['screen_id'],
             userTwoImage:null,
             user:  message.data['user_send'],
-            userTwoName:null, userTwoId: null),
+            userTwoName:null, userTwoId: null, lastSeen: ''),
       );
     }
     //Global.navigatorKey.currentState!.pushNamed('/selectState',);
