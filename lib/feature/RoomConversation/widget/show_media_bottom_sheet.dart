@@ -140,6 +140,7 @@ void showMediaBottomSheet({
                     if (result != null) {
                       File file = File(result.files.single.path!);
                       //  widget.bloc.onChangeImageEvent(file);
+
                       bloc.onSendMessageEvent('', roomId, file,true);
                       Navigator.pop(ctx);
 

@@ -347,7 +347,6 @@ class RoomConversationBloc
     async {
       final filter =sl<ProfanityFilter> ();
 
-
       String cleanString = filter.censor(event.message);
 
       emit(

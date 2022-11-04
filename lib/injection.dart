@@ -98,13 +98,12 @@ Future<void> init() async {
       );
       dio.interceptors.add(
         LogInterceptor(
-          responseBody: true,
-          requestBody: true,
-          responseHeader: true,
-          requestHeader: true,
-          request: true,
-          error: true
-        ),
+            responseBody: true,
+            requestBody: true,
+            responseHeader: true,
+            requestHeader: true,
+            request: true,
+            error: true),
       );
 
       return dio;
@@ -113,12 +112,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => DataConnectionChecker());
 
-  sl.registerLazySingleton<ProfanityFilter>(
-          () => ProfanityFilter()
-  );
-
-
-
+  sl.registerLazySingleton<ProfanityFilter>(() => ProfanityFilter());
 
   //datasource
   sl.registerLazySingleton<RegisterRemoteDataSource>(
@@ -140,291 +134,174 @@ Future<void> init() async {
     () => UserDetailsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<FriendshipRequestsRemoteDataSource>(
-        () => FriendshipRequestsRemoteDataSourceImpl(dio: sl(),
-            networkInfo: sl()),
+    () => FriendshipRequestsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<AddFriendRemoteDataSource>(
-        () => AddFriendRemoteDataSourceImpl(dio: sl(),
-        networkInfo: sl()),
+    () => AddFriendRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<ChangeRequestsFriendRemoteDataSource>(
-        () => ChangeRequestsFriendRemoteDataSourceImpl(
-            dio: sl(),
-        networkInfo: sl()),
+    () =>
+        ChangeRequestsFriendRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<SearchFriendRemoteDataSource>(
-        () => SearchFriendRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => SearchFriendRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<UpdateUserInfoDataSource>(
-        () => UpdateUserInfoDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => UpdateUserInfoDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<AllFriendRemoteDataSource>(
-        () => AllFriendRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => AllFriendRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<ForgetPasswordRemoteDataSource>(
-        () => ForgetPasswordRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => ForgetPasswordRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<ChangePasswordRemoteDataSource>(
-        () => ChangePasswordRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => ChangePasswordRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<CreateRoomRemoteDataSource>(
-        () => CreateRoomRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => CreateRoomRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<GetUserRoomRemoteDataSource>(
-        () => GetUserRoomRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => GetUserRoomRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<GetFavRoomRemoteDataSource>(
-        () => GetFavRoomRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => GetFavRoomRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
-
 
   sl.registerLazySingleton<GetTrendRoomRemoteDataSource>(
-        () => GetTrendRoomRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => GetTrendRoomRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<GetAllRoomRemoteDataSource>(
-        () => GetAllRoomRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => GetAllRoomRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<ConversationOldMessageDataSource>(
-        () => ConversationOldMessageDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => ConversationOldMessageDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<BlockedUserRemoteDataSource>(
-        () => BlockedUserRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => BlockedUserRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<UnBlockedUserRemoteDataSource>(
-        () => UnBlockedUserRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => UnBlockedUserRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<AllTypeDataSource>(
-        () => AllTypeDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => AllTypeDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<SendMessageDataSource>(
-        () => SendMessageDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => SendMessageDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<AddUserDataSource>(
-        () => AddUserDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => AddUserDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<ResetPasswordRemoteDataSource>(
-        () => ResetPasswordRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()),
+    () => ResetPasswordRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<SendCoinsRemoteDataSource>(
-        () => SendCoinsRemoteDataSourceImpl(
-           dio: sl(),
-           networkInfo: sl()
-        ),
+    () => SendCoinsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<RegisterAmazingAccountRemoteDataSource>(
-        () => RegisterAmazingAccountRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => RegisterAmazingAccountRemoteDataSourceImpl(
+        dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<AddRemoveFavDataSource>(
-        () => AddRemoveFavDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => AddRemoveFavDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<GetConversationPrivateDataSource>(
-        () => GetConversationPrivateDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => GetConversationPrivateDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<PrivateOldMessageDataSource>(
-        () => PrivateOldMessageDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => PrivateOldMessageDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<BlockUserRemoteDataSource>(
-        () => BlockUserRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => BlockUserRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
 
   sl.registerLazySingleton<ChangePermeationUserRoomDataSource>(
-        () => ChangePermeationUserRoomDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => ChangePermeationUserRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<PrivateSendMessageDataSource>(
-        () => PrivateSendMessageDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => PrivateSendMessageDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<GetBackgroundImageSource>(
-        () => GetBackgroundImageSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => GetBackgroundImageSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<UpdateRoomDataSource>(
-        () => UpdateRoomDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => UpdateRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<GetGiftSource>(
-        () => GetGiftSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => GetGiftSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<SendGiftRoomDataSource>(
-        () => SendGiftRoomDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => SendGiftRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<ReportDataSource>(
-        () => ReportDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => ReportDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
 
   sl.registerLazySingleton<DeleteUserRoomDataSource>(
-        () => DeleteUserRoomDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => DeleteUserRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<BlockUserRoomDataSource>(
-        () => BlockUserRoomDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => BlockUserRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<AddTrendDataSource>(
-        () => AddTrendDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => AddTrendDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<UpdateCoinsRemoteDataSource>(
-        () =>   UpdateCoinsRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => UpdateCoinsRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<VipAccountsTransactionsRemoteDataSource>(
-        () =>   VipAccountsTransactionsRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => VipAccountsTransactionsRemoteDataSourceImpl(
+        dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<CountryRemoteDataSource>(
-        () =>   CountryRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => CountryRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<AddStatusRemoteDataSource>(
-        () =>   AddStatusRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => AddStatusRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
 
   sl.registerLazySingleton<GetStatusRemoteDataSource>(
-        () =>   GetStatusRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => GetStatusRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<SeenStatusRemoteDataSource>(
-        () =>   SeenStatusRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => SeenStatusRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<DeleteStatusRemoteDataSource>(
-        () =>   DeleteStatusRemoteDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => DeleteStatusRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<BlockedDataSource>(
-        () =>   BlockedDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => BlockedDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<GetConversationIdDataSource>(
-        () =>   GetConversationIdDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => GetConversationIdDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton<UnBlockUserRoomDataSource>(
-        () =>   UnBlockUserRoomDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => UnBlockUserRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
   sl.registerLazySingleton<UserPermeationDataSource>(
-        () =>   UserPermeationDataSourceImpl(
-        dio: sl(),
-        networkInfo: sl()
-    ),
+    () => UserPermeationDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
 
@@ -436,60 +313,51 @@ Future<void> init() async {
 
   // Bloc
   sl.registerLazySingleton(() => HomeBloc(
-    friendshipRequestsRemoteDataSource: sl(),
-    changeRequestsFriendRemoteDataSource: sl(),
-    searchFriendRemoteDataSource: sl(),
-    allFriendRemoteDataSource:  sl(),
-    addStatusRemoteDataSource: sl(),
-    getStatusRemoteDataSource: sl(),
-    seenStatusRemoteDataSource: sl()
-  ));
+      friendshipRequestsRemoteDataSource: sl(),
+      changeRequestsFriendRemoteDataSource: sl(),
+      searchFriendRemoteDataSource: sl(),
+      allFriendRemoteDataSource: sl(),
+      addStatusRemoteDataSource: sl(),
+      getStatusRemoteDataSource: sl(),
+      seenStatusRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => ConversationBloc(
-     privateOldMessageDataSource: sl(),
-    sendMessageDataSource: sl(),
-    blockUserRemoteDataSource: sl(),
-    getConversationIdDataSource: sl(), reportDataSource: sl()
+      privateOldMessageDataSource: sl(),
+      sendMessageDataSource: sl(),
+      blockUserRemoteDataSource: sl(),
+      getConversationIdDataSource: sl(),
+      reportDataSource: sl()));
 
-  ));
-
-  sl.registerLazySingleton(() => ChatBloc(
-    getConversationPrivateDataSource: sl()
-  ));
-
+  sl.registerLazySingleton(
+      () => ChatBloc(getConversationPrivateDataSource: sl()));
 
   sl.registerLazySingleton(() => StoreBloc(
-    updateCoinsRemoteDataSource: sl(),
-    vipAccountsTransactionsRemoteDataSource: sl()
-  ));
-
+      updateCoinsRemoteDataSource: sl(),
+      vipAccountsTransactionsRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => RoomConversationBloc(
-    sendGiftRoomDataSource: sl(),
-    conversationOldMessageDataSource: sl(),
-     allTypeDataSource:sl(),
-    sendMessageDataSource: sl(),
-    addUserDataSource: sl(),
-    addRemoveFavDataSource: sl(),
-    changePermeationUserRoomDataSource: sl(),
-    getBackgroundImageSource: sl(),
-    updateRoomDataSource: sl(),
-    getGiftSource: sl(),
-    deleteUserRoomDataSource: sl(),
-    blockUserRoomDataSource: sl(),
-    addTrendDataSource: sl(),
-    blockedDataSource: sl(),
-    unBlockUserRoomDataSource: sl(),
-    userPermeationDataSource: sl()
-  ));
+      sendGiftRoomDataSource: sl(),
+      conversationOldMessageDataSource: sl(),
+      allTypeDataSource: sl(),
+      sendMessageDataSource: sl(),
+      addUserDataSource: sl(),
+      addRemoveFavDataSource: sl(),
+      changePermeationUserRoomDataSource: sl(),
+      getBackgroundImageSource: sl(),
+      updateRoomDataSource: sl(),
+      getGiftSource: sl(),
+      deleteUserRoomDataSource: sl(),
+      blockUserRoomDataSource: sl(),
+      addTrendDataSource: sl(),
+      blockedDataSource: sl(),
+      unBlockUserRoomDataSource: sl(),
+      userPermeationDataSource: sl()));
 
   sl.registerLazySingleton(() => RegisterBloc(
       registerRemoteDataSource: sl(),
-    registerAmazingAccountRemoteDataSource: sl()
-  ));
+      registerAmazingAccountRemoteDataSource: sl()));
 
-  sl.registerLazySingleton(() => LoginBloc(
-      loginRemoteDataSource: sl()));
+  sl.registerLazySingleton(() => LoginBloc(loginRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => ProfBloc(
       logoutRemoteDataSource: sl(),
@@ -497,23 +365,18 @@ Future<void> init() async {
       countFriendDetailsRemoteDataSource: sl(),
       updateUserInfoDataSource: sl(),
       blockedUserRemoteDataSource: sl(),
-    unBlockedUserRemoteDataSource: sl(),
-    resetPasswordRemoteDataSource: sl(),
+      unBlockedUserRemoteDataSource: sl(),
+      resetPasswordRemoteDataSource: sl(),
       sendCoinsRemoteDataSource: sl(),
-    countryRemoteDataSource: sl() ,
-    deleteStatusRemoteDataSource: sl()
-  ));
+      countryRemoteDataSource: sl(),
+      deleteStatusRemoteDataSource: sl()));
 
-
-  sl.registerLazySingleton(() => UserBloc(
-      userRemoteDataSource: sl(),
-      addFriendRemoteDataSource: sl()
-  ));
+  sl.registerLazySingleton(() =>
+      UserBloc(userRemoteDataSource: sl(), addFriendRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => ForgetBloc(
       forgetPasswordRemoteDataSource: sl(),
-      changePasswordRemoteDataSource: sl()
-  ));
+      changePasswordRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => RoomBloc(
       createRoomRemoteDataSource: sl(),
