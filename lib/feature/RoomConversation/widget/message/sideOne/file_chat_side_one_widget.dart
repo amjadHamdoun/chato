@@ -36,8 +36,11 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
   Future isLocal(String? localFile) async{
     if(localFile!=null)
       {
+        print('not null----------------------------------------------------------------------');
         downloadFile='100%';
         file=File(widget.message.localFile!);
+        print(file);
+
       }
     else{
       var dir;
@@ -46,8 +49,8 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
       } else {
         dir = await getTemporaryDirectory();
       }
-      String fileName=widget.message.all_file!.substring(50,
-          widget.message.all_file!.length);
+      String fileName=widget.message.localFile!.substring(50,
+          widget.message.localFile!.length);
       String  filePath = dir.path + "/" + fileName;
       file = File(filePath);
       if (await file!.exists()) {
@@ -178,7 +181,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
           SizedBox(
             width: 6.w,
           ),
-          if(widget.message.all_file!.length>35
+          if(widget.message.localFile!.length>35
               ||widget.message.user!.name!.length>35)
             Expanded(
               child: Row(
@@ -186,7 +189,6 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                   Expanded(
                     flex: 2,
                     child: Container(
-
                       decoration: BoxDecoration(
                           color: Colors.transparent.withOpacity(0.5),
                           borderRadius: BorderRadius.only(
@@ -243,7 +245,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                                   InkWell(
                                     onTap: (){
                                       Dio dio=Dio();
-                                      download(dio, widget.message.all_file!, file!.path);
+                                      download(dio, widget.message.localFile!, file!.path);
                                     },
                                     child: Icon(Icons.download,
                                       color: ColorManager.backgroundColor,
@@ -272,7 +274,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                                       async {
                                         await launch(widget.message.message!);
                                       }:null,
-                                      child: Text(widget.message.all_file!
+                                      child: Text(widget.message.localFile!.substring(53)
                                         ,style: TextStyle(
                                             color:isUrl (widget.message.message!)?
                                             Colors.blue.shade700:
@@ -317,11 +319,10 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     Container(
                       decoration:
-                      widget.message.all_file!.length<=
+                      widget.message.localFile!.length<=
                           widget.message.user!.name!.length?
                       const BoxDecoration(
                         border: Border(
@@ -376,7 +377,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                             ):const BoxDecoration(),
                             child: Padding(
                               padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                              child: Text(widget.message.all_file!,
+                              child: Text(widget.message.localFile!,
                                 style: TextStyle(
                                     color:isUrl(widget.message.message!)?
                                     Colors.blue.shade700:
