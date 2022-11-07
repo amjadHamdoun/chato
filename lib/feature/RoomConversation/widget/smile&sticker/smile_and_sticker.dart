@@ -85,7 +85,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/1.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -104,7 +104,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/2.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -123,7 +123,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/3.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -142,7 +142,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/4.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -161,7 +161,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/5.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -186,7 +186,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/6.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -205,7 +205,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/7.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -224,7 +224,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/8.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -243,7 +243,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/9.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -262,7 +262,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/10.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -287,7 +287,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/11.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -306,7 +306,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/12.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -325,7 +325,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/13.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [
@@ -344,7 +344,7 @@ class SmileAndSticker extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 bloc.onSendMessageEvent("https://room.tecknick.net/smiles/14.png", roomId,
-                                    null, true);
+                                    null, true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                               },
                               child: Column(
                                 children: [

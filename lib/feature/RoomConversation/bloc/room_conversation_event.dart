@@ -62,11 +62,13 @@ class SendMessageEvent extends RoomConversationEvent
   String message;
   int roomId;
   bool api;
+  String create_at;
   SendMessageEvent({
      required this.message,
      required this.roomId,
      required this.allFile,
-    required this.api
+    required this.api,
+    required this.create_at
   });
 }
 

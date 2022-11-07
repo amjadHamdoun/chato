@@ -141,7 +141,7 @@ void showMediaBottomSheet({
                       File file = File(result.files.single.path!);
                       //  widget.bloc.onChangeImageEvent(file);
 
-                      bloc.onSendMessageEvent('', roomId, file,true);
+                      bloc.onSendMessageEvent('', roomId, file,true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                       Navigator.pop(ctx);
 
                     }
@@ -177,7 +177,9 @@ void showMediaBottomSheet({
                             {
                               bloc.onSendMessageEvent(value!.name.first
                                   +' '+value.name.last+'\n '+value.phones[0].number
-                                  , roomId, null,true);
+                                  , roomId, null,true,
+                                  DateFormat('hh:mm a', 'en').format(DateTime.now())
+                              );
                               Navigator.pop(ctx);
                             }
                    });
@@ -229,7 +231,7 @@ void showMediaBottomSheet({
                      bloc.onSendMessageEvent(
                          'https://www.google.com/maps/search/?api=1&query='
                              '${_locationData.latitude},${_locationData.longitude}'
-                         , roomId, null,true);
+                         , roomId, null,true,DateFormat('hh:mm a', 'en').format(DateTime.now()));
                      Navigator.pop(ctx);
                    }
                     catch (e)
@@ -263,7 +265,7 @@ void showMediaBottomSheet({
                     if (result != null) {
                       File file = File(result.files.single.path!);
                       //  widget.bloc.onChangeImageEvent(file);
-                      bloc.onSendMessageEvent('', roomId, file,true);
+                      bloc.onSendMessageEvent('', roomId, file,true,DateTime.now().minute.toString());
                       Navigator.pop(ctx);
 
                     }

@@ -207,7 +207,9 @@ class RoomConversationBloc
 
             ..error = ''));
         }, (r) async {
-          print('r');
+          print('r===========================================');
+          print(r);
+
           ConversationOldMessageModel data=
           ConversationOldMessageModel(
               status: false,
@@ -360,7 +362,7 @@ class RoomConversationBloc
                       '',
                     conversation_id: '0',
                     seen: '',
-                    created_at: '',
+                    created_at: event.create_at,
                     updated_at: '',
                     user: UserData(
                       id: Global.userId,
@@ -392,7 +394,7 @@ class RoomConversationBloc
 
             ..error = ''));
         }, (r) async {
-          print('r');
+          print('r===========================');
 
           emit(state.rebuild((b) => b
             ..error=''
@@ -1091,10 +1093,11 @@ class RoomConversationBloc
   }
 
   void onSendMessageEvent(String message,int roomId,
-      File? file,bool api) {
+      File? file,bool api,String created_at) {
     add(SendMessageEvent(message: message,roomId: roomId,
         allFile: file,
-      api: api
+      api: api,
+      create_at: created_at
     ));
   }
 
