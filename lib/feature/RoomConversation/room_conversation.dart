@@ -83,7 +83,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
     _init();
     Global.currentRoomId = widget.roomId.toString();
     _currentStatus = RecordingStatus.Unset;
-    //   bloc.onGetConversationMessage(widget.roomId);
+    bloc.onGetConversationMessage(widget.roomId);
     bloc.onGetPermeationEvent(widget.roomId);
     bloc.onGetAllTypeEvent('', widget.roomId);
     channelChat = Global.pusher!.subscribe("chat.${widget.roomId}");
@@ -180,7 +180,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           UserData user = UserData.fromJson(arguments['user']);
 
           bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
-              widget.roomId, null, false, DateFormat('hh:mm a', 'en').format(DateTime.now()));
+              widget.roomId, null, false);
           bloc.onEnterVipEvent(message.msg.text!, user.img!, true);
           bloc.onGetAllTypeEvent('', widget.roomId);
 
@@ -196,8 +196,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                 'message.msg.text' + message.msg.text!,
                 widget.roomId,
                 null,
-                false,
-                DateFormat('hh:mm a', 'en').format(DateTime.now()));
+                false);
             bloc.onEnterVipEvent(
                 message.msg.text!, user.vip_user!.account_vip!.img!, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
@@ -207,7 +206,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                 widget.roomId,
                 null,
                 false,
-                DateFormat('hh:mm a', 'en').format(DateTime.now()));
+              );
             bloc.onEnterVipEvent(message.msg.text!, null, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           }
@@ -1602,11 +1601,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                     _current!
                                                                         .path!),
                                                                 true,
-                                                                DateFormat(
-                                                                        'hh:mm a',
-                                                                        'en')
-                                                                    .format(DateTime
-                                                                        .now()));
+                                                               );
                                                           },
                                                           icon:
                                                               SvgPicture.asset(
@@ -1655,11 +1650,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                             widget.roomId,
                                                             null,
                                                             true,
-                                                            DateFormat(
-                                                                    'hh:mm a',
-                                                                    'en')
-                                                                .format(DateTime
-                                                                    .now()));
+                                                         );
                                                       }
 
                                                       if (FocusScope.of(context)

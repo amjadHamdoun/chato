@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/User/user.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_file/open_file.dart';
@@ -239,42 +240,28 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                               padding:  EdgeInsets.symmetric(
                                   horizontal: 12.w
                               ),
-                              child: Row(
+                              child: Column(
                                 children: [
-                                  downloadFile.isEmpty?
-                                  InkWell(
-                                    onTap: (){
-                                      Dio dio=Dio();
-                                      download(dio, widget.message.localFile!, file!.path);
-                                    },
-                                    child: Icon(Icons.download,
-                                      color: ColorManager.backgroundColor,
-                                      size: 22.w,
-                                    ),
-                                  ):
-                                  downloadFile.contains('100')?
-                                  Icon(
-                                    Icons.file_copy_outlined,
-                                    color: ColorManager.backgroundColor,
-                                    size: 22.w,
-                                  ):Text(downloadFile
-                                    ,style: TextStyle(
-                                        color:isUrl (widget.message.message!)?
-                                        Colors.blue.shade700:
-                                        ColorManager.backgroundColor,
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600
-                                    ),textAlign: TextAlign.start,),
-                                  SizedBox(
-                                    width: 6.w,
-                                  ),
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap:isUrl (widget.message.message!)?()
-                                      async {
-                                        await launch(widget.message.message!);
-                                      }:null,
-                                      child: Text(widget.message.localFile!.substring(53)
+                                  Row(
+                                    children: [
+
+                                      downloadFile.isEmpty?
+                                      InkWell(
+                                        onTap: (){
+                                          Dio dio=Dio();
+                                          download(dio, widget.message.localFile!, file!.path);
+                                        },
+                                        child: Icon(Icons.download,
+                                          color: ColorManager.backgroundColor,
+                                          size: 22.w,
+                                        ),
+                                      ):
+                                      downloadFile.contains('100')?
+                                      Icon(
+                                        Icons.file_copy_outlined,
+                                        color: ColorManager.backgroundColor,
+                                        size: 22.w,
+                                      ):Text(downloadFile
                                         ,style: TextStyle(
                                             color:isUrl (widget.message.message!)?
                                             Colors.blue.shade700:
@@ -282,9 +269,63 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                                             fontSize: 13.sp,
                                             fontWeight: FontWeight.w600
                                         ),textAlign: TextAlign.start,),
-                                    ),
-                                  ),
+                                      SizedBox(
+                                        width: 6.w,
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap:isUrl (widget.message.message!)?()
+                                          async {
+                                            await launch(widget.message.message!);
+                                          }:null,
+                                          child: Row(
+                                            children: [
+                                              Text(widget.message.localFile!.substring(53)
+                                                ,style: TextStyle(
+                                                    color:isUrl (widget.message.message!)?
+                                                    Colors.blue.shade700:
+                                                    ColorManager.backgroundColor,
+                                                    fontSize: 13.sp,
+                                                    fontWeight: FontWeight.w600
+                                                ),textAlign: TextAlign.start,),
+                                            ]
+                                          ),
+                                        ),
+                                      ),
 
+                                    ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      if (widget.message.seen == '0')
+                                        Icon(
+                                          Icons.done,
+                                          color: ColorManager.hintText,
+                                          size: 14.sp,
+                                        )
+                                      else if (widget.message.seen == '1')
+                                        Icon(
+                                          Icons.done_all,
+                                          color: ColorManager.hintText,
+                                          size: 14.sp,
+                                        )
+                                      else if (widget.message.seen == '2')
+                                          Icon(
+                                            Icons.done_all,
+                                            color: Colors.lightBlueAccent,
+                                            size: 14.sp,
+                                          ),
+                                      SizedBox(width: 5.w,),
+                                      Text(
+                                        DateFormat('hh:mm a', 'en')
+                                            .format(DateTime.parse(widget.message.created_at!)),
+                                        style: TextStyle(
+                                            fontSize: 12.sp, color: ColorManager.hintText),
+                                      ),
+
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
