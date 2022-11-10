@@ -192,21 +192,18 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
         if (message.msg.room_id.toString() == Global.currentRoomId) {
           UserData user = UserData.fromJson(arguments['user']);
           if (user.vip_user != null) {
-            bloc.onSendMessageEvent(
-                'message.msg.text' + message.msg.text!,
-                widget.roomId,
-                null,
-                false);
+            bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
+                widget.roomId, null, false);
             bloc.onEnterVipEvent(
                 message.msg.text!, user.vip_user!.account_vip!.img!, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           } else {
             bloc.onSendMessageEvent(
-                'message.msg.text' + message.msg.text!,
-                widget.roomId,
-                null,
-                false,
-              );
+              'message.msg.text' + message.msg.text!,
+              widget.roomId,
+              null,
+              false,
+            );
             bloc.onEnterVipEvent(message.msg.text!, null, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           }
@@ -1595,13 +1592,12 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                             closeTimer();
                                                             await _stop();
                                                             bloc.onSendMessageEvent(
-                                                                '',
-                                                                widget.roomId,
-                                                                io.File(
-                                                                    _current!
-                                                                        .path!),
-                                                                true,
-                                                               );
+                                                              '',
+                                                              widget.roomId,
+                                                              io.File(_current!
+                                                                  .path!),
+                                                              true,
+                                                            );
                                                           },
                                                           icon:
                                                               SvgPicture.asset(
@@ -1645,12 +1641,12 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                       if (textEditingController
                                                           .text.isNotEmpty) {
                                                         bloc.onSendMessageEvent(
-                                                            textEditingController
-                                                                .text,
-                                                            widget.roomId,
-                                                            null,
-                                                            true,
-                                                         );
+                                                          textEditingController
+                                                              .text,
+                                                          widget.roomId,
+                                                          null,
+                                                          true,
+                                                        );
                                                       }
 
                                                       if (FocusScope.of(context)

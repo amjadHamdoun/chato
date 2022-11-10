@@ -149,7 +149,8 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
         SizedBox(
           width: 6.w,
         ),
-        Expanded(
+        SizedBox(
+          width: 0.5.sw,
           child: Column(
             children: [
               Expanded(
@@ -170,6 +171,7 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
                             Image.file(
                               file!,
                               fit: BoxFit.fill,
+                              width: 0.5.sw,
                             ),
                           ],
                         ),
@@ -210,8 +212,11 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
                       ),
               ),
               Container(
-                width: Image.file(file!).width,
-                color: Colors.transparent.withOpacity(0.6),
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                decoration: BoxDecoration(
+                    color: Colors.transparent.withOpacity(0.6),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight:Radius.circular(5) )
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [

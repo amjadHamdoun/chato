@@ -229,5 +229,6 @@
   "describe incident(eg ,who,what,when,where)": "وصف المشكلة (وصف,من,ماذا,متى,اين)",
   "Report": "ابلاغ",
   "upload Image": "اختر صورة",
-  "enter id": "ادخل الرقم المميز"
+  "enter id": "ادخل الرقم المميز",
+  "text copied done!": "تم نسخ النص بنجاح"
 }

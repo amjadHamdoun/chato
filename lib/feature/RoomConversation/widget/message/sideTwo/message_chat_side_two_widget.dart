@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../Globals.dart';
 import '../../../../../core/utils/color_manager.dart';
@@ -289,33 +292,67 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                      ),
 
 
-                     InkWell(
-                       onTap:isUrl(widget.message.message!)? () async {
-                         await launch(widget.message.message!);
-                       }:null,
-                       child: Container(
-                         decoration:
-                         widget.message.message!.length>
-                             widget.message.user!.name!.length?
-                         const BoxDecoration(
-                           border: Border(
-                               top: BorderSide(
-                                 color: ColorManager.backgroundColor,
-                               )
-                           ),
-                         ):const BoxDecoration(),
-                         child: Padding(
-                           padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                           child: Text(widget.message.message!,
-                             style: TextStyle(
-                                 color:isUrl(widget.message.message!)?
-                                 Colors.blue.shade700:
-                                 ColorManager.backgroundColor,
-                                 fontSize: 13.sp,
-                                 fontWeight: FontWeight.w600
-                             ),textAlign: TextAlign.end,),
+                     Row(
+                       children: [
+                         SizedBox(width: 5.w,),
+                         Column(
+                           children: [
+                             SizedBox(
+                               height: 8.h,
+                             ),
+                             Text(
+                               DateFormat('hh:mm a', 'en').format(
+                                   DateTime.parse(
+                                       widget.message.created_at!)),
+                               style: TextStyle(
+                                   fontSize: 12.sp,
+                                   color: ColorManager.hintText),
+                             )
+                           ],
                          ),
-                       ),
+                         InkWell(
+                           onLongPress: () async {
+                             await Clipboard.setData(ClipboardData(
+                                 text: widget.message.message!));
+                             // copied successfully
+                             Fluttertoast.showToast(
+                                 msg: "text copied done!".tr(),
+                                 toastLength: Toast.LENGTH_SHORT,
+                                 gravity: ToastGravity.TOP,
+                                 timeInSecForIosWeb: 1,
+                                 backgroundColor: ColorManager.hintText,
+                                 textColor: Colors.white,
+                                 fontSize: 16.0
+                             );
+                           },
+                           onTap:isUrl(widget.message.message!)? () async {
+                             await launch(widget.message.message!);
+                           }:null,
+                           child: Container(
+                             decoration:
+                             widget.message.message!.length>
+                                 widget.message.user!.name!.length?
+                             const BoxDecoration(
+                               border: Border(
+                                   top: BorderSide(
+                                     color: ColorManager.backgroundColor,
+                                   )
+                               ),
+                             ):const BoxDecoration(),
+                             child: Padding(
+                               padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                               child: Text(widget.message.message!,
+                                 style: TextStyle(
+                                     color:isUrl(widget.message.message!)?
+                                     Colors.blue.shade700:
+                                     ColorManager.backgroundColor,
+                                     fontSize: 13.sp,
+                                     fontWeight: FontWeight.w600
+                                 ),textAlign: TextAlign.end,),
+                             ),
+                           ),
+                         ),
+                       ],
                      ),
                    ],
                  ),

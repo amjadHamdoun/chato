@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
+import '../../../../../core/utils/color_manager.dart';
 import '../../../../../core/widget/photo_view.dart';
 import '../../../../User/user.dart';
 import '../../../model/conversationMessage/conversation_old_message_data_model.dart';
@@ -98,24 +100,50 @@ class _MessageImageSideTwoState extends State<MessageImageSideTwo> {
          ),
 
         file!=null?
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder:
-                    (context) => PhotoViewWidget(
-                      file: file!,
-                      networkImage: null,
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder:
+                        (context) => PhotoViewWidget(
+                          file: file!,
+                          networkImage: null,
 
-                    ) ,));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.file(file!,
-                  fit: BoxFit.fill,
+                        ) ,));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.file(file!,
+                      fit: BoxFit.fill,
+                        width: 0.5.sw,
+                        height: 0.2.sh,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Container(
+                  width: 0.5.sw,
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(0.6),
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight:Radius.circular(5) )
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        DateFormat('hh:mm a', 'en')
+                            .format(DateTime.parse(widget.message.created_at!)),
+                        style: TextStyle(
+                            fontSize: 12.sp, color: ColorManager.hintText),
+                      ),
+
+                    ],
+                  ),
+                )
+              ],
             ):
             GestureDetector(
               onTap: (){

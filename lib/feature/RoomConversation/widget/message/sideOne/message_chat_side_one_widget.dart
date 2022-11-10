@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/feature/User/user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../Globals.dart';
 import '../../../../../core/utils/color_manager.dart';
@@ -346,6 +348,20 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                       ),
                     ),
                     InkWell(
+                      onLongPress: () async {
+                        await Clipboard.setData(ClipboardData(
+                            text: widget.message.message!));
+                        // copied successfully
+                        Fluttertoast.showToast(
+                            msg: "text copied done!".tr(),
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.TOP,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: ColorManager.hintText,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      },
                       onTap: isUrl(widget.message.message!)
                           ? () async {
                               await launch(widget.message.message!);
@@ -370,29 +386,47 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                                   SizedBox(
                                     height: 8.h,
                                   ),
-                                  if (widget.message.seen=='0')
-                                    Icon(Icons.done,color: ColorManager.hintText,size: 14.sp,)
-                                  else if(widget.message.seen=='1')
-                                    Icon(Icons.done_all,color: ColorManager.hintText,size: 14.sp,)
-                                  else if(widget.message.seen=='2')
-                                      Icon(Icons.done_all,color: Colors.lightBlueAccent,size: 14.sp,)
+                                  if (widget.message.seen == '0')
+                                    Icon(
+                                      Icons.done,
+                                      color: ColorManager.hintText,
+                                      size: 14.sp,
+                                    )
+                                  else if (widget.message.seen == '1')
+                                    Icon(
+                                      Icons.done_all,
+                                      color: ColorManager.hintText,
+                                      size: 14.sp,
+                                    )
+                                  else if (widget.message.seen == '2')
+                                    Icon(
+                                      Icons.done_all,
+                                      color: Colors.lightBlueAccent,
+                                      size: 14.sp,
+                                    )
                                 ],
                               ),
-                              SizedBox(width: 5.w,),
+                              SizedBox(
+                                width: 5.w,
+                              ),
                               Column(
                                 children: [
                                   SizedBox(
                                     height: 8.h,
                                   ),
                                   Text(
-                                    DateFormat('hh:mm a', 'en').format(DateTime.parse(widget.message.created_at!))  ,
+                                    DateFormat('hh:mm a', 'en').format(
+                                        DateTime.parse(
+                                            widget.message.created_at!)),
                                     style: TextStyle(
                                         fontSize: 12.sp,
                                         color: ColorManager.hintText),
                                   )
                                 ],
                               ),
-                              SizedBox(width: 5.w,),
+                              SizedBox(
+                                width: 5.w,
+                              ),
                               Text(
                                 widget.message.message!,
                                 style: TextStyle(
@@ -403,8 +437,6 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                                     fontWeight: FontWeight.w600),
                                 textAlign: TextAlign.start,
                               ),
-
-
                             ],
                           ),
                         ),
