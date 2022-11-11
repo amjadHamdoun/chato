@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/core/widget/photo_view.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
@@ -96,51 +97,75 @@ class _MessageImageSideTwoState extends State<MessageImageSideTwo> {
         horizontal: 12.w
 
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
+      child: Column(
         children: [
-          file!=null?
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder:
-                  (context) => PhotoViewWidget(
-                file: file!,
-                networkImage: null,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              file!=null?
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder:
+                      (context) => PhotoViewWidget(
+                    file: file!,
+                    networkImage: null,
 
-              ) ,));
-            },
-                child: Image.file(file!,
-                fit: BoxFit.fill,
-                ),
-              ):
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder:
-                  (context) => PhotoViewWidget(
-                file: null,
-                networkImage: widget.message.all_file??
-                    "https://www.room.tecknick.net/WI.jpeg",
+                  ) ,));
+                },
+                    child: Image.file(file!,
+                    fit: BoxFit.fill,
+                    ),
+                  ):
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder:
+                      (context) => PhotoViewWidget(
+                    file: null,
+                    networkImage: widget.message.all_file??
+                        "https://www.room.tecknick.net/WI.jpeg",
 
-              ) ,));
-            },
-                child: CachedNetworkImage(
-                  imageUrl: widget.message.all_file??
-                      "https://www.room.tecknick.net/WI.jpeg",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
+                  ) ,));
+                },
+                    child: CachedNetworkImage(
+                      imageUrl: widget.message.all_file??
+                          "https://www.room.tecknick.net/WI.jpeg",
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
 
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.fill,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
 
+                          ),
+                        ),
                       ),
+                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                   ),
-                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+            ],
+          ),
+          Container(
+            width: 0.5.sw,
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            decoration: BoxDecoration(
+                color: Colors.transparent.withOpacity(0.6),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight:Radius.circular(5) )
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  DateFormat('hh:mm a', 'en')
+                      .format(DateTime.parse(widget.message.created_at!)),
+                  style: TextStyle(
+                      fontSize: 12.sp, color: ColorManager.hintText),
                 ),
-              ),
+
+              ],
+            ),
+          )
         ],
       ),
     );

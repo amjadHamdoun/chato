@@ -361,8 +361,8 @@ class RoomConversationBloc
                     localFile: event.allFile!=null?event.allFile!.path:
                       '',
                     conversation_id: '0',
-                    seen: '',
-                    created_at: event.create_at,
+                    seen: '0',
+                    created_at: DateTime.now().toString(),
                     updated_at: '',
                     user: UserData(
                       id: Global.userId,
@@ -394,7 +394,7 @@ class RoomConversationBloc
 
             ..error = ''));
         }, (r) async {
-          print('r===========================');
+          print('r');
 
           emit(state.rebuild((b) => b
             ..error=''
@@ -1093,11 +1093,10 @@ class RoomConversationBloc
   }
 
   void onSendMessageEvent(String message,int roomId,
-      File? file,bool api,String created_at) {
+      File? file,bool api) {
     add(SendMessageEvent(message: message,roomId: roomId,
         allFile: file,
       api: api,
-      create_at: created_at
     ));
   }
 

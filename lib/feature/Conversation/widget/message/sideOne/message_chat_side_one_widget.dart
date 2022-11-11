@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -137,9 +138,6 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                 crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
-
-
-
                   InkWell(
                     onTap:isUrl(widget.message.message!)? () async {
                       await launch(widget.message.message!);
@@ -148,14 +146,64 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                       padding:  EdgeInsets.symmetric(horizontal: 16.w,
                       vertical: 2.h
                       ),
-                      child: Text(widget.message.message!,
-                        style: TextStyle(
-                            color:isUrl(widget.message.message!)?
-                            Colors.blue.shade700:
-                            ColorManager.backgroundColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600
-                        ),textAlign: TextAlign.start,),
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              if (widget.message.seen == '0')
+                                Icon(
+                                  Icons.done,
+                                  color: ColorManager.hintText,
+                                  size: 14.sp,
+                                )
+                              else if (widget.message.seen == '1')
+                                Icon(
+                                  Icons.done_all,
+                                  color: ColorManager.hintText,
+                                  size: 14.sp,
+                                )
+                              else if (widget.message.seen == '2')
+                                  Icon(
+                                    Icons.done_all,
+                                    color: Colors.lightBlueAccent,
+                                    size: 14.sp,
+                                  )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              Text(
+                                DateFormat('hh:mm a', 'en').format(
+                                    DateTime.parse(
+                                        widget.message.created_at!)),
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: ColorManager.hintText),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Text(widget.message.message!,
+                            style: TextStyle(
+                                color:isUrl(widget.message.message!)?
+                                Colors.blue.shade700:
+                                ColorManager.backgroundColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600
+                            ),textAlign: TextAlign.start,),
+                        ],
+                      ),
                     ),
                   ),
                 ],

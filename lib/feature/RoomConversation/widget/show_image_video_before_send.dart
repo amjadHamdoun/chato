@@ -203,8 +203,7 @@ class _ShowImageVideoBeforeSendState extends State<ShowImageVideoBeforeSend> {
                                    .text,
                                widget.roomId,
                                widget.file,
-                           true,
-                               DateFormat('hh:mm a', 'en').format(DateTime.now())
+                           true
                            );
 
                            if (FocusScope.of(

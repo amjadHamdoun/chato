@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chato/core/widget/photo_view.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../../../core/utils/color_manager.dart';
 import '../../../model/private_old_message_data_model.dart';
 
 
@@ -115,17 +117,63 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
           width: 6.w,
         ),
         file!=null?
-        GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder:
-                (context) => PhotoViewWidget(
-              file: file!,
-              networkImage: null,
+        Column(
+          children: [
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder:
+                    (context) => PhotoViewWidget(
+                  file: file!,
+                  networkImage: null,
 
-            ) ,));
-          },
-          child: Image.file(file!,
-          ),
+                ) ,));
+              },
+              child: Image.file(file!,
+                width: 0.5.sw,
+                height: 0.18.sh,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              width: 0.5.sw,
+              decoration: BoxDecoration(
+                  color: Colors.transparent.withOpacity(0.6),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight:Radius.circular(5) )
+
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (widget.message.seen == '0')
+                    Icon(
+                      Icons.done,
+                      color: ColorManager.hintText,
+                      size: 14.sp,
+                    )
+                  else if (widget.message.seen == '1')
+                    Icon(
+                      Icons.done_all,
+                      color: ColorManager.hintText,
+                      size: 14.sp,
+                    )
+                  else if (widget.message.seen == '2')
+                      Icon(
+                        Icons.done_all,
+                        color: Colors.lightBlueAccent,
+                        size: 14.sp,
+                      ),
+                  SizedBox(width: 5.w,),
+                  Text(
+                    DateFormat('hh:mm a', 'en')
+                        .format(DateTime.parse(widget.message.created_at!)),
+                    style: TextStyle(
+                        fontSize: 12.sp, color: ColorManager.hintText),
+                  ),
+
+                ],
+              ),
+            )
+          ],
         ):
         GestureDetector(
           onTap: (){
