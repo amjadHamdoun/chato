@@ -4,7 +4,6 @@ import 'package:chato/feature/User/user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../Globals.dart';
@@ -120,7 +119,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
     return GestureDetector(
       onTap: (){
         try{
-          OpenFile.open(file!.path);
+        //  OpenFile.open(file!.path);
         }
         // ignore: empty_catches
         catch (e){

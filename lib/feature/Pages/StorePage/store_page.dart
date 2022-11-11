@@ -61,16 +61,10 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
      keepPage: true,
   );
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   late StreamSubscription<List<PurchaseDetails>> _subscription;
-  List<String> _notFoundIds = <String>[];
   List<ProductDetails> _products = <ProductDetails>[];
   List<PurchaseDetails> _purchases = <PurchaseDetails>[];
-  bool _isAvailable = false;
-  bool _purchasePending = false;
-  bool _loading = true;
-  String? _queryProductError;
   Map<String, PurchaseDetails> purchases = {};
   late DateTime dateTime;
 
@@ -104,12 +98,8 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
 
     if (!isAvailable) {
       setState(() {
-        _isAvailable = isAvailable;
         _products = <ProductDetails>[];
         _purchases = <PurchaseDetails>[];
-        _notFoundIds = <String>[];
-        _purchasePending = false;
-        _loading = false;
       });
       return;
     }
@@ -125,40 +115,24 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
     await _inAppPurchase.queryProductDetails(_kProductIds.toSet());
     if (productDetailResponse.error != null) {
       setState(() {
-        _queryProductError = productDetailResponse.error!.message;
-        _isAvailable = isAvailable;
         _products = productDetailResponse.productDetails;
         _purchases = <PurchaseDetails>[];
-        _notFoundIds = productDetailResponse.notFoundIDs;
 
-        _purchasePending = false;
-        _loading = false;
       });
       return;
     }
 
     if (productDetailResponse.productDetails.isEmpty) {
       setState(() {
-        _queryProductError = null;
-        _isAvailable = isAvailable;
         _products = productDetailResponse.productDetails;
         _purchases = <PurchaseDetails>[];
-        _notFoundIds = productDetailResponse.notFoundIDs;
-
-        _purchasePending = false;
-        _loading = false;
       });
       return;
     }
 
 
     setState(() {
-      _isAvailable = isAvailable;
       _products = productDetailResponse.productDetails;
-      _notFoundIds = productDetailResponse.notFoundIDs;
-
-      _purchasePending = false;
-      _loading = false;
     });
   }
 
@@ -174,24 +148,16 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
     super.dispose();
   }
 
-  void showPendingUI() {
-    setState(() {
-      _purchasePending = true;
-    });
-  }
 
-  void handleError(IAPError error) {
-    setState(() {
-      _purchasePending = false;
-    });
-  }
+
+
 
   Future<void> _listenToPurchaseUpdated(
       List<PurchaseDetails> purchaseDetailsList) async {
 
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.pending) {
-        showPendingUI();
+
       }
       else {
 

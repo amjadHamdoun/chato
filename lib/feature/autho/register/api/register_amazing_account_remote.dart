@@ -67,10 +67,7 @@ class RegisterAmazingAccountRemoteDataSourceImpl
                 return status! < 500;
               },
             ),
-
-
         );
-
         return Right(RegisterModel.fromJson(json.decode(re.data)));
       } on DioError catch (ex) {
         if (ex.type == DioErrorType.connectTimeout) {

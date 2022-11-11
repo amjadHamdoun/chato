@@ -180,7 +180,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           UserData user = UserData.fromJson(arguments['user']);
 
           bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
-              widget.roomId, null, false, DateFormat('hh:mm a', 'en').format(DateTime.now()));
+              widget.roomId, null, false,'');
           bloc.onEnterVipEvent(message.msg.text!, user.img!, true);
           bloc.onGetAllTypeEvent('', widget.roomId);
 
@@ -192,22 +192,14 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
         if (message.msg.room_id.toString() == Global.currentRoomId) {
           UserData user = UserData.fromJson(arguments['user']);
           if (user.vip_user != null) {
-            bloc.onSendMessageEvent(
-                'message.msg.text' + message.msg.text!,
-                widget.roomId,
-                null,
-                false,
-                DateFormat('hh:mm a', 'en').format(DateTime.now()));
+            bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
+                widget.roomId, null, false,'');
             bloc.onEnterVipEvent(
                 message.msg.text!, user.vip_user!.account_vip!.img!, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           } else {
-            bloc.onSendMessageEvent(
-                'message.msg.text' + message.msg.text!,
-                widget.roomId,
-                null,
-                false,
-                DateFormat('hh:mm a', 'en').format(DateTime.now()));
+            bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
+                widget.roomId, null, false,'');
             bloc.onEnterVipEvent(message.msg.text!, null, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           }
@@ -252,9 +244,6 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           _currentStatus = current!.status!;
           print(_currentStatus);
         });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("You must accept permissions")));
       }
     } catch (e) {
       print(e);
@@ -552,195 +541,188 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Expanded(
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(25.w),
-                                                        color: const Color(
-                                                            0xff1F4B88),
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          if (state.roomImage !=
-                                                              null)
-                                                            GestureDetector(
-                                                              onTap: state.userPermission !=
-                                                                          'user' ||
-                                                                      Global.userId ==
-                                                                          widget
-                                                                              .ownerId
-                                                                  ? () {
-                                                                      Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                RoomSettings(
-                                                                              bloc: bloc,
-                                                                              roomId: widget.roomId,
-                                                                              ownerId: widget.ownerId,
-                                                                            ),
-                                                                          ));
-                                                                    }
-                                                                  : null,
-                                                              child: Container(
-                                                                width: 50.h,
-                                                                height: 50.h,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image: FileImage(
-                                                                        state
-                                                                            .roomImage!),
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                  ),
+                                            Expanded(child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.w),
+                                                      color:
+                                                      const Color(0xff1F4B88),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        if (state.roomImage !=
+                                                            null)
+                                                          GestureDetector(
+                                                            onTap: state.userPermission !=
+                                                                'user' ||
+                                                                Global.userId ==
+                                                                    widget
+                                                                        .ownerId
+                                                                ? () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                        RoomSettings(
+                                                                          bloc:
+                                                                          bloc,
+                                                                          roomId:
+                                                                          widget.roomId,
+                                                                          ownerId:
+                                                                          widget.ownerId,
+                                                                        ),
+                                                                  ));
+                                                            }
+                                                                : null,
+                                                            child: Container(
+                                                              width: 50.h,
+                                                              height: 50.h,
+                                                              decoration:
+                                                              BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                image:
+                                                                DecorationImage(
+                                                                  image: FileImage(
+                                                                      state
+                                                                          .roomImage!),
+                                                                  fit:
+                                                                  BoxFit.fill,
                                                                 ),
                                                               ),
-                                                            )
-                                                          else
-                                                            GestureDetector(
-                                                              onTap: state.userPermission !=
-                                                                          'user' ||
-                                                                      Global.userId ==
-                                                                          widget
-                                                                              .ownerId
-                                                                  ? () {
-                                                                      Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                RoomSettings(
-                                                                              bloc: bloc,
-                                                                              roomId: widget.roomId,
-                                                                              ownerId: widget.ownerId,
-                                                                            ),
-                                                                          ));
-                                                                    }
-                                                                  : null,
-                                                              child: SizedBox(
-                                                                width: 50.h,
-                                                                height: 50.h,
-                                                                child:
-                                                                    CachedNetworkImage(
-                                                                  imageUrl: widget
-                                                                          .roomImage ??
-                                                                      "https://www.room.tecknick.net/WI.jpeg",
-                                                                  imageBuilder:
-                                                                      (context,
-                                                                              imageProvider) =>
-                                                                          Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      image:
-                                                                          DecorationImage(
+                                                            ),
+                                                          )
+                                                        else
+                                                          GestureDetector(
+                                                            onTap: state.userPermission !=
+                                                                'user' ||
+                                                                Global.userId ==
+                                                                    widget
+                                                                        .ownerId
+                                                                ? () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                        RoomSettings(
+                                                                          bloc:
+                                                                          bloc,
+                                                                          roomId:
+                                                                          widget.roomId,
+                                                                          ownerId:
+                                                                          widget.ownerId,
+                                                                        ),
+                                                                  ));
+                                                            }
+                                                                : null,
+                                                            child: SizedBox(
+                                                              width: 50.h,
+                                                              height: 50.h,
+                                                              child:
+                                                              CachedNetworkImage(
+                                                                imageUrl: widget
+                                                                    .roomImage ??
+                                                                    "https://www.room.tecknick.net/WI.jpeg",
+                                                                imageBuilder:
+                                                                    (context,
+                                                                    imageProvider) =>
+                                                                    Container(
+                                                                      decoration:
+                                                                      BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
                                                                         image:
-                                                                            imageProvider,
-                                                                        fit: BoxFit
-                                                                            .fill,
+                                                                        DecorationImage(
+                                                                          image:
+                                                                          imageProvider,
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  placeholder: (context,
-                                                                          url) =>
-                                                                      const Center(
-                                                                          child:
-                                                                              CircularProgressIndicator()),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      const Icon(
-                                                                          Icons
-                                                                              .error),
-                                                                ),
+                                                                placeholder: (context,
+                                                                    url) =>
+                                                                const Center(
+                                                                    child:
+                                                                    CircularProgressIndicator()),
+                                                                errorWidget: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                const Icon(Icons
+                                                                    .error),
                                                               ),
                                                             ),
-                                                          SizedBox(
-                                                            width: 6.w,
                                                           ),
-                                                          if (widget.roomName!
-                                                                  .length <
-                                                              20)
-                                                            Text(
-                                                              widget.roomName!,
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize:
-                                                                      17.sp,
-                                                                  color: ColorManager
-                                                                      .backgroundColor,
-                                                                  fontFamily:
-                                                                      'Roboto'),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            )
-                                                          else
-                                                            Expanded(
-                                                                child: Text(
-                                                              widget.roomName!,
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  fontSize:
-                                                                      17.sp,
-                                                                  color: ColorManager
-                                                                      .backgroundColor,
-                                                                  fontFamily:
-                                                                      'Roboto'),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                            )),
-                                                          SizedBox(
-                                                            width: 7.w,
-                                                          ),
-                                                          if (widget.fav == '0')
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(4.0),
-                                                              child: InkWell(
-                                                                onTap: () {
-                                                                  widget.fav =
-                                                                      '1';
-                                                                  update = true;
-                                                                  setState(
-                                                                      () {});
-                                                                  bloc.onAddRemoveFavRoomEvent(
-                                                                      widget
-                                                                          .roomId);
-                                                                },
-                                                                child:
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                  'assets/icons/love.svg',
-                                                                  width: 35.w,
-                                                                ),
+                                                        SizedBox(
+                                                          width: 6.w,
+                                                        ),
+                                                        if(widget.roomName!.length<20)
+                                                          Text(
+                                                            widget.roomName!,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight.w700,
+                                                                fontSize: 17.sp,
+                                                                color: ColorManager
+                                                                    .backgroundColor,
+                                                                fontFamily:
+                                                                'Roboto'),
+                                                            textAlign:
+                                                            TextAlign.center,
+                                                          )
+                                                        else
+                                                          Expanded(child: Text(
+                                                            widget.roomName!,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                FontWeight.w700,
+                                                                fontSize: 17.sp,
+                                                                color: ColorManager
+                                                                    .backgroundColor,
+                                                                fontFamily:
+                                                                'Roboto'),
+                                                            textAlign:
+                                                            TextAlign.center,
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ))
+                                                        ,
+                                                        SizedBox(
+                                                          width: 7.w,
+                                                        ),
+                                                        if (widget.fav == '0')
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(4.0),
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                widget.fav = '1';
+                                                                update = true;
+                                                                setState(() {});
+                                                                bloc.onAddRemoveFavRoomEvent(
+                                                                    widget
+                                                                        .roomId);
+                                                              },
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/icons/love.svg',
+                                                                width: 35.w,
                                                               ),
                                                             ),
-                                                        ],
-                                                      ),
+                                                          ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
+                                                ),
+
+                                              ],
+                                            ),),
                                             Row(
                                               children: [
                                                 SizedBox(
@@ -1565,6 +1547,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                             ),
                                                           ),
                                                         ),
+                                                        if(Global.userName!='amjad')
                                                         InkWell(
                                                           onTap: () {
                                                             showMediaBottomSheet(
@@ -1601,12 +1584,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                 io.File(
                                                                     _current!
                                                                         .path!),
-                                                                true,
-                                                                DateFormat(
-                                                                        'hh:mm a',
-                                                                        'en')
-                                                                    .format(DateTime
-                                                                        .now()));
+                                                                true,'');
                                                           },
                                                           icon:
                                                               SvgPicture.asset(
@@ -1654,12 +1632,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                 .text,
                                                             widget.roomId,
                                                             null,
-                                                            true,
-                                                            DateFormat(
-                                                                    'hh:mm a',
-                                                                    'en')
-                                                                .format(DateTime
-                                                                    .now()));
+                                                            true,'');
                                                       }
 
                                                       if (FocusScope.of(context)
@@ -1922,14 +1895,8 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ReportScreen(
-                                                      type: 'Room',
-                                                    ),
-                                                  ));
+                                              Navigator.push(context, MaterialPageRoute(
+                                                  builder:(context) => ReportScreen(type: 'Room',) , ));
                                             },
                                             child: Column(
                                               crossAxisAlignment:
@@ -1949,8 +1916,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                     padding:
                                                         EdgeInsets.all(15.0.w),
                                                     child: Icon(
-                                                      Icons
-                                                          .report_gmailerrorred_outlined,
+                                                      Icons.report_gmailerrorred_outlined,
                                                       color: ColorManager
                                                           .backgroundColor,
                                                       size: 36.w,
@@ -1985,21 +1951,21 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                             },
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                               children: [
                                                 Container(
                                                   decoration:
-                                                      const BoxDecoration(
-                                                          color:
-                                                              ColorManager
-                                                                  .primaryColor,
-                                                          shape:
-                                                              BoxShape.circle),
+                                                  const BoxDecoration(
+                                                      color:
+                                                      ColorManager
+                                                          .primaryColor,
+                                                      shape:
+                                                      BoxShape.circle),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(15.0.w),
+                                                    EdgeInsets.all(15.0.w),
                                                     child: Icon(
                                                       Icons.exit_to_app,
                                                       color: ColorManager

@@ -115,7 +115,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
            bloc.onGetConversationIdEvent(args!.userTwoId!);
            channelChat =
-               Global.pusher!.subscribe("chat.privet.${args!.conversationId??''}");
+               Global.pusher!.subscribe("chat.privet.${args!.conversationId}");
            conIdNotFound=true;
          }
          else{
@@ -205,9 +205,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
            _currentStatus = current!.status!;
            print(_currentStatus);
          });
-       } else {
-         ScaffoldMessenger.of(context).showSnackBar(
-             const SnackBar(content:  Text("You must accept permissions")));
        }
      } catch (e) {
        print(e);
@@ -932,7 +929,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                           SizedBox(
                                             width: 10.w,
                                           ),
-
+                                          if(Global.userName!='amjad')
                                           InkWell(
                                             onTap: (){
                                               showMediaBottomSheet(bloc: bloc,ctx: context,
