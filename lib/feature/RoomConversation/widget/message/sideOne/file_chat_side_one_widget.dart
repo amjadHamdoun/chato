@@ -417,7 +417,7 @@ class _MessageFileSideOneState extends State<MessageFileSideOne> {
                             ):const BoxDecoration(),
                             child: Padding(
                               padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                              child: Text(widget.message.localFile!,
+                              child: Text(widget.message.localFile!.substring(53),
                                 style: TextStyle(
                                     color:isUrl(widget.message.message!)?
                                     Colors.blue.shade700:

@@ -302,13 +302,12 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                       width: 50.w,
                                       toggleSize: 20.h,
                                       padding: 0,
-                                      value: state.profileModel?.data!.private_lock=='0'?false:true,
+                                      value: state.profileModel?.data!.private_lock=='1'?true:false,
                                       onToggle: (val) {
                                         setState(() {
                                           widget.bloc.onUpdateUserInfoEvent(
                                             private_lock: val?'1':'0'
                                           );
-                                          widget.bloc.onGetProfileDetailsEvent();
                                         });
                                       }),
                                 )

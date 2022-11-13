@@ -211,12 +211,13 @@ class _MessageFileSideTwoState extends State<MessageFileSideTwo> {
                                         fontWeight: FontWeight.w600
                                     ),textAlign: TextAlign.end,),
                                   Expanded(
+                                    //return aghayd
                                     child: InkWell(
                                       onTap:isUrl (widget.message.message!)?()
                                      async {
                                        await launch(widget.message.message!);
                                       }:null,
-                                      child: Text(widget.message.all_file!
+                                      child: Text(widget.message.all_file!.substring(53)
                                         ,style: TextStyle(
                                             color:isUrl (widget.message.message!)?
                                             Colors.blue.shade700:
@@ -312,7 +313,7 @@ class _MessageFileSideTwoState extends State<MessageFileSideTwo> {
                             ):const BoxDecoration(),
                             child: Padding(
                               padding:  EdgeInsets.symmetric(horizontal: 12.w),
-                              child: Text(widget.message.all_file!,
+                              child: Text(widget.message.all_file!.substring(53),
                                 style: TextStyle(
                                     color:isUrl(widget.message.message!)?
                                     Colors.blue.shade700:

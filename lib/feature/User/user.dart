@@ -761,7 +761,7 @@ class _UserScreenState extends State<UserScreen> {
                                       userTwoName: state.userModel!.data!.user!.name,
                                       userTwoImage: state.userModel!.data!.user!.img,
                                       conversationId: '-1',
-                                      user: null, lastSeen: ''
+                                      user: null, lastSeen: '', online: ''
                                     )
                                 );
 

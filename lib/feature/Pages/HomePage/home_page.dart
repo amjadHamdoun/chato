@@ -430,7 +430,8 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                               userTwoId:state.allFriendModel.data![index].id! ,
                                               userTwoName: state.allFriendModel.data![index].name,
                                               userTwoImage: state.allFriendModel.data![index].img,
-                                              conversationId: '-1', lastSeen: widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!),
+                                              conversationId: '-1', lastSeen: widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!), online:state.allFriendModel.
+                                            data![index].online ,
                                             )
                                         );
 
@@ -542,8 +543,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                             Row(
                                               children: [
                                                 Text(state.allFriendModel.
-                                                data![index].online !='1' ?widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!):state.allFriendModel.
-                                                data![index].status!,
+                                                data![index].online !='1' ?widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!):'online'.tr(),
                                                   style: TextStyle(
                                                       fontSize: 14.sp,
                                                       fontFamily: 'DIN',

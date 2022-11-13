@@ -83,7 +83,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
     _init();
     Global.currentRoomId = widget.roomId.toString();
     _currentStatus = RecordingStatus.Unset;
-    //   bloc.onGetConversationMessage(widget.roomId);
+    bloc.onGetConversationMessage(widget.roomId);
     bloc.onGetPermeationEvent(widget.roomId);
     bloc.onGetAllTypeEvent('', widget.roomId);
     channelChat = Global.pusher!.subscribe("chat.${widget.roomId}");
@@ -180,7 +180,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           UserData user = UserData.fromJson(arguments['user']);
 
           bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
-              widget.roomId, null, false,'');
+              widget.roomId, null, false);
           bloc.onEnterVipEvent(message.msg.text!, user.img!, true);
           bloc.onGetAllTypeEvent('', widget.roomId);
 
@@ -193,13 +193,13 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
           UserData user = UserData.fromJson(arguments['user']);
           if (user.vip_user != null) {
             bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
-                widget.roomId, null, false,'');
+                widget.roomId, null, false);
             bloc.onEnterVipEvent(
                 message.msg.text!, user.vip_user!.account_vip!.img!, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           } else {
             bloc.onSendMessageEvent('message.msg.text' + message.msg.text!,
-                widget.roomId, null, false,'');
+                widget.roomId, null, false);
             bloc.onEnterVipEvent(message.msg.text!, null, true);
             bloc.onGetAllTypeEvent('', widget.roomId);
           }
@@ -1430,7 +1430,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(25.w),
-                                              color: Colors.white10),
+                                              color: Colors.blueGrey),
                                           child: Row(
                                             children: [
                                               SizedBox(
@@ -1584,7 +1584,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                 io.File(
                                                                     _current!
                                                                         .path!),
-                                                                true,'');
+                                                                true);
                                                           },
                                                           icon:
                                                               SvgPicture.asset(
@@ -1632,7 +1632,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                                 .text,
                                                             widget.roomId,
                                                             null,
-                                                            true,'');
+                                                            true);
                                                       }
 
                                                       if (FocusScope.of(context)

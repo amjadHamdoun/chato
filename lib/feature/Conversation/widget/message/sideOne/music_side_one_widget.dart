@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:chat_bubbles/bubbles/bubble_normal_audio.dart';
+import 'package:chato/core/utils/color_manager.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
@@ -151,57 +153,66 @@ class _MessageMusicSideOneState extends State<MessageMusicSideOne> {
 
       children: [
         Expanded(
-          child:  BubbleNormalAudio(
-            color: const
-            Color(0xFFE8E8EE),
-            duration: duration.inSeconds.toDouble(),
-            position: position.inSeconds.toDouble(),
-            isPlaying: isPlaying,
-            isLoading: isLoading,
-            isPause: isPause,
-            onSeekChanged: (dou){
-              print(dou);
-              position=Duration(
-                  seconds: int.parse(dou.floor().toString())
-              );
+          child:  Column(
+            children: [
+              BubbleNormalAudio(
+                color: const
+                Color(0xFFE8E8EE),
+                duration: duration.inSeconds.toDouble(),
+                position: position.inSeconds.toDouble(),
+                isPlaying: isPlaying,
+                isLoading: isLoading,
+                isPause: isPause,
+                onSeekChanged: (dou){
+                  print(dou);
+                  position=Duration(
+                      seconds: int.parse(dou.floor().toString())
+                  );
 
-              audioPlayer.seek(Duration(
-                  seconds: int.parse(dou.floor().toString())
-              ));
-              setState(() {
+                  audioPlayer.seek(Duration(
+                      seconds: int.parse(dou.floor().toString())
+                  ));
+                  setState(() {
 
-              });
-            },
-            // ignore: curly_braces_in_flow_control_structures
-            onPlayPauseButtonClick: (){
-              if(isFirst)
-              {
-                audioPlayer.play(widget.message.all_file??
-                    widget.message.localFile!);
-                isPlaying=true;
-                isFirst=false;
-                setState(() {});
-              }
-              else if (isPlaying){
-                audioPlayer.pause();
-                isPlaying=false;
-                isPause=true;
-                setState(() {});
-              }
-              else if (!isPlaying){
-                audioPlayer.resume();
-                isPlaying=true;
-                isPause=false;
+                  });
+                },
+                // ignore: curly_braces_in_flow_control_structures
+                onPlayPauseButtonClick: (){
+                  if(isFirst)
+                  {
+                    audioPlayer.play(widget.message.all_file??
+                        widget.message.localFile!);
+                    isPlaying=true;
+                    isFirst=false;
+                    setState(() {});
+                  }
+                  else if (isPlaying){
+                    audioPlayer.pause();
+                    isPlaying=false;
+                    isPause=true;
+                    setState(() {});
+                  }
+                  else if (!isPlaying){
+                    audioPlayer.resume();
+                    isPlaying=true;
+                    isPause=false;
 
 
-                setState(() {});
-              }
-              else{
+                    setState(() {});
+                  }
+                  else{
 
-              }
+                  }
 
-            },
-            sent: false,
+                },
+                sent: false,
+              ),
+              Text(DateFormat('hh:mm a', 'en').format(
+                  DateTime.parse(
+                      widget.message.created_at!)),style: TextStyle(
+                color: ColorManager.hintText,fontSize: 14.sp
+              ),)
+            ],
           ),
         ),
         SizedBox(
