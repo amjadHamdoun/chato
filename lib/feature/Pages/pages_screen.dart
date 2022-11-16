@@ -143,7 +143,7 @@ class _PagesScreenState extends State<PagesScreen> with WidgetsBindingObserver{
                         HomeScreen(bloc: bloc),
                         ChatScreen(bloc: chatBloc),
                         RoomScreen(bloc:roomBloc ),
-                        StoreScreen(),
+                        const StoreScreen(),
                         ProfileScreen(bloc: profBloc,) ,
 
                       ],

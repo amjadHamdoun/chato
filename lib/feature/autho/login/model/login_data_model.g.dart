@@ -18,6 +18,7 @@ LoginDataModel _$LoginDataModelFromJson(Map<String, dynamic> json) =>
       vip_user: json['vip_user'] == null
           ? null
           : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
+      email_verified_at: json['email_verified_at'] as String?,
     );
 
 Map<String, dynamic> _$LoginDataModelToJson(LoginDataModel instance) =>
@@ -29,5 +30,6 @@ Map<String, dynamic> _$LoginDataModelToJson(LoginDataModel instance) =>
       'img': instance.img,
       'coins': instance.coins,
       'diamond': instance.diamond,
+      'email_verified_at': instance.email_verified_at,
       'vip_user': instance.vip_user,
     };

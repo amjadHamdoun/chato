@@ -9,6 +9,8 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
+import '../bloc/prof_bloc.dart';
+
 void showMenuBottomSheetEmailOne(BuildContext ctx) {
   showModalBottomSheet(
       elevation: 10,
@@ -343,6 +345,108 @@ void showMenuBottomSheetEmailFour(BuildContext ctx, TextEditingController tec) {
                           width: 175.w,
                           child: ElevatedButton(onPressed: () {},
                               child: Text("Confirm", style: getRegularStyle(color:ColorManager.backgroundColor,))),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            } ,
+
+          ));
+}
+
+void showMenuBottomSheetVerifyEmail(BuildContext ctx,ProfBloc bloc,String email,int code) {
+  TextEditingController pin1Controller = TextEditingController();
+  showModalBottomSheet(
+      elevation: 10,
+      backgroundColor: Theme
+          .of(ctx)
+          .scaffoldBackgroundColor,
+      context: ctx,
+      shape: RoundedRectangleBorder(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        side: BorderSide(
+            color: Global.darkMode
+                ? ColorManager.hintText
+                : ColorManager.darkBackgroundColor,
+            width: 2),
+      ),
+      builder: (ctx) =>
+          KeyboardVisibilityBuilder(
+            builder: (p0, isKeyboardVisible) {
+              return Container(
+                width: 1.sw,
+                height:isKeyboardVisible?850.h: 350.h,
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.symmetric(vertical: 15.h),
+                child: Column(
+                  children: [
+                    Text(
+                      "Email edit".tr(),
+                      style: getRegularStyle(
+                          color: ColorManager.primaryColor, fontSize: 16.sp),
+                    ),
+                    Divider(
+                      height: 40.h,
+                      color: Global.darkMode
+                          ? ColorManager.hintText
+                          : ColorManager.textColor,
+                      thickness: 1,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "check your messages Box!".tr(),
+                          style: getRegularStyle(
+                              color: Global.darkMode
+                                  ? ColorManager.hintText
+                                  : ColorManager.hintText,
+                              fontSize: 16.sp),
+                        ),
+                        SizedBox(height: 10.h,),
+                        Text(
+                          "Enter passCode to verify email".tr(),
+                          style: getRegularStyle(
+                              color: Global.darkMode
+                                  ? ColorManager.hintText
+                                  : ColorManager.textColor,
+                              fontSize: 16.sp),
+                        ),
+                        SizedBox(height: 35.h,),
+                        SizedBox(
+                            height: 75.h,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                PinCodeTextField(
+                                  controller: pin1Controller,
+                                  pinTextStyle: getLightStyle(
+                                      color: ColorManager.textColor,
+                                      fontSize: 25.sp),
+                                  defaultBorderColor: Global.darkMode
+                                      ? ColorManager.hintText
+                                      : ColorManager.primaryColor,
+                                  hasTextBorderColor: Global.darkMode
+                                      ? ColorManager.hintText
+                                      : ColorManager.primaryColor,
+                                  pinBoxRadius: 30,
+                                  pinBoxWidth: 45.w,
+                                  pinBoxHeight: 70.h,
+                                  pinBoxBorderWidth: 1,
+
+                                ),
+                              ],
+                            )),
+                        SizedBox(height: 30.h,),
+                        SizedBox(
+                          height: 45.h,
+                          width: 175.w,
+                          child: ElevatedButton(onPressed: () {bloc.onVerifyEmailEvent(email, int.parse(pin1Controller.text));},
+                              child: Text("Confirm".tr(), style: getRegularStyle(color:ColorManager.backgroundColor,))),
                         )
                       ],
                     )

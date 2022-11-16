@@ -15,6 +15,7 @@ class Preferences {
   static const String KEY_Coins = 'KEY_Coins';
   static const String KEY_Vip_Id = 'KEY_Vip_Id';
   static const String KEY_Vip_Date = 'KEY_Vip_Date';
+  static const String KEY_email_verified='KEY_email_verified';
 
 
 
@@ -51,6 +52,23 @@ class Preferences {
        return userToken;
      }
   }
+
+
+  static void saveEmailVerified(String emailVerified){
+    preferences!.setString(KEY_email_verified, emailVerified);
+  }
+
+  static String? getEmailVerified() {
+    String? emailVerified = preferences!.getString(KEY_email_verified);
+    if(emailVerified==null)
+    {
+      return '';
+    }
+    else {
+      return emailVerified;
+    }
+  }
+
 
   static void saveUserName(String userName) async {
     preferences!.setString(KEY_UserName, userName);

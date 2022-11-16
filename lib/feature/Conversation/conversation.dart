@@ -819,7 +819,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                           SizedBox(
                                             width: 10.w,
                                           ),
-                                          if (Global.userName != 'amjad')
+                                          if (Global.emailVerified!.isEmpty)
                                             InkWell(
                                               onTap: () {
                                                 showMediaBottomSheet(

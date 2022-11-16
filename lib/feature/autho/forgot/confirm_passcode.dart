@@ -84,7 +84,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               PinCodeTextField(
-
                                 pinTextStyle: getLightStyle(
                                     color: ColorManager.textColor, fontSize: 25.sp),
                                 defaultBorderColor: Global.darkMode

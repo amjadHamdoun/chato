@@ -1547,7 +1547,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        if(Global.userName!='amjad')
+                                                        if(Global.emailVerified!.isEmpty)
                                                         InkWell(
                                                           onTap: () {
                                                             showMediaBottomSheet(

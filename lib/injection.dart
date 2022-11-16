@@ -2,6 +2,7 @@ import 'package:chato/feature/Conversation/api/report_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/count_friend_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/logout_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
+import 'package:chato/feature/Pages/ProfilePage/api/verify_email_remote.dart';
 import 'package:chato/feature/Pages/StorePage/bloc/store_bloc.dart';
 import 'package:chato/feature/RoomConversation/api/get_user_permeation_remote.dart';
 import 'package:chato/feature/User/api/user_remote.dart';
@@ -35,6 +36,7 @@ import 'feature/Pages/ProfilePage/api/reset_remote.dart';
 import 'feature/Pages/ProfilePage/api/send_coins_remote.dart';
 import 'feature/Pages/ProfilePage/api/unblocked_user_remote.dart';
 import 'feature/Pages/ProfilePage/api/update_user_info_remote.dart';
+import 'feature/Pages/ProfilePage/api/verify_notification_remote.dart';
 import 'feature/Pages/ProfilePage/bloc/prof_bloc.dart';
 import 'feature/Pages/RoomPage/api/create_room_remote.dart';
 import 'feature/Pages/RoomPage/api/get_all_room_remote.dart';
@@ -68,9 +70,6 @@ import 'feature/autho/login/bloc/login_bloc.dart';
 import 'feature/autho/register/api/register_amazing_account_remote.dart';
 import 'feature/autho/register/api/register_remote.dart';
 import 'feature/autho/register/bloc/register_bloc.dart';
-
-
-
 
 final sl = GetIt.instance;
 
@@ -222,7 +221,6 @@ Future<void> init() async {
     () => BlockUserRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
-
   sl.registerLazySingleton<ChangePermeationUserRoomDataSource>(
     () => ChangePermeationUserRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
@@ -247,7 +245,6 @@ Future<void> init() async {
   sl.registerLazySingleton<ReportDataSource>(
     () => ReportDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
-
 
   sl.registerLazySingleton<DeleteUserRoomDataSource>(
     () => DeleteUserRoomDataSourceImpl(dio: sl(), networkInfo: sl()),
@@ -278,7 +275,6 @@ Future<void> init() async {
     () => AddStatusRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
-
   sl.registerLazySingleton<GetStatusRemoteDataSource>(
     () => GetStatusRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
@@ -304,12 +300,13 @@ Future<void> init() async {
     () => UserPermeationDataSourceImpl(dio: sl(), networkInfo: sl()),
   );
 
+  sl.registerLazySingleton<VerifyEmailRemoteDataSource>(
+    () => VerifyEmailRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
 
-
-
-
-
-
+  sl.registerLazySingleton<VerifyNotificationRemoteDataSource>(
+    () => VerifyNotificationRemoteDataSourceImpl(dio: sl(), networkInfo: sl()),
+  );
 
   // Bloc
   sl.registerLazySingleton(() => HomeBloc(
@@ -369,7 +366,11 @@ Future<void> init() async {
       resetPasswordRemoteDataSource: sl(),
       sendCoinsRemoteDataSource: sl(),
       countryRemoteDataSource: sl(),
-      deleteStatusRemoteDataSource: sl()));
+      deleteStatusRemoteDataSource: sl(),
+      verifyNotificationRemoteDataSource: sl(),
+      verifyEmailRemoteDataSource: sl()
+    )
+  );
 
   sl.registerLazySingleton(() =>
       UserBloc(userRemoteDataSource: sl(), addFriendRemoteDataSource: sl()));
@@ -379,15 +380,11 @@ Future<void> init() async {
       changePasswordRemoteDataSource: sl()));
 
   sl.registerLazySingleton(() => RoomBloc(
-      createRoomRemoteDataSource: sl(),
-      getUserRoomRemoteDataSource: sl(),
-      getFavRoomRemoteDataSource: sl(),
-      getTrendRoomRemoteDataSource: sl(),
-      getAllRoomRemoteDataSource: sl(),
-       addRemoveFavDataSource: sl(),
-  ));
-
-
-
-
+        createRoomRemoteDataSource: sl(),
+        getUserRoomRemoteDataSource: sl(),
+        getFavRoomRemoteDataSource: sl(),
+        getTrendRoomRemoteDataSource: sl(),
+        getAllRoomRemoteDataSource: sl(),
+        addRemoveFavDataSource: sl(),
+      ));
 }
