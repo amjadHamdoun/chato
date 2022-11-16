@@ -230,5 +230,9 @@
   "Report": "ابلاغ",
   "upload Image": "اختر صورة",
   "enter id": "ادخل الرقم المميز",
-  "text copied done!": "تم نسخ النص بنجاح"
+  "text copied done!": "تم نسخ النص بنجاح",
+  "Please confirm the Email": "يرجى تأكيد البريد الالكتروني",
+  "Verify Your Email": "تأكيد بريدك الالكتروني",
+  "check your messages Box!": "تفقد صندوق الرسائل الخاص بك",
+  "Enter passCode to verify email": "ادخل رمز التحقق لتأكيد البريد الالكتروني"
 }

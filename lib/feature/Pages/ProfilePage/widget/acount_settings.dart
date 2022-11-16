@@ -427,8 +427,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                               Global.emailVerified!.isEmpty
                                   ? 'Verify Your Email'.tr()
                                   : state.profileModel!.data!.email!
-                                          .substring(0, 4) +
-                                      '********.com',
+                                          ,
                               style: getRegularStyle(
                                   fontSize: 14.sp,
                                   color: Global.darkMode

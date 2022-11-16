@@ -283,7 +283,7 @@ class _RoomScreenState extends State<RoomScreen> with AutomaticKeepAliveClientMi
                               color: ColorManager.primaryColor,
                             ),
                             SizedBox(height: 10.h,),
-                            Text('يرجى تأكيد الحساب',style: TextStyle(
+                            Text('Please confirm the Email'.tr(),style: TextStyle(
                                 fontSize: 18.sp,
                                 color: ColorManager.textColor,
                                 fontWeight: FontWeight.bold
