@@ -4,10 +4,14 @@ import 'package:chato/Globals.dart';
 import 'package:chato/Preference.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/count_friend_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/api/profile_remote.dart';
+import 'package:chato/feature/Pages/ProfilePage/api/verify_email_remote.dart';
+import 'package:chato/feature/Pages/ProfilePage/api/verify_notification_remote.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/blockedUser/blocked_user_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/countFriend/count_friend_model.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/profile/profile_data.dart';
 import 'package:chato/feature/Pages/ProfilePage/model/resetPassword/reset_model.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/verifyEmailNotification/verify_notification_data_model.dart';
+import 'package:chato/feature/Pages/ProfilePage/model/verifyEmailNotification/verify_notification_model.dart';
 import '../api/blocked_user_remote.dart';
 import '../api/country_remote.dart';
 import '../api/delete_status_remote.dart';
@@ -20,6 +24,8 @@ import '../model/country/country_data_model.dart';
 import '../model/country/country_model.dart';
 import '../model/profile/profile_model.dart';
 import '../model/sendCoins/send_coins_model.dart';
+import '../model/verifyEmail/verify_email_data_model.dart';
+import '../model/verifyEmail/verify_email_model.dart';
 import 'prof_event.dart';
 import 'prof_state.dart';
 
@@ -34,6 +40,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
   SendCoinsRemoteDataSource sendCoinsRemoteDataSource;
   CountryRemoteDataSource countryRemoteDataSource;
   DeleteStatusRemoteDataSource deleteStatusRemoteDataSource;
+  VerifyEmailRemoteDataSource verifyEmailRemoteDataSource;
+  VerifyNotificationRemoteDataSource verifyNotificationRemoteDataSource;
   ProfBloc(
       {required this.profileDetailsRemoteDataSource,
       required this.logoutRemoteDataSource,
@@ -44,7 +52,9 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
         required this.resetPasswordRemoteDataSource,
         required this.sendCoinsRemoteDataSource,
         required this.countryRemoteDataSource,
-        required this.deleteStatusRemoteDataSource
+        required this.deleteStatusRemoteDataSource,
+        required this.verifyNotificationRemoteDataSource,
+        required this.verifyEmailRemoteDataSource
       })
       : super(ProfState.initial()) {
     on<LogoutEvent>((event, emit) async {
@@ -392,6 +402,74 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       });
     });
 
+    on<VerifyNotificationEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..error=''
+        ..isLoadingVerify=true
+        ..isSuccessVerifyNotification=false
+        ..verifyNotificationModel=VerifyNotificationModel(data: VerifyNotificationDataModel(email: '', code: 0), status: false, error_code: 0, message: '')
+      ));
+
+      final result = await verifyNotificationRemoteDataSource.verifyNotification();
+
+      print("result");
+      print(result);
+      print("result");
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..error = l
+          ..isLoadingVerify=false
+          ..isSuccessVerifyNotification=false
+        ));
+      }, (r) async {
+        print('r');
+
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isLoadingVerify=false
+          ..isSuccessVerifyNotification=true
+          ..verifyNotificationModel=r
+        ));
+      });
+    });
+
+    on<VerifyEmailEvent>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..error=''
+        ..isLoadingVerify=true
+        ..isSuccessVerifyEmail=false
+        ..verifyEmailModel=VerifyEmailModel(data: VerifyEmailDataModel(email_verified_at: ''), status: false, error_code: 0, message: '')
+      ));
+
+      final result = await verifyEmailRemoteDataSource.verifyEmail(code: event.code,email: event.email);
+
+      print("result");
+      print(result);
+      print("result");
+
+      return result.fold((l) async {
+        print('l');
+        emit(state.rebuild((b) => b
+          ..error = l
+          ..isLoadingVerify=false
+          ..isSuccessVerifyEmail=false
+        ));
+      }, (r) async {
+        print('r');
+
+Global.emailVerified=r.data.email_verified_at;
+Preferences.saveEmailVerified(r.data.email_verified_at!);
+        emit(state.rebuild((b) => b
+          ..error=''
+          ..isLoadingVerify=false
+          ..isSuccessVerifyEmail=true
+          ..verifyEmailModel=r
+        ));
+      });
+    });
+
     on<ResetParamEvent>((event, emit) async {
       emit(state.rebuild((b) => b
         ..error=''
@@ -400,6 +478,8 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
               status: false,
               error_code: 0)
       ));});
+
+
 
 
 
@@ -484,4 +564,17 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
     add(DeleteStatusEvent(statusId:statusId));
 
   }
+
+  void onVerifyNotificationEvent(){
+
+    add(VerifyNotificationEvent());
+
+  }
+
+  void onVerifyEmailEvent(String email,int code){
+
+    add(VerifyEmailEvent(code: code,email: email));
+
+  }
+
 }

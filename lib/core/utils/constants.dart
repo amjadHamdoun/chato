@@ -6,13 +6,15 @@ class Endpoints {
   static const registerAmazingAccount = 'auth/register_account_arabic';
   static const login = 'auth/login';
   static const report = 'report';
+  static const verifyNotification = 'auth/email/verification-notification';
+  static const verifyEmail = 'auth/verify-email';
   static const createDevice = 'create_device';
   static const friendShipRequests = 'friendship-requests';
   static const searchFriend = 'search-friend';
   static const logout = 'auth/logout';
   static const profileDetails = 'auth/user';
-  static const friendsDetails =  'details-friend';
-  static const viewerUser =  'viewer-user';
+  static const friendsDetails = 'details-friend';
+  static const viewerUser = 'viewer-user';
   static const countFriend = 'count-friend';
   static const changeRequestsFriend = 'change-requests-friend';
   static const addFriend = 'add-friend';
@@ -25,7 +27,7 @@ class Endpoints {
   static const getFavRoom = 'room/get-favorite-room';
   static const getTrendRoom = 'room/get-all-trend';
   static const getAllRoom = 'room/get-all-room';
-  static const getAllUserVipRoom= 'room/all-user-vip-room';
+  static const getAllUserVipRoom = 'room/all-user-vip-room';
   static const getConversationOldMessage = 'room/get-conversation-old-message';
   static const getConversationPrivet = 'room/get-conversation-privet';
   static const getAllBlockUser = 'get-all-block-user';
@@ -57,16 +59,13 @@ class Endpoints {
   static const getConversationId = '/room/get-conversation';
   static const unblockUserRoom = '/room/unblock-user-room';
   static const roomPermeation = '/room/user-room-permeation';
-
 }
 
-class AgoraKeys{
+class AgoraKeys {
   String get appId {
     return const String.fromEnvironment('APP_ID',
         defaultValue: 'ef11cd8f9ce5442c9516060a0f754d65');
   }
-
-
 }
 
 class Er {

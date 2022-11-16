@@ -14,6 +14,7 @@ class LoginDataModel {
   String? img;
   String? coins;
   String? diamond;
+  String? email_verified_at;
   VipDataModel?  vip_user;
 
   Map<String, dynamic> toJson() => _$LoginDataModelToJson(this);
@@ -29,6 +30,7 @@ class LoginDataModel {
         required this.img,
         required this.coins,
         required this.diamond,
-        this.vip_user
+        this.vip_user,
+        required this.email_verified_at
       });
 }

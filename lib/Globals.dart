@@ -10,6 +10,7 @@ import 'feature/Pages/HomePage/model/getStatus/status_user_model.dart';
 class Global{
  static final GlobalKey<NavigatorState> navigatorKey=GlobalKey<NavigatorState>();
  static String? userToken='';
+ static String? emailVerified='';
  static int? userId=0;
  static List<StatusUserModel>?  myStatus=[];
  static int? vipId=0;

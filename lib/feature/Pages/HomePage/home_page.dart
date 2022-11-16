@@ -25,16 +25,16 @@ import 'widget/friendship_requests.dart';
 
 class HomeScreen extends StatefulWidget {
   final HomeBloc bloc;
-  const HomeScreen({Key? key,required this.bloc}) : super(key: key);
+
+  const HomeScreen({Key? key, required this.bloc}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin{
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin {
   File? image;
-
-
 
   @override
   void initState() {
@@ -55,39 +55,37 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
       }
     }
 
-
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocConsumer<HomeBloc,HomeState>(
+    return BlocConsumer<HomeBloc, HomeState>(
       bloc: widget.bloc,
       listener: (context, state) {
-        if(state.error.isNotEmpty)
-          {
-            Fluttertoast.showToast(
-                msg: state.error,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: ColorManager.primaryColor,
-                textColor: Colors.white,
-                fontSize: 16.0
-            );
-          }
-        if(state.allFriendModel.message!.contains('Unauthenticated.'))
-          {
-            Global.userToken='';
-            Preferences.saveUserToken('');
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const LoginScreen(),));
-          }
+        if (state.error.isNotEmpty) {
+          Fluttertoast.showToast(
+              msg: state.error,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: ColorManager.primaryColor,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+        if (state.allFriendModel.message!.contains('Unauthenticated.')) {
+          Global.userToken = '';
+          Preferences.saveUserToken('');
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ));
+        }
       },
       builder: (context, state) {
         return Scaffold(
-
           body: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             child: SizedBox(
@@ -99,13 +97,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                       //appBar
                       SizedBox(
                         width: 1.sw,
-
-
                         child: Padding(
-                          padding:  EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 12.h
-                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 12.w, vertical: 12.h),
                           child: Column(
                             children: [
                               SizedBox(
@@ -113,54 +107,68 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                               ),
                               Row(
                                 children: [
-
-                                  SizedBox(width: 6.w,),
-                                  Expanded(child:  Text('Friends',
-                                    style: TextStyle(
-                                      color: ColorManager.primaryColor,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 19.sp ,
-
-                                    ),
-                                  ).tr(),),
-
-
-                                  SizedBox(width: 6.w,),
+                                  SizedBox(
+                                    width: 6.w,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'Friends',
+                                      style: TextStyle(
+                                        color: ColorManager.primaryColor,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 19.sp,
+                                      ),
+                                    ).tr(),
+                                  ),
+                                  SizedBox(
+                                    width: 6.w,
+                                  ),
                                   GestureDetector(
-                                    onTap: (){
+                                    onTap: () {
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) =>
-                                        FriendshipRequests(bloc: widget.bloc,)),
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FriendshipRequests(
+                                                  bloc: widget.bloc,
+                                                )),
                                       );
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25.w),
+                                        borderRadius:
+                                            BorderRadius.circular(25.w),
                                         gradient: LinearGradient(
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
                                             colors: [
                                               Theme.of(context).primaryColor,
-                                              Theme.of(context).primaryColorLight,
+                                              Theme.of(context)
+                                                  .primaryColorLight,
                                             ]),
-
                                       ),
                                       child: Padding(
-                                        padding:  EdgeInsets.symmetric(
-                                            horizontal: 16.w,
-                                            vertical: 7.h
-                                        ),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.w, vertical: 7.h),
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset('assets/icons/add.svg',
+                                            SvgPicture.asset(
+                                              'assets/icons/add.svg',
                                               width: 13.w,
-                                              color: ColorManager.backgroundColor,
+                                              color:
+                                                  ColorManager.backgroundColor,
                                             ),
-                                            SizedBox(width: 5.w,),
-                                            Text('+'+state.friendshipRequestsModel.data!.length.toString(),
+                                            SizedBox(
+                                              width: 5.w,
+                                            ),
+                                            Text(
+                                              '+' +
+                                                  state.friendshipRequestsModel
+                                                      .data!.length
+                                                      .toString(),
                                               style: getMediumStyle(
-                                                color: ColorManager.backgroundColor,
+                                                color: ColorManager
+                                                    .backgroundColor,
                                                 fontSize: 15.sp,
                                               ),
                                             )
@@ -169,24 +177,18 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                       ),
                                     ),
                                   ),
-
                                 ],
                               ),
                               SizedBox(
                                 height: 2.h,
                               ),
-
                               SizedBox(
                                 height: 10.h,
                               ),
                             ],
                           ),
                         ),
-
-
-
                       ),
-
 
                       //add && friend
                       SizedBox(
@@ -195,61 +197,66 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-
-
-
-                        child:    SizedBox(
-                          width:state.getStatusModel.data==null|| state.getStatusModel.data!.length<4?
-                          1.sw:null,
+                        child: SizedBox(
+                          width: state.getStatusModel.data == null ||
+                                  state.getStatusModel.data!.length < 4
+                              ? 1.sw
+                              : null,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
                               GestureDetector(
                                 onTap: () async {
-
                                   await [
                                     Permission.photos,
                                     Permission.storage,
                                   ].request();
                                   FilePickerResult? picker =
-                                  await FilePicker.platform.pickFiles(
+                                      await FilePicker.platform.pickFiles(
                                     type: FileType.custom,
-                                    allowedExtensions: ['jpg', 'png','jpeg','gif',
-                                      'mp4','mov','wmv','avi','3gp','flv'  ],
+                                    allowedExtensions: [
+                                      'jpg',
+                                      'png',
+                                      'jpeg',
+                                      'gif',
+                                      'mp4',
+                                      'mov',
+                                      'wmv',
+                                      'avi',
+                                      '3gp',
+                                      'flv'
+                                    ],
                                   );
 
                                   if (picker != null) {
-                                    File? file = File(picker.files.single.path!,);
-                                    if(file!=null) {
-                                      if(checkIsImage(file.path))
-                                        {
-                                          final File editedFile = await Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) => StoryMaker(
-                                                filePath: file.path,
-                                              ),
+                                    File? file = File(
+                                      picker.files.single.path!,
+                                    );
+                                    if (file != null) {
+                                      if (checkIsImage(file.path)) {
+                                        final File editedFile =
+                                            await Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => StoryMaker(
+                                              filePath: file.path,
                                             ),
-                                          );
-                                          image = editedFile;
-                                          widget.bloc.onAddStatusEvent(status: image!);
-                                          print('editedFile: ${image!.path}');
-                                        }
-                                      else{
+                                          ),
+                                        );
+                                        image = editedFile;
+                                        widget.bloc
+                                            .onAddStatusEvent(status: image!);
+                                        print('editedFile: ${image!.path}');
+                                      } else {
                                         image = file;
-                                        widget.bloc.onAddStatusEvent(status: image!);
+                                        widget.bloc
+                                            .onAddStatusEvent(status: image!);
                                         print('editedFile: ${image!.path}');
                                       }
-
-
-
                                     }
-                                  }
-                                  else {
+                                  } else {
                                     // User canceled the picker
                                   }
-
                                 },
                                 child: Column(
                                   children: [
@@ -257,37 +264,36 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                       children: [
                                         Container(
                                           width: 0.09.sh,
-                                          height:  0.09.sh,
+                                          height: 0.09.sh,
                                           decoration: const BoxDecoration(
                                               gradient: LinearGradient(
                                                   begin: Alignment.topRight,
                                                   end: Alignment.bottomLeft,
                                                   colors: [
                                                     ColorManager.primaryColor,
-                                                    ColorManager.primaryColorLight,
-                                                  ]
-                                              ),
-                                              shape: BoxShape.circle
-
-                                          ),
-                                          child: Icon(Icons.add,
+                                                    ColorManager
+                                                        .primaryColorLight,
+                                                  ]),
+                                              shape: BoxShape.circle),
+                                          child: Icon(
+                                            Icons.add,
                                             size: 25.w,
-                                            color:    ColorManager.lightGreyShade200,
+                                            color:
+                                                ColorManager.lightGreyShade200,
                                           ),
                                         ),
-
-
                                       ],
                                     ),
                                     SizedBox(
                                       width: 75.w,
-                                      child: Text('Add Story',
+                                      child: Text(
+                                        'Add Story',
                                         style: TextStyle(
                                             fontSize: 14.sp,
                                             fontFamily: 'DIN',
                                             fontWeight: FontWeight.w700,
-                                            color: Theme.of(context).disabledColor
-                                        ),
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                       ).tr(),
@@ -295,10 +301,10 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                   ],
                                 ),
                               ),
-
-
-                              if(state.getStatusModel.data!=null)
-                                for(int index=0;index<state.getStatusModel.data!.length;index=index+1)
+                              if (state.getStatusModel.data != null)
+                                for (int index = 0;
+                                    index < state.getStatusModel.data!.length;
+                                    index = index + 1)
                                   Row(
                                     children: [
                                       SizedBox(
@@ -306,79 +312,102 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                       ),
                                       Column(
                                         children: [
-                                          state.getStatusModel.
-                                          data![index].img!=null?
-                                          GestureDetector(
-                                            onTap: (){
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                return  MoreStories(
-                                                statusUser:state.getStatusModel.
-                                                data![index].status_users! ,
-                                                me: true,
-                                                  bloc: widget.bloc,
-                                                  index: index,
-                                                );
-                                              },));
-                                            },
-                                            child: StatusView(
-                                              radius: 33.w,
-                                              spacing: 12,
-                                              strokeWidth: 2,
-                                              indexOfSeenStatus: state.seenStatus[index],
-                                              numberOfStatus: state.getStatusModel.
-                                              data![index].status_users!.length,
-                                              padding: 3.5,
-                                              centerImageUrl: state.getStatusModel.
-                                              data![index].status!,
-                                              seenColor: Colors.grey,
-                                              unSeenColor: Colors.green,
-
-                                            ),
-                                          ):
-                                          GestureDetector(
-                                            onTap: (){
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                return  MoreStories(
-                                                  statusUser:state.getStatusModel.
-                                                  data![index].status_users! ,
-                                                  me: true,
-                                                  bloc: widget.bloc,
-                                                  index: index,
-                                                );
-                                              },));
-                                            },
-                                            child: StatusView(
-                                              radius: 33.w,
-                                              spacing: 12,
-                                              strokeWidth: 2,
-                                              indexOfSeenStatus: state.seenStatus[index],
-                                              numberOfStatus: state.getStatusModel.
-                                              data![index].status_users!.length,
-                                              padding: 3.5,
-                                              centerImageUrl: state.getStatusModel.
-                                              data![index].img??"https://www.room.tecknick.net/WI.jpeg",
-                                              seenColor: Colors.grey,
-                                              unSeenColor: Colors.green,
-
-                                            ),
-                                          ),
-
+                                          state.getStatusModel.data![index]
+                                                      .img !=
+                                                  null
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(context,
+                                                        MaterialPageRoute(
+                                                      builder: (context) {
+                                                        return MoreStories(
+                                                          statusUser: state
+                                                              .getStatusModel
+                                                              .data![index]
+                                                              .status_users!,
+                                                          me: true,
+                                                          bloc: widget.bloc,
+                                                          index: index,
+                                                        );
+                                                      },
+                                                    ));
+                                                  },
+                                                  child: StatusView(
+                                                    radius: 33.w,
+                                                    spacing: 12,
+                                                    strokeWidth: 2,
+                                                    indexOfSeenStatus:
+                                                        state.seenStatus[index],
+                                                    numberOfStatus: state
+                                                        .getStatusModel
+                                                        .data![index]
+                                                        .status_users!
+                                                        .length,
+                                                    padding: 3.5,
+                                                    centerImageUrl: state
+                                                        .getStatusModel
+                                                        .data![index]
+                                                        .status!,
+                                                    seenColor: Colors.grey,
+                                                    unSeenColor: Colors.green,
+                                                  ),
+                                                )
+                                              : GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(context,
+                                                        MaterialPageRoute(
+                                                      builder: (context) {
+                                                        return MoreStories(
+                                                          statusUser: state
+                                                              .getStatusModel
+                                                              .data![index]
+                                                              .status_users!,
+                                                          me: true,
+                                                          bloc: widget.bloc,
+                                                          index: index,
+                                                        );
+                                                      },
+                                                    ));
+                                                  },
+                                                  child: StatusView(
+                                                    radius: 33.w,
+                                                    spacing: 12,
+                                                    strokeWidth: 2,
+                                                    indexOfSeenStatus:
+                                                        state.seenStatus[index],
+                                                    numberOfStatus: state
+                                                        .getStatusModel
+                                                        .data![index]
+                                                        .status_users!
+                                                        .length,
+                                                    padding: 3.5,
+                                                    centerImageUrl: state
+                                                            .getStatusModel
+                                                            .data![index]
+                                                            .img ??
+                                                        "https://www.room.tecknick.net/WI.jpeg",
+                                                    seenColor: Colors.grey,
+                                                    unSeenColor: Colors.green,
+                                                  ),
+                                                ),
                                           SizedBox(
                                             height: 3.h,
                                           ),
-
                                           SizedBox(
                                             width: 70.w,
                                             child: Text(
-                                              state.getStatusModel.data![index].id==Global.userId?
-                                                  'My Status':
-                                              state.getStatusModel.data![index].name!,
+                                              state.getStatusModel.data![index]
+                                                          .id ==
+                                                      Global.userId
+                                                  ? 'My Status'
+                                                  : state.getStatusModel
+                                                      .data![index].name!,
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w500,
-                                                  color: Theme.of(context).disabledColor
-                                              ),
+                                                  color: Theme.of(context)
+                                                      .disabledColor),
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.center,
                                             ),
@@ -387,7 +416,6 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                       ),
                                     ],
                                   ),
-
                             ],
                           ),
                         ),
@@ -398,248 +426,411 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
                       //المحادثات
                       Expanded(
-                        child:
-                            state.isLoadingGetAllFriend!?const Center(
-                              child: CircularProgressIndicator(),
-                            ):
-                            state.allFriendModel.data!=null&&
-                        state.allFriendModel.data!.isNotEmpty?
-                        RefreshIndicator(
-                          onRefresh: ()async{
-                            widget.bloc.onGetAllFriendEvent();
-                            widget.bloc.onGetStatusEvent();
-                          },
-                          child: ListView.separated(
-                            physics: const AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()
-                            ),
-                            itemCount: state.allFriendModel.data!.length,
-                            itemBuilder: (context, index){
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12.w
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: (){
-                                        Navigator.pushNamed(context, '/conversationScreen',
-                                            arguments: ConversationArguments(
-                                              user: null,
-                                              userTwoId:state.allFriendModel.data![index].id! ,
-                                              userTwoName: state.allFriendModel.data![index].name,
-                                              userTwoImage: state.allFriendModel.data![index].img,
-                                              conversationId: '-1', lastSeen: widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!), online:state.allFriendModel.
-                                            data![index].online ,
-                                            )
+                        child: state.isLoadingGetAllFriend!
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : state.allFriendModel.data != null &&
+                                    state.allFriendModel.data!.isNotEmpty
+                                ? RefreshIndicator(
+                                    onRefresh: () async {
+                                      widget.bloc.onGetAllFriendEvent();
+                                      widget.bloc.onGetStatusEvent();
+                                    },
+                                    child: ListView.separated(
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(
+                                              parent: BouncingScrollPhysics()),
+                                      itemCount:
+                                          state.allFriendModel.data!.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 12.w),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pushNamed(context,
+                                                      '/conversationScreen',
+                                                      arguments:
+                                                          ConversationArguments(
+                                                        user: null,
+                                                        userTwoId: state
+                                                            .allFriendModel
+                                                            .data![index]
+                                                            .id!,
+                                                        userTwoName: state
+                                                            .allFriendModel
+                                                            .data![index]
+                                                            .name,
+                                                        userTwoImage: state
+                                                            .allFriendModel
+                                                            .data![index]
+                                                            .img,
+                                                        conversationId: '-1',
+                                                        lastSeen: widget.bloc
+                                                            .myFormatDate(state
+                                                                .allFriendModel
+                                                                .data![index]
+                                                                .last_seen!),
+                                                        online: state
+                                                            .allFriendModel
+                                                            .data![index]
+                                                            .online,
+                                                      ));
+                                                },
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: state
+                                                                  .allFriendModel
+                                                                  .data![index]
+                                                                  .vip_user ==
+                                                              null
+                                                          ? 70.w
+                                                          : 60.w,
+                                                      height: state
+                                                                  .allFriendModel
+                                                                  .data![index]
+                                                                  .vip_user ==
+                                                              null
+                                                          ? 70.w
+                                                          : 60.w,
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: state
+                                                                .allFriendModel
+                                                                .data![index]
+                                                                .img ??
+                                                            "https://www.room.tecknick.net/WI.jpeg",
+                                                        imageBuilder: (context,
+                                                                imageProvider) =>
+                                                            Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            image:
+                                                                DecorationImage(
+                                                              image:
+                                                                  imageProvider,
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            const Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            const Icon(
+                                                                Icons.error),
+                                                      ),
+                                                    ),
+                                                    if (state
+                                                            .allFriendModel
+                                                            .data![index]
+                                                            .vip_user !=
+                                                        null)
+                                                      Image.asset(
+                                                        state
+                                                                    .allFriendModel
+                                                                    .data![
+                                                                        index]
+                                                                    .vip_user!
+                                                                    .vip_id ==
+                                                                "1"
+                                                            ? 'assets/images/solider_frame.png'
+                                                            : state
+                                                                        .allFriendModel
+                                                                        .data![
+                                                                            index]
+                                                                        .vip_user!
+                                                                        .vip_id ==
+                                                                    '2'
+                                                                ? 'assets/images/knight_frame.png'
+                                                                : state
+                                                                            .allFriendModel
+                                                                            .data![index]
+                                                                            .vip_user!
+                                                                            .vip_id ==
+                                                                        '3'
+                                                                    ? 'assets/images/minister_frame.png'
+                                                                    : 'assets/images/king_frame.png',
+                                                        fit: BoxFit.fill,
+                                                        height: state
+                                                                    .allFriendModel
+                                                                    .data![
+                                                                        index]
+                                                                    .vip_user!
+                                                                    .vip_id ==
+                                                                "1"
+                                                            ? 75.w
+                                                            : state
+                                                                        .allFriendModel
+                                                                        .data![
+                                                                            index]
+                                                                        .vip_user!
+                                                                        .vip_id ==
+                                                                    "3"
+                                                                ? 103.w
+                                                                : 85.w,
+                                                        width: state
+                                                                    .allFriendModel
+                                                                    .data![
+                                                                        index]
+                                                                    .vip_user!
+                                                                    .vip_id ==
+                                                                "1"
+                                                            ? 75.w
+                                                            : state
+                                                                        .allFriendModel
+                                                                        .data![
+                                                                            index]
+                                                                        .vip_user!
+                                                                        .vip_id ==
+                                                                    "3"
+                                                                ? 103.w
+                                                                : 85.w,
+                                                      ),
+                                                    if (state
+                                                            .allFriendModel
+                                                            .data![index]
+                                                            .online ==
+                                                        '1') ...[
+                                                      if (Localizations
+                                                              .localeOf(
+                                                                  context) ==
+                                                          const Locale(
+                                                              'ar', 'AR'))
+                                                        Positioned(
+                                                          top: state
+                                                                          .allFriendModel
+                                                                          .data![
+                                                                              index]
+                                                                          .vip_user !=
+                                                                      null &&
+                                                                  state
+                                                                          .allFriendModel
+                                                                          .data![
+                                                                              index]
+                                                                          .vip_user!
+                                                                          .vip_id ==
+                                                                      "3"
+                                                              ? 20.h
+                                                              : 7.h,
+                                                          left: state
+                                                                          .allFriendModel
+                                                                          .data![
+                                                                              index]
+                                                                          .vip_user !=
+                                                                      null &&
+                                                                  state
+                                                                          .allFriendModel
+                                                                          .data![
+                                                                              index]
+                                                                          .vip_user!
+                                                                          .vip_id ==
+                                                                      "3"
+                                                              ? 20.w
+                                                              : 5.w,
+                                                          child: Container(
+                                                            width: 12.w,
+                                                            height: 12.w,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xff00EA11),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      else
+                                                        Positioned(
+                                                          top: 5.h,
+                                                          right: 2.w,
+                                                          child: Container(
+                                                            width: 12.w,
+                                                            height: 12.w,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xff00EA11),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                          ),
+                                                        )
+                                                    ]
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 4.w,
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: SizedBox(
+                                                  height: 60.h,
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            state
+                                                                .allFriendModel
+                                                                .data![index]
+                                                                .name!,
+                                                            style: TextStyle(
+                                                                fontSize: 15.sp,
+                                                                fontFamily:
+                                                                    'Roboto',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .disabledColor),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Spacer(),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            state
+                                                                        .allFriendModel
+                                                                        .data![
+                                                                            index]
+                                                                        .online !=
+                                                                    '1'
+                                                                ? widget.bloc.myFormatDate(state
+                                                                    .allFriendModel
+                                                                    .data![
+                                                                        index]
+                                                                    .last_seen!)
+                                                                : 'online'.tr(),
+                                                            style: TextStyle(
+                                                                fontSize: 14.sp,
+                                                                fontFamily:
+                                                                    'DIN',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .hintColor),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 4.w,
+                                              ),
+                                              Expanded(
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        '',
+                                                        style: TextStyle(
+                                                            fontSize: 15.sp,
+                                                            fontFamily: 'DIN',
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .hintColor),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         );
-
                                       },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width:state.allFriendModel.
-                                            data![index].vip_user==null?70.w: 60.w,
-                                            height: state.allFriendModel.
-                                            data![index].vip_user==null?70.w: 60.w,
-                                            child: CachedNetworkImage(
-                                              imageUrl: state.allFriendModel.
-                                              data![index].img ??
-                                                  "https://www.room.tecknick.net/WI.jpeg",
-                                              imageBuilder: (context, imageProvider) => Container(
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                    image: imageProvider,
-                                                    fit: BoxFit.fill,
-
-                                                  ),
-                                                ),
-                                              ),
-                                              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                              errorWidget: (context, url, error) => const Icon(Icons.error),
-                                            ),
-                                          ),
-                                          if(state.allFriendModel.
-                                          data![index].vip_user!=null)
-                                            Image.asset(
-                                              state.allFriendModel.
-                                              data![index].vip_user!.vip_id=="1"?
-                                              'assets/images/solider_frame.png':
-                                              state.allFriendModel.
-                                              data![index].vip_user!.vip_id=='2'?
-                                              'assets/images/knight_frame.png':
-                                              state.allFriendModel.
-                                              data![index].vip_user!.vip_id=='3'?
-                                              'assets/images/minister_frame.png':
-                                              'assets/images/king_frame.png',
-                                              fit: BoxFit.fill,
-                                              height: state.allFriendModel.
-                                              data![index].vip_user!.vip_id=="1"?75.w:
-                                              state.allFriendModel.data![index].vip_user!.vip_id=="3"?
-                                             103.w: 85.w,
-                                              width: state.allFriendModel.
-                                              data![index].vip_user!.vip_id=="1"?75.w:state.allFriendModel.data![index].vip_user!.vip_id=="3"?
-                                              103.w:  85.w,
-                                            ),
-                                           if(state.allFriendModel.
-                                           data![index].online=='1')
-                                             ...[
-                                               if(Localizations.localeOf(context)==const Locale('ar','AR'))
-                                                 Positioned(
-                                                   top:state.allFriendModel.data![index].vip_user!=null&&state.allFriendModel.data![index].vip_user!.vip_id=="3"?20.h: 7.h,
-                                                   left:state.allFriendModel.data![index].vip_user!=null&&state.allFriendModel.data![index].vip_user!.vip_id=="3"?20.w: 5.w,
-                                                   child: Container(
-                                                     width: 12.w,
-                                                     height: 12.w,
-                                                     decoration: const BoxDecoration(
-                                                       color: Color(0xff00EA11),
-                                                       shape: BoxShape.circle,
-                                                     ),
-                                                   ),
-                                                 )
-                                               else
-                                                 Positioned(
-                                                   top: 5.h,
-                                                   right: 2.w,
-                                                   child: Container(
-                                                     width: 12.w,
-                                                     height: 12.w,
-                                                     decoration: const BoxDecoration(
-                                                       color: Color(0xff00EA11),
-                                                       shape: BoxShape.circle,
-                                                     ),
-                                                   ),
-                                                 )
-                                             ]
-                                        ],
-                                      ),
+                                      separatorBuilder: (context, i) {
+                                        return SizedBox(
+                                          height: 5.h,
+                                        );
+                                      },
                                     ),
-                                    SizedBox(width: 4.w,),
-                                    Expanded(
-                                      flex: 4,
-                                      child: SizedBox(
-                                        height: 60.h,
-                                        child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(state.allFriendModel.data![index].name!,
-                                                  style: TextStyle(
-                                                      fontSize: 15.sp,
-                                                      fontFamily: 'Roboto',
-                                                      fontWeight: FontWeight.w700,
-                                                      color: Theme.of(context).disabledColor
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.start,
-                                                ),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Row(
-                                              children: [
-                                                Text(state.allFriendModel.
-                                                data![index].online !='1' ?widget.bloc.myFormatDate(state.allFriendModel.data![index].last_seen!):'online'.tr(),
-                                                  style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      fontFamily: 'DIN',
-                                                      fontWeight: FontWeight.w700,
-                                                      color: Theme.of(context).hintColor
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.start,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 4.w,),
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text('',
+                                  )
+                                : RefreshIndicator(
+                                    onRefresh: () async {
+                                      widget.bloc.onGetAllFriendEvent();
+                                      widget.bloc.onGetStatusEvent();
+                                    },
+                                    child: ListView(
+                                      children: [
+                                        SizedBox(
+                                          height: 0.6.sh,
+                                          child: Center(
+                                            child: Text(
+                                              state.error.isNotEmpty
+                                                  ? state.error
+                                                  : 'No Friends',
                                               style: TextStyle(
-                                                  fontSize: 15.sp,
-                                                  fontFamily: 'DIN',
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Theme.of(context).hintColor
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.start,
-                                            ),
+                                                  fontSize: 16.sp,
+                                                  color: Theme.of(context)
+                                                      .primaryColorDark),
+                                            ).tr(),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-
-                            },
-                            separatorBuilder:(context, i){
-                              return  SizedBox(
-                                height: 5.h,
-                              );
-
-                            },
-                          ),
-                        ):
-                            RefreshIndicator(
-                              onRefresh: ()async{
-                                widget.bloc.onGetAllFriendEvent();
-                                widget.bloc.onGetStatusEvent();
-                              },
-                              child: ListView(
-                                children: [
-                                  SizedBox(
-                                    height: 0.6.sh,
-                                    child: Center(
-                                      child: Text(state.error.isNotEmpty?
-                                      state.error:
-                                      'No Friends',
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            color: Theme.of(context).primaryColorDark
                                         ),
-                                      ).tr(),
+                                      ],
                                     ),
                                   ),
-                                ],
-
-                              ),
-                            )
-
-                        ,),
+                      ),
 
                       SizedBox(
                         height: 95.h,
                       ),
-
                     ],
                   ),
                   Positioned(
                     bottom: 110.h,
-                    left:context.locale==const Locale('ar', 'AR')?
-                    -240.w:240.w,
+                    left: context.locale == const Locale('ar', 'AR')
+                        ? -240.w
+                        : 240.w,
                     right: 0,
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>
-                              SearchFriendsScreen(bloc: widget.bloc,)),
+                          MaterialPageRoute(
+                              builder: (context) => SearchFriendsScreen(
+                                    bloc: widget.bloc,
+                                  )),
                         );
                       },
                       child: Container(
-
-
                         decoration: const BoxDecoration(
                             gradient: LinearGradient(
                                 begin: Alignment.topRight,
@@ -647,29 +838,60 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                                 colors: [
                                   ColorManager.primaryColor,
                                   ColorManager.primaryColorLight,
-                                ]
-                            ),
-                            shape: BoxShape.circle
-
-                        ),
+                                ]),
+                            shape: BoxShape.circle),
                         child: Padding(
-                          padding:  EdgeInsets.all(14.0.w),
-                          child: Icon(Icons.add,
+                          padding: EdgeInsets.all(14.0.w),
+                          child: Icon(
+                            Icons.add,
                             size: 25.w,
-                            color:    ColorManager.lightGreyShade200,
+                            color: ColorManager.lightGreyShade200,
                           ),
                         ),
                       ),
                     ),
                   ),
+                  if (Global.emailVerified!.isEmpty)
+                    Container(
+                      height: 1.sh,
+                      width: 1.sw,
+                      color: Colors.black45,
+                      alignment: Alignment.center,
+                      child: Container(
+                          alignment: Alignment.center,
+                          height: 250.h,
+                          width: 250.w,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/warning.svg',
+                                height: 50.h,
+                                width: 40.w,
+                                color: ColorManager.primaryColor,
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Text(
+                                'يرجى تأكيد الحساب',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    color: ColorManager.textColor,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          )),
+                    )
                 ],
               ),
             ),
           ),
-
         );
       },
-
     );
   }
 

@@ -24,6 +24,12 @@ class _$ProfState extends ProfState {
   @override
   final bool? isLoadingChange;
   @override
+  final bool? isLoadingVerify;
+  @override
+  final bool? isSuccessVerifyNotification;
+  @override
+  final bool? isSuccessVerifyEmail;
+  @override
   final String? error;
   @override
   final File? img;
@@ -39,6 +45,10 @@ class _$ProfState extends ProfState {
   final SendCoinsModel sendCoinsModel;
   @override
   final CountryModel countryModel;
+  @override
+  final VerifyEmailModel verifyEmailModel;
+  @override
+  final VerifyNotificationModel verifyNotificationModel;
 
   factory _$ProfState([void Function(ProfStateBuilder)? updates]) =>
       (new ProfStateBuilder()..update(updates)).build();
@@ -52,6 +62,9 @@ class _$ProfState extends ProfState {
       this.isLoadingSendCoins,
       this.isSuccessChange,
       this.isLoadingChange,
+      this.isLoadingVerify,
+      this.isSuccessVerifyNotification,
+      this.isSuccessVerifyEmail,
       this.error,
       this.img,
       this.profileModel,
@@ -59,7 +72,9 @@ class _$ProfState extends ProfState {
       this.blockedUserModel,
       required this.resetModel,
       required this.sendCoinsModel,
-      required this.countryModel})
+      required this.countryModel,
+      required this.verifyEmailModel,
+      required this.verifyNotificationModel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         resetModel, 'ProfState', 'resetModel');
@@ -67,6 +82,10 @@ class _$ProfState extends ProfState {
         sendCoinsModel, 'ProfState', 'sendCoinsModel');
     BuiltValueNullFieldError.checkNotNull(
         countryModel, 'ProfState', 'countryModel');
+    BuiltValueNullFieldError.checkNotNull(
+        verifyEmailModel, 'ProfState', 'verifyEmailModel');
+    BuiltValueNullFieldError.checkNotNull(
+        verifyNotificationModel, 'ProfState', 'verifyNotificationModel');
   }
 
   @override
@@ -88,6 +107,9 @@ class _$ProfState extends ProfState {
         isLoadingSendCoins == other.isLoadingSendCoins &&
         isSuccessChange == other.isSuccessChange &&
         isLoadingChange == other.isLoadingChange &&
+        isLoadingVerify == other.isLoadingVerify &&
+        isSuccessVerifyNotification == other.isSuccessVerifyNotification &&
+        isSuccessVerifyEmail == other.isSuccessVerifyEmail &&
         error == other.error &&
         img == other.img &&
         profileModel == other.profileModel &&
@@ -95,7 +117,9 @@ class _$ProfState extends ProfState {
         blockedUserModel == other.blockedUserModel &&
         resetModel == other.resetModel &&
         sendCoinsModel == other.sendCoinsModel &&
-        countryModel == other.countryModel;
+        countryModel == other.countryModel &&
+        verifyEmailModel == other.verifyEmailModel &&
+        verifyNotificationModel == other.verifyNotificationModel;
   }
 
   @override
@@ -116,28 +140,28 @@ class _$ProfState extends ProfState {
                                                         $jc(
                                                             $jc(
                                                                 $jc(
-                                                                    0,
-                                                                    isSuccess
-                                                                        .hashCode),
-                                                                isLoading
-                                                                    .hashCode),
-                                                            isSuccessLogout
-                                                                .hashCode),
-                                                        isLoadingLogout
-                                                            .hashCode),
-                                                    isSuccessSendCoins
-                                                        .hashCode),
-                                                isLoadingSendCoins.hashCode),
-                                            isSuccessChange.hashCode),
-                                        isLoadingChange.hashCode),
-                                    error.hashCode),
-                                img.hashCode),
-                            profileModel.hashCode),
-                        countFriendModel.hashCode),
-                    blockedUserModel.hashCode),
-                resetModel.hashCode),
-            sendCoinsModel.hashCode),
-        countryModel.hashCode));
+                                                                    $jc(
+                                                                        $jc(
+                                                                            $jc($jc($jc(0, isSuccess.hashCode), isLoading.hashCode),
+                                                                                isSuccessLogout.hashCode),
+                                                                            isLoadingLogout.hashCode),
+                                                                        isSuccessSendCoins.hashCode),
+                                                                    isLoadingSendCoins.hashCode),
+                                                                isSuccessChange.hashCode),
+                                                            isLoadingChange.hashCode),
+                                                        isLoadingVerify.hashCode),
+                                                    isSuccessVerifyNotification.hashCode),
+                                                isSuccessVerifyEmail.hashCode),
+                                            error.hashCode),
+                                        img.hashCode),
+                                    profileModel.hashCode),
+                                countFriendModel.hashCode),
+                            blockedUserModel.hashCode),
+                        resetModel.hashCode),
+                    sendCoinsModel.hashCode),
+                countryModel.hashCode),
+            verifyEmailModel.hashCode),
+        verifyNotificationModel.hashCode));
   }
 
   @override
@@ -151,6 +175,9 @@ class _$ProfState extends ProfState {
           ..add('isLoadingSendCoins', isLoadingSendCoins)
           ..add('isSuccessChange', isSuccessChange)
           ..add('isLoadingChange', isLoadingChange)
+          ..add('isLoadingVerify', isLoadingVerify)
+          ..add('isSuccessVerifyNotification', isSuccessVerifyNotification)
+          ..add('isSuccessVerifyEmail', isSuccessVerifyEmail)
           ..add('error', error)
           ..add('img', img)
           ..add('profileModel', profileModel)
@@ -158,7 +185,9 @@ class _$ProfState extends ProfState {
           ..add('blockedUserModel', blockedUserModel)
           ..add('resetModel', resetModel)
           ..add('sendCoinsModel', sendCoinsModel)
-          ..add('countryModel', countryModel))
+          ..add('countryModel', countryModel)
+          ..add('verifyEmailModel', verifyEmailModel)
+          ..add('verifyNotificationModel', verifyNotificationModel))
         .toString();
   }
 }
@@ -204,6 +233,21 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   set isLoadingChange(bool? isLoadingChange) =>
       _$this._isLoadingChange = isLoadingChange;
 
+  bool? _isLoadingVerify;
+  bool? get isLoadingVerify => _$this._isLoadingVerify;
+  set isLoadingVerify(bool? isLoadingVerify) =>
+      _$this._isLoadingVerify = isLoadingVerify;
+
+  bool? _isSuccessVerifyNotification;
+  bool? get isSuccessVerifyNotification => _$this._isSuccessVerifyNotification;
+  set isSuccessVerifyNotification(bool? isSuccessVerifyNotification) =>
+      _$this._isSuccessVerifyNotification = isSuccessVerifyNotification;
+
+  bool? _isSuccessVerifyEmail;
+  bool? get isSuccessVerifyEmail => _$this._isSuccessVerifyEmail;
+  set isSuccessVerifyEmail(bool? isSuccessVerifyEmail) =>
+      _$this._isSuccessVerifyEmail = isSuccessVerifyEmail;
+
   String? _error;
   String? get error => _$this._error;
   set error(String? error) => _$this._error = error;
@@ -241,6 +285,18 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
   set countryModel(CountryModel? countryModel) =>
       _$this._countryModel = countryModel;
 
+  VerifyEmailModel? _verifyEmailModel;
+  VerifyEmailModel? get verifyEmailModel => _$this._verifyEmailModel;
+  set verifyEmailModel(VerifyEmailModel? verifyEmailModel) =>
+      _$this._verifyEmailModel = verifyEmailModel;
+
+  VerifyNotificationModel? _verifyNotificationModel;
+  VerifyNotificationModel? get verifyNotificationModel =>
+      _$this._verifyNotificationModel;
+  set verifyNotificationModel(
+          VerifyNotificationModel? verifyNotificationModel) =>
+      _$this._verifyNotificationModel = verifyNotificationModel;
+
   ProfStateBuilder();
 
   ProfStateBuilder get _$this {
@@ -254,6 +310,9 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _isLoadingSendCoins = $v.isLoadingSendCoins;
       _isSuccessChange = $v.isSuccessChange;
       _isLoadingChange = $v.isLoadingChange;
+      _isLoadingVerify = $v.isLoadingVerify;
+      _isSuccessVerifyNotification = $v.isSuccessVerifyNotification;
+      _isSuccessVerifyEmail = $v.isSuccessVerifyEmail;
       _error = $v.error;
       _img = $v.img;
       _profileModel = $v.profileModel;
@@ -262,6 +321,8 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
       _resetModel = $v.resetModel;
       _sendCoinsModel = $v.sendCoinsModel;
       _countryModel = $v.countryModel;
+      _verifyEmailModel = $v.verifyEmailModel;
+      _verifyNotificationModel = $v.verifyNotificationModel;
       _$v = null;
     }
     return this;
@@ -290,6 +351,9 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             isLoadingSendCoins: isLoadingSendCoins,
             isSuccessChange: isSuccessChange,
             isLoadingChange: isLoadingChange,
+            isLoadingVerify: isLoadingVerify,
+            isSuccessVerifyNotification: isSuccessVerifyNotification,
+            isSuccessVerifyEmail: isSuccessVerifyEmail,
             error: error,
             img: img,
             profileModel: profileModel,
@@ -300,7 +364,13 @@ class ProfStateBuilder implements Builder<ProfState, ProfStateBuilder> {
             sendCoinsModel: BuiltValueNullFieldError.checkNotNull(
                 sendCoinsModel, 'ProfState', 'sendCoinsModel'),
             countryModel: BuiltValueNullFieldError.checkNotNull(
-                countryModel, 'ProfState', 'countryModel'));
+                countryModel, 'ProfState', 'countryModel'),
+            verifyEmailModel: BuiltValueNullFieldError.checkNotNull(
+                verifyEmailModel, 'ProfState', 'verifyEmailModel'),
+            verifyNotificationModel: BuiltValueNullFieldError.checkNotNull(
+                verifyNotificationModel,
+                'ProfState',
+                'verifyNotificationModel'));
     replace(_$result);
     return _$result;
   }

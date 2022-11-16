@@ -38,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Global.userCoins=Preferences.getUserCoins();
       Global.endVip=Preferences.getVipDate();
       Global.vipId=Preferences.getUserVipId();
+      Global.emailVerified=Preferences.getEmailVerified();
 
         if(Global.endVip!.compareTo(DateTime.now())==-1){
           Global.vipId=0;
@@ -48,6 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
       print(Global.vipId);
 
       print("Global.vipId");
+
 
       if(Global.userToken!.isNotEmpty)
       {
