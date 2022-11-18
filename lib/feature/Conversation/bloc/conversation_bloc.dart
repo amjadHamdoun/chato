@@ -246,28 +246,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       emit(
           state.rebuild((b) => b
             ..error=''
-            ..privateOldMessageModel!.data!.add(
-                PrivateOldMessageDataModel(
-                    id: 0,
-                    message: cleanString,
-                    localFile: event.allFile!=null?event.allFile!.path:
-                    '',
-                    conversation_id: '0',
-                    seen: '',
-                    created_at: '',
-                    updated_at: '',
-                    all_file: null,
-                    user: UserData(
-                        id: Global.userId,
-                        name: Global.userName,
-                        email: '',
-                        img: Global.userImage,
-                        token: Global.userToken,
-                        birth_date: '',
-                        gender: ''
-                    ),
-                )
-            )
+
           ));
       final result=await
       sendMessageDataSource.

@@ -140,9 +140,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
             PrivateMessagePusherModel.fromJson(arguments);
         UserData user = UserData.fromJson(arguments['user']);
         message.msg.user = user;
-        if (user.id != Global.userId) {
+
           bloc.onAddMessageFromPusherEvent(message.msg);
-        }
+
 
         Future.delayed(const Duration(milliseconds: 300)).then((value) {
           scrollController.animateTo(scrollController.position.maxScrollExtent,
@@ -389,13 +389,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   child: WillPopScope(
                     onWillPop: () async {
                       if (state.showEmoji) {
-                        if (state.showEmoji) {
-                          bloc.onShowEmojiEvent(false);
-                          FocusScope.of(context).unfocus();
-                          return false;
-                        }
-
-                        return true;
+                        bloc.onShowEmojiEvent(false);
+                        FocusScope.of(context).unfocus();
+                        return false;
                       } else {
                         return true;
                       }
@@ -819,7 +815,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                           SizedBox(
                                             width: 10.w,
                                           ),
-                                          if (Global.emailVerified!.isEmpty)
+                                          if (Global.emailVerified!.isNotEmpty)
                                             InkWell(
                                               onTap: () {
                                                 showMediaBottomSheet(

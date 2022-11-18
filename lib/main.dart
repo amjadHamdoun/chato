@@ -45,27 +45,28 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Preferences.init();
-  await Firebase.initializeApp();
+  try{
+    await Firebase.initializeApp();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  if (Platform.isIOS) {
-    _firebaseMessaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-  await FirebaseMessaging.instance.getToken();
-  FirebaseMessaging.onMessage
-      .listen((RemoteMessage message) {
-    if(message.data['screen']=='coins')
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+    if (Platform.isIOS) {
+      _firebaseMessaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+    }
+    await FirebaseMessaging.instance.getToken();
+    FirebaseMessaging.onMessage
+        .listen((RemoteMessage message) {
+      if(message.data['screen']=='coins')
       {
         ProfBloc profBloc=di.sl<ProfBloc>();
         profBloc.onGetProfileDetailsEvent();
@@ -76,34 +77,37 @@ void main() async{
         );
       }
 
-    if(message.data['screen']=='privet_message')
+      if(message.data['screen']=='privet_message')
       {
         UserData? user=UserData.fromJson(json.decode(message.data['user_send']));
         showNotification( title: message.notification!.title!,
             details:  message.notification!.body!,
             screen: message.data['screen'],
             conversationId: message.data['screen_id'],
-          user: user
+            user: user
         );
       }
 
-  }
-      );
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    if(message.data['screen']=='privet_message')
-    {
-
-
-      Global.navigatorKey.currentState!.pushNamed('/conversationScreen',
-        arguments: ConversationArguments(
-            conversationId: message.data['screen_id'],
-            userTwoImage:null,
-            user:  message.data['user_send'],
-            userTwoName:null, userTwoId: null, lastSeen: '', online: ''),
-      );
     }
-    //Global.navigatorKey.currentState!.pushNamed('/selectState',);
-  });
+    );
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if(message.data['screen']=='privet_message')
+      {
+
+
+        Global.navigatorKey.currentState!.pushNamed('/conversationScreen',
+          arguments: ConversationArguments(
+              conversationId: message.data['screen_id'],
+              userTwoImage:null,
+              user:  message.data['user_send'],
+              userTwoName:null, userTwoId: null, lastSeen: '', online: ''),
+        );
+      }
+      //Global.navigatorKey.currentState!.pushNamed('/selectState',);
+    });
+
+  }
+  catch(e){}
 
 
   Global.darkMode=Preferences.getDarkMode()!;

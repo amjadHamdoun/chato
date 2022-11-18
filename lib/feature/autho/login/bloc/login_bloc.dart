@@ -53,7 +53,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             Global.userImage=r.data!.img??'https://www.room.tecknick.net/WI.jpeg';
             Global.userDiamond=r.data!.diamond??'0';
             Global.userCoins=r.data!.coins??'0';
-            Global.emailVerified=r.data!.email_verified_at;
+            Global.emailVerified=r.data!.email_verified_at??"";
             print('emailverified========${Global.emailVerified}');
             if(r.data!.vip_user!=null)
               {
@@ -77,7 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             Preferences.saveUserId(r.data!.id!);
             Preferences.saveUserImage(r.data!.img??'https://www.room.tecknick.net/WI.jpeg');
             Preferences.saveUserName(r.data!.name!);
-            Preferences.saveEmailVerified(r.data!.email_verified_at!);
+            Preferences.saveEmailVerified(r.data!.email_verified_at??'');
 
           }
         }

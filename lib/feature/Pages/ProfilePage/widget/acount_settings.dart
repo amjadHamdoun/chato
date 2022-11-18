@@ -189,7 +189,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    InkWell(
+                    if (Global.emailVerified!.isNotEmpty)
+                      InkWell(
                       onTap: () {
                         Navigator.push(
                             context,

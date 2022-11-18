@@ -66,7 +66,7 @@ class _StoreScreenState extends State<StoreScreen> with AutomaticKeepAliveClient
   List<ProductDetails> _products = <ProductDetails>[];
   List<PurchaseDetails> _purchases = <PurchaseDetails>[];
   Map<String, PurchaseDetails> purchases = {};
-  late DateTime dateTime;
+
   @override
   void initState() {
     //storeBloc.onChangeProductEvent('diamond','221500');

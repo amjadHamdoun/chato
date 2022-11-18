@@ -52,6 +52,7 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
         SizedBox(
           width: 6.w,
         ),
+        if(widget.message.message!=null)
         if(widget.message.message!.length>35
             ||widget.message.user!.name!.length>35
         )

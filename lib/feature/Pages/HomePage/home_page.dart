@@ -194,6 +194,7 @@ class _HomeScreenState extends State<HomeScreen>
                       SizedBox(
                         height: 10.h,
                       ),
+                      if (Global.emailVerified!.isNotEmpty)
 
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -815,7 +816,7 @@ class _HomeScreenState extends State<HomeScreen>
                     ],
                   ),
                   Positioned(
-                    bottom: 110.h,
+                    bottom: 150.h,
                     left: context.locale == const Locale('ar', 'AR')
                         ? -240.w
                         : 240.w,
@@ -851,41 +852,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                   ),
-                  if (Global.emailVerified!.isEmpty)
-                    Container(
-                      height: 1.sh,
-                      width: 1.sw,
-                      color: Colors.black45,
-                      alignment: Alignment.center,
-                      child: Container(
-                          alignment: Alignment.center,
-                          height: 250.h,
-                          width: 250.w,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/warning.svg',
-                                height: 50.h,
-                                width: 40.w,
-                                color: ColorManager.primaryColor,
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                'يرجى تأكيد الحساب',
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    color: ColorManager.textColor,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          )),
-                    )
+
                 ],
               ),
             ),

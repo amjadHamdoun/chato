@@ -662,7 +662,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                         SizedBox(
                                                           width: 6.w,
                                                         ),
-                                                        if(widget.roomName!.length<20)
+                                                        if(widget.roomName!.length<13)
                                                           Text(
                                                             widget.roomName!,
                                                             style: TextStyle(
@@ -912,288 +912,288 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                       SizedBox(
                                         height: 5.h,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 7.h,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Fluttertoast.showToast(
-                                                  msg: "coming soon".tr(),
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      ColorManager.primaryColor,
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: ColorManager
-                                                          .backgroundColor)),
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20.5.h,
-                                                    horizontal: 20.5.h),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/plus.svg',
-                                                  width: 16.w,
-                                                  height: 16.w,
-                                                  color: ColorManager
-                                                      .backgroundColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceEvenly,
+                                      //   children: [
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 7.h,
+                                      // ),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceEvenly,
+                                      //   children: [
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     GestureDetector(
+                                      //       onTap: () {
+                                      //         Fluttertoast.showToast(
+                                      //             msg: "coming soon".tr(),
+                                      //             toastLength:
+                                      //                 Toast.LENGTH_SHORT,
+                                      //             gravity: ToastGravity.BOTTOM,
+                                      //             timeInSecForIosWeb: 1,
+                                      //             backgroundColor:
+                                      //                 ColorManager.primaryColor,
+                                      //             textColor: Colors.white,
+                                      //             fontSize: 16.0);
+                                      //       },
+                                      //       child: Container(
+                                      //         decoration: BoxDecoration(
+                                      //             shape: BoxShape.circle,
+                                      //             border: Border.all(
+                                      //                 color: ColorManager
+                                      //                     .backgroundColor)),
+                                      //         child: Padding(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //               vertical: 20.5.h,
+                                      //               horizontal: 20.5.h),
+                                      //           child: SvgPicture.asset(
+                                      //             'assets/icons/plus.svg',
+                                      //             width: 16.w,
+                                      //             height: 16.w,
+                                      //             color: ColorManager
+                                      //                 .backgroundColor,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                      // SizedBox(
+                                      //   height: 10.h,
+                                      // ),
                                     ],
                                   ),
                                 //المحادثة
@@ -1430,7 +1430,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(25.w),
-                                              color: Colors.blueGrey),
+                                              color: Colors.grey.shade600),
                                           child: Row(
                                             children: [
                                               SizedBox(
@@ -1547,7 +1547,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        if(Global.emailVerified!.isEmpty)
+                                                        if(Global.emailVerified!.isNotEmpty)
                                                         InkWell(
                                                           onTap: () {
                                                             showMediaBottomSheet(
