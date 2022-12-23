@@ -15,7 +15,7 @@ class UserRoomDataModel {
 
   int? id;
   String? name;
-  final String? favorite_room_count;
+  var favorite_room_count;
   final UserData? user;
   final BackgroundRoomModel? background;
   final String? img;

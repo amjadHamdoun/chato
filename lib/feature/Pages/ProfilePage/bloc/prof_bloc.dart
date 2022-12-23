@@ -59,29 +59,33 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
       : super(ProfState.initial()) {
     on<LogoutEvent>((event, emit) async {
       emit(state.rebuild((b) => b
-        ..isSuccessLogout = false
-        ..isLoadingLogout = true));
-      final result = await logoutRemoteDataSource.logout();
-
-
-      return result.fold((l) async {
-        print('l');
-        emit(state.rebuild((b) => b
-          ..isSuccessLogout = false
-          ..isLoadingLogout = false));
-      }, (r) async {
-        print('r');
-        if (r.message != null) {
-          Preferences.saveUserToken('');
-          Global.userToken = '';
-        }
-        emit(state.rebuild((b) => b
-          ..isSuccessLogout = true
-          ..isLoadingLogout = false));
-        emit(state.rebuild((b) => b
-          ..isSuccessLogout = false
-          ..isLoadingLogout = false));
-      });
+        ..isSuccessLogout = true
+       // ..isLoadingLogout = true
+      ));
+      Preferences.saveUserToken('');
+      Global.userToken = '';
+      // final result = await logoutRemoteDataSource.logout();
+      //
+      //
+      // return result.fold((l) async {
+      //   print('l');
+      //   emit(state.rebuild((b) => b
+      //     ..isSuccessLogout = false
+      //     ..isLoadingLogout = false));
+      // }, (r) async {
+      //   print('r');
+      //   if (r.message != null) {
+      //     Preferences.saveUserToken('');
+      //     Global.userToken = '';
+      //   }
+      //   emit(state.rebuild((b) => b
+      //     ..isSuccessLogout = true
+      //     ..isLoadingLogout = false));
+      //   emit(state.rebuild((b) => b
+      //     ..isSuccessLogout = false
+      //     ..isLoadingLogout = false
+      //   ));
+      // });
     });
 
     on<GetProfileDetailsEvent>((event, emit) async {
@@ -104,22 +108,21 @@ class ProfBloc extends Bloc<ProfEvent, ProfState> {
             ),
             message: '',
             error_code: 0,
-            status: false)));
+            status: false)
+      ));
       final result = await profileDetailsRemoteDataSource.profileDetails(
       );
 
 
       return result.fold((l) async {
-        print('l');
         emit(state.rebuild((b) => b
           ..isSuccess = false
           ..isLoading = false
           ..error = l));
       }, (r) async {
-        print('r');
         Global.userCoins=r.data!.coins;
         Global.userDiamond=r.data!.diamond;
-        Global.userImage=r.data!.img;
+        Global.userImage=r.data!.img??"";
         Preferences.saveUserImage(r.data!.img??"");
         emit(state.rebuild((b) => b
           ..isSuccess = true

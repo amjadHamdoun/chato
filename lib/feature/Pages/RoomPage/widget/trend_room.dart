@@ -91,7 +91,7 @@ class _TrendRoomPageState extends State<TrendRoomPage>
                                         child: CachedNetworkImage(
                                           imageUrl: state.trendRoomModel
                                                   .data[index].img ??
-                                              "https://www.room.tecknick.net/WI.jpeg",
+                                              "https://chato.vip/WI.jpeg",
                                           imageBuilder:
                                               (context, imageProvider) =>
                                                   Container(

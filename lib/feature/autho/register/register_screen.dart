@@ -43,8 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocConsumer<RegisterBloc,RegisterState>(
       bloc: bloc,
       listener: (context, state) {
-        if (state.registerModel!.data != null) {
-          if (state.registerModel!.data!.token!.isNotEmpty) {
+        if (state.registerModel!.data != null&&state.registerModel!.data!.token!=null&&state.registerModel!.data!.token!.isNotEmpty) {
+
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
                   (route) => false,
             );
-          }
+
         }
         else if (state.error!.isNotEmpty) {
           AwesomeDialog(
@@ -69,15 +69,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         else if (state.registerModel!.message != null) {
           if (state.registerModel!.message!.isNotEmpty) {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.ERROR,
-              animType: AnimType.BOTTOMSLIDE,
-              title: state.registerModel!.message!,
-              desc:tr(state.registerModel!.message!) ,
-              btnCancelText: tr('ok'),
-              btnCancelOnPress: () {},
-            ).show();
+            if(state.registerModel!.message is String)
+              {
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.ERROR,
+                  animType: AnimType.BOTTOMSLIDE,
+                  title: state.registerModel!.message!,
+                  desc:tr(state.registerModel!.message!) ,
+                  btnCancelText: tr('ok'),
+                  btnCancelOnPress: () {},
+                ).show();
+              }
+            else if(state.registerModel!.message['name']!=null)
+            {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.ERROR,
+                animType: AnimType.BOTTOMSLIDE,
+                title: state.registerModel!.message['name'][0],
+                desc:tr(state.registerModel!.message['name'][0]) ,
+                btnCancelText: tr('ok'),
+                btnCancelOnPress: () {},
+              ).show();
+            }
+            else if(state.registerModel!.message['email']!=null)
+            {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.ERROR,
+                animType: AnimType.BOTTOMSLIDE,
+                title: state.registerModel!.message['email'][0],
+                desc:tr(state.registerModel!.message['email'][0]) ,
+                btnCancelText: tr('ok'),
+                btnCancelOnPress: () {},
+              ).show();
+            }
+
           }
         }
       },
@@ -383,7 +411,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fontSize: 13.sp),),
                                     InkWell(
                                       onTap: (){
-                                        launch('https://room.tecknick.net/privacy');
+                                        launch('https://chato.vip/privacy');
                                       },
                                       child:Text(
                                         'سياسة الخصوصية',
@@ -401,7 +429,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fontSize: 13.sp),),
                                     InkWell(
                                       onTap: (){
-                                        launch('https://room.tecknick.net/terms');
+                                        launch('https://chato.vip/terms');
                                       },
                                       child:Text(
                                         'سياسة الاستخدام',

@@ -128,11 +128,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
       channelChat =
           Global.pusher!.subscribe("chat.privet." + args!.conversationId);
-      print("chat.${args!.conversationId}");
-      print("chat.anas");
       channelChat!.bind('App\\Events\\ChatEvent', (event) {
-        log("event.sssda()");
-
         Map<String, dynamic> arguments =
             (json.decode(event!.data!) ?? {}) as Map<String, dynamic>;
 
@@ -432,7 +428,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                     height: 50.h,
                                     child: CachedNetworkImage(
                                       imageUrl: args!.userTwoImage ??
-                                          "https://www.room.tecknick.net/WI.jpeg",
+                                          "https://chato.vip/WI.jpeg",
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
                                         decoration: BoxDecoration(

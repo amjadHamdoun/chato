@@ -50,7 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             Global.userToken=r.data!.token!;
             Global.userId=r.data!.id!;
             Global.userName=r.data!.name!;
-            Global.userImage=r.data!.img??'https://www.room.tecknick.net/WI.jpeg';
+            Global.userImage=r.data!.img??'https://chato.vip/WI.jpeg';
             Global.userDiamond=r.data!.diamond??'0';
             Global.userCoins=r.data!.coins??'0';
             Global.emailVerified=r.data!.email_verified_at??"";
@@ -75,7 +75,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             Preferences.saveUserCoins(r.data!.coins??'0');
             Preferences.saveUserToken(r.data!.token!);
             Preferences.saveUserId(r.data!.id!);
-            Preferences.saveUserImage(r.data!.img??'https://www.room.tecknick.net/WI.jpeg');
+            Preferences.saveUserImage(r.data!.img??'https://chato.vip/WI.jpeg');
             Preferences.saveUserName(r.data!.name!);
             Preferences.saveEmailVerified(r.data!.email_verified_at??'');
 

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class Endpoints {
-  static const baseURL = 'https://www.room.tecknick.net/api/';
+  static const baseURL = 'https://chato.vip/api/';
   static const register = 'auth/register';
   static const registerAmazingAccount = 'auth/register_account_arabic';
   static const login = 'auth/login';

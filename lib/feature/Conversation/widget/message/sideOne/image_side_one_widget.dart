@@ -181,13 +181,13 @@ class _MessageImageSideOneState extends State<MessageImageSideOne> {
                 (context) => PhotoViewWidget(
               file: null,
               networkImage: widget.message.all_file??
-                  "https://www.room.tecknick.net/WI.jpeg",
+                  "https://chato.vip/WI.jpeg",
 
             ) ,));
           },
           child: CachedNetworkImage(
             imageUrl: widget.message.all_file??
-                "https://www.room.tecknick.net/WI.jpeg",
+                "https://chato.vip/WI.jpeg",
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
 

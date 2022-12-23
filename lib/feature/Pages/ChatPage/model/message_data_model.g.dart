@@ -9,7 +9,7 @@ part of 'message_data_model.dart';
 MessageDataModel _$MessageDataModelFromJson(Map<String, dynamic> json) =>
     MessageDataModel(
       message: json['message'] as String?,
-      conversation_id: json['conversation_id'] as String,
+      conversation_id: json['conversation_id'],
     );
 
 Map<String, dynamic> _$MessageDataModelToJson(MessageDataModel instance) =>

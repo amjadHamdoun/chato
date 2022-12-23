@@ -117,7 +117,7 @@ class _FavRoomPageState extends State<FavRoomPage>
                                         child: CachedNetworkImage(
                                           imageUrl: state
                                                   .favRoomModel.data[index].img ??
-                                              "https://www.room.tecknick.net/WI.jpeg",
+                                              "https://chato.vip/WI.jpeg",
                                           imageBuilder:
                                               (context, imageProvider) =>
                                                   Container(

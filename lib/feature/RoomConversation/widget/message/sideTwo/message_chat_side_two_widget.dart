@@ -64,7 +64,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                  children: [
                    CachedNetworkImage(
                      imageUrl: widget.message.message??
-                         "https://www.room.tecknick.net/WI.jpeg",
+                         "https://chato.vip/WI.jpeg",
                      imageBuilder: (context, imageProvider) => Container(
                        height: 120.w,
                        width: 120.w,
@@ -105,7 +105,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                    height: 50.h,
                    child: CachedNetworkImage(
                      imageUrl:widget.message.user!.img??
-                         "https://www.room.tecknick.net/WI.jpeg",
+                         "https://chato.vip/WI.jpeg",
                      imageBuilder: (context, imageProvider) => Container(
                        decoration: BoxDecoration(
                          shape: BoxShape.circle,
@@ -407,7 +407,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                    height: 50.h,
                    child: CachedNetworkImage(
                      imageUrl:widget.message.user!.img??
-                         "https://www.room.tecknick.net/WI.jpeg",
+                         "https://chato.vip/WI.jpeg",
                      imageBuilder: (context, imageProvider) => Container(
                        decoration: BoxDecoration(
                          shape: BoxShape.circle,

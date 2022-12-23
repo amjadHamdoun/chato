@@ -504,7 +504,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                 Expanded(
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        'https://www.room.tecknick.net/uploads/backgroundRoom/1653439556.jpg',
+                                        'https://chato.vip/uploads/backgroundRoom/1653439556.jpg',
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                       decoration: BoxDecoration(
@@ -628,7 +628,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                               CachedNetworkImage(
                                                                 imageUrl: widget
                                                                     .roomImage ??
-                                                                    "https://www.room.tecknick.net/WI.jpeg",
+                                                                    "https://chato.vip/WI.jpeg",
                                                                 imageBuilder:
                                                                     (context,
                                                                     imageProvider) =>
@@ -843,7 +843,7 @@ class _RoomConversationScreenState extends State<RoomConversationScreen> {
                                                     height: 40.h,
                                                     child: CachedNetworkImage(
                                                       imageUrl: item.img ??
-                                                          "https://www.room.tecknick.net/WI.jpeg",
+                                                          "https://chato.vip/WI.jpeg",
                                                       imageBuilder: (context,
                                                               imageProvider) =>
                                                           Container(

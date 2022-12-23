@@ -90,7 +90,7 @@ class _FriendshipRequestsState extends State<FriendshipRequests> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                       state.friendshipRequestsModel.data![index].img ??
-                                          "https://www.room.tecknick.net/WI.jpeg",
+                                          "https://chato.vip/WI.jpeg",
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,

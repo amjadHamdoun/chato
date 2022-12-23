@@ -3,10 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-import '../../../../Globals.dart';
 import '../../../../core/utils/constants.dart';
-import '../model/register_data_model.dart';
 import '../model/register_model.dart';
 
 

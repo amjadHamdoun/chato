@@ -11,7 +11,7 @@ RegisterModel _$RegisterModelFromJson(Map<String, dynamic> json) =>
       data: json['data'] == null
           ? null
           : RegisterDataModel.fromJson(json['data'] as Map<String, dynamic>),
-      message: json['message'] as String?,
+      message: json['message'],
       error_code: json['error_code'] as int?,
       status: json['status'] as bool?,
     );

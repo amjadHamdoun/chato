@@ -336,7 +336,7 @@ class _MessageMusicSideTwoState extends State<MessageMusicSideTwo> {
                 height: 50.h,
                 child: CachedNetworkImage(
                   imageUrl:widget.message.user!.img??
-                      "https://www.room.tecknick.net/WI.jpeg",
+                      "https://chato.vip/WI.jpeg",
                   imageBuilder: (context, imageProvider) =>
                       Container(
                     decoration: BoxDecoration(

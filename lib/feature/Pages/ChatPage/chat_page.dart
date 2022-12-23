@@ -112,9 +112,9 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                               Global.userId==
                                                   state.getConversationPrivateModel.data![index].user1!.id?
                                           state.getConversationPrivateModel.data![index].user2!.img??
-                                          "https://www.room.tecknick.net/WI.jpeg":
+                                          "https://chato.vip/WI.jpeg":
                                               state.getConversationPrivateModel.data![index].user1!.img??
-                                                  "https://www.room.tecknick.net/WI.jpeg",
+                                                  "https://chato.vip/WI.jpeg",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
@@ -247,7 +247,7 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                         user: null,
                                         conversationId: state.getConversationPrivateModel.data![
                                        index].message!
-                                            .conversation_id,
+                                            .conversation_id.toString(),
                                         userTwoImage:
                                         Global.userId==
                                             state.getConversationPrivateModel.data![index].user1!.id?
@@ -289,9 +289,9 @@ class _ChatScreenState extends State<ChatScreen> with AutomaticKeepAliveClientMi
                                               Global.userId==
                                                   state.getConversationPrivateModel.data![ index].user1!.id?
                                               state.getConversationPrivateModel.data![ index].user2!.img??
-                                                  "https://www.room.tecknick.net/WI.jpeg":
+                                                  "https://chato.vip/WI.jpeg":
                                               state.getConversationPrivateModel.data![ index].user1!.img??
-                                                  "https://www.room.tecknick.net/WI.jpeg",
+                                                  "https://chato.vip/WI.jpeg",
                                               imageBuilder: (context, imageProvider) => Container(
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,

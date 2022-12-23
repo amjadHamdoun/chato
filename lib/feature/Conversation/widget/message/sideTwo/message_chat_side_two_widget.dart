@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,8 +54,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          if(widget.message.message!.length>35
-              ||widget.message.user!.name!.length>35)
+          if(widget.message.message!.length>35)
             Expanded(
               child: Row(
                 children: [
@@ -88,6 +88,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                             vertical: 4.h
                         ),
                         child: Column(
+                          crossAxisAlignment:CrossAxisAlignment.end ,
 
                           children: [
 
@@ -98,21 +99,6 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                               ),
                               child: Row(
                                 children: [
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 8.h,
-                                      ),
-                                      Text(
-                                        DateFormat('hh:mm a', 'en').format(
-                                            DateTime.parse(
-                                                widget.message.created_at!)),
-                                        style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: ColorManager.hintText),
-                                      )
-                                    ],
-                                  ),
                                   Expanded(
                                     child: InkWell(
                                       onLongPress: () async {
@@ -133,14 +119,68 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                                      async {
                                        await launch(widget.message.message!);
                                       }:null,
-                                      child: Text(widget.message.message!
-                                        ,style: TextStyle(
-                                            color:isUrl (widget.message.message!)?
-                                            Colors.blue.shade700:
-                                            ColorManager.backgroundColor,
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w600
-                                        ),textAlign: TextAlign.end,),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(widget.message.message!
+                                          ,style: TextStyle(
+                                              color:isUrl (widget.message.message!)?
+                                              Colors.blue.shade700:
+                                              ColorManager.backgroundColor,
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w600
+                                          ),textAlign: TextAlign.end,),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+
+                                              Column(
+                                                children: [
+
+                                                  Text(
+                                                    DateFormat('hh:mm a', 'en').format(
+                                                        DateTime.parse(
+                                                            widget.message.created_at!)),
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color: ColorManager.backgroundColor),
+                                                  )
+                                                ],
+                                              ),
+
+                                              SizedBox(
+                                                width: 2.w,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 4.h,
+                                                  ),
+                                                  if (widget.message.seen == '0')
+                                                    Icon(
+                                                      Icons.done,
+                                                      color: ColorManager.backgroundColor,
+                                                      size: 14.sp,
+                                                    )
+                                                  else if (widget.message.seen == '1')
+                                                    Icon(
+                                                      Icons.done_all,
+                                                      color: ColorManager.backgroundColor,
+                                                      size: 14.sp,
+                                                    )
+                                                  else if (widget.message.seen == '2')
+                                                      Icon(
+                                                        Icons.done_all,
+                                                        color: Colors.lightBlueAccent,
+                                                        size: 14.sp,
+                                                      )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -153,7 +193,8 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                   ),
                 ],
               ),
-            )else
+            )
+          else
             Container(
               decoration: BoxDecoration(
                   gradient: const LinearGradient(
@@ -190,7 +231,7 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                         await launch(widget.message.message!);
                       }:null,
                       child: Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 12.w),
+                        padding:  EdgeInsets.symmetric(horizontal: 5.w),
                         child: Text(widget.message.message!,
                           style: TextStyle(
                               color:isUrl(widget.message.message!)?
@@ -201,6 +242,55 @@ class _MessageChatSideTwoState extends State<MessageChatSideTwo> {
                           ),textAlign: TextAlign.end,),
                       ),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+
+                        Column(
+                          children: [
+
+                            Text(
+                              DateFormat('hh:mm a', 'en').format(
+                                  DateTime.parse(
+                                      widget.message.created_at!)),
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  color: ColorManager.backgroundColor),
+                            )
+                          ],
+                        ),
+
+                        SizedBox(
+                          width: 2.w,
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            if (widget.message.seen == '0')
+                              Icon(
+                                Icons.done,
+                                color: ColorManager.backgroundColor,
+                                size: 14.sp,
+                              )
+                            else if (widget.message.seen == '1')
+                              Icon(
+                                Icons.done_all,
+                                color: ColorManager.backgroundColor,
+                                size: 14.sp,
+                              )
+                            else if (widget.message.seen == '2')
+                                Icon(
+                                  Icons.done_all,
+                                  color: Colors.lightBlueAccent,
+                                  size: 14.sp,
+                                )
+                          ],
+                        ),
+                      ],
+                    ),
+
                   ],
                 ),
               ),

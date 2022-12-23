@@ -108,7 +108,7 @@ void sendGiftBottomSheet(BuildContext ctx,RoomConversationBloc bloc,int roomId) 
                                                 child: CachedNetworkImage(
                                                   imageUrl:state.allTypeModel.data![index].img!=null?
                                                   state.allTypeModel.data![index].img!:
-                                                  "https://www.room.tecknick.net/WI.jpeg",
+                                                  "https://chato.vip/WI.jpeg",
                                                   imageBuilder: (context, imageProvider) => Container(
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
@@ -360,7 +360,7 @@ void sendGiftBottomSheet(BuildContext ctx,RoomConversationBloc bloc,int roomId) 
                                                         SvgPicture.asset('assets/icons/diamonds.svg',
                                                             width: 14.w),
                                                         const SizedBox(width: 3,),
-                                                        Text(state.gifts[index].price??'0',
+                                                        Text(state.gifts[index].price.toString(),
                                                           style: TextStyle(
                                                             fontSize: 14.sp,
                                                             fontFamily: 'DIN',

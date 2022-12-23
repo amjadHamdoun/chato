@@ -9,7 +9,7 @@ part 'get_conversation_privet_data_model.g.dart';
 
 
   MessageDataModel? message;
-  String? seen;
+  var seen;
   DateTime? created_at;
   DateTime? updated_at;
   UserData? user2;

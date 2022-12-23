@@ -86,7 +86,7 @@ Future<String?> showAdminBottomSheet(BuildContext ctx,
                                       width: 50.h,
                                       height: 50.h,
                                       child: CachedNetworkImage(
-                                        imageUrl:state.allTypeAdmin.data![index].img?? "https://www.room.tecknick.net/WI.jpeg",
+                                        imageUrl:state.allTypeAdmin.data![index].img?? "https://chato.vip/WI.jpeg",
                                         imageBuilder: (context, imageProvider) => Container(
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,

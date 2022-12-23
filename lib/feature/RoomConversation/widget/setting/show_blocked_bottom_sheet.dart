@@ -84,7 +84,7 @@ Future<String?> showBlockedBottomSheet(BuildContext ctx,
                                         height: 50.h,
                                         child: CachedNetworkImage(
                                           imageUrl:state.allTypeBlock.data![index].user!.img??
-                                              "https://www.room.tecknick.net/WI.jpeg",
+                                              "https://chato.vip/WI.jpeg",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,

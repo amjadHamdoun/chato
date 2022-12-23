@@ -25,7 +25,7 @@ class Global{
  static bool darkMode=false;
  static String? pusherAppKey='d42e318047d0f8a6c641';
  static String? pusherAppCluster='mt1';
- static String? host='https://room.tecknick.net/';
+ static String? host='https://chato.vip/';
  static PusherClient? pusher=PusherClient(
   Global.pusherAppKey!,
   PusherOptions(

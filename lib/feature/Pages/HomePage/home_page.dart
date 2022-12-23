@@ -386,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                             .getStatusModel
                                                             .data![index]
                                                             .img ??
-                                                        "https://www.room.tecknick.net/WI.jpeg",
+                                                        "https://chato.vip/WI.jpeg",
                                                     seenColor: Colors.grey,
                                                     unSeenColor: Colors.green,
                                                   ),
@@ -480,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                         online: state
                                                             .allFriendModel
                                                             .data![index]
-                                                            .online,
+                                                            .online.toString(),
                                                       ));
                                                 },
                                                 child: Stack(
@@ -506,7 +506,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                                 .allFriendModel
                                                                 .data![index]
                                                                 .img ??
-                                                            "https://www.room.tecknick.net/WI.jpeg",
+                                                            "https://chato.vip/WI.jpeg",
                                                         imageBuilder: (context,
                                                                 imageProvider) =>
                                                             Container(

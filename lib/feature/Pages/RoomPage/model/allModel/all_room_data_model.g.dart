@@ -13,7 +13,7 @@ AllRoomDataModel _$AllRoomDataModelFromJson(Map<String, dynamic> json) =>
       user: json['user'] == null
           ? null
           : UserData.fromJson(json['user'] as Map<String, dynamic>),
-      favorite_room_count: json['favorite_room_count'] as String?,
+      favorite_room_count: json['favorite_room_count'],
       background: json['background'] == null
           ? null
           : BackgroundRoomModel.fromJson(

@@ -149,7 +149,7 @@ Future<String?> showVipBottomSheet(
                                         height: 50.h,
                                         child: CachedNetworkImage(
                                           imageUrl:state.allTypeModel.data![index].img??
-                                              "https://www.room.tecknick.net/WI.jpeg",
+                                              "https://chato.vip/WI.jpeg",
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,

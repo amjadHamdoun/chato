@@ -79,7 +79,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                               )
                             : CachedNetworkImage(
                                 imageUrl: state.profileModel!.data!.img ??
-                                    "https://www.room.tecknick.net/WI.jpeg",
+                                    "https://chato.vip/WI.jpeg",
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
                                   height: 86.w,

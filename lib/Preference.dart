@@ -164,7 +164,7 @@ class Preferences {
     String? userImage = preferences!.getString(KEY_UserImage);
     if(userImage==null)
     {
-      return 'https://www.room.tecknick.net/WI.jpeg';
+      return 'https://chato.vip/WI.jpeg';
     }
     else {
       return userImage;

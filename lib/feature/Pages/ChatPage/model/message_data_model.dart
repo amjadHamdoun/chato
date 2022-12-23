@@ -8,7 +8,7 @@ part 'message_data_model.g.dart';
   class MessageDataModel {
 
 
-  String conversation_id;
+  var conversation_id;
   String? message;
 
 

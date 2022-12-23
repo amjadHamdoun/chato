@@ -22,7 +22,7 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
       personal_status: json['personal_status'] as String?,
       coins: json['coins'] as String?,
       diamond: json['diamond'] as String?,
-      private_lock: json['private_lock'] as String?,
+      private_lock: json['private_lock'],
       last_seen: json['last_seen'] as String?,
     );
 

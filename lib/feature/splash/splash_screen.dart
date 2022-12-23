@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Global.userImage=Preferences.getUserImage();
       if(Global.userImage!.isEmpty)
         {
-          Global.userImage='https://www.room.tecknick.net/WI.jpeg';
+          Global.userImage='https://chato.vip/WI.jpeg';
         }
       Global.userName=Preferences.getUserName();
       Global.userDiamond=Preferences.getUserDiamond();

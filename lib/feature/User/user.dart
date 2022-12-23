@@ -83,7 +83,7 @@ class _UserScreenState extends State<UserScreen> {
                           child: CachedNetworkImage(
                             imageUrl:
                             state.userModel!.data!.user!.img??
-                            "https://www.room.tecknick.net/WI.jpeg",
+                            "https://chato.vip/WI.jpeg",
                             imageBuilder: (context, imageProvider) =>
                                 Container(
                                   decoration: BoxDecoration(
@@ -140,7 +140,7 @@ class _UserScreenState extends State<UserScreen> {
                                 child: CachedNetworkImage(
 
                                   imageUrl:   state.userModel!.data!.user!.img??
-                                      "https://www.room.tecknick.net/WI.jpeg",
+                                      "https://chato.vip/WI.jpeg",
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                         decoration: BoxDecoration(

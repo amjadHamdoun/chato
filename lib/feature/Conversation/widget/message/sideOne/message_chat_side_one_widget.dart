@@ -54,7 +54,6 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
         ),
         if(widget.message.message!=null)
         if(widget.message.message!.length>35
-            ||widget.message.user!.name!.length>35
         )
           Expanded(
             child: Row(
@@ -82,7 +81,7 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
 
                           Padding(
                             padding:  EdgeInsets.symmetric(
-                                horizontal: 12.w
+                                horizontal: 0
                             ),
                             child: Row(
                               children: [
@@ -92,14 +91,71 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                                     async {
                                       await launch(widget.message.message!);
                                     }:null,
-                                    child: Text(widget.message.message!
-                                      ,style: TextStyle(
-                                          color:isUrl (widget.message.message!)?
-                                          Colors.blue.shade700:
-                                          ColorManager.backgroundColor,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w600
-                                      ),textAlign: TextAlign.start,),
+                                    child:Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 16.w,
+                                          vertical: 2.h
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+
+                                          Text(widget.message.message!,
+                                            style: TextStyle(
+                                                color:isUrl(widget.message.message!)?
+                                                Colors.blue.shade700:
+                                                ColorManager.backgroundColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600
+                                            ),textAlign: TextAlign.start,),
+                                          Row(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 4.h,
+                                                  ),
+                                                  if (widget.message.seen == '0')
+                                                    Icon(
+                                                      Icons.done,
+                                                      color: ColorManager.hintText,
+                                                      size: 14.sp,
+                                                    )
+                                                  else if (widget.message.seen == '1')
+                                                    Icon(
+                                                      Icons.done_all,
+                                                      color: ColorManager.hintText,
+                                                      size: 14.sp,
+                                                    )
+                                                  else if (widget.message.seen == '2')
+                                                      Icon(
+                                                        Icons.done_all,
+                                                        color: Colors.lightBlueAccent,
+                                                        size: 14.sp,
+                                                      )
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                width: 2.w,
+                                              ),
+                                              Column(
+                                                children: [
+
+                                                  Text(
+                                                    DateFormat('hh:mm a', 'en').format(
+                                                        DateTime.parse(
+                                                            widget.message.created_at!)),
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color: ColorManager.hintText),
+                                                  )
+                                                ],
+                                              ),
+
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -147,54 +203,10 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                       padding:  EdgeInsets.symmetric(horizontal: 16.w,
                       vertical: 2.h
                       ),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              if (widget.message.seen == '0')
-                                Icon(
-                                  Icons.done,
-                                  color: ColorManager.hintText,
-                                  size: 14.sp,
-                                )
-                              else if (widget.message.seen == '1')
-                                Icon(
-                                  Icons.done_all,
-                                  color: ColorManager.hintText,
-                                  size: 14.sp,
-                                )
-                              else if (widget.message.seen == '2')
-                                  Icon(
-                                    Icons.done_all,
-                                    color: Colors.lightBlueAccent,
-                                    size: 14.sp,
-                                  )
-                            ],
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Text(
-                                DateFormat('hh:mm a', 'en').format(
-                                    DateTime.parse(
-                                        widget.message.created_at!)),
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: ColorManager.hintText),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
+
                           Text(widget.message.message!,
                             style: TextStyle(
                                 color:isUrl(widget.message.message!)?
@@ -203,6 +215,52 @@ class _MessageChatSideOneState extends State<MessageChatSideOne> {
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600
                             ),textAlign: TextAlign.start,),
+                          Row(
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: 4.h,
+                                  ),
+                                  if (widget.message.seen == '0')
+                                    Icon(
+                                      Icons.done,
+                                      color: ColorManager.hintText,
+                                      size: 14.sp,
+                                    )
+                                  else if (widget.message.seen == '1')
+                                    Icon(
+                                      Icons.done_all,
+                                      color: ColorManager.hintText,
+                                      size: 14.sp,
+                                    )
+                                  else if (widget.message.seen == '2')
+                                      Icon(
+                                        Icons.done_all,
+                                        color: Colors.lightBlueAccent,
+                                        size: 14.sp,
+                                      )
+                                ],
+                              ),
+                              SizedBox(
+                                width: 2.w,
+                              ),
+                              Column(
+                                children: [
+
+                                  Text(
+                                    DateFormat('hh:mm a', 'en').format(
+                                        DateTime.parse(
+                                            widget.message.created_at!)),
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: ColorManager.hintText),
+                                  )
+                                ],
+                              ),
+
+                            ],
+                          ),
                         ],
                       ),
                     ),

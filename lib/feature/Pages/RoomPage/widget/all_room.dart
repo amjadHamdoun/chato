@@ -63,7 +63,7 @@ class _AllRoomPageState extends State<AllRoomPage>
                         roomId: state.allRoomModel.data[index].id!,
                       background: state.allRoomModel.data[index].background!=null?
                       state.allRoomModel.data[index].background!.background:'',
-                      fav:state.allRoomModel.data[index].favorite_room_count! ,
+                      fav:state.allRoomModel.data[index].favorite_room_count.toString() ,
                       ownerId: state.allRoomModel.data[index].user!.id!,
                       roomName: state.allRoomModel.data[index].name!,
                       roomImage: state.allRoomModel.data[index].img,
@@ -88,7 +88,7 @@ class _AllRoomPageState extends State<AllRoomPage>
                           height: 50.w,
                           child: CachedNetworkImage(
                             imageUrl:state.allRoomModel.data[index].img??
-                                "https://www.room.tecknick.net/WI.jpeg",
+                                "https://chato.vip/WI.jpeg",
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,

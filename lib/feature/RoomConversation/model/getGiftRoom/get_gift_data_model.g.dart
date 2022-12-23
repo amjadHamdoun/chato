@@ -12,7 +12,7 @@ GetGiftDataModel _$GetGiftDataModelFromJson(Map<String, dynamic> json) =>
       background: json['background'] as String?,
       img: json['img'] as String?,
       type: json['type'] as String?,
-      price: json['price'] as String?,
+      price: json['price'],
       category: json['category'] as String?,
       name: json['name'] as String?,
     );

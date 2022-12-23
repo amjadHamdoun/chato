@@ -18,7 +18,7 @@ class ProfileData {
   final String? token;
   final String? status;
    String? personal_status;
-   String? private_lock;
+   var private_lock;
    String? last_seen;
   CountryDataModel? country;
   Map<String, dynamic> toJson() => _$ProfileDataToJson(this);

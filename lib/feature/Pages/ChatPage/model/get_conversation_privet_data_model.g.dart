@@ -12,7 +12,7 @@ GetConversationPrivateDataModel _$GetConversationPrivateDataModelFromJson(
       message: json['message'] == null
           ? null
           : MessageDataModel.fromJson(json['message'] as Map<String, dynamic>),
-      seen: json['seen'] as String?,
+      seen: json['seen'],
       created_at: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),

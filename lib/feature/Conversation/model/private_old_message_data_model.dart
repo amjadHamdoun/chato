@@ -10,7 +10,6 @@ class PrivateOldMessageDataModel {
 
 
   int? id;
-  String? conversation_id;
   String? message;
   String? all_file;
   String? localFile;
@@ -26,7 +25,6 @@ class PrivateOldMessageDataModel {
   PrivateOldMessageDataModel(
       {
 
-        required this.conversation_id,
         required this.message,
         required this.seen,
         required this.created_at,

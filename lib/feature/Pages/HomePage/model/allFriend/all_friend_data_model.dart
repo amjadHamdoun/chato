@@ -11,7 +11,7 @@ class AllFriendDataModel {
   int? id;
   String? name;
   String? status;
-  String?  online;
+  var  online;
   String? last_seen;
   VipDataModel?  vip_user;
 

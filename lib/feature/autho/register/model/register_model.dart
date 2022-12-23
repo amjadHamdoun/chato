@@ -7,7 +7,7 @@ part 'register_model.g.dart';
 class RegisterModel {
   bool? status;
   int? error_code;
-   String? message;
+   var message;
   RegisterDataModel? data;
 
 

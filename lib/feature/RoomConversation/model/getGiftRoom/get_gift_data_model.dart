@@ -10,7 +10,7 @@ class GetGiftDataModel {
   String? background;
   String? img;
   String? type;
-  String? price;
+  var price;
   String? category;
   String? name;
 

@@ -15,7 +15,7 @@ AllFriendDataModel _$AllFriendDataModelFromJson(Map<String, dynamic> json) =>
       vip_user: json['vip_user'] == null
           ? null
           : VipDataModel.fromJson(json['vip_user'] as Map<String, dynamic>),
-      online: json['online'] as String?,
+      online: json['online'],
       last_seen: json['last_seen'] as String?,
     );
 
